@@ -136,44 +136,12 @@ def d0_mod(v0, va, t_burn_h=T_BURN_H):
 def fig2():
     rows_p = rd("a_evade_policy.csv")
     rows_par = rd("a_evade_pareto.csv")
-    fig = plt.figure(figsize=(7.2, 5.2))
-    gs = fig.add_gridspec(2, 2, wspace=0.30, hspace=0.38)
+    fig = plt.figure(figsize=(7.2, 2.6))
+    gs = fig.add_gridspec(1, 3, wspace=0.52, width_ratios=[1.1, 1, 1])
 
-    # --- a 交会几何
+    # --- a 存活率相图
     ax = fig.add_subplot(gs[0, 0])
     panel_tag(ax, "a")
-    ax.set_xlim(0, 60)
-    ax.set_ylim(0, 34)
-    ax.set_aspect("equal")
-    ax.set_xlabel("沿航向距离 / km")
-    ax.set_ylabel("横向距离 / km")
-    ax.plot([0], [17], marker=">", ms=6, color=ACC2)
-    ax.text(1.2, 17.6, "载机", fontsize=6, color=ACC2)
-    ax.plot([50], [17], marker=">", ms=6, color=ACC)
-    ax.text(46.0, 17.6, "来袭弹", fontsize=6, color=ACC)
-    ax.annotate("", xy=(45, 17), xytext=(5, 17),
-                arrowprops=dict(arrowstyle="<->", lw=0.6, color=LIGHT))
-    ax.text(25, 14.2, "$d$", fontsize=7, color=MID, ha="center")
-    # 掉头轨迹
-    th = np.linspace(np.pi, 0, 60)
-    ax.plot(5 + 3 * np.cos(th), 17 + 9 * np.sin(th), color=ACC2, lw=0.8)
-    ax.annotate("① 掉头 + 加力", xy=(7.5, 24.5), xytext=(2.0, 30.5),
-                fontsize=6, color=ACC2,
-                arrowprops=dict(arrowstyle="-", lw=0.5, color=ACC2))
-    # 垂直扭
-    xs = np.arange(12, 40, 0.4)
-    ys = 17 + 5.5 * np.sin((xs - 12) / 3.0)
-    ax.plot(xs, ys, color=ACC, lw=0.9, ls="--")
-    ax.annotate("② 时刻垂直于弹方向", xy=(24, 22.2), xytext=(27, 30.5),
-                fontsize=6, color=ACC,
-                arrowprops=dict(arrowstyle="-", lw=0.5, color=ACC))
-    ax.plot([12], [17], marker="o", ms=3, mfc="white", mec=GRAY)
-    ax.text(10.0, 13.2, "d_turn", fontsize=6, color=MID)
-    ax.set_title("交会几何与两段式规避", fontsize=7)
-
-    # --- b 存活率相图
-    ax = fig.add_subplot(gs[0, 1])
-    panel_tag(ax, "b")
     v0s = sorted({int(r["v0_kmh"]) for r in rows_par})
     rs = sorted({int(r["r_turn_km"]) for r in rows_par})
     Z = np.zeros((len(v0s), len(rs)))
@@ -185,21 +153,21 @@ def fig2():
     ax.contour(X, Y, Z, levels=[0.5, 0.9], colors=[ACC, ACC2],
                linewidths=[0.8, 0.8], linestyles=["--", "-"])
     cb = fig.colorbar(cf, ax=ax, pad=0.02, fraction=0.05)
-    cb.set_label("存活率", fontsize=6.4)
+
     cb.ax.tick_params(labelsize=6)
     # 规则分段
     ax.plot([20, 20], [1500, 2500], color=ACC, lw=2.0, alpha=0.85)
     ax.plot([50, 50], [2500, 3500], color=ACC, lw=2.0, alpha=0.85, ls=":")
     ax.plot([10, 10], [1400, 1500], color=ACC, lw=2.0, alpha=0.85)
-    ax.text(21.5, 1620, "规则分档", fontsize=5.8, color=ACC)
-    ax.text(51.0, 3350, "50 km 仍不足", fontsize=5.6, color=ACC)
+    ax.text(21.0, 1590, "规则分档", fontsize=5.6, color=ACC)
+    ax.text(49.0, 2600, "50 km\n仍不足", fontsize=5.2, color=ACC, ha="right", va="top", linespacing=1.3)
     ax.set_xlabel("掉头距离 / km")
     ax.set_ylabel("来袭弹速 / (km/h)")
-    ax.set_title("存活率相图（虚线 0.5，实线 0.9）", fontsize=7)
+    ax.set_title("存活率相图", fontsize=7, pad=4)
 
-    # --- c Pareto
-    ax = fig.add_subplot(gs[1, 0])
-    panel_tag(ax, "c")
+    # --- b Pareto
+    ax = fig.add_subplot(gs[0, 1])
+    panel_tag(ax, "b")
     mk = ["o", "s", "^", "D", "v"]
     rule_pick = {1500: 10, 2000: 20, 2500: 20, 3000: 50, 3500: 50}
     for i, v0 in enumerate(v0s):
@@ -220,11 +188,11 @@ def fig2():
     ax.set_ylim(-0.04, 1.08)
     ax.legend(title="来袭弹速", fontsize=5.4, title_fontsize=5.4,
               ncol=2, loc="lower right")
-    ax.set_title("存活率—掉头距离（★=本规则在该弹速下的取值）", fontsize=7)
+    ax.set_title("存活率—掉头距离", fontsize=7, pad=4)
 
-    # --- d 策略对比
-    ax = fig.add_subplot(gs[1, 1])
-    panel_tag(ax, "d")
+    # --- c 策略对比
+    ax = fig.add_subplot(gs[0, 2])
+    panel_tag(ax, "c")
     labels, vals, cols = [], [], []
     order = ["B0 弹速归零才脱离", "A3 掉头距离全取 20 km",
              "R  分档+垂直扭+能量阈值", "B2 单分档(仅 >2500 判 50 km)",
@@ -248,7 +216,7 @@ def fig2():
     for yy, v in zip(y, vals):
         ax.text(v + 0.02, yy, f"{v:.2f}", va="center", fontsize=5.8)
     ax.invert_yaxis()
-    ax.set_title("策略对比（1500–3500 km/h 均值；红=按 $d_0$ 插值）", fontsize=7)
+    ax.set_title("策略对比", fontsize=7, pad=4)
     return fig
 
 

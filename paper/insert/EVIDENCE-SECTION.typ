@@ -15,12 +15,12 @@
 图上标出的五处对象都能在客户端里复现：
 
 #figure(
-  image("figures/fig_evidence-1.png", width: 15.4cm),
+  image("../shared/figures/fig_evidence-1.png", width: 15.4cm),
   caption: [实战态势必览（选手 1 红方视角，14:40）。① 登陆区为系统标注的登陆点；② 巡逻区共七类（阵风 1/2、TB1/TB2/TB3、S70-1/2、左制空/北制空）；③ 红色折线为责任区边界，端点带 BP-T71xx 编号；④ 地空导弹营单元，系统自带标签为「霍克导弹 [P3, TAS]」；⑤ 红色为本方、浅蓝为对方，浅色细线为历史航迹。],
 ) <fig:evidence1>
 
 #figure(
-  image("figures/fig_evidence-2.png", width: 15.4cm),
+  image("../shared/figures/fig_evidence-2.png", width: 15.4cm),
   caption: [三处可核对细节。（a）地空导弹营单元的原始标签，放大后可读出型号与单元号；（b）巡逻区多边形与责任区边界的叠加关系；（c）舰群的历史航迹线与系统绘制的瞄准十字，用于说明交战痕迹在图上是被记录的。],
 ) <fig:evidence2>
 

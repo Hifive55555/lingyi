@@ -16,8 +16,8 @@ import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PAPER = os.path.dirname(HERE)
-MAIN = os.path.join(PAPER, "main.typ")
+PAPER = os.path.dirname(os.path.dirname(HERE))
+MAIN = os.path.join(PAPER, "design", "main.typ")
 INS = os.path.join(PAPER, "insert")
 
 # (片段文件里的标签, 插入位置锚点标题, 模式)
@@ -28,6 +28,7 @@ PLAN = [
     ("fig:schema3", "== 受控对比", "before"),
     ("fig:schema4", "== 与固定开火距离的对比", "before"),
     ("fig:schema5", "== 分层补射：收益不在效率，在距离", "before"),
+    ("tab:deploy", "= 讨论与局限", "before", "DEPLOY-CHAPTER.typ"),
 ]
 
 
@@ -72,7 +73,23 @@ def main():
     sch = blocks(os.path.join(INS, "SCHEMATICS.typ"))
 
     added = 0
-    for label, anchor, mode in PLAN:
+    for entry in PLAN:
+        label, anchor, mode = entry[0], entry[1], entry[2]
+        extra = entry[3] if len(entry) > 3 else None
+        if extra:
+            body = open(os.path.join(INS, extra), encoding="utf-8").read()
+            body = "\n".join(l for l in body.split("\n") if not l.startswith("//")).strip()
+            if f"<{label}>" in src:
+                print(f"  = {label} 已在 main.typ 中，跳过")
+                continue
+            idx = next((i for i, ln in enumerate(lines) if ln.startswith(anchor)), None)
+            if idx is None:
+                print(f"  ! 找不到锚点「{anchor}」，跳过 {label}")
+                continue
+            lines = lines[:idx] + body.split("\n") + [""] + lines[idx:]
+            added += 1
+            print(f"  + {label}（{extra}）→ 插在「{anchor}」之前")
+            continue
         if label not in sch:
             print(f"  ! 片段里找不到 {label}，跳过")
             continue
@@ -88,7 +105,7 @@ def main():
         print(f"  + {label} → 插在「{anchor}」之前")
 
     # 实战章节整节替换
-    ev = open(os.path.join(INS, "EVIDENCE-SECTION.typ"), encoding="utf-8").read()
+    ev = open(os.path.join(INS, "EVID-POINTER.typ"), encoding="utf-8").read()
     body = "\n".join(l for l in ev.split("\n") if not l.startswith("//"))
     body = re.sub(r"^== .*\n", "", body, count=1).strip()
     new = replace_section(lines, "== 录屏的可核对边界", body)
@@ -96,7 +113,7 @@ def main():
         print("  ! 找不到「== 录屏的可核对边界」，实战章节跳过")
     else:
         lines = new
-        print("  ~ 实战章节已整节替换")
+        print("  ~ 录屏小节已替换为指向《效果验证文档》的简版")
 
     out = "\n".join(lines)
     if out == src:

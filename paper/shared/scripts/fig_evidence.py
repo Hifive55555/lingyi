@@ -20,7 +20,7 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.dirname(HERE)
-ROOT = os.path.dirname(PAPER)
+ROOT = os.path.dirname(os.path.dirname(PAPER))
 FIG = os.path.join(PAPER, "figures")
 SRC = os.path.join(ROOT, "work", "lp", "full")
 
