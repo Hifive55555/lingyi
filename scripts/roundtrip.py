@@ -31,23 +31,40 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 PAPER = HERE.parent / "paper"
-SRC = PAPER / "main.typ"
 CACHE = PAPER / ".roundtrip" / "cache.json"
 LOG = PAPER / ".roundtrip" / "units.json"
 
-AUTH = Path.home() / ".pi" / "agent" / "auth.json"
-API = "https://openrouter.ai/api/v1/chat/completions"
 
-# ---------------------------------------------------------------- 模型池
-# OpenRouter 上的免费小模型。逐个轮换，命中限流就换下一个。
+def target_files(extra=None):
+    """要处理的 .typ 文件。默认跟随文稿结构：有 verify/ 就处理 verify 全套。"""
+    if extra:
+        return [Path(x) for x in extra]
+    verify = PAPER / "verify"
+    if (verify / "main.typ").exists():
+        cands = [verify / "main.typ"] + sorted((verify / "sections").glob("*.typ"))
+    else:
+        cands = [PAPER / "main.typ"]
+    return [c for c in cands if c.exists()]
+
+AUTH = Path.home() / ".pi" / "agent" / "auth.json"
+
+# ---------------------------------------------------------------- 服务商
+# 默认走 SiliconFlow（api.siliconflow.cn，OpenAI 兼容协议）：
+# 官方规则是 ≤9B 参数的模型永久免费，因此用小模型做「日文枢纽」往返翻译。
+BASE = os.environ.get("SILICONFLOW_BASE", "https://api.siliconflow.cn/v1").rstrip("/")
+API = BASE + "/chat/completions"
+
+# 免费池（参数 ≤9B）。Hunyuan-MT-7B 是专门的机器翻译模型（对应论文里的 NLLB-200），
+# 只用它做往返翻译；另外两个通用小模型作备胎。
 MODELS = [
-    "liquid/lfm-2.5-2.6b:free",
-    "liquid/lfm-3-1.7b:free",
-    "google/gemma-4-26b-a4b-it:free",
-    "xingchen-agi/xing4.0-29b-a4b:free",
-    "recursive/flint-v1.0:free",
-    "nvidia/nemotron-3.5-lightning:free",
+    "tencent/Hunyuan-MT-7B",
+    "THUDM/GLM-4-9B-0414",
+    "Qwen/Qwen3-8B",
 ]
+MT_MODELS = ("hunyuan-mt",)
+
+MT_JA = "Translate the following segment into Japanese, without additional explanation.\n\n"
+MT_ZH = "Translate the following segment into Simplified Chinese, without additional explanation.\n\n"
 
 GLOSSARY = (
     "术语表（往返翻译时保持一致）：战术智能体=tactical agent，兵棋推演=wargame simulation，"
@@ -274,21 +291,40 @@ def build_units(s: str):
 
 # ---------------------------------------------------------------- 模型调用
 
-KEY = json.loads(AUTH.read_text())["openrouter"]["key"]
+def _load_key() -> str:
+    for env in ("SILICONFLOW_CN_API_KEY", "SILICONFLOW_API_KEY", "SILICONFLOW_KEY"):
+        if os.environ.get(env):
+            return os.environ[env].strip()
+    try:
+        d = json.loads(AUTH.read_text())
+    except Exception:  # noqa: BLE001
+        d = {}
+    for prov in ("siliconflow", "siliconflow-cn"):
+        if isinstance(d.get(prov), dict) and d[prov].get("key"):
+            return d[prov]["key"]
+    raise SystemExit(
+        "缺少 SiliconFlow API key：请设置环境变量 SILICONFLOW_CN_API_KEY，"
+        "或写入 ~/.pi/agent/auth.json 的 {\"siliconflow\": {\"type\":\"api_key\",\"key\":\"sk-...\"}}"
+    )
+
+
+KEY = _load_key()
 _lock = threading.Lock()
 _model_fail = {m: 0 for m in MODELS}
 
 
 def _post(model, system, user, temperature=0.3, max_tokens=4000, timeout=180):
+    msgs = []
+    if system:
+        msgs.append({"role": "system", "content": system})
+    msgs.append({"role": "user", "content": user})
     body = json.dumps(
         {
             "model": model,
-            "messages": [
-                {"role": "system", "content": system},
-                {"role": "user", "content": user},
-            ],
+            "messages": msgs,
             "temperature": temperature,
             "max_tokens": max_tokens,
+            "stream": False,
         }
     ).encode()
     req = urllib.request.Request(
@@ -297,24 +333,33 @@ def _post(model, system, user, temperature=0.3, max_tokens=4000, timeout=180):
         headers={
             "Authorization": f"Bearer {KEY}",
             "Content-Type": "application/json",
-            "HTTP-Referer": "https://localhost/roundtrip",
-            "X-Title": "roundtrip-deai",
+            "Accept": "application/json",
         },
     )
     with urllib.request.urlopen(req, timeout=timeout) as r:
         d = json.loads(r.read())
+    if isinstance(d, dict) and d.get("code") and not d.get("choices"):
+        raise RuntimeError(f"api error {d.get('code')}: {d.get('message')}")
     ch = d["choices"][0]["message"] or {}
     return ch.get("content")
 
 
-def call(system, user, tries=8, temperature=0.3, max_tokens=4000):
-    """轮换模型调用；429/空回复自动退避重试。"""
+def _messages(model: str, direction: str, text: str):
+    """Hunyuan-MT 是专用翻译模型，用它自带的 MT 指令格式；其余用通用 system prompt。"""
+    if any(k in model.lower() for k in MT_MODELS):
+        return None, (MT_JA if direction == "ja" else MT_ZH) + text
+    system = SYS_JA if direction == "ja" else SYS_ZH
+    label = "Chinese" if direction == "ja" else "Japanese"
+    return system, f"Text to translate from {label}:\n\n{text}"
+
+
+def call(direction, text, tries=6, temperature=0.3, max_tokens=4000):
+    """按模型优先级调用；限流/空回复/报错则换下一个模型并退避重试。"""
     err = None
     for k in range(tries):
         with _lock:
-            cand = sorted(MODELS, key=lambda m: _model_fail[m])
-        # 在失败次数最少的几个里随机挑，避免总撞同一个限流模型
-        model = random.choice(cand[:3])
+            model = sorted(MODELS, key=lambda m: (_model_fail[m], MODELS.index(m)))[0]
+        system, user = _messages(model, direction, text)
         try:
             out = _post(model, system, user, temperature=temperature, max_tokens=max_tokens)
             if out and out.strip():
@@ -322,19 +367,18 @@ def call(system, user, tries=8, temperature=0.3, max_tokens=4000):
                     _model_fail[model] = max(0, _model_fail[model] - 1)
                 return out.strip(), model
             err = "empty"
+            with _lock:
+                _model_fail[model] += 1
         except urllib.error.HTTPError as e:
             err = f"HTTP{e.code}"
+            with _lock:
+                _model_fail[model] += 1 if e.code == 429 else 3
             if e.code == 429:
-                with _lock:
-                    _model_fail[model] += 1
                 time.sleep(min(2 + k * 2, 12))
                 continue
-            if e.code in (400, 402, 404):
-                with _lock:
-                    _model_fail[model] += 3
-                continue
+            continue
         except Exception as e:  # noqa: BLE001
-            err = f"{type(e).__name__}"
+            err = f"{type(e).__name__}: {e}"
             with _lock:
                 _model_fail[model] += 1
         time.sleep(min(1 + k, 8))
@@ -397,16 +441,13 @@ def clean(t):
 
 
 def translate(text, direction, deep=0):
-    system = SYS_JA if direction == "ja" else SYS_ZH
-    label = "Chinese" if direction == "ja" else "Japanese"
-    user = f"Text to translate from {label}:\n\n{text}"
-    for attempt in range(6):
+    for attempt in range(5):
         temp = 0.2 + 0.15 * attempt
         try:
-            out, model = call(system, user, temperature=min(temp, 0.9),
-                              max_tokens=min(6000, 600 + 4 * len(text)))
-        except RuntimeError as e:
-            if attempt == 5:
+            out, model = call(direction, text, temperature=min(temp, 0.9),
+                              max_tokens=min(6000, 800 + 4 * len(text)))
+        except RuntimeError:
+            if attempt == 4:
                 raise
             time.sleep(3)
             continue
@@ -450,88 +491,123 @@ def save_json(p, obj):
     tmp.replace(p)
 
 
-def cmd_extract():
-    s = SRC.read_text()
+def _units_of(path):
+    s = path.read_text()
     units, pieces = build_units(s)
-    kinds = {}
-    for k, a, b in pieces:
-        kinds[k] = kinds.get(k, 0) + 1
-    han = len(HAN.findall(s))
-    cov = sum(len(HAN.findall(u[2])) for u in units)
-    print(f"file chars={len(s)}  han={han}  pieces={kinds}")
-    print(f"units={len(units)}  unit chars={sum(len(u[2]) for u in units)}  han in units={cov}")
-    print(f"inline tokens={sum(len(u[3]) for u in units)}")
-    sizes = sorted(len(u[2]) for u in units)
-    print(f"unit size: min={sizes[0]} med={sizes[len(sizes)//2]} max={sizes[-1]}")
-    lens = [len(u[2]) for u in units]
-    print("units > 1200 chars:", sum(1 for x in lens if x > 1200))
-    for u in units[:6]:
-        print("-" * 70)
-        print(repr(u[2][:300]))
-    return units
+    return s, units, pieces
+
+
+def cmd_extract():
+    files = target_files(sys.argv[2:])
+    total_u = total_c = total_h = total_tok = 0
+    for path in files:
+        s, units, pieces = _units_of(path)
+        kinds = {}
+        for k, a, b in pieces:
+            kinds[k] = kinds.get(k, 0) + 1
+        han = len(HAN.findall(s))
+        cov = sum(len(HAN.findall(u[2])) for u in units)
+        sizes = sorted(len(u[2]) for u in units) or [0]
+        print(f"{path}: chars={len(s)} han={han} units={len(units)} "
+              f"han-in-units={cov} tokens={sum(len(u[3]) for u in units)} "
+              f"size min/med/max={sizes[0]}/{sizes[len(sizes)//2]}/{sizes[-1]}")
+        total_u += len(units); total_c += sum(len(u[2]) for u in units)
+        total_h += han; total_tok += sum(len(u[3]) for u in units)
+    print(f"TOTAL files={len(files)} units={total_u} unit-chars={total_c} han={total_h} tokens={total_tok}")
+    return files
 
 
 def cmd_translate():
-    units = cmd_extract()
+    files = cmd_extract()
     cache = load_json(CACHE, {})
-    todo = [u for u in units if key_of(u[2], "zh") not in cache]
-    print(f"\n{len(units)} units, {len(units)-len(todo)} cached, {len(todo)} to do")
-    for idx, (a, b, tpl, toks) in enumerate(units, 1):
-        kz = key_of(tpl, "zh")
-        if kz in cache:
-            continue
-        t0 = time.time()
-        ja, m1 = translate(tpl, "ja")
-        kja = key_of(tpl, "ja")
-        back, m2 = translate(ja, "zh")
-        rec = {"src": tpl, "tokens": toks, "ja": ja, "zh": back,
-               "model_ja": m1, "model_zh": m2}
-        cache[kz] = rec
-        cache[kja] = {"src": tpl, "tokens": toks, "ja": ja, "zh": back,
-                      "model_ja": m1, "model_zh": m2}
-        save_json(CACHE, cache)
-        print(f"[{idx}/{len(units)}] {time.time()-t0:5.1f}s  src {len(tpl):4d} -> {len(back):4d}  {tpl[:34]!r}")
+    seen = set()
+    for path in files:
+        s, units, _ = _units_of(path)
+        todo = [u for u in units if key_of(u[2], "zh") not in cache and u[2] not in seen]
+        print(f"\n== {path.name}: {len(units)} units, {len(units)-len(todo)} cached, {len(todo)} to do")
+        for idx, (a, b, tpl, toks) in enumerate(todo, 1):
+            seen.add(tpl)
+            t0 = time.time()
+            ja, m1 = translate(tpl, "ja")
+            back, m2 = translate(ja, "zh")
+            rec = {"src": tpl, "tokens": toks, "ja": ja, "zh": back,
+                   "model_ja": m1, "model_zh": m2}
+            cache[key_of(tpl, "zh")] = rec
+            cache[key_of(tpl, "ja")] = rec
+            save_json(CACHE, cache)
+            print(f"[{idx}/{len(todo)}] {time.time()-t0:5.1f}s {len(tpl):4d}->{len(back):4d} {tpl[:30]!r}", flush=True)
+    print("\ncache:", CACHE)
 
 
-def cmd_apply(out_path=None):
-    s = SRC.read_text()
-    units, _ = build_units(s)
+def cmd_apply(*args):
+    files = target_files(list(args))
     cache = load_json(CACHE, {})
-    chunks, pos = [], 0
-    done = fail = 0
-    for a, b, tpl, toks in units:
-        rec = cache.get(key_of(tpl, "zh"))
-        if not rec:
-            fail += 1
-            continue
-        zh = rec["zh"]
-        # 还原占位符
-        def rep(m):
-            i = int(m.group(1))
-            return toks[i] if i < len(toks) else ""
-        zh = PH.sub(rep, zh)
-        chunks.append(s[pos:a])
-        chunks.append(zh)
-        pos = b
-        done += 1
-    chunks.append(s[pos:])
-    text = "".join(chunks)
-    dst = Path(out_path) if out_path else SRC
-    if dst == SRC:
-        bak = PAPER / "main.typ.pre-roundtrip"
+    for path in files:
+        s, units, _ = _units_of(path)
+        chunks, pos = [], 0
+        done = fail = 0
+        for a, b, tpl, toks in units:
+            rec = cache.get(key_of(tpl, "zh"))
+            if not rec:
+                fail += 1
+                continue
+            zh = rec["zh"]
+
+            def rep(m, toks=toks):
+                i = int(m.group(1))
+                return toks[i] if i < len(toks) else ""
+
+            zh = PH.sub(rep, zh)
+            chunks.append(s[pos:a]); chunks.append(zh); pos = b
+            done += 1
+        chunks.append(s[pos:])
+        bak = path.with_suffix(path.suffix + ".pre-roundtrip")
         if not bak.exists():
             bak.write_text(s)
-    dst.write_text(text)
-    print(f"applied {done} units ({fail} missing) -> {dst}")
+        path.write_text("".join(chunks))
+        print(f"applied {done}/{len(units)} units ({fail} missing) -> {path}  (backup: {bak.name})")
+
+
+def cmd_probe():
+    """连通性 / 模型可用性 / 单段往返质量的最小测试。"""
+    print(f"base = {BASE}")
+    try:
+        req = urllib.request.Request(BASE + "/models", headers={"Authorization": f"Bearer {KEY}"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            d = json.loads(r.read())
+        ids = [m["id"] for m in d.get("data", [])]
+        print(f"models = {len(ids)}")
+        small = [i for i in ids if any(k in i.lower() for k in
+                 ("7b", "8b", "9b", "4b", "3b", "2b", "1.7b", "1.5b", "0.6b", "0.5b"))]
+        print("候选小模型(" + str(len(small)) + "):")
+        for i in small:
+            print("   ", i, "<-- 池内" if i in MODELS else "")
+    except Exception as e:  # noqa: BLE001
+        print("models 列表拉取失败:", type(e).__name__, e)
+
+    path = target_files()[0]
+    s, units, _ = _units_of(path)
+    sample = max(units, key=lambda u: len(u[2]))
+    print("target:", path)
+    print(f"\nsample unit ({len(sample[2])} chars):\n{sample[2][:300]}\n")
+    t0 = time.time()
+    ja, m1 = translate(sample[2], "ja")
+    t1 = time.time()
+    back, m2 = translate(ja, "zh")
+    t2 = time.time()
+    print(f"JA ({m1}, {t1-t0:.1f}s):\n{ja}\n")
+    print(f"ZH ({m2}, {t2-t1:.1f}s):\n{back}\n")
 
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "extract"
     if cmd == "extract":
         cmd_extract()
+    elif cmd == "probe":
+        cmd_probe()
     elif cmd == "translate":
         cmd_translate()
     elif cmd == "apply":
-        cmd_apply(sys.argv[2] if len(sys.argv) > 2 else None)
+        cmd_apply(*sys.argv[2:])
     else:
-        raise SystemExit("usage: roundtrip.py [extract|translate|apply [outfile]]")
+        raise SystemExit("usage: roundtrip.py [extract|probe|translate|apply [outfile]]")

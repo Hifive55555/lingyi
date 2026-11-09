@@ -455,6 +455,28 @@ def fig6():
     return fig
 
 
+def fig4b():
+    """单独输出「地导开火时机」面板，供效果验证文档与表格并排使用"""
+    fig, ax = plt.subplots(figsize=(3.15, 2.5))
+    rows = rd("d_sam_opening.csv")
+    f = [float(x["fire_fraction"]) for x in rows]
+    p = [float(x["p_total"]) for x in rows]
+    v = [float(x["v_end_kmh"]) for x in rows]
+    ax.plot(f, p, "o-", color=ACC, ms=3.0, lw=1.0)
+    ax.axvline(0.6, color=ACC2, ls="--", lw=0.8)
+    ax.text(0.615, 0.45, "3/5 Dmax", fontsize=5.6, color=ACC2)
+    ax.set_ylim(0, 1.08)
+    ax.set_xlabel("开火距离 / Dmax")
+    ax.set_ylabel("综合拦截概率")
+    ax2 = ax.twinx()
+    ax2.plot(f, v, "s--", color=MID, ms=2.2, lw=0.7)
+    ax2.set_ylabel("末端弹速 / (km/h)", color=MID, fontsize=6.2)
+    ax2.tick_params(axis="y", colors=MID, labelsize=6)
+    ax2.spines["right"].set_visible(True)
+    ax2.spines["right"].set_color(MID)
+    return fig
+
+
 def main():
     setup()
     print("生成插图：")
@@ -462,7 +484,8 @@ def main():
                      (fig3, "fig3-aircombat"),
                      (fig4, "fig4-altitude-sam"),
                      (fig5, "fig5-ship"),
-                     (fig6, "fig6-sensitivity")):
+                     (fig6, "fig6-sensitivity"),
+                     (fig4b, "fig4b-sam-opening")):
         try:
             save(fn(), name)
         except Exception as e:      # 缺数据时不让整批失败
