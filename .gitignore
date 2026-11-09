@@ -49,3 +49,6 @@ venv/
 .DS_Store
 Thumbs.db
 *.swp
+
+# Typst 预览产物
+paper/.render/
