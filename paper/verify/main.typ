@@ -6,24 +6,24 @@
 }
 #show: project.with(
   title: "联合作战人机协同智能体 · 效果验证文档",
-  author: "参赛队\u{3000}国防科技大学",
+  author: "春夏秋冬队\u{3000}国防科技大学",
   date: auto,
   abstract: text(font: ("New Computer Modern", "Noto Serif CJK SC"))[
-    我队在「灵弈」联合作战智能推演平台上投入了五个规则型战术智能体：监控、空战躲避、空空交战、船只自卫与地空导弹营。本报告逐个说明它们的设计、在实机里的用法、以及能在客户端上核对到什么程度。
-    五个智能体共享同一个观测底座——监控筛出指向本方的来袭弹，输出弹型与弹速——下游四个决策域互不相交。这个结构的好处是每一路都能独立检验，代价是所有判断都被监控的输出上限锁死。四节的主体就是这种独立检验：空战躲避按弹速分档决定掉头距离，近距改为垂直于弹方向扭动，弹速衰减后掉头反打；空空交战由追击模型解出临界距离 $d_0$ 再留裕度开火；船只自卫按“弹型 × 区域”分三类处置，并用一号舰远界先拦、二号舰半射程补拦来避免重复拦截，同时召唤苏-57 打断对方的照射链；地空导弹营在被打时关雷达脱离、否则开雷达自由开火。
+    我队在本次专项赛中主要投入了五个规则型战术智能体：*物理作战域三维监控、空战单元自卫、空空作战、登陆船只集群自卫与地空导弹营攻击与自卫*。本报告逐个说明它们的设计、在实机里的用法、以及能在客户端上核对到什么程度。
+    五个智能体共享同一个观测底座——*物理作战域三维监控*筛出指向本方的来袭弹，输出弹型与弹速——下游四个决策域互不相交。这个结构的好处是每一路都能独立检验，代价是所有判断都被物理作战域三维监控的输出上限锁死。四节的主体就是这种独立检验：*空战单元自卫*按弹速分档决定掉头距离，近距改为垂直于弹方向扭动，弹速衰减后掉头反打；*空空作战*由追击模型解出临界距离 $d_0$ 再留裕度开火；*登陆船只集群自卫*按“弹型 × 区域”分三类处置，并用一号舰远界先拦、二号舰半射程补拦来避免重复拦截，同时召唤苏-57 打断对方的照射链；*地空导弹营攻击与自卫*在被打时关雷达脱离、否则开雷达自由开火。
     每一节都按同一顺序写：规则怎么来的、在推演里怎么用、画面上能对应到什么、以及支撑这些规则的定量结果。定量结果全部来自自建运动学仿真，关键数字与算法说明都放在同一节里——例如分档掉头规则相对临界距离的裕度只有 0.47–1.67，改用 $1.2d_0$ 后全弹速段存活率达到 1.000；按 $0.8d_0$ 开火比对手的固定 60 海里包线早开火 46–83 秒，而后者在尾追态势下命中率为 0。
     实机核对受两道限制：客户端界面不标注指令来源，同一个航迹折转既可能来自智能体也可能来自操作手；四段比赛录屏又都没有打开战况与得分面板，因此拿不到任何命中、损失与得分数字。能立住的只有三条：想定里确实存在独立的地空导弹营实体（标签「霍克导弹 [P3, TAS] #31」）、确实存在巡逻区与责任区两套区域图层、交战确实在图上留下了瞄准十字与航迹折转。这三条以外的归因与定量，本报告一律标为不可判定，并给出把“不可判定”转成结论所需的取证条件。
   ],
   keywords: ("人机协同", "兵棋推演", "规则型智能体", "实机验证", "临界距离"),
   config: (
     title-font: ("New Computer Modern", "Noto Sans CJK SC"),
-    author-font: ("New Computer Modern", "Noto Serif CJK SC"),
+    author-font: ("New Computer Modern", "Zhuque Fangsong (technical preview)"),
     body-font: ("New Computer Modern", "Noto Serif CJK SC"),
     heading-font: ("New Computer Modern", "Noto Sans CJK SC"),
-    caption-font: ("New Computer Modern", "Noto Serif CJK SC"),
+    caption-font: ("New Computer Modern", "Zhuque Fangsong (technical preview)"),
     header-font: ("New Computer Modern", "Noto Serif CJK SC"),
     strong-font: ("New Computer Modern", "Noto Sans CJK SC"),
-    emph-font: ("New Computer Modern", "Noto Serif CJK SC"),
+    emph-font: ("New Computer Modern", "Zhuque Fangsong (technical preview)"),
     raw-font: ("DejaVu Sans Mono", "Noto Sans Mono CJK SC"),
   ),
 )

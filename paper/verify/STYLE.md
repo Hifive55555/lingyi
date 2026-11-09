@@ -4,13 +4,13 @@
 
 ```
 1 总览：任务、平台、五个智能体一览、两条操控通道
-2 监控智能体        ┐
-3 空战躲避智能体     │
-4 空空交战智能体     ├ 每个智能体一节，四段式：
-5 船只自卫智能体     │   ① 设计（规则与由来）
-6 地空导弹营智能体   ┘   ② 应用（在实机里怎么用）
-                        ③ 实机核对（截屏证据）
-                        ④ 关键数据（仿真支撑 + 数据怎么来的）
+2 物理作战域三维监控智能体   ┐
+3 空战单元自卫智能体         │
+4 空空作战智能体             ├ 每个智能体一节，四段式：
+5 登陆船只集群自卫智能体     │   ① 设计（规则与由来）
+6 地空导弹营攻击与自卫智能体 ┘   ② 应用（在实机里怎么用）
+                                 ③ 实机核对（截屏证据）
+                                 ④ 关键数据（仿真支撑 + 数据怎么来的）
 7 综合运用：一次对抗的进程
 8 验证结论、局限与复核条件
 ```
@@ -51,6 +51,9 @@
 - `fig5-ship.svg` 拦截率-距离权衡 / 弹药消耗 / 规模效应（3 面板）
 - `fig6-sensitivity.svg` OAT 龙卷风 / 过载悬崖（2 面板）
 - `fig_apply-ship.svg`、`fig_apply-aircombat.svg`、`fig_apply-sam.svg`、`fig_apply-airspace.svg` 逐智能体的实机截屏
+- `fig_verify-menus.png` 顶栏菜单与任务工具条：手动指令入口 vs「智能体调度」（总览节用）
+- `fig_verify-rings.png` 选中舰艇后的多层包线环（船只节用）
+- `fig_verify-latency.png` 界面右上角耗时读数（综合节用）
 - `fig_verify-timeline.svg` 六时刻时间线（综合节用）
 - `fig_evidence-1.png`、`fig_evidence-2.png` 态势总览与细节
 
@@ -101,13 +104,13 @@
 
 | 节 | 示意图 | 数据图 | 实机截屏 | 标签前缀 |
 |---|---|---|---|---|
-| 1 总览 | `fig1-architecture.svg` | — | `fig_verify-collab.svg` | `ov` |
-| 2 监控 | `schema-1-monitor.svg` | — | 无（不可见，如实说明） | `mon` |
-| 3 空战躲避 | `schema-3-evasion.svg` | `fig2-evasion.svg`、`fig6-sensitivity.svg` | `fig_apply-airspace.svg` | `eva` |
-| 4 空空交战 | `schema-4-aircombat.svg` | `fig3-aircombat.svg` | `fig_apply-aircombat.svg` | `acm` |
-| 5 船只自卫 | `schema-5-ship.svg` | `fig5-ship.svg` | `fig_apply-ship.svg` | `shp` |
-| 6 地空导弹营 | `schema-2-sam.svg` | `fig4-altitude-sam.svg` | `fig_apply-sam.svg` | `sam` |
-| 7 综合运用 | — | `fig6-sensitivity.svg` 的过载悬崖 | `fig_verify-timeline.svg`、`fig_evidence-1.png` | `syn` |
+| 1 总览 | `fig1-architecture.svg` | — | `fig_verify-collab.svg`、`fig_verify-menus.png` | `ov` |
+| 2 物理作战域三维监控 | `schema-1-monitor.svg` | — | 无（不可见，如实说明） | `mon` |
+| 3 空战单元自卫 | `schema-3-evasion.svg` | `fig2-evasion.svg`、`fig6-sensitivity.svg` | `fig_apply-airspace.svg` | `eva` |
+| 4 空空作战 | `schema-4-aircombat.svg` | `fig3-aircombat.svg` | `fig_apply-aircombat.svg` | `acm` |
+| 5 登陆船只集群自卫 | `schema-5-ship.svg` | `fig5-ship.svg` | `fig_apply-ship.svg`、`fig_verify-rings.png` | `shp` |
+| 6 地空导弹营攻击与自卫 | `schema-2-sam.svg` | `fig4-altitude-sam.svg` | `fig_apply-sam.svg` | `sam` |
+| 7 综合运用 | — | `fig6-sensitivity.svg` 的过载悬崖 | `fig_verify-timeline.svg`、`fig_evidence-1.png`、`fig_verify-latency.png` | `syn` |
 | 8 结论 | — | — | `fig_evidence-2.png` | `ccl` |
 
 > 图注要写"看什么"，不要写"如图所示"。每条图注至少给一个具体读数或一个判定结论。
