@@ -99,7 +99,7 @@ def rings(cap):
     img = Image.fromarray(cv2.cvtColor(fr, cv2.COLOR_BGR2RGB)).convert("RGBA")
     d = ImageDraw.Draw(img, "RGBA")
 
-    tag(d, (12, 12), "推演 00:26", size=30)
+    tag(d, (12, 12), "录屏 00:26", size=30)
     # 选中单位
     arrow(d, (300, 690), (632, 566), color=ACC)
     tag(d, (150, 696), "① 选中单位（护卫舰）", size=27)
@@ -126,7 +126,7 @@ def latency(cap):
         canvas = Image.new("RGBA", (img.width + 24, img.height + 64), (26, 26, 26, 255))
         canvas.paste(img, (12, 48))
         d = ImageDraw.Draw(canvas, "RGBA")
-        tag(d, (10, 8), f"推演 {int(t // 60):02d}:{t % 60:02d}", size=26)
+        tag(d, (10, 8), f"录屏 {int(t // 60):02d}:{t % 60:02d}", size=26)
         tiles.append(canvas)
 
     h = tiles[0].height
