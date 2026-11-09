@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """规则示意图：监控、地空导弹营与船只自卫。"""
 import os
+import textwrap
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -196,19 +197,21 @@ def schema_2():
     ax = fig.add_subplot(gs[0, 0])
     ax.set_xlim(0, 14.2)
     ax.set_ylim(0, 9.0)
+    ax.set_aspect("equal")
     ax.axis("off")
     panel_tag(ax, "a")
 
     rect(ax, 0.20, 4.0, 1.80, 1.0, rounded=True, lw=0.75)
     ax.text(1.10, 4.50, "常态", ha="center", va="center", fontsize=6.2)
 
-    diamond = Polygon([(2.60, 4.50), (4.30, 5.65), (6.00, 4.50),
-                       (4.30, 3.35)], closed=True, fc="none", ec=GRAY,
-                      lw=0.75, zorder=2)
+    cx, cy, radius = 4.30, 4.50, 1.45
+    diamond = Polygon([(cx - radius, cy), (cx, cy + radius),
+                       (cx + radius, cy), (cx, cy - radius)],
+                      closed=True, fc="none", ec=GRAY, lw=0.75, zorder=2)
     ax.add_patch(diamond)
-    ax.text(4.30, 4.50, "监控返回\n来袭弹？", ha="center", va="center",
+    ax.text(cx, cy, "监控返回\n来袭弹？", ha="center", va="center",
             fontsize=5.7, linespacing=1.3)
-    arrow(ax, (2.00, 4.50), (2.60, 4.50), color=GRAY, lw=0.75)
+    arrow(ax, (2.00, cy), (cx - radius, cy), color=GRAY, lw=0.75)
 
     rect(ax, 7.50, 6.40, 5.75, 1.40, rounded=True, lw=0.75)
     ax.text(10.375, 7.10, "开雷达 + 自由开火 + 停车", ha="center",
@@ -218,15 +221,18 @@ def schema_2():
             fontsize=5.9)
 
     # 是 = 有来袭弹 → 关雷达 + 加速跑（下方）；否 = 未被单打 → 开雷达（上方）
-    arrow(ax, (5.65, 5.15), (7.50, 6.92), color=MID)
+    arrow(ax, (5.48, 5.32), (7.50, 6.92), color=MID)
     ax.text(6.42, 6.30, "否", fontsize=5.7, color=MID, ha="center",
             va="bottom")
-    arrow(ax, (5.63, 3.83), (7.50, 1.90), color=MID)
+    arrow(ax, (5.48, 3.68), (7.50, 1.90), color=MID)
     ax.text(6.28, 2.66, "是", fontsize=5.7, color=MID, ha="center",
             va="top")
-    arrow(ax, (8.40, 1.00), (4.30, 3.35), color=MID, lw=0.7, rad=-0.30)
-    ax.text(5.45, 0.42, "弹消失", fontsize=5.6, color=MID, ha="center",
-            va="center")
+    arrow(ax, (8.40, 1.00), (cx, cy - radius), color=MID, lw=0.7,
+          rad=-0.30)
+    ax.text(5.55, 0.35, "弹消失", fontsize=5.6, color=MID, ha="center",
+            va="center", zorder=6,
+            bbox={"boxstyle": "square,pad=0.18", "fc": "white",
+                  "ec": "none"})
 
     arrow(ax, (10.38, 6.40), (10.38, 5.55), color=ACC, lw=1.2, scale=6)
     ax.text(10.38, 5.08, "d ≤ 3/5 D_max → 发弹", fontsize=5.8, color=ACC,
@@ -331,33 +337,35 @@ def schema_5():
                          ls="--", zorder=1))
     ax.add_patch(Polygon(c_zone, closed=True, fill=False, ec=ACC, lw=0.8,
                          ls="-.", zorder=1))
-    ax.text(2.70, 0.95, "ABDE 区", fontsize=5.8, color=MID, ha="left",
+    ax.text(3.00, 1.08, "ABDE 区", fontsize=5.8, color=MID, ha="left",
             va="bottom")
-    ax.text(11.35, 0.98, "C 区", fontsize=5.8, color=ACC, ha="right",
+    ax.text(11.20, 1.08, "C 区", fontsize=5.8, color=ACC, ha="center",
             va="bottom")
 
     _ship(ax, 3.65, 2.95, "雷鸣号 1")
     _ship(ax, 5.25, 1.70, "雷鸣号 2")
     _ship(ax, 9.25, 1.80, "23900 舰", landing=True)
 
-    # 两枚指向 ABDE 区，两枚指向 C 区。
+    # 来袭航迹均由空中指向舰艇；弹标也朝向目标，避免方向歧义。
     missile_data = [
-        ((2.90, 6.55), (3.20, 5.05), "卢卡斯", (2.90, 7.02), GRAY),
-        ((5.10, 7.20), (5.00, 5.02), "海马斯", (5.10, 7.68), GRAY),
-        ((7.10, 6.80), (7.10, 5.12), "卢卡斯", (6.70, 7.28), GRAY),
-        ((11.35, 5.05), (10.72, 3.70), "158C", (11.55, 5.50), ACC),
+        ((2.90, 6.55), (3.55, 3.24), "卢卡斯", (2.40, 6.95), GRAY, 0.0),
+        ((5.10, 7.20), (5.22, 2.02), "海马斯", (5.65, 7.55), GRAY, 0.0),
+        ((7.10, 6.80), (8.84, 2.24), "卢卡斯", (6.55, 7.25), GRAY, 0.12),
+        ((11.35, 5.05), (9.76, 2.18), "158C", (11.55, 5.50), ACC, 0.0),
     ]
-    for start, end, label, label_pos, color in missile_data:
-        ax.plot(*start, marker="^", ms=4.8, color=color, zorder=5)
-        arrow(ax, start, end, color=color, lw=0.7, scale=6, zorder=3)
+    for start, end, label, label_pos, color, rad in missile_data:
+        ax.plot(*start, marker="v", ms=4.8, color=color, zorder=5)
+        arrow(ax, start, end, color=color, lw=0.75, scale=7, rad=rad,
+              zorder=3)
         ax.text(*label_pos, label, fontsize=5.4, color=color, ha="center",
                 va="bottom", zorder=6)
 
     # 23900 对 C 区卢卡斯的激光处置。
     arrow(ax, (9.25, 2.18), (7.10, 6.62), color=ACC, lw=0.75,
           style="-", scale=6, zorder=2)
-    ax.text(8.15, 3.65, "激光束", fontsize=5.2, color=ACC, ha="right",
+    ax.text(10.42, 1.72, "激光", fontsize=5.5, color=ACC, ha="center",
             va="center")
+    ax.plot([10.10, 8.86], [1.90, 3.00], color=ACC, lw=0.5, zorder=3)
 
     # 苏-57 驱离照射机；点线由红色断开符截断。
     _plane(ax, 9.45, 4.05, s=0.46)
@@ -377,49 +385,60 @@ def schema_5():
     ax.text(8.15, 8.35, "召机驱离照射机", fontsize=5.4, color=ACC,
             ha="center", va="center")
 
-    # b：以矩形与文字手绘三行三列矩阵（表头另占一行）。
+    # b：四列四行；列宽固定为 0.9:1.1:1.6:1.6，行高随换行数增长。
     ax = fig.add_subplot(gs[0, 1])
     ax.set_xlim(0, 10)
-    ax.set_ylim(0, 7)
     ax.axis("off")
     panel_tag(ax, "b")
 
-    x_edges = [0.15, 2.20, 5.90, 9.85]
-    y_edges = [0.30, 2.55, 4.45, 5.95, 6.70]
-    # 一类 / C 区单元格的浅红强调。
-    ax.add_patch(Rectangle((x_edges[2], y_edges[2]),
-                           x_edges[3] - x_edges[2], y_edges[3] - y_edges[2],
-                           fc=ACC, ec="none", alpha=0.08, zorder=0))
-    rect(ax, x_edges[0], y_edges[0], x_edges[-1] - x_edges[0],
-         y_edges[-1] - y_edges[0], ec=GRAY, lw=0.6, zorder=1)
-    for xx in x_edges[1:-1]:
-        ax.plot([xx, xx], [y_edges[0], y_edges[-1]], color=LIGHT, lw=0.4,
-                zorder=1)
-    ax.plot([x_edges[0], x_edges[-1]], [y_edges[3], y_edges[3]],
-            color=GRAY, lw=0.8, zorder=1)
-    for yy in (y_edges[1], y_edges[2]):
-        ax.plot([x_edges[0], x_edges[-1]], [yy, yy], color=LIGHT, lw=0.4,
-                zorder=1)
-
-    headers = ("区域", "ABDE 处置", "C 处置")
-    for j, text in enumerate(headers):
-        ax.text((x_edges[j] + x_edges[j + 1]) / 2,
-                (y_edges[3] + y_edges[4]) / 2, text, fontsize=5.8,
-                fontweight="bold", ha="center", va="center")
-
+    headers = ("类", "弹型", "ABDE 区处置", "C 区处置")
     rows = [
-        ("一类\n卢卡斯", "雷鸣号\nd<3 km 自卫", "不拦 → 23900\n激光"),
-        ("二类\n海马斯 /\n反舰导弹排", "雷鸣号\nD_max 开火",
-         "一号 D_max，\n二号 ½D_max 补拦"),
-        ("三类\n158C / 154C", "关雷达 + 切向背身\n+ 加力；召苏-57", "同左"),
+        ("一类", "卢卡斯", "雷鸣号 d<3 km 自卫", "不拦 → 23900 激光"),
+        ("二类", "海马斯 / 反舰导弹排", "雷鸣号 D_max 开火",
+         "一号 D_max，二号 ½D_max 补拦"),
+        ("三类", "158C / 154C", "关雷达 + 切向背身 + 加力；召苏-57", "同左"),
     ]
-    # rows 的顺序与 y_edges 从下到上的存储顺序相反。
-    for i, row in enumerate(rows):
-        lower, upper = y_edges[2 - i], y_edges[3 - i]
+    wrap_widths = (4, 8, 10, 10)
+
+    def wrapped(row):
+        return tuple("\n".join(textwrap.wrap(
+            text, width=width, break_long_words=True,
+            break_on_hyphens=False)) for text, width in zip(row, wrap_widths))
+
+    header_text = wrapped(headers)
+    body_text = [wrapped(row) for row in rows]
+    header_h = 0.72
+    body_h = [0.52 + 0.48 * max(cell.count("\n") + 1 for cell in row)
+              for row in body_text]
+    table_h = header_h + sum(body_h)
+    ax.set_ylim(0, table_h + 0.16)
+
+    widths = np.array((0.9, 1.1, 1.6, 1.6))
+    x_edges = 0.10 + 9.80 * np.concatenate(([0.0], np.cumsum(widths))) / widths.sum()
+    y_edges = [table_h + 0.08]
+    for height in [header_h, *body_h]:
+        y_edges.append(y_edges[-1] - height)
+
+    # 一类 / C 区单元格的浅红强调。
+    ax.add_patch(Rectangle((x_edges[3], y_edges[2]),
+                           x_edges[4] - x_edges[3], y_edges[1] - y_edges[2],
+                           fc=ACC, ec="none", alpha=0.08, zorder=0))
+    rect(ax, x_edges[0], y_edges[-1], x_edges[-1] - x_edges[0], table_h,
+         ec=GRAY, lw=0.6, zorder=1)
+    for xx in x_edges[1:-1]:
+        ax.plot([xx, xx], [y_edges[-1], y_edges[0]], color=LIGHT, lw=0.4,
+                zorder=1)
+    for i, yy in enumerate(y_edges[1:-1], start=1):
+        ax.plot([x_edges[0], x_edges[-1]], [yy, yy],
+                color=GRAY if i == 1 else LIGHT, lw=0.8 if i == 1 else 0.4,
+                zorder=1)
+
+    for i, row in enumerate([header_text, *body_text]):
         for j, text in enumerate(row):
-            ax.text((x_edges[j] + x_edges[j + 1]) / 2, (lower + upper) / 2,
-                    text, fontsize=5.2, ha="center", va="center",
-                    linespacing=1.45, zorder=2)
+            ax.text((x_edges[j] + x_edges[j + 1]) / 2,
+                    (y_edges[i] + y_edges[i + 1]) / 2, text,
+                    fontsize=5.5, fontweight="bold" if i == 0 else "normal",
+                    ha="center", va="center", linespacing=1.35, zorder=2)
     return fig
 
 
