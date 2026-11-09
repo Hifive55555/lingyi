@@ -1,0 +1,4 @@
+﻿scheme,n,inbound_per_run,magazine_per_ship,intercept_rate,shots_per_inbound,shots_per_kill,magazine_dry_rate
+S1 单船单层,100,8,8,0.4188,1.0,2.388,1.0
+S2 双船同时MAX,100,8,8,0.575,1.639,2.85,1.0
+S3 双船分层,100,8,8,0.7612,1.671,2.195,1.0
