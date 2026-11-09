@@ -1,0 +1,76 @@
+{
+    "431a3f2e-569c-4420-8913-e0ac87dbff01": {
+        "zjj7bf-0hn937r864u56": {
+            "agent1_add_mission_blue#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "rule_agent/agent1_add_mission_blue.py",
+                "id": "cceb5e66-763c-4dfc-9d27-3a864257ceac",
+                "unit": {
+                }
+            },
+            "agent2_doctrine_set_blue#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "rule_agent/agent2_doctrine_set_blue.py",
+                "id": "d61322d3-34a4-4a9e-867a-14c56225d856",
+                "unit": {
+                }
+            },
+            "agent3_single_doctrine#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "rule_agent/agent3_single_doctrine.py",
+                "id": "b78672b5-692b-487c-bee9-46bb35788a57",
+                "unit": {
+                }
+            },
+            "agent4_loadout_set_blue#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "rule_agent/agent4_loadout_set_blue.py",
+                "id": "4cdb28c5-61f1-43ed-a57a-ed987a22fa3b",
+                "unit": {
+                }
+            },
+            "agent5_fuel_assign_blue#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "rule_agent/agent5_fuel_assign_blue.py",
+                "id": "96130815-9ce8-4381-98c9-a5b1b61b534a",
+                "unit": {
+                }
+            },
+            "agent6_fighter_blue#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "rule_agent/air_combat/agent6_fighter_blue.py",
+                "id": "7abc2e28-2835-4ec0-bf29-219ca696fe70",
+                "unit": {
+                }
+            },
+            "agent7_BOL_blue#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "rule_agent/agent7_BOL_blue.py",
+                "id": "3921b288-cd44-4d94-ac66-7917edc15887",
+                "unit": {
+                }
+            }
+        }
+    }
+}

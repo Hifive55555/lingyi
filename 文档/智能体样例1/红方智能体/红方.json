@@ -1,0 +1,76 @@
+{
+    "431a3f2e-569c-4420-8913-e0ac87dbff01": {
+        "zjj7bf-0hn937r864m83": {
+            "agent1_add_mission#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "red/agent1_add_mission.py",
+                "id": "df846e46-b025-4f55-8aaa-ddff35ace4fb",
+                "unit": {
+                }
+            },
+            "agent2_radical_agent_doctrine_set#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "red/agent2_radical_agent_doctrine_set.py",
+                "id": "a7f5f7ac-0e67-4e9b-8076-0e6550f4af22",
+                "unit": {
+                }
+            },
+            "agent3_SingleDoctrine#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "red/agent3_SingleDoctrine.py",
+                "id": "85f72f7b-588a-41f5-86e5-7d57265debf0",
+                "unit": {
+                }
+            },
+            "agent4_red_loadout_set#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "red/agent4_red_loadout_set.py",
+                "id": "f963c024-9a96-4588-b5cb-f6f6859246e5",
+                "unit": {
+                }
+            },
+            "agent5_FuelAssign#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "red/agent5_FuelAssign.py",
+                "id": "35ca2592-1ffa-47c2-a3cb-606626ca7ec0",
+                "unit": {
+                }
+            },
+            "agent6_fighter#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "red/fighter/agent6_fighter.py",
+                "id": "c83d3563-c374-464d-b19c-47f9ed1888b3",
+                "unit": {
+                }
+            },
+            "agent7_AutoAttack#1": {
+                "Contact": {
+                },
+                "RefPoint": {
+                },
+                "filePath": "red/agent7_AutoAttack.py",
+                "id": "3b67bd6b-1e92-4bfe-83d7-4ce36c1d125d",
+                "unit": {
+                }
+            }
+        }
+    }
+}
