@@ -108,36 +108,37 @@ def schema_3():
     ax.text(81, 36.8, "d₀ = 58.8 km", ha="right", va="top",
             fontsize=6.3, color=ACC, fontweight="bold")
 
-    draw_aircraft(ax, 6, 25, direction=1, scale=1.15)
-    ax.text(5.5, 29.2, "我方飞机", ha="center", fontsize=5.8)
-    ax.plot(79, 25, marker="<", ms=5.0, color=ACC, zorder=4)
-    ax.text(79, 28.5, "来袭弹", ha="center", fontsize=5.8, color=ACC)
-    arrow(ax, (73.5, 25), (66.5, 25), color=ACC, lw=0.8)
-    arrow(ax, (9.5, 25), (16.5, 25), color=GRAY, lw=0.8)
+    draw_aircraft(ax, 6, 22, direction=1, scale=1.15)
+    ax.text(5.5, 26.2, "我方飞机", ha="center", fontsize=5.8)
+    ax.plot(79, 22, marker="<", ms=5.0, color=ACC, zorder=4)
+    ax.text(79, 25.5, "来袭弹", ha="center", fontsize=5.8, color=ACC)
 
-    # 三条水平虚线的终点分别对应 10、20、50 km。
-    for distance, y in ((10, 8), (20, 16), (50, 24)):
+    # 唯一一条迎头接近线；三个竖刻度共用同一距离基准。
+    ax.plot([6, 79], [22, 22], color=MID, lw=0.7, ls="--", zorder=1)
+    arrow(ax, (73.5, 22), (66.5, 22), color=ACC, lw=0.8)
+    arrow(ax, (9.5, 22), (16.5, 22), color=GRAY, lw=0.8)
+    for distance in (10, 20, 50):
         x = 6 + distance
-        ax.plot([6, x], [y, y], color=MID if distance != 10 else LIGHT,
-                lw=0.7, ls="--", zorder=1)
-        ax.plot([x, x], [y - 1.2, y + 1.2], color=MID, lw=0.6)
-        ax.text(x + 1.2, y - 2.0, f"{distance} km", ha="left", va="top",
-                fontsize=5.5, color=MID)
+        ax.plot([x, x], [20.8, 23.2], color=MID, lw=0.65, zorder=2)
+    leader(ax, "10 km", (16, 20.8), (16, 18.2), color=MID, ha="center")
+    leader(ax, "20 km", (26, 21.0), (33, 19.0), color=MID, ha="center")
+    leader(ax, "50 km", (56, 20.8), (56, 18.2), color=MID, ha="center")
 
-    # 50 km：掉头并背向飞行。
-    arrow(ax, (56, 24), (39, 32.5), color=ACC, lw=1.2,
+    # 50 km：从共同接近线掉头并背向飞行。
+    arrow(ax, (56, 22), (39, 32.5), color=ACC, lw=1.2,
           connectionstyle="arc3,rad=-0.42")
     arrow(ax, (39, 32.5), (12, 32.5), color=ACC, lw=1.2)
-    leader(ax, "① 掉头 + 加力", (48.5, 29.3), (30, 38.0), color=ACC)
+    leader(ax, "① 掉头 + 加力", (46.5, 30.5), (36, 39.2), color=ACC)
 
-    # 20 km：三个折返的垂直扭动。
+    # 20 km：从同一接近线引出三个折返，说明文字整体置于锯齿下方。
     zig_x = [26, 24.5, 27.5, 24.5, 26]
-    zig_y = [16, 21, 14, 19, 16]
+    zig_y = [22, 18, 14, 17, 11]
     ax.plot(zig_x, zig_y, color=ACC, lw=0.9, ls="--", zorder=3)
-    leader(ax, "② 垂直扭动", (26.5, 14.7), (36, 10.5), color=ACC)
-    arrow(ax, (36, 5.2), (50, 5.2), color=MID, lw=0.6, mutation_scale=5)
-    ax.text(43, 7.0, "缩短分离速度 →", ha="center", va="bottom",
-            fontsize=5.5, color=MID)
+    ax.annotate("② 垂直扭动\n缩短分离速度 →", xy=(26.2, 13.0),
+                xytext=(36, 6.5), fontsize=5.5, color=ACC,
+                ha="left", va="center", linespacing=1.5,
+                arrowprops=dict(arrowstyle="-", color=ACC, lw=0.55,
+                                shrinkA=3, shrinkB=2))
 
     # d0 竖线位于 50 km 外侧，直接显示固定规则的错侧。
     ax.plot([64.8, 64.8], [4.0, 34.0], color=ACC, lw=1.35, zorder=2)
@@ -264,74 +265,79 @@ def schema_3():
 
 def schema_4():
     fig = plt.figure(figsize=(6.1, 2.7))
-    gs = fig.add_gridspec(1, 3, width_ratios=[1.25, 1.65, 1.06],
-                          wspace=0.58, left=0.065, right=0.965,
+    gs = fig.add_gridspec(1, 3, width_ratios=[1.60, 1.65, 1.00],
+                          wspace=0.52, left=0.065, right=0.965,
                           top=0.91, bottom=0.23)
 
     # a：三态势，三幅小图使用同一虚线圆。
     ax = fig.add_subplot(gs[0, 0])
-    ax.set_xlim(0, 11)
-    ax.set_ylim(0, 6)
+    ax.set_xlim(0, 12.4)
+    ax.set_ylim(0, 6.2)
     ax.axis("off")
     panel_tag(ax, "a")
-    centers = [1.8, 5.5, 9.2]
+    centers = [2.0, 6.2, 10.4]
     for cx in centers:
-        # 数据轴非等比，补偿纵向半径，使三幅图的虚线圆在页面上为正圆。
-        ax.add_patch(Ellipse((cx, 3.15), width=2.9, height=1.30,
+        # 每个态势都有独立、同大的 0.8 d0 虚线圆及标注。
+        ax.add_patch(Ellipse((cx, 3.15), width=3.25, height=1.50,
                              fill=False, ec=MID, lw=0.6, ls="--", zorder=1))
+        leader(ax, "0.8 d₀", (cx, 3.90), (cx, 5.05), color=MID, ha="center")
 
     # 迎头。
-    draw_aircraft(ax, 0.75, 3.15, direction=1, scale=0.32)
-    draw_aircraft(ax, 2.85, 3.15, direction=-1, color=ACC, scale=0.32)
-    arrow(ax, (1.12, 3.15), (1.60, 3.15), color=GRAY, lw=0.65, mutation_scale=5)
-    arrow(ax, (2.48, 3.15), (2.00, 3.15), color=ACC, lw=0.65, mutation_scale=5)
-    ax.text(1.8, 3.52, "d", ha="center", va="bottom", fontsize=5.8)
-    ax.text(1.8, 1.42, "迎头", ha="center", fontsize=6.0)
+    draw_aircraft(ax, 0.90, 3.15, direction=1, scale=0.38)
+    draw_aircraft(ax, 3.10, 3.15, direction=-1, color=ACC, scale=0.38)
+    arrow(ax, (1.35, 3.15), (1.83, 3.15), color=GRAY, lw=0.65, mutation_scale=5)
+    arrow(ax, (2.65, 3.15), (2.17, 3.15), color=ACC, lw=0.65, mutation_scale=5)
+    ax.text(2.0, 3.48, "d", ha="center", va="bottom", fontsize=5.8)
+    ax.text(2.0, 1.42, "迎头", ha="center", fontsize=6.0)
 
     # 切向：速度方向夹角约 60°。
-    draw_aircraft(ax, 4.75, 2.65, direction=1, scale=0.30)
-    draw_aircraft(ax, 6.20, 3.70, direction=1, color=ACC, scale=0.30, angle=240)
-    arrow(ax, (5.05, 2.65), (5.92, 2.65), color=GRAY, lw=0.65, mutation_scale=5)
-    arrow(ax, (5.92, 3.45), (5.30, 2.80), color=ACC, lw=0.65, mutation_scale=5)
+    draw_aircraft(ax, 5.35, 2.65, direction=1, scale=0.35)
+    draw_aircraft(ax, 6.95, 3.70, direction=1, color=ACC, scale=0.35, angle=240)
+    arrow(ax, (5.70, 2.65), (6.62, 2.65), color=GRAY, lw=0.65, mutation_scale=5)
+    arrow(ax, (6.65, 3.45), (5.98, 2.75), color=ACC, lw=0.65, mutation_scale=5)
     theta = np.linspace(0, np.pi / 3, 40)
-    ax.plot(5.05 + 0.53 * np.cos(theta), 2.65 + 0.53 * np.sin(theta),
+    ax.plot(5.70 + 0.58 * np.cos(theta), 2.65 + 0.58 * np.sin(theta),
             color=MID, lw=0.55)
-    ax.text(5.52, 3.12, "θ", fontsize=6.0, color=MID, ha="center")
-    ax.text(5.5, 1.42, "切向", ha="center", fontsize=6.0)
-    ax.text(5.5, 0.60, "命中概率最高", ha="center", fontsize=5.5, color=ACC)
+    ax.text(6.22, 3.14, "θ", fontsize=6.0, color=MID, ha="center")
+    ax.text(6.2, 1.42, "切向", ha="center", fontsize=6.0)
+    ax.text(6.2, 0.55, "命中概率最高", ha="center", fontsize=5.5, color=ACC)
 
     # 尾追。
-    draw_aircraft(ax, 8.35, 3.15, direction=1, scale=0.30)
-    draw_aircraft(ax, 10.05, 3.15, direction=1, color=ACC, scale=0.30)
-    arrow(ax, (8.65, 3.15), (9.28, 3.15), color=GRAY, lw=0.65, mutation_scale=5)
-    arrow(ax, (10.25, 3.15), (10.75, 3.15), color=ACC, lw=0.65, mutation_scale=5)
-    ax.text(8.85, 2.48, "V弹", fontsize=5.5, ha="center")
-    ax.text(10.05, 4.00, "V敌", fontsize=5.5, ha="center", color=ACC)
-    ax.text(9.2, 1.42, "尾追", ha="center", fontsize=6.0)
-    leader(ax, "0.8 d₀", (1.8, 3.80), (1.8, 4.95), color=MID, ha="center")
+    draw_aircraft(ax, 9.45, 3.15, direction=1, scale=0.35)
+    draw_aircraft(ax, 11.25, 3.15, direction=1, color=ACC, scale=0.35)
+    arrow(ax, (9.82, 3.15), (10.48, 3.15), color=GRAY, lw=0.65, mutation_scale=5)
+    arrow(ax, (11.50, 3.15), (12.02, 3.15), color=ACC, lw=0.65, mutation_scale=5)
+    ax.text(10.02, 2.45, "V弹", fontsize=5.5, ha="center")
+    ax.text(11.25, 3.85, "V敌", fontsize=5.5, ha="center", color=ACC)
+    ax.text(10.4, 1.42, "尾追", ha="center", fontsize=6.0)
 
     # b：四种策略的命中率与先射时间差。
     ax = fig.add_subplot(gs[0, 1])
     panel_tag(ax, "b")
-    labels = ["0.8 d₀\n30.1–51.4 km", "固定 30 km\n30.0 km",
-              "固定 60 nm\n111.1 km", "最大射程 90 nm\n166.7 km"]
+    labels = ["0.8 d₀\n30.1–51.4 km", "固定\n30 km",
+              "固定\n60 nm", "最大射程\n90 nm"]
     x = np.arange(4)
-    hit_heights = [1.00, 1.00, 0.12, 0.00]
+    hit_heights = [1.00, 1.00, 0.03, 0.00]
     bars = ax.bar(x, hit_heights, width=0.56,
                   color=[ACC, LIGHT, MID, LIGHT], ec=GRAY, lw=0.4, zorder=2)
-    for xi, text, height in zip(x, ["1.00", "1.00", "0.00–0.12", "0.00"],
+    for xi, text, height in zip(x, ["1.00", "1.00", "0.03", "0.00"],
                                 hit_heights):
-        ax.text(xi, height + 0.035, text, ha="center", va="bottom",
+        if xi == 2:
+            continue
+        label_x = xi - 0.12 if xi in (0, 1) else xi
+        label_y = height + (0.130 if xi == 3 else 0.035)
+        ax.text(label_x, label_y, text, ha="center", va="bottom",
                 fontsize=5.5, zorder=5)
+    # 低柱用短补齐线和引出标注保持可读。
+    ax.annotate("0.03", xy=(x[2], 0.03), xytext=(x[2], 0.115),
+                ha="center", va="bottom", fontsize=5.5,
+                arrowprops=dict(arrowstyle="-", color=GRAY, lw=0.55,
+                                shrinkA=1, shrinkB=1), zorder=5)
     ax.set_xlim(-0.58, 3.58)
     ax.set_ylim(0, 1.24)
     ax.set_yticks([0, 0.5, 1.0])
     ax.set_ylabel("命中率")
     ax.set_xticks(x, labels)
-    # 相邻长标签分别向外对齐，避免“固定 60 nm / 最大射程 90 nm”相碰。
-    ax.get_xticklabels()[1].set_ha("right")
-    ax.get_xticklabels()[2].set_ha("right")
-    ax.get_xticklabels()[3].set_ha("left")
     ax.tick_params(axis="x", length=0, pad=3, labelsize=5.5)
     ax.tick_params(axis="y", length=2.0, pad=2)
 
@@ -343,7 +349,7 @@ def schema_4():
     ax2.spines["right"].set_color(GRAY)
     ax2.spines["right"].set_linewidth(0.6)
     ax2.tick_params(length=2.0, pad=2)
-    ax2.axhline(0, color=GRAY, lw=0.6, zorder=1)
+    ax2.axhline(0, color=MID, lw=0.6, ls="--", zorder=1)
     midpoints = np.array([65.0, 73.45, 0.0, -50.3])
     lower = np.array([46.7, 63.5, 0.0, -57.1])
     upper = np.array([83.3, 83.4, 0.0, -43.5])
@@ -359,11 +365,11 @@ def schema_4():
     ax2.annotate("0", (x[2], 0), xytext=(0, 7), textcoords="offset points",
                  ha="center", va="bottom", fontsize=5.5, color=ACC)
     ax2.annotate("−43.5 … −57.1", (x[3], midpoints[3]),
-                 xytext=(-4, -7), textcoords="offset points",
-                 ha="right", va="top", fontsize=5.5, color=ACC,
+                 xytext=(0, -18), textcoords="offset points",
+                 ha="center", va="top", fontsize=5.5, color=ACC,
                  bbox=dict(facecolor="white", edgecolor="none", pad=0.5))
     ax2.text(3.47, 3.5, "先射权分界", ha="right", va="bottom",
-             fontsize=5.5, color=GRAY)
+             fontsize=5.5, color=MID)
     arrow(ax2, (3.40, 72), (3.40, 91), color=ACC, lw=0.6, mutation_scale=5)
     ax2.text(3.28, 81.5, "本方先开火", ha="right", va="center",
              fontsize=5.5, color=ACC, rotation=90)
@@ -386,7 +392,7 @@ def schema_4():
     for h in (10, 8, 6.67):
         ax.plot([0, 44], [h, h], color=MID, lw=0.6, ls="--", zorder=1)
     ax.plot(44, 8, marker=">", ms=4.2, color=GRAY, zorder=5)
-    ax.text(42.0, 9.35, "目标机 8 km", ha="right", va="bottom", fontsize=5.5)
+    ax.text(42.0, 9.60, "目标机 8 km", ha="right", va="bottom", fontsize=5.5)
     ax.text(0.8, 10.25, "我方", ha="left", va="bottom", fontsize=5.5)
 
     # 抛物线式轨迹：10→8 为俯冲，6.67→8 为爬升。

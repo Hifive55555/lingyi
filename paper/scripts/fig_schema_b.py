@@ -125,12 +125,12 @@ def schema_1():
     arrow(ax, (8.15, 4.4), (10.05, 6.0), color=MID)
     arrow(ax, (8.15, 4.35), (10.05, 4.05), color=MID)
     arrow(ax, (8.15, 4.3), (10.05, 2.10), color=MID)
-    ax.text(9.12, 5.47, "时刻调用", ha="center", va="bottom", fontsize=5.3,
-            color=MID, rotation=25)
+    ax.text(9.10, 5.50, "时刻调用", ha="center", va="bottom", fontsize=5.3,
+            color=MID)
     ax.text(9.10, 4.43, "时刻调用", ha="center", va="bottom", fontsize=5.3,
             color=MID)
-    ax.text(9.10, 2.93, "时刻调用", ha="center", va="bottom", fontsize=5.3,
-            color=MID, rotation=-25)
+    ax.text(9.05, 3.50, "时刻调用", ha="center", va="bottom", fontsize=5.3,
+            color=MID)
 
     # b：指向判据与最近接近几何。
     ax = fig.add_subplot(gs[0, 1])
@@ -149,19 +149,23 @@ def schema_1():
             fontsize=5.8, color=ACC)
     ax.plot([M[0], P[0]], [M[1], P[1]], color=MID, lw=0.7, ls="--")
     direction = (M - P) / np.linalg.norm(M - P)
-    extension = P + 1.32 * (M - P)
+    line_angle = np.degrees(np.arctan2(direction[1], direction[0])) % 360.0
+    velocity_angle = 165.0
+    velocity = np.array([np.cos(np.radians(velocity_angle)),
+                         np.sin(np.radians(velocity_angle))])
+    extension = P + 4.0 * velocity
     ax.plot([P[0], extension[0]], [P[1], extension[1]], color=MID,
             lw=0.6, ls="--", zorder=1)
     ax.text(4.18, 6.14, "d", ha="center", va="bottom", fontsize=6.3,
             color=MID, rotation=15)
 
-    v_end = np.array([8.75, 7.25])
+    v_end = P + 1.75 * velocity
     arrow(ax, tuple(P), tuple(v_end), color=ACC, lw=0.9, scale=6)
-    ax.text(8.90, 7.28, "速度 v", ha="left", va="center", fontsize=5.6,
+    ax.text(5.00, 7.02, "速度 v", ha="right", va="bottom", fontsize=5.6,
             color=ACC)
-    ax.add_patch(Arc(P, 2.35, 2.35, angle=0, theta1=-31, theta2=25,
-                     ec=MID, lw=0.6))
-    ax.text(7.92, 6.12, "θ", fontsize=6.5, color=MID, ha="center",
+    ax.add_patch(Arc(P, 2.35, 2.35, angle=0, theta1=velocity_angle,
+                     theta2=line_angle, ec=MID, lw=0.6))
+    ax.text(5.48, 6.43, "θ", fontsize=6.5, color=MID, ha="center",
             va="center")
     ax.text(9.82, 7.92, "判据示意 · 实现未给出（存疑 E1）", fontsize=5.5,
             color=MID, ha="right", va="top")
@@ -213,13 +217,13 @@ def schema_2():
     ax.text(10.375, 1.70, "关雷达 + 加速跑", ha="center", va="center",
             fontsize=5.9)
 
+    # 是 = 有来袭弹 → 关雷达 + 加速跑（下方）；否 = 未被单打 → 开雷达（上方）
     arrow(ax, (5.65, 5.15), (7.50, 6.92), color=MID)
-    ax.text(6.40, 6.34, "是", fontsize=5.7, color=MID, ha="center",
+    ax.text(6.42, 6.30, "否", fontsize=5.7, color=MID, ha="center",
             va="bottom")
     arrow(ax, (5.63, 3.83), (7.50, 1.90), color=MID)
-    ax.text(6.30, 2.62, "否", fontsize=5.7, color=MID, ha="center",
+    ax.text(6.28, 2.66, "是", fontsize=5.7, color=MID, ha="center",
             va="top")
-    arrow(ax, (13.25, 7.10), (13.25, 1.70), color=MID, lw=0.7)
     arrow(ax, (8.40, 1.00), (4.30, 3.35), color=MID, lw=0.7, rad=-0.30)
     ax.text(5.45, 0.42, "弹消失", fontsize=5.6, color=MID, ha="center",
             va="center")
@@ -259,14 +263,14 @@ def schema_2():
             mec=ACC, zorder=6)
     ax.text(32.0, 33.0, "发弹点", fontsize=5.7, color=ACC, ha="right",
             va="top")
-    ax.text(79.0, 63.0, "最大可拦截边界", fontsize=5.3, color=MID,
+    ax.text(86.0, 58.0, "最大可拦截边界", fontsize=5.3, color=MID,
             ha="left", va="top")
 
     arrow(ax, (-D_MAX, 0), (-D_FIRE, 0), color=MID, lw=0.65,
           style="<->", scale=6)
-    ax.text(-80.6, 7.0, "0.4 D_max\n能量裕度", fontsize=5.4, color=MID,
+    ax.text(-77.0, 8.0, "0.4 D_max\n能量裕度", fontsize=5.4, color=MID,
             ha="center", va="bottom", linespacing=1.35)
-    ax.text(116.0, -108.0, "D_max 由模型二分求得，非外部给定",
+    ax.text(116.0, -115.0, "D_max 由模型二分求得，非外部给定",
             fontsize=5.2, color=MID, ha="right", va="bottom")
     return fig
 
@@ -352,8 +356,8 @@ def schema_5():
     # 23900 对 C 区卢卡斯的激光处置。
     arrow(ax, (9.25, 2.18), (7.10, 6.62), color=ACC, lw=0.75,
           style="-", scale=6, zorder=2)
-    ax.text(8.00, 4.92, "激光束", fontsize=5.2, color=ACC, ha="right",
-            va="center", rotation=64)
+    ax.text(8.15, 3.65, "激光束", fontsize=5.2, color=ACC, ha="right",
+            va="center")
 
     # 苏-57 驱离照射机；点线由红色断开符截断。
     _plane(ax, 9.45, 4.05, s=0.46)
@@ -364,8 +368,8 @@ def schema_5():
             ha="center", va="bottom")
     ax.plot([9.72, 10.50], [4.38, 7.78], color=MID, lw=0.75, ls=":",
             zorder=2)
-    ax.plot(10.24, 6.35, marker="x", ms=7.0, mec=ACC, mew=1.3,
-            ls="none", zorder=7)
+    ax.plot(10.24, 6.35, marker="x", ms=7.0, color=ACC, mec=ACC,
+            mew=1.3, ls="none", zorder=7)
     ax.text(11.72, 6.92, "持续照射", fontsize=5.2, color=MID, ha="right",
             va="center")
     arrow(ax, (9.72, 4.42), (10.38, 7.72), color=ACC, lw=0.9,
@@ -411,7 +415,7 @@ def schema_5():
     ]
     # rows 的顺序与 y_edges 从下到上的存储顺序相反。
     for i, row in enumerate(rows):
-        lower, upper = y_edges[3 - i], y_edges[4 - i]
+        lower, upper = y_edges[2 - i], y_edges[3 - i]
         for j, text in enumerate(row):
             ax.text((x_edges[j] + x_edges[j + 1]) / 2, (lower + upper) / 2,
                     text, fontsize=5.2, ha="center", va="center",

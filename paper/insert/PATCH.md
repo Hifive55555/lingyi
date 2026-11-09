@@ -56,3 +56,21 @@
 当前 19 页、6 图 13 表。加上 5 张示意图 + 2 张实战图 + 1 张核对表后，预计
 **13 图 14 表、约 24–26 页**。图号与表号由模板自动编号，不需要手动改正文里的数字，
 但正文中如果有写死的「图 3」「表 5」这类字样，需要改成 `@fig:` / `@tab:` 引用。
+
+## 六、一条命令合入（推荐）
+
+不必手动粘贴。合入脚本以**小节标题**为锚点，只插入不删除，不碰你写过的句子：
+
+```bash
+python paper/scripts/merge_inserts.py --dry-run   # 先看会改什么
+python paper/scripts/merge_inserts.py             # 实际写入，自动备份 main.typ.bak
+cd paper && ./build.sh
+```
+
+预览片段（不碰 main.typ）：
+
+```bash
+paper/scripts/preview_inserts.sh   # → paper/.render/inserts.pdf
+```
+
+已用当前版本实测：合入后 **19 → 23 页**，编译无错。

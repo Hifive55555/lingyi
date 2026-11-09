@@ -140,11 +140,12 @@ def fig1():
     ax.axis("off")
     panel_tag(ax, "b", dx=-0.02, dy=1.02)
 
-    nodes = [(1.8, 7.7, "巡航"),
-             (5.0, 7.7, "迎头\n接近"),
-             (7.7, 4.9, "尾追\n逃逸"),
-             (5.0, 2.1, "垂直\n扭动"),
-             (1.8, 2.1, "反打")]
+    nodes = [(1.8, 7.2, "巡航"),
+             (4.9, 7.2, "迎头\n接近"),
+             (7.8, 4.25, "尾追\n逃逸"),
+             (4.9, 1.3, "垂直\n扭动"),
+             (1.8, 1.3, "反打")]
+    terminal = (8.0, 1.3, "被击落")
     node_w, node_h = 2.1, 1.25
     for x, y, text in nodes:
         ax.add_patch(FancyBboxPatch(
@@ -153,6 +154,12 @@ def fig1():
             fc="white", ec=GRAY, lw=0.7, zorder=2))
         ax.text(x, y, text, ha="center", va="center", fontsize=5.8,
                 zorder=3, linespacing=1.2)
+    ax.add_patch(FancyBboxPatch(
+        (terminal[0] - node_w / 2, terminal[1] - node_h / 2), node_w, node_h,
+        boxstyle="round,pad=0.08,rounding_size=0.18",
+        fc="#f7f7f7", ec=MID, lw=0.7, zorder=2))
+    ax.text(terminal[0], terminal[1], terminal[2], ha="center", va="center",
+            fontsize=5.8, color=MID, zorder=3)
 
     def boundary(index, toward):
         x, y, _ = nodes[index]
@@ -169,28 +176,40 @@ def fig1():
                                      shrinkA=1, shrinkB=1,
                                      connectionstyle="arc3,rad=0.0"))
 
-    def edge_label(x, y, text, color=MID):
+    def edge_label(x, y, text, color=MID, rotation=0):
         ax.text(x, y, text, fontsize=5.5, color=color, ha="center", va="center",
-                linespacing=1.25, zorder=4,
+                linespacing=1.25, rotation=rotation, zorder=4,
                 bbox=dict(fc="white", ec="none", pad=0.8))
 
     edge(0, 1)
-    edge_label(3.4, 8.35, "发现来袭弹")
+    edge_label(3.35, 7.9, "发现来袭弹")
     edge(1, 2)
-    edge_label(7.25, 7.05, "d ≤ d_turn(V弹)")
+    edge_label(7.75, 6.3, "d ≤ d_turn(V弹)")
     edge(2, 3, color=ACC)
-    edge_label(7.45, 2.95, "d ≤ 20 km\n且 V弹 > V我", color=ACC)
+    ax.annotate("d ≤ 20 km\n且 V弹 > V我", xy=(6.55, 2.92),
+                xytext=(8.05, 3.0), fontsize=5.5, color=ACC,
+                ha="center", va="center", linespacing=1.25, zorder=4,
+                bbox=dict(fc="white", ec="none", pad=0.8),
+                arrowprops=dict(arrowstyle="-", color=ACC, lw=0.6,
+                                shrinkA=2, shrinkB=2))
     edge(3, 4, color=ACC)
-    edge_label(3.4, 2.75, "V弹 < 500", color=ACC)
+    edge_label(3.35, 0.45, "V弹 < 500", color=ACC)
 
-    # 灰色未规避回路沿最外侧布线；文字置于回路线下方并保留白底。
-    ax.plot([5.0, 5.0, 9.55, 9.55, 1.8],
-            [8.325, 9.35, 9.35, 0.72, 0.72],
+    # 不规避直接进入终端；虚线沿右侧布设，避免与规避路径交叉。
+    ax.plot([5.95, 9.55, 9.55], [7.2, 7.2, 1.3],
+            color=MID, lw=0.7, ls="--", zorder=1)
+    ax.add_patch(FancyArrowPatch((9.55, 1.3), (9.05, 1.3),
+                                 arrowstyle="-|>", mutation_scale=6,
+                                 lw=0.7, color=MID, ls="--", zorder=1))
+    edge_label(9.12, 4.9, "始终不规避", rotation=90)
+
+    # 反打后再次接敌：实线回路从左侧返回迎头接近。
+    ax.plot([0.75, 0.25, 0.25, 4.9], [1.3, 1.3, 9.25, 9.25],
             color=MID, lw=0.7, zorder=1)
-    ax.add_patch(FancyArrowPatch((1.8, 0.72), (1.8, 1.475),
+    ax.add_patch(FancyArrowPatch((4.9, 9.25), (4.9, 7.825),
                                  arrowstyle="-|>", mutation_scale=6,
                                  lw=0.7, color=MID, zorder=1))
-    edge_label(5.8, 0.15, "不规避 → 被击落")
+    edge_label(0.62, 4.7, "再次接敌", rotation=90)
     return fig
 
 
