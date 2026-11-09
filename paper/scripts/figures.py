@@ -132,91 +132,6 @@ def d0_mod(v0, va, t_burn_h=T_BURN_H):
     return t_burn_h / ln * ((v0 - va) - va * math.log(v0 / va))
 
 
-# ---------------------------------------------------------------- F1
-def fig1():
-    fig = plt.figure(figsize=(7.2, 3.0))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1.45, 1], wspace=0.14)
-
-    # --- F1a 数据流与决策域
-    ax = fig.add_subplot(gs[0, 0])
-    ax.set_xlim(0, 10)
-    ax.set_ylim(0, 6.2)
-    ax.axis("off")
-    panel_tag(ax, "a", dx=-0.02, dy=1.02)
-
-    def box(x, y, w, h, text, fc="white", ec=GRAY, lw=0.7, fs=6.6):
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.06",
-                                    fc=fc, ec=ec, lw=lw, zorder=2))
-        ax.text(x + w / 2, y + h / 2, text, ha="center", va="center",
-                fontsize=fs, zorder=3, linespacing=1.35)
-
-    def arrow(x1, y1, x2, y2, style="-|>", ls="-", color=MID):
-        ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2), arrowstyle=style,
-                                     mutation_scale=6, lw=0.7, color=color,
-                                     linestyle=ls, zorder=1,
-                                     connectionstyle="arc3,rad=0.0"))
-
-    box(0.2, 4.9, 3.0, 1.0, "战场态势\n（平台只读观测）", fc="#f4f4f4")
-    box(0.2, 3.1, 3.0, 1.1, "监控智能体\n输出：弹型 + 弹速", ec=ACC, lw=1.1)
-    arrow(1.7, 4.9, 1.7, 4.25)
-
-    box(4.6, 4.85, 2.4, 1.05, "空战躲避\n（飞机）")
-    box(4.6, 3.5, 2.4, 1.1, "打空战\n（战斗机）")
-    box(4.6, 2.1, 2.4, 1.1, "地空导弹营\n（防空单元）")
-    box(4.6, 0.7, 2.4, 1.1, "船只自卫\n（雷鸣号 / 23900）")
-    for y in (5.37, 4.05, 2.65, 1.25):
-        arrow(3.2, 3.65, 4.6, y)
-
-    box(7.6, 3.1, 2.2, 1.1, "动作\n（关雷达 / 掉头 /\n开火 / 召机）", fc="#f4f4f4")
-    for y in (5.37, 4.05, 2.65, 1.25):
-        arrow(7.0, y, 7.6, 3.65)
-
-    ax.text(0.2, 2.45, "设计取舍：\n四个决策域互不相交，\n仅通过监控共享观测",
-            fontsize=6.2, color=ACC, va="top", linespacing=1.5)
-    ax.text(6.1, 0.15, "能量阈值 500 km/h 为跨域公共判据",
-            fontsize=6.0, color=MID, ha="center")
-
-    # --- F1b 状态机
-    ax = fig.add_subplot(gs[0, 1])
-    ax.set_xlim(0, 10)
-    ax.set_ylim(0, 6.2)
-    ax.set_aspect("equal")
-    ax.axis("off")
-    panel_tag(ax, "b", dx=-0.02, dy=1.02)
-
-    nodes = [(1.6, 5.0, "巡航"),
-             (5.4, 5.0, "迎头\n接近"),
-             (8.2, 3.1, "尾追\n逃逸"),
-             (5.2, 1.2, "垂直\n扭动"),
-             (1.6, 1.2, "反打")]
-    for x, y, t in nodes:
-        ax.add_patch(plt.Circle((x, y), 0.82, fc="white", ec=GRAY, lw=0.7, zorder=2))
-        ax.text(x, y, t, ha="center", va="center", fontsize=5.6, zorder=3,
-                linespacing=1.3)
-
-    def edge(a, b, label, rad=0.0, color=MID, lo=(0, 0)):
-        x1, y1 = nodes[a][0], nodes[a][1]
-        x2, y2 = nodes[b][0], nodes[b][1]
-        ax.add_patch(FancyArrowPatch((x1, y1), (x2, y2),
-                                     arrowstyle="-|>", mutation_scale=6,
-                                     lw=0.7, color=color, zorder=1,
-                                     shrinkA=22, shrinkB=22,
-                                     connectionstyle=f"arc3,rad={rad}"))
-        mx, my = (x1 + x2) / 2, (y1 + y2) / 2
-        ax.text(mx + lo[0], my + lo[1], label, fontsize=5.2, color=color,
-                ha="center", va="bottom", linespacing=1.25)
-
-    edge(0, 1, "发现来袭弹", lo=(0, 0.16))
-    edge(1, 2, "d ≤ d_turn(V弹)", lo=(0.55, 0.20))
-    edge(2, 3, "d ≤ 20 km\n且 V弹 > V我", rad=0.12, color=ACC,
-         lo=(-0.75, -0.62))
-    edge(3, 4, "V弹 < 500", lo=(0, 0.16), color=ACC)
-    edge(1, 4, "", rad=0.30, color=LIGHT)
-    ax.text(3.15, 3.35, "不规避 → 被击落", fontsize=5.0, color=LIGHT,
-            rotation=-62, ha="center")
-    return fig
-
-
 # ---------------------------------------------------------------- F2
 def fig2():
     rows_p = rd("a_evade_policy.csv")
@@ -575,8 +490,7 @@ def fig6():
 def main():
     setup()
     print("生成插图：")
-    for fn, name in ((fig1, "fig1-architecture"),
-                     (fig2, "fig2-evasion"),
+    for fn, name in ((fig2, "fig2-evasion"),
                      (fig3, "fig3-aircombat"),
                      (fig4, "fig4-altitude-sam"),
                      (fig5, "fig5-ship"),
