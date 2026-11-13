@@ -5,10 +5,10 @@
 图契约（每个面板必须承载一条独立证据，不为装饰而画）
 
 F1 架构      核心结论：五个智能体不是并列关系，而是"一个共享观测底座 + 四个
-             互不相交的决策域"；决定性的耦合点是监控输出（弹型+弹速）。
-             F1a 数据流与决策域划分；F1b 单体决策状态机（以空战躲避为例）。
+             互不相交的决策域"；决定性的耦合点是物理作战域三维监控的输出（弹型+弹速）。
+             F1a 数据流与决策域划分；F1b 单体决策状态机（以空战单元自卫为例）。
 
-F2 空战躲避  核心结论：分档掉头规则的方向正确，但 50 km 档对 >3300 km/h 的
+F2 空战单元自卫  核心结论：分档掉头规则的方向正确，但 50 km 档对 >3300 km/h 的
              来袭弹仍不足；垂直扭的收益只出现在晚掉头分支，且取决于来袭弹的
              转弯能力（ω）——它是一个"抓对手过载极限"的规则，而非普适增益。
              F2a 交会几何；F2b 存活率相图；F2c 存活—时长 Pareto；F2d 策略对比。
@@ -20,10 +20,10 @@ F3 打空战    核心结论：临界距离 d0 有闭式解，且线性衰减与
 
 F4 高度与地导 核心结论：高低差在纯运动学下只值 ±18% 的有效交距，但足以把
              处于包线边缘的交战从"必中"推到"必失"；地导开火时机同理——单发
-             概率随距离单调下降，3/5 Dmax 并非最优点。
+             0.3 Dmax 处综合概率最高，3/5 Dmax 并非最优点。
              F4a d0 vs 高度比；F4b 地导开火比例 vs 综合概率。
 
-F5 船只自卫  核心结论：分层补射在"拦截率—拦截距离"平面上并非占优方案，而是
+F5 登陆船只集群自卫  核心结论：分层补射在"拦截率—拦截距离"平面上并非占优方案，而是
              在"提前拦截换安全裕度"上做的一次取舍；真正的增益来自**弹舱分担**
              （单船方案在 8 枚以上来袭时崩溃）。
              F5a 四方案权衡；F5b 累计拦截曲线；F5c 规模效应。
@@ -236,7 +236,7 @@ def fig3():
     ax.plot([], [], color=ACC2, label="MOD 衰减")
     ax.plot([], [], color=GRAY, ls="-", label="V敌=900")
     ax.plot([], [], color=GRAY, ls="--", label="V敌=1200")
-    rows = rd("../../docs/实验/e2_d0.csv")
+    rows = rd("e2_d0.csv")
     if rows:
         xs = [float(r["v0_kmh"]) for r in rows if r["v_target_kmh"] == "900"]
         ys = [float(r["d0_km"]) for r in rows if r["v_target_kmh"] == "900"]
@@ -302,7 +302,7 @@ def fig4():
 
     ax = fig.add_subplot(gs[0, 0])
     panel_tag(ax, "a")
-    rows = rd("../../docs/实验/e3_altitude.csv")
+    rows = rd("e3_altitude.csv")
     if rows:
         r = [float(x["ratio_shooter_over_target"]) for x in rows]
         d = [float(x["d0_km"]) for x in rows]
@@ -312,8 +312,9 @@ def fig4():
                         xytext=(0, 6), fontsize=5.4, ha="center")
     ax.axvline(1.0, color=LIGHT, lw=0.7)
     ax.axvspan(0.9, 1.2, color="#f0f0f0", zorder=0)
-    ax.text(1.05, min(d) + 0.6 if rows else 34, "规则容差带\n90%–120%",
-            fontsize=5.6, color=MID, ha="left")
+    if rows:
+        ax.text(1.05, min(d) + 0.6, "规则容差带\n90%–120%",
+                fontsize=5.6, color=MID, ha="left")
     ax.set_xlabel("射击方 / 目标 高度比")
     ax.set_ylabel("有效交距 $d_0$ / km")
     ax.set_title("高低差对有效交距的影响", fontsize=7)
@@ -339,7 +340,7 @@ def fig4():
         ax2.tick_params(axis="y", colors=MID, labelsize=6)
         ax2.spines["right"].set_visible(True)
         ax2.spines["right"].set_color(MID)
-    ax.set_title("地导开火时机：概率随距离单调下降", fontsize=7)
+    ax.set_title("地导开火时机：0.3 Dmax 处最优", fontsize=7)
     return fig
 
 
@@ -349,7 +350,7 @@ def fig5():
     gs = fig.add_gridspec(1, 3, wspace=0.36, width_ratios=[1.1, 1, 1])
 
     schemes = {"R 双船分层": ACC, "B3 双船均½Dmax": ACC2,
-               "B1 单船单层": "#8c8c8c", "B2 双船同时MAX": "#c4c4c4"}
+               "B1 单船双层": "#8c8c8c", "B2 双船同时MAX": "#c4c4c4"}
 
     # --- a 权衡图
     ax = fig.add_subplot(gs[0, 0])

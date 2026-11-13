@@ -31,7 +31,7 @@ import sys
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(os.path.dirname(HERE))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))  # 仓库根目录
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 
 from sim_experiments import (  # noqa: E402
@@ -152,7 +152,7 @@ def engage_evade(v0, policy, bearing_deg=0.0, d_start=110.0,
 
 # ------------------------------------------------------------------ 实验 A
 def exp_a(outdir, n=1000, seed=2026):
-    """空战躲避：策略 × 弹速 → 存活率 / 交战时长 / 反打机会率"""
+    """空战单元自卫：策略 × 弹速 → 存活率 / 交战时长 / 反打机会率"""
     rng = np.random.default_rng(seed)
     v0s = [1500, 2000, 2500, 3000, 3500]
     rows = []
@@ -279,7 +279,7 @@ def engage_tail(v0, va, d_init, rng=None, dt=DT, model="linear",
 # ------------------------------------------------------------------ 实验 C
 def exp_c(outdir, n=4000, seed=2026):
     """
-    船只自卫：方案 × 来袭规模 → 拦截率 / 弹耗 / 弹药耗尽时的泄漏分布
+    登陆船只集群自卫：方案 × 来袭规模 → 拦截率 / 弹耗 / 弹药耗尽时的泄漏分布
     附带返回「按来袭序号」的累计拦截率曲线（用于过程图）
     """
     rng = np.random.default_rng(seed)
@@ -292,7 +292,7 @@ def exp_c(outdir, n=4000, seed=2026):
 
     schemes = {
         "R 双船分层": [("A", 1.0), ("B", 0.5)],
-        "B1 单船单层": [("A", 1.0), ("A", 0.5)],
+        "B1 单船双层": [("A", 1.0), ("A", 0.5)],
         "B2 双船同时MAX": [("A", 1.0), ("B", 1.0)],
         "B3 双船均½Dmax": [("A", 0.5), ("B", 0.5)],
     }

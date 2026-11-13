@@ -8,7 +8,7 @@ figures.py 里的其余图与本文件互不影响；本文件只输出 figures/
   核心结论：五个智能体不是并列关系，而是"一个共享观测底座 + 四个互不相交的
             决策域"；能量阈值 500 km/h 是跨域公共判据。
   面板 a：数据流与决策域划分（层次：观测 → 底座 → 四域 → 动作）
-  面板 b：单体决策状态机（以空战躲避为例）
+  面板 b：单体决策状态机（以空战单元自卫为例）
 """
 import math
 import os
@@ -98,26 +98,27 @@ def fig1():
                                      zorder=1, connectionstyle="arc3,rad=0.0"))
 
     box(0.85, 9.52, 3.15, 1.0, "战场态势\n（平台只读观测）")
-    box(0.85, 7.93, 3.15, 1.0, "监控智能体\n输出：弹型 + 弹速", ec=ACC, lw=1.1)
+    box(0.85, 7.93, 3.15, 1.0, "物理作战域三维监控\n输出：弹型 + 弹速", ec=ACC, lw=1.1,
+        fs=5.2)
     arrow(2.425, 9.52, 2.425, 8.99)
     ax.text(8.1, 8.43, "唯一公共信息底座", fontsize=5.8, color=MID,
             ha="center", va="center")
 
-    # 监控右侧引出一条竖直总线，四条等长水平支线分别进入各决策域。
+    # 物理作战域三维监控右侧引出一条竖直总线，四条等长水平支线分别进入各决策域。
     bus_x = 4.60
     domain_x, domain_w, domain_h = 5.10, 3.45, 0.92
     domain_centers = [6.65, 5.45, 4.25, 3.05]
     ax.plot([4.0, bus_x, bus_x], [8.43, 8.43, domain_centers[-1]],
             color=MID, lw=0.7, zorder=1)
     domain_texts = [
-        "空战躲避\n（飞机）",
-        "打空战\n（战斗机）",
-        "地空导弹营\n（防空单元）",
-        "船只自卫\n（雷鸣号 / 23900）",
+        ("空战单元自卫\n（飞机）", 5.6),
+        ("空空作战\n（战斗机）", 5.6),
+        ("地空导弹营攻击与自卫\n（防空单元）", 4.8),
+        ("登陆船只集群自卫\n（雷鸣号 / 23900）", 5.2),
     ]
-    for yc, text in zip(domain_centers, domain_texts):
+    for yc, (text, fs) in zip(domain_centers, domain_texts):
         arrow(bus_x, yc, domain_x, yc)
-        box(domain_x, yc - domain_h / 2, domain_w, domain_h, text)
+        box(domain_x, yc - domain_h / 2, domain_w, domain_h, text, fs=fs)
 
     ax.text(10.15, 4.85, "四域互不相交\n彼此无直接耦合\n仅共享弹型 + 弹速",
             fontsize=5.8, color=MID, ha="center", va="center",

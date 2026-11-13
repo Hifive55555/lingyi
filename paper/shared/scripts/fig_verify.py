@@ -106,14 +106,18 @@ def verify_collab():
     arrow((19, 9), (30, 17), "手动操控", color=ACC2)
 
     # 右：五个智能体（自上而下，与架构图同序）
-    names = ["监控", "地空导弹营", "空战躲避", "船只自卫", "打空战"]
+    names = [("物理作战域\n三维监控", False),
+             ("空战单元自卫", True),
+             ("空空作战", True),
+             ("登陆船只\n集群自卫", False),
+             ("地空导弹营\n攻击与自卫", False)]
     ys = []
-    for i, n in enumerate(names):
+    for i, (n, implemented) in enumerate(names):
         y = 30.5 - i * 7.4
         ys.append(y)
         box(66, y, 20, 5.6, n, fs=5.9,
-            ec=ACC if n in ("空战躲避", "打空战") else GRAY,
-            lw=0.9 if n in ("空战躲避", "打空战") else 0.6)
+            ec=ACC if implemented else GRAY,
+            lw=0.9 if implemented else 0.6)
     # 总线式连接，避免五根箭头挤在一点
     ax.plot([62, 62], [ys[-1] + 2.8, ys[0] + 2.8], color=MID, lw=0.8, zorder=2)
     ax.plot([56, 62], [22, 22], color=MID, lw=0.8, zorder=2)

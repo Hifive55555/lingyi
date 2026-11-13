@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""规则示意图：监控、地空导弹营与船只自卫。"""
+"""规则示意图：物理作战域三维监控、地空导弹营与登陆船只集群自卫。"""
 import os
 import textwrap
 
@@ -82,13 +82,13 @@ def rect(ax, x, y, w, h, ec=GRAY, lw=0.7, fc="none", ls="-",
     return patch
 
 
-# ---------------------------------------------------------------- 监控
+# ---------------------------------------------------------------- 物理作战域三维监控
 def schema_1():
     fig = plt.figure(figsize=(6.1, 2.4))
     gs = fig.add_gridspec(1, 2, width_ratios=[1.22, 1.0], wspace=0.18,
                           left=0.035, right=0.985, bottom=0.07, top=0.89)
 
-    # a：公共监控底座的一进三出，以及尚未实现的判定算法。
+    # a：公共信息底座的一进三出，以及尚未实现的判定算法。
     ax = fig.add_subplot(gs[0, 0])
     ax.set_xlim(0, 12)
     ax.set_ylim(0, 8.2)
@@ -106,8 +106,8 @@ def schema_1():
                 zorder=3)
 
     rect(ax, 4.0, 1.8, 4.15, 5.2, ec=ACC, lw=1.2)
-    ax.text(6.075, 6.42, "监控智能体", ha="center", va="center",
-            fontsize=6.5, color=ACC, fontweight="bold")
+    ax.text(6.075, 6.42, "物理作战域三维监控", ha="center", va="center",
+            fontsize=5.6, color=ACC, fontweight="bold")
     ax.text(6.075, 5.35, "筛选：指向本方的弹", ha="center", va="center",
             fontsize=5.9)
     ax.text(6.075, 4.42, "输出：弹型 ＋ 弹速", ha="center", va="center",
@@ -187,7 +187,7 @@ def schema_1():
     return fig
 
 
-# ------------------------------------------------------------ 地空导弹营
+# ------------------------------------------------------ 地空导弹营攻击与自卫
 def schema_2():
     fig = plt.figure(figsize=(6.1, 2.6))
     gs = fig.add_gridspec(1, 2, width_ratios=[1.32, 1.0], wspace=0.15,
@@ -281,7 +281,7 @@ def schema_2():
     return fig
 
 
-# --------------------------------------------------------------- 船只自卫
+# --------------------------------------------------------------- 登陆船只集群自卫
 def _ship(ax, x, y, label, landing=False):
     if landing:
         rect(ax, x - 0.72, y - 0.20, 1.44, 0.40, ec=GRAY, lw=0.65,

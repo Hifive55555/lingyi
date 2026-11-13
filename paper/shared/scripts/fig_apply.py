@@ -2,10 +2,10 @@
 """
 逐智能体的实机应用截图（带 2–3 处标注）
 =======================================
-fig_apply-ship       舰艇编队与登陆区（船只自卫）
-fig_apply-aircombat  机群与瞄准标记（空空交战）
+fig_apply-ship       舰艇编队与登陆区（登陆船只集群自卫）
+fig_apply-aircombat  机群与瞄准标记（空空作战）
 fig_apply-sam        地空导弹营单元（地空导弹营）
-fig_apply-airspace   巡逻区与制空责任区（空战躲避的作战空域）
+fig_apply-airspace   巡逻区与制空责任区（空战单元自卫的作战空域）
 """
 import os
 

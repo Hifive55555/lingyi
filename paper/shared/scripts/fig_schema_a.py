@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""规则示意图：空战躲避（schema-3）与空空交战（schema-4）。"""
+"""规则示意图：空战单元自卫（schema-3）与空空作战（schema-4）。"""
 import os
 
 import matplotlib as mpl
