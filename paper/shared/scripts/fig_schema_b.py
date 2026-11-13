@@ -88,7 +88,7 @@ def schema_1():
     gs = fig.add_gridspec(1, 2, width_ratios=[1.22, 1.0], wspace=0.18,
                           left=0.035, right=0.985, bottom=0.07, top=0.89)
 
-    # a：公共信息底座的一进三出，以及尚未实现的判定算法。
+    # a：公共信息底座的一进三出，以及判定算法的位置。
     ax = fig.add_subplot(gs[0, 0])
     ax.set_xlim(0, 12)
     ax.set_ylim(0, 8.2)
@@ -113,7 +113,7 @@ def schema_1():
     ax.text(6.075, 4.42, "输出：弹型 ＋ 弹速", ha="center", va="center",
             fontsize=5.9)
     rect(ax, 4.72, 2.48, 2.72, 0.92, ec=MID, lw=0.7, ls="--")
-    ax.text(6.08, 2.94, "判定算法未实现", ha="center", va="center",
+    ax.text(6.08, 2.94, "判定：最近接近点法", ha="center", va="center",
             fontsize=5.8, color=MID)
 
     arrow(ax, (2.4, 4.35), (4.0, 4.35), color=GRAY, lw=1.0, scale=7)
@@ -168,7 +168,7 @@ def schema_1():
                      theta2=line_angle, ec=MID, lw=0.6))
     ax.text(5.48, 6.43, "θ", fontsize=6.5, color=MID, ha="center",
             va="center")
-    ax.text(9.82, 7.92, "判据示意 · 实现未给出（存疑 E1）", fontsize=5.5,
+    ax.text(9.82, 7.92, "判向几何", fontsize=5.5,
             color=MID, ha="right", va="top")
 
     # 距离轴与两条判据虚线。

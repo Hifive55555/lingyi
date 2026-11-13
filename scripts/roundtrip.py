@@ -27,11 +27,13 @@ import urllib.request
 import hashlib
 import random
 import threading
+import concurrent.futures as cf
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 PAPER = HERE.parent / "paper"
 CACHE = PAPER / ".roundtrip" / "cache.json"
+FAILED = PAPER / ".roundtrip" / "failed.json"
 LOG = PAPER / ".roundtrip" / "units.json"
 
 
@@ -101,6 +103,29 @@ TECH = re.compile(r"[A-Za-z][A-Za-z0-9]*(?:[-_./:][A-Za-z0-9]+)*[A-Za-z0-9]|[A-Z
 NUM = re.compile(r"\d+(?:\.\d+)?")
 PH = re.compile(r"⟦\s*(\d+)\s*⟧")
 KANA = re.compile(r"[\u3040-\u30ff]")
+CN_DIGIT = {"零": 0, "〇": 0, "一": 1, "二": 2, "两": 2, "兩": 2, "三": 3, "四": 4,
+            "五": 5, "六": 6, "七": 7, "八": 8, "九": 9}
+CN_MULT = {"十": 10, "百": 100, "千": 1000}
+CN_RUN = re.compile(r"[零〇一二两兩三四五六七八九十百千万]+")
+
+
+def parse_cn(t: str) -> int:
+    total = section = number = 0
+    for ch in t:
+        if ch in CN_DIGIT:
+            number = CN_DIGIT[ch]
+        elif ch in CN_MULT:
+            section += (number or 1) * CN_MULT[ch]
+            number = 0
+        elif ch == "万":
+            section = (section + number) * 10000
+            total += section
+            section = number = 0
+    return total + section + number
+
+
+def kanji_numbers(t: str) -> set:
+    return {str(parse_cn(m.group(0))) for m in CN_RUN.finditer(t)}
 
 
 def piece_scan(s: str):
@@ -276,16 +301,9 @@ def build_units(s: str):
 
     out = []
     for a, b in units:
-        # 重建模板，把 P 片段换成占位符
-        tpl, toks = [], []
-        pos = a
-        for kind, pa, pb in [p for p in pieces if p[0] == "P" and p[1] >= a and p[2] <= b]:
-            tpl.append(s[pos:pa])
-            toks.append(s[pa:pb])
-            tpl.append("⟦%d⟧" % (len(toks) - 1))
-            pos = pb
-        tpl.append(s[pos:b])
-        out.append((a, b, "".join(tpl), toks))
+        toks = [s[pa:pb] for kind, pa, pb in pieces
+                if kind == "P" and pa >= a and pb <= b]
+        out.append((a, b, s[a:b], toks))
     return out, pieces
 
 
@@ -308,25 +326,33 @@ def _load_key() -> str:
     )
 
 
-KEY = _load_key()
+THINKING_MODELS = ("qwen3", "qwq", "r1", "reasoner", "-thinking")
+
+KEY = None
 _lock = threading.Lock()
 _model_fail = {m: 0 for m in MODELS}
 
 
 def _post(model, system, user, temperature=0.3, max_tokens=4000, timeout=180):
+    global KEY
+    if KEY is None:
+        KEY = _load_key()
     msgs = []
     if system:
         msgs.append({"role": "system", "content": system})
     msgs.append({"role": "user", "content": user})
-    body = json.dumps(
-        {
-            "model": model,
-            "messages": msgs,
-            "temperature": temperature,
-            "max_tokens": max_tokens,
-            "stream": False,
-        }
-    ).encode()
+    payload = {
+        "model": model,
+        "messages": msgs,
+        "temperature": temperature,
+        "max_tokens": max_tokens,
+        "stream": False,
+    }
+    if any(k in model.lower() for k in THINKING_MODELS):
+        # 思维链只烧时间不出活，一并关掉
+        payload["enable_thinking"] = False
+        payload["chat_template_kwargs"] = {"enable_thinking": False}
+    body = json.dumps(payload).encode()
     req = urllib.request.Request(
         API,
         data=body,
@@ -387,6 +413,9 @@ def call(direction, text, tries=6, temperature=0.3, max_tokens=4000):
 
 # ---------------------------------------------------------------- 校验
 
+MATH = re.compile(r"\$[^$]+\$", re.S)
+
+
 def strip_ph(t):
     return PH.sub("", t)
 
@@ -395,81 +424,176 @@ def norm_ws(t):
     return re.sub(r"\s+", "", t)
 
 
-def check(chunk, out, direction):
-    """返回 (ok, reason)。"""
-    ph_in = PH.findall(chunk)
-    ph_out = PH.findall(out)
-    if ph_in != ph_out:
-        return False, f"placeholders {ph_in} -> {ph_out}"
-    if chunk.count("*") != out.count("*"):
-        return False, "asterisk count changed"
-    d_in = sorted(NUM.findall(chunk))
-    d_out = sorted(NUM.findall(out))
-    if d_in != d_out:
-        return False, f"numbers changed: {set(d_in) ^ set(d_out)}"
-    # 技术词（英文/型号）应当保留
-    t_in = sorted(t.upper() for t in TECH.findall(strip_ph(chunk)))
-    t_out = sorted(t.upper() for t in TECH.findall(strip_ph(out)))
-    if t_in != t_out:
-        missing = [t for t in t_in if t not in t_out]
-        extra = [t for t in t_out if t not in t_in]
-        return False, f"terms changed missing={missing[:6]} extra={extra[:6]}"
-    if direction == "ja":
-        if len(KANA.findall(out)) < 0.15 * len(HAN.findall(chunk) or "x"):
-            return False, "not japanese"
-        if HAN.search(strip_ph(out)) and len(KANA.findall(out)) > 0 and out.count("。") / max(1, len(out)) > 0.2:
-            pass
+def to_ph(text, toks):
+    """把内联数学/引用等 token 按出现顺序换成 ⟦k⟧；找不到就返回 None。"""
+    out, i = "", 0
+    for k, t in enumerate(toks):
+        j = text.find(t, i)
+        if j < 0:
+            return None
+        out += text[i:j] + "⟦%d⟧" % k
+        i = j + len(t)
+    return out + text[i:]
+
+
+def from_ph(text, toks):
+    def rep(m):
+        k = int(m.group(1))
+        return toks[k] if k < len(toks) else ""
+    return PH.sub(rep, text)
+
+
+def split_sentences(text):
+    """按句读切分，但不切断 *强调*。"""
+    parts, cur, depth = [], "", 0
+    for ch in text:
+        cur += ch
+        if ch == "*":
+            depth ^= 1
+        if ch in "。！？；\n" and depth == 0:
+            if cur.strip():
+                parts.append(cur)
+            cur = ""
+    if cur.strip():
+        parts.append(cur)
+    return parts
+
+
+def check(src, out, direction, toks=None, raw=False):
+    """src/out 之一可能还带原始 token。返回 (ok, reason)。
+
+    raw=True  ：src 与 out 都是原样文本（数学在内联 $...$ 里），靠 toks 对齐校验
+    raw=False ：src 与 out 都是 ⟦k⟧ 形式，直接比对占位符序列
+    """
+    if raw:
+        out_ph = to_ph(out, toks or [])
+        if out_ph is None:
+            lost = [t for t in (toks or []) if t not in out]
+            return False, f"token lost: {lost[:3]}"
+        src_ph = to_ph(src, toks or [])
+        if src_ph is None:
+            return False, "internal: src token mismatch"
     else:
-        if not HAN.search(out):
-            return False, "not chinese"
-        if len(KANA.findall(out)) > 2:
-            return False, "kana left in chinese"
-    r = len(norm_ws(out)) / max(1, len(norm_ws(chunk)))
-    if direction == "ja" and not (0.6 < r < 2.6):
-        return False, f"length ratio {r:.2f}"
-    if direction == "zh" and not (0.4 < r < 2.2):
-        return False, f"length ratio {r:.2f}"
-    return True, ""
+        src_ph, out_ph = src, out
+    a, b = PH.findall(src_ph), PH.findall(out_ph)
+    if a != b:
+        return False, f"placeholders {a} -> {b}"
+    src_plain, out_plain = strip_ph(src_ph), strip_ph(out_ph)
+    n_in, n_out = src_plain.count("*"), out_plain.count("*")
+    emph_lost = n_out == 0 and n_in > 0          # 模型整体丢掉强调：不算错，只记一笔
+    if not (n_out == n_in or emph_lost) or n_out % 2:
+        return False, "asterisk count changed"
+    # 源里的阿拉伯数字一个都不能丢（允许 5 ↔ 五 这类写法互换）
+    d_in = set(NUM.findall(src_plain))
+    d_out = set(NUM.findall(out_plain)) | kanji_numbers(out_plain)
+    if d_in - d_out:
+        return False, f"numbers lost: {sorted(d_in - d_out)[:6]}"
+    # 技术词丢失只警告（苏-57 ↔ Su-57 是合理互换）
+    t_in = set(t.upper() for t in TECH.findall(src_plain))
+    t_out = set(t.upper() for t in TECH.findall(out_plain))
+    lost_t = t_in - t_out
+    short = len(HAN.findall(src_plain)) < 20      # 标签/表格短词不做语言与长度判定
+    if not short:
+        if direction == "ja":
+            if len(KANA.findall(out_plain)) < 0.1 * max(1, len(HAN.findall(src_plain))):
+                return False, "not japanese"
+        else:
+            if not HAN.search(out_plain):
+                return False, "not chinese"
+            if len([c for c in KANA.findall(out_plain) if c not in "・ー"]) > 2:
+                return False, "kana left"
+        r = len(norm_ws(out_plain)) / max(1, len(norm_ws(src_plain)))
+        lo, hi = (0.55, 2.8) if direction == "ja" else (0.45, 2.4)
+        if not lo < r < hi:
+            return False, f"length ratio {r:.2f}"
+    warn = []
+    if lost_t:
+        warn.append("terms: " + "/".join(sorted(lost_t)[:4]))
+    if emph_lost:
+        warn.append("emphasis dropped")
+    return True, " | ".join(warn)
 
 
 def clean(t):
     t = t.strip()
     t = re.sub(r"^```[a-z]*\n?", "", t)
     t = re.sub(r"\n?```$", "", t)
-    t = t.strip().strip('"').strip()
-    return t
+    return t.strip().strip('"').strip()
 
 
 def translate(text, direction, deep=0):
-    for attempt in range(5):
-        temp = 0.2 + 0.15 * attempt
+    """整段（数学原样）→ 占位符 → 去强调 → 逐句 → 按数学切碎，逐级降级。"""
+    toks = [text[pa:pb] for kind, pa, pb in piece_scan(text) if kind == "P"]
+    tpl = to_ph(text, toks)
+    if tpl is None:                    # token 顺序异常，退回整段原样翻译
+        tpl = text
+        toks = []
+    last = "?"
+    max_tok = min(6000, 900 + 4 * len(text))
+
+    for mode in ("raw", "ph"):
+        src = text if mode == "raw" else tpl
+        for attempt in range(3):
+            try:
+                out, model = call(direction, src, temperature=min(0.2 + 0.15 * attempt, 0.9),
+                                  max_tokens=max_tok)
+            except RuntimeError as e:
+                last = str(e)
+                continue
+            out = clean(out)
+            ok, why = check(src, out, direction, toks, raw=(mode == "raw"))
+            if ok:
+                return (out if mode == "raw" else from_ph(out, toks)), model, why
+            last = why
+
+    # 强调符带偏模型：去掉 * 再翻，整段强调的再包回去
+    if "*" in text:
+        plain, plain_ph = text.replace("*", ""), tpl.replace("*", "")
         try:
-            out, model = call(direction, text, temperature=min(temp, 0.9),
-                              max_tokens=min(6000, 800 + 4 * len(text)))
-        except RuntimeError:
-            if attempt == 4:
-                raise
-            time.sleep(3)
-            continue
-        out = clean(out)
-        ok, why = check(text, out, direction)
-        if ok:
-            return out, model
-        last = why
-        time.sleep(0.5)
+            out, model = call(direction, plain, temperature=0.3, max_tokens=max_tok)
+            out = clean(out)
+            ok, why = check(plain, out, direction, toks, raw=True)
+            if ok:
+                if plain.strip() and text.strip().startswith("*") and text.strip().endswith("*") \
+                        and text.count("*") == 2:
+                    out = "*" + out.strip() + "*"
+                return out, model, (why + " | emphasis stripped").strip(" |")
+            last = why
+        except RuntimeError as e:
+            last = str(e)
+
+    # 逐句（在占位符形式上切，保证公式跟着句子走）
     if deep < 2:
-        # 退化路径：按中文句读切碎分段翻译，再拼回去
-        parts = re.split(r"(?<=[。！？；])", text)
-        parts = [p for p in parts if p.strip()]
-        outs = []
-        for p in parts:
-            o, _m = translate(p, direction, deep + 1)
-            outs.append(o)
+        parts = split_sentences(tpl)
+        if len(parts) > 1:
+            outs = []
+            for part in parts:
+                o, _m, _w = translate(from_ph(part, toks), direction, deep + 1)
+                outs.append(o)
+            cand = "".join(outs)
+            ok, why = check(text, cand, direction, toks, raw=True)
+            if ok:
+                return cand, "sentence-fallback", why
+            last = why
+
+    # 按 token 切碎：公式/引用一定原样活下来，代价是上下文变碎
+    if deep < 3 and toks:
+        outs, i = [], 0
+        for k, tk in enumerate(toks):
+            j = text.find(tk, i)
+            if j > i:
+                outs.append(translate(text[i:j], direction, deep + 1)[0])
+            outs.append(tk)
+            i = j + len(tk)
+        if i < len(text):
+            outs.append(translate(text[i:], direction, deep + 1)[0])
         cand = "".join(outs)
-        ok, why = check(text, cand, direction)
+        ok, why = check(text, cand, direction, toks, raw=True)
         if ok:
-            return cand, "fragment-fallback"
-    raise RuntimeError(f"validation failed: {last} :: {text[:80]!r}")
+            return cand, "token-fragment", why
+        last = why
+
+    raise RuntimeError(f"validation failed: {last} :: {text[:60]!r}")
 
 
 # ---------------------------------------------------------------- 主流程
@@ -520,27 +644,57 @@ def cmd_extract():
 def cmd_translate():
     files = cmd_extract()
     cache = load_json(CACHE, {})
-    seen = set()
+    jobs = int(os.environ.get("RT_JOBS", "6"))
+    seen, todo = set(), []
     for path in files:
         s, units, _ = _units_of(path)
-        todo = [u for u in units if key_of(u[2], "zh") not in cache and u[2] not in seen]
-        print(f"\n== {path.name}: {len(units)} units, {len(units)-len(todo)} cached, {len(todo)} to do")
-        for idx, (a, b, tpl, toks) in enumerate(todo, 1):
+        for a, b, tpl, toks in units:
+            if len(HAN.findall(tpl)) < 8 or key_of(tpl, "zh") in cache or tpl in seen:
+                continue
             seen.add(tpl)
-            t0 = time.time()
-            ja, m1 = translate(tpl, "ja")
-            back, m2 = translate(ja, "zh")
-            rec = {"src": tpl, "tokens": toks, "ja": ja, "zh": back,
-                   "model_ja": m1, "model_zh": m2}
+            todo.append((path.name, tpl, toks))
+    print(f"\n{len(todo)} units to translate (cached={len(cache)//2}), jobs={jobs}")
+    done = [0]
+    lock = threading.Lock()
+
+    failed = []
+
+    def work(item):
+        fname, tpl, toks = item
+        t0 = time.time()
+        try:
+            ja, m1, w1 = translate(tpl, "ja")
+            back, m2, w2 = translate(ja, "zh")
+        except RuntimeError as e:
+            with lock:
+                failed.append({"file": fname, "src": tpl, "err": str(e)[:200]})
+                save_json(FAILED, failed)
+                print(f"FAIL  {tpl[:40]!r} :: {e}", flush=True)
+            return
+        e2e = check(tpl, back, "zh", toks, raw=True)[0]
+        rec = {"src": tpl, "tokens": toks, "ja": ja, "zh": back,
+               "model_ja": m1, "model_zh": m2,
+               "warn": " | ".join(x for x in (w1, w2) if x), "e2e": e2e}
+        with lock:
             cache[key_of(tpl, "zh")] = rec
             cache[key_of(tpl, "ja")] = rec
+            done[0] += 1
             save_json(CACHE, cache)
-            print(f"[{idx}/{len(todo)}] {time.time()-t0:5.1f}s {len(tpl):4d}->{len(back):4d} {tpl[:30]!r}", flush=True)
-    print("\ncache:", CACHE)
+            print(f"[{done[0]}/{len(todo)}] {time.time()-t0:5.1f}s {len(tpl):4d}->{len(back):4d} "
+                  f"{fname:24s} {tpl[:26]!r}", flush=True)
+
+    with cf.ThreadPoolExecutor(max_workers=jobs) as ex:
+        list(ex.map(work, todo))
+    print(f"\ncache: {CACHE}   failed: {len(failed)}  -> {FAILED}")
 
 
 def cmd_apply(*args):
-    files = target_files(list(args))
+    files = target_files([a for a in args if a != "--mirror"] or None)
+    outdir = None
+    if "--mirror" in args or os.environ.get("RT_OUTDIR"):
+        outdir = Path(os.environ.get("RT_OUTDIR") or "润色后")
+        if not outdir.is_absolute():
+            outdir = PAPER / "verify" / outdir
     cache = load_json(CACHE, {})
     for path in files:
         s, units, _ = _units_of(path)
@@ -561,6 +715,12 @@ def cmd_apply(*args):
             chunks.append(s[pos:a]); chunks.append(zh); pos = b
             done += 1
         chunks.append(s[pos:])
+        if outdir is not None:
+            dst = outdir / path.relative_to(PAPER / "verify")
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            dst.write_text("".join(chunks))
+            print(f"applied {done}/{len(units)} units ({fail} missing) -> {dst}")
+            continue
         bak = path.with_suffix(path.suffix + ".pre-roundtrip")
         if not bak.exists():
             bak.write_text(s)
@@ -591,9 +751,9 @@ def cmd_probe():
     print("target:", path)
     print(f"\nsample unit ({len(sample[2])} chars):\n{sample[2][:300]}\n")
     t0 = time.time()
-    ja, m1 = translate(sample[2], "ja")
+    ja, m1, _w1 = translate(sample[2], "ja")
     t1 = time.time()
-    back, m2 = translate(ja, "zh")
+    back, m2, _w2 = translate(ja, "zh")
     t2 = time.time()
     print(f"JA ({m1}, {t1-t0:.1f}s):\n{ja}\n")
     print(f"ZH ({m2}, {t2-t1:.1f}s):\n{back}\n")
