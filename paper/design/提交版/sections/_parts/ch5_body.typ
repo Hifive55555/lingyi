@@ -17,7 +17,7 @@
 
 0.8 是全文唯一直接从 $d_0$ 取值的系数，用于在临界距离内预留开火裕度。
 #figure(
-  image("../../../../shared/figures/fig_apply-aircombat.png", width: 14.6cm),
+  image("../../../../shared/figures/fig_apply-aircombat.png", width: 10.6cm),
   caption: [空空作战的实机画面。机群相对位置、瞄准十字与接敌航迹可读出，可据以判断交战是否发生、发生在哪一侧空域。],
 ) <fig:demo-aircombat>
 

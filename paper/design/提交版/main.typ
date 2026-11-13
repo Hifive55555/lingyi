@@ -5,7 +5,7 @@
   it
 }
 #show: project.with(
-  title: "联合作战人机协同智能体说明文档",
+  title: "联合作战人机协同智能体设计报告",
   author: "春夏秋冬队\u{3000}国防科技大学",
   date: auto,
   abstract: text(font: ("New Computer Modern", "Noto Serif CJK SC"))[

@@ -24,7 +24,7 @@
 
 2.3.2 节将四个常数（50 km / 20 km / 8 s / 305 m）分别与 $d_0$ 对照。
 #figure(
-  image("../../../../shared/figures/fig_apply-airspace.png", width: 14.6cm),
+  image("../../../../shared/figures/fig_apply-airspace.png", width: 13.6cm),
   caption: [空战单元自卫的作用空域。制空责任区、阵风 1 / 阵风 2 / TB3 三个巡逻区、RP 参考点与红方飞机的航迹均可读出；高度、弹速与机动瞬间的弹目距离不显示。],
 ) <fig:demo-evade>
 

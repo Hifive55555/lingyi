@@ -14,7 +14,7 @@
 ```
 ]
 #figure(
-  image("../../../../shared/figures/fig_apply-sam.png", width: 14.6cm),
+  image("../../../../shared/figures/fig_apply-sam.png", width: 10.6cm),
   caption: [地空导弹营的实机画面。系统自带标签可完整读为“地空导弹营（霍克导弹 [P3, TAS]）#31”，对象名称、武器型号与单元号三者齐全。],
 ) <fig:demo-sam>
 

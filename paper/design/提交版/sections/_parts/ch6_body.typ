@@ -31,7 +31,7 @@
 
 三个分支的判定量各不相同：3 km 用于判断“骗弹还是真弹”，$D_max$ 与 $1 slash 2 D_max$ 用于决定“谁先打”；第三类不使用距离判据，而是通过切断照射链防御。
 #figure(
-  image("../../../../shared/figures/fig_apply-ship.png", width: 14.6cm),
+  image("../../../../shared/figures/fig_apply-ship.png", width: 10.6cm),
   caption: [登陆船只集群自卫的实机画面。登陆区、舰位、浅色历史航迹、制空责任区折线及其 BP-T71xx 端点编号均可读出。],
 ) <fig:demo-ship>
 
