@@ -51,6 +51,8 @@ POLICIES = {
     "A3 掉头距离全取 20 km": dict(tiered=False, beam=True, energy_stop=500.0, fixed=20.0),
     "P 按 d0 插值 (1.2 d0)": dict(tiered=False, beam=False, energy_stop=500.0,
                                   d0rule=1.2),
+    "C 代码口径 (60 km 内垂直扭)": dict(tiered=False, beam=True, energy_stop=0.0,
+                                       fixed=60.0, beam_r=60.0),
 }
 
 
@@ -113,7 +115,7 @@ def engage_evade(v0, policy, bearing_deg=0.0, d_start=110.0,
             ac.psi = wrap(los)
             ac.v = v_esc * 1.2
             flip_t = t
-        elif phase == 1 and pol["beam"] and d <= beam_r and mis.v > ac.v:
+        elif phase == 1 and pol["beam"] and d <= pol.get("beam_r", beam_r) and mis.v > ac.v:
             phase = 2
             side = 1.0 if rng.random() < 0.5 else -1.0
             flip_t = t
@@ -213,6 +215,7 @@ def exp_b(outdir, n=300, seed=2026):
         "B1 最大射程 90nm": ("abs", 90 * 1.852),
         "B2 固定 60nm": ("abs", 60 * 1.852),
         "B3 固定 30km": ("abs", 30.0),
+        "C 代码 WRA 50nm": ("abs", 50 * 1.852),
     }
     rows = []
     for v0, va in v0_pairs:
