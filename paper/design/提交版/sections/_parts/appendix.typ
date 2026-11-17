@@ -29,16 +29,16 @@
 
 #pseudocode(caption: [重现全部实验与插图的命令序列])[
 ```
-# 单规则验证（@sec:d0 节 d0 的数值对比、高度差、地导开火）
+# 单规则验证（2.1.2 节 d0 的数值对比、高度差、地导开火）
 python scripts/sim_experiments.py all --out docs/实验 --seed 2026
 
-# 受控对比 / 消融 / 敏感性（第 4、5、6、7、9 章）
+# 受控对比 / 消融 / 敏感性（2.3、2.4 节各组对比与 3 章的对抗效果）
 python paper/shared/scripts/comparative.py all --n 800 --seed 2026
 
-# 模型形式的稳健性扫描（@sec:robust 节）
+# 模型形式的稳健性扫描（2.4.6 节）
 python paper/shared/scripts/sensitivity.py
 
-# 多目标 / 多波次端到端（@sec:e2e 节）
+# 多目标 / 多波次端到端（2.4.7 节）
 python paper/shared/scripts/multitarget.py
 
 # 数据图与示意图（SVG/PDF/PNG 三格式）
