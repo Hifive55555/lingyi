@@ -25,6 +25,13 @@ from .spec import ScenarioSpec, POSTURE_CODES
 TOL_DEG = 0.002     # ≈ 200 m，足以容纳引擎的坐标舍入
 
 
+def _key(s: str) -> str:
+    """名称比较键：引擎会把单元名里的 ASCII 字母统一成大写
+    （实测 ``…阿里伯克级 Flight IIA导弹驱逐舰`` 回读成了 ``…FLIGHT IIA…``），
+    所以比对一律忽略大小写。"""
+    return (s or "").strip().upper()
+
+
 @dataclass
 class Check:
     name: str
@@ -142,10 +149,10 @@ def verify(spec: ScenarioSpec, digest: Optional[Dict[str, Any]], *,
           "；".join("%s %s" % (k, ", ".join("%s:%d" % (kk, vv) for kk, vv in v.items()))
                    for k, v in want_counts.items()))
 
-    eng_units = {(u["side"], u["name"]): u for u in digest.get("units", [])}
+    eng_units = {(_key(u["side"]), _key(u["name"])): u for u in digest.get("units", [])}
     miss, wrong, pos_err = [], [], []
     for u in spec.units:
-        e = eng_units.get((u.side, u.name))
+        e = eng_units.get((_key(u.side), _key(u.name)))
         if not e:
             miss.append("%s/%s" % (u.side, u.name))
             continue
@@ -160,10 +167,10 @@ def verify(spec: ScenarioSpec, digest: Optional[Dict[str, Any]], *,
     r.add("单元初始坐标正确（±%.3f°）" % TOL_DEG, not pos_err, "；".join(pos_err) or "全部一致")
 
     # ---------- 4. 任务
-    eng_mis = {(m["side"], m["name"]): m for m in digest.get("missions", [])}
+    eng_mis = {(_key(m["side"]), _key(m["name"])): m for m in digest.get("missions", [])}
     miss_m, wrong_m, zone_m, assign_m = [], [], [], []
     for m in spec.missions:
-        e = eng_mis.get((m.side, m.name))
+        e = eng_mis.get((_key(m.side), _key(m.name)))
         if not e:
             miss_m.append("%s/%s" % (m.side, m.name))
             continue
@@ -181,7 +188,7 @@ def verify(spec: ScenarioSpec, digest: Optional[Dict[str, Any]], *,
     r.add("任务类型/子类型正确", not wrong_m, "；".join(wrong_m) or "全部一致")
     r.add("巡逻区顶点数正确（Patrol）", not zone_m, "；".join(zone_m) or "全部一致")
     r.add("单元-任务分配数正确", not assign_m, "；".join(assign_m) or "全部一致")
-    extra = [k for k in eng_mis if k not in {(m.side, m.name) for m in spec.missions}]
+    extra = [k for k in eng_mis if k not in {(_key(m.side), _key(m.name)) for m in spec.missions}]
     r.add("没有多余任务", not extra, "；".join("%s/%s" % k for k in extra) or "OK", warn=True)
 
     # ---------- 5. 条令

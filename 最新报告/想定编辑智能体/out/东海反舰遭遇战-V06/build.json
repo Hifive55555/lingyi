@@ -3,8 +3,8 @@
  "title": "东海反舰遭遇战-V06",
  "name": "东海反舰遭遇战-V06",
  "scen_path": "D:/LingYi/Data/Scenarios/东海反舰遭遇战-V06.scen",
- "size": 47820,
- "elapsed": 7.39,
+ "size": 45772,
+ "elapsed": 3.18,
  "error": "",
  "steps": [
   {
@@ -12,11 +12,11 @@
    "code": "NewScenario('','')",
    "ok": true,
    "ret": 0,
-   "out": "GT-00001K7KO6KA3"
+   "out": "HN-00001K7KPKQNP"
   },
   {
    "block": "info",
-   "code": "SetScenarioInfo({TITLE='东海反舰遭遇战-V06', DURATION=10800, COMPLEXITY=2, DIFFICULTY=2, SEED=18043, DESCRIPTION='PEJPRFkgc2Nyb2xsPWF1dG8+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiIGFsaWduPWNlbnRlcj48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxOHB0OyBGT05ULUZBTUlMWTogJ+m7keS9kyciPuS4nOa1t+WPjeiIsOmBremBh+aImC1WMDY8L1NQQU4+PC9QPjxQIHN0eWxlPSJNQVJHSU46IDEycHggMHB4Ij48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxNHB0OyBGT05ULUZBTUlMWTogJ+Wui+S9kyciPuagh+mimO+8muS4nOa1t+WPjeiIsOmBremBh+aImDwvU1BBTj48L1A+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiPjxTUEFOIHN0eWxlPSJGT05ULVNJWkU6IDE0cHQ7IEZPTlQtRkFNSUxZOiAn5a6L5L2TJyI+6K6+5a6aIDIwMjYg5bm0IDMg5pyIIDEg5pel5LiK5Y2IIDgg5pe277yM5Lic5rW35Lit6YOo44CC57qi5pa5IDIg6ImYIDA1MkTjgIExIOiJmCAwNTRBIOS7juilv+S+pyAxMTAg5rW36YeM6L+b5YWl77yMPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj7miafooYzlj43oiLDlt6HpgLvvvIzlt6HpgLvljYrlvoQgNDAg5rW36YeM77yb6JOd5pa5IDEg5Liq6Iiq5q+N5omT5Ye7576k77yMMSDoiZjnpo/nibnnuqfjgIEyIOiJmOS8r+WFi+e6p+WcqOS4nOS+pyAxMzAg5rW36YeM77yMPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj40IOaetiBGLTM1QyDmiafooYzlj43oiLDmiZPlh7vjgILmtbflhrUgNCDnuqfvvIzkupHph48gMC4244CC5oyB57utIDMg5bCP5pe244CC5Y+M5pa56Ieq55Sx5byA54Gr44CCPC9TUEFOPjwvUD48L0JPRFk+'})",
+   "code": "SetScenarioInfo({TITLE='东海反舰遭遇战-V06', DURATION=10800, COMPLEXITY=2, DIFFICULTY=2, SEED=98863, DESCRIPTION='PEJPRFkgc2Nyb2xsPWF1dG8+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiIGFsaWduPWNlbnRlcj48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxOHB0OyBGT05ULUZBTUlMWTogJ+m7keS9kyciPuS4nOa1t+WPjeiIsOmBremBh+aImC1WMDY8L1NQQU4+PC9QPjxQIHN0eWxlPSJNQVJHSU46IDEycHggMHB4Ij48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxNHB0OyBGT05ULUZBTUlMWTogJ+Wui+S9kyciPuagh+mimO+8muS4nOa1t+WPjeiIsOmBremBh+aImDwvU1BBTj48L1A+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiPjxTUEFOIHN0eWxlPSJGT05ULVNJWkU6IDE0cHQ7IEZPTlQtRkFNSUxZOiAn5a6L5L2TJyI+6K6+5a6aIDIwMjYg5bm0IDMg5pyIIDEg5pel5LiK5Y2IIDgg5pe277yM5Lic5rW35Lit6YOo44CC57qi5pa5IDIg6ImYIDA1MkTjgIExIOiJmCAwNTRBIOS7juilv+S+pyAxMTAg5rW36YeM6L+b5YWl77yMPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj7miafooYzlj43oiLDlt6HpgLvvvIzlt6HpgLvljYrlvoQgNDAg5rW36YeM77yb6JOd5pa5IDEg5Liq6Iiq5q+N5omT5Ye7576k77yMMSDoiZjnpo/nibnnuqfjgIEyIOiJmOS8r+WFi+e6p+WcqOS4nOS+pyAxMzAg5rW36YeM77yMPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj40IOaetiBGLTM1QyDmiafooYzlj43oiLDmiZPlh7vjgILmtbflhrUgNCDnuqfvvIzkupHph48gMC4244CC5oyB57utIDMg5bCP5pe244CC5Y+M5pa56Ieq55Sx5byA54Gr44CCPC9TUEFOPjwvUD48L0JPRFk+'})",
    "ok": true,
    "ret": 0,
    "out": "设置成功"
@@ -26,53 +26,53 @@
    "code": "S_1 = AddSide({side='红方'})",
    "ok": true,
    "ret": 0,
-   "out": "GT-00001K7KO6KDO"
+   "out": "HN-00001K7KPKQRE"
   },
   {
    "block": "sides",
    "code": "S_2 = AddSide({side='蓝方'})",
    "ok": true,
    "ret": 0,
-   "out": "GT-00001K7KO6KDP"
+   "out": "HN-00001K7KPKQRF"
   },
   {
    "block": "setup",
-   "code": "SetSidePosture('GT-00001K7KO6KDO', 'GT-00001K7KO6KDP', 'H')",
+   "code": "SetSidePosture('HN-00001K7KPKQRE', 'HN-00001K7KPKQRF', 'H')",
    "ok": true,
    "ret": 0,
    "out": ""
   },
   {
    "block": "setup",
-   "code": "SetSidePosture('GT-00001K7KO6KDP', 'GT-00001K7KO6KDO', 'H')",
+   "code": "SetSidePosture('HN-00001K7KPKQRF', 'HN-00001K7KPKQRE', 'H')",
    "ok": true,
    "ret": 0,
    "out": ""
   },
   {
    "block": "setup",
-   "code": "SetSideOptions({side='GT-00001K7KO6KDO', CAMERALON=123.7616, CAMERALAT=28.458, CAMERAALT=1373979.0})",
+   "code": "SetSideOptions({side='HN-00001K7KPKQRE', CAMERALON=123.7616, CAMERALAT=28.458, CAMERAALT=1373979.0})",
    "ok": true,
    "ret": 0,
    "out": ""
   },
   {
    "block": "setup",
-   "code": "SetSideOptions({side='GT-00001K7KO6KDP', CAMERALON=123.7616, CAMERALAT=28.458, CAMERAALT=1373979.0})",
+   "code": "SetSideOptions({side='HN-00001K7KPKQRF', CAMERALON=123.7616, CAMERALAT=28.458, CAMERAALT=1373979.0})",
    "ok": true,
    "ret": 0,
    "out": ""
   },
   {
    "block": "setup",
-   "code": "SetDoctrine({side='GT-00001K7KO6KDO'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "code": "SetDoctrine({side='HN-00001K7KPKQRE'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
    "ok": true,
    "ret": 0,
    "out": ""
   },
   {
    "block": "setup",
-   "code": "SetDoctrine({side='GT-00001K7KO6KDP'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "code": "SetDoctrine({side='HN-00001K7KPKQRF'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
    "ok": true,
    "ret": 0,
    "out": ""
@@ -86,133 +86,133 @@
   },
   {
    "block": "units",
-   "code": "U_1 = AddUnit({side='GT-00001K7KO6KDO', type='Ship', DATASOURCE=0.0, name='红方 052D #1', dbid=2296.0, latitude='28.500000', longitude='126.086137', heading=45.0, count=2.0})",
+   "code": "U_1 = AddUnit({side='HN-00001K7KPKQRE', type='Ship', DATASOURCE=0.0, name='红方 052D #1', dbid=2296.0, latitude='28.500000', longitude='126.086137', heading=45.0, count=2.0})",
    "ok": true,
    "ret": 0,
-   "out": "GT-00001K7KO6KDS,GT-00001K7KO6KGP"
+   "out": "HN-00001K7KPKQRI,HN-00001K7KPKQUF"
   },
   {
    "block": "units",
-   "code": "U_2 = AddUnit({side='GT-00001K7KO6KDO', type='Ship', DATASOURCE=0.0, name='红方 054A #2', dbid=1965.0, latitude='28.488379', longitude='126.237279', heading=45.0})",
+   "code": "U_2 = AddUnit({side='HN-00001K7KPKQRE', type='Ship', DATASOURCE=0.0, name='红方 054A #2', dbid=1965.0, latitude='28.488379', longitude='126.237279', heading=45.0})",
    "ok": true,
    "ret": 0,
-   "out": "GT-00001K7KO6KRI"
+   "out": "HN-00001K7KPKR98"
   },
   {
    "block": "units",
-   "code": "U_3 = AddUnit({side='GT-00001K7KO6KDP', type='Ship', DATASOURCE=0.0, name='蓝方 福特级 #1', dbid=506.0, latitude='28.550000', longitude='121.534565', heading=225.0})",
+   "code": "U_3 = AddUnit({side='HN-00001K7KPKQRF', type='Ship', DATASOURCE=0.0, name='蓝方 福特级 #1', dbid=506.0, latitude='28.550000', longitude='121.534565', heading=225.0})",
    "ok": true,
    "ret": 0,
-   "out": "GT-00001K7KO6L1T"
+   "out": "HN-00001K7KPKRC9"
   },
   {
    "block": "units",
-   "code": "U_4 = AddUnit({side='GT-00001K7KO6KDP', type='Ship', DATASOURCE=0.0, name='蓝方 伯克级 #2', dbid=112.0, latitude='28.569024', longitude='121.541132', heading=225.0, count=2.0})",
+   "code": "U_4 = AddUnit({side='HN-00001K7KPKQRF', type='Ship', DATASOURCE=0.0, name='蓝方 伯克级 #2', dbid=112.0, latitude='28.569024', longitude='121.541132', heading=225.0, count=2.0})",
    "ok": true,
    "ret": 0,
-   "out": "GT-00001K7KO6LS8,GT-00001K7KO6M0S"
+   "out": "HN-00001K7KPKRIK,HN-00001K7KPKRN8"
   },
   {
    "block": "units",
-   "code": "U_5 = AddUnit({side='GT-00001K7KO6KDP', type='Aircraft', DATASOURCE=0.0, name='蓝方 F-35C #3', dbid=824.0, latitude='28.347046', longitude='121.286003', alt=8000.0, heading=225.0, loadoutid=3004.0, count=4.0})",
+   "code": "U_5 = AddUnit({side='HN-00001K7KPKQRF', type='Aircraft', DATASOURCE=0.0, name='蓝方 F-35C #3', dbid=824.0, latitude='28.347046', longitude='121.286003', alt=8000.0, heading=225.0, loadoutid=3004.0, count=4.0})",
    "ok": true,
    "ret": 0,
-   "out": "GT-00001K7KO6MJM,GT-00001K7KO6MLF,GT-00001K7KO6MN8,GT-00001K7KO6MP1"
+   "out": "HN-00001K7KPKT0S,HN-00001K7KPKT2L,HN-00001K7KPKT4E,HN-00001K7KPKT67"
   },
   {
    "block": "missions",
-   "code": "M_1 = AddMission('GT-00001K7KO6KDO', '红方-反舰巡逻', 'Patrol', {isactive=true, type='NAVAL', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "code": "M_1 = AddMission('HN-00001K7KPKQRE', '红方-反舰巡逻', 'Patrol', {isactive=true, type='NAVAL', unloadMountDBID=0.0, unloadMountCount=0.0})",
    "ok": true,
    "ret": 0,
-   "out": "mission {guid = 'GT-00001K7KO6MT2',name = '红方-反舰巡逻'}"
+   "out": "mission {guid = 'HN-00001K7KPKT80',name = '红方-反舰巡逻'}"
   },
   {
    "block": "missions",
-   "code": "M_2 = AddMission('GT-00001K7KO6KDP', '蓝方-反舰打击', 'Patrol', {isactive=true, type='NAVAL', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "code": "M_2 = AddMission('HN-00001K7KPKQRF', '蓝方-反舰打击', 'Patrol', {isactive=true, type='NAVAL', unloadMountDBID=0.0, unloadMountCount=0.0})",
    "ok": true,
    "ret": 0,
-   "out": "mission {guid = 'GT-00001K7KO6MTF',name = '蓝方-反舰打击'}"
+   "out": "mission {guid = 'HN-00001K7KPKT81',name = '蓝方-反舰打击'}"
   },
   {
    "block": "zones",
-   "code": "AddReferencePoint({side='GT-00001K7KO6KDO', guid='c97275bd-6818-563b-92a2-536deaca55fc', name='红方-反舰巡逻-WP1', lat=28.965594, lon=125.62533, highlighted=true})",
+   "code": "AddReferencePoint({side='HN-00001K7KPKQRE', guid='7b78f38a-9048-5e70-b2d3-e0bbbbf7ac70', name='红方-反舰巡逻-WP1', lat=28.965594, lon=125.62533, highlighted=true})",
    "ok": true,
    "ret": 0,
-   "out": "{\r\n name = '红方-反舰巡逻-WP1', \r\n latitude = '28.965594', \r\n longitude = '125.625330', \r\n guid = 'c97275bd-6818-563b-92a2-536deaca55fc', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+   "out": "{\r\n name = '红方-反舰巡逻-WP1', \r\n latitude = '28.965594', \r\n longitude = '125.625330', \r\n guid = '7b78f38a-9048-5e70-b2d3-e0bbbbf7ac70', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
   },
   {
    "block": "zones",
-   "code": "AddReferencePoint({side='GT-00001K7KO6KDO', guid='df2d02df-d022-52bd-b313-e6e176f0bf34', name='红方-反舰巡逻-WP2', lat=28.022785, lon=125.62533, highlighted=true})",
+   "code": "AddReferencePoint({side='HN-00001K7KPKQRE', guid='48254282-f40c-5321-bc55-31c7778c6bf5', name='红方-反舰巡逻-WP2', lat=28.022785, lon=125.62533, highlighted=true})",
    "ok": true,
    "ret": 0,
-   "out": "{\r\n name = '红方-反舰巡逻-WP2', \r\n latitude = '28.022785', \r\n longitude = '125.625330', \r\n guid = 'df2d02df-d022-52bd-b313-e6e176f0bf34', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+   "out": "{\r\n name = '红方-反舰巡逻-WP2', \r\n latitude = '28.022785', \r\n longitude = '125.625330', \r\n guid = '48254282-f40c-5321-bc55-31c7778c6bf5', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
   },
   {
    "block": "zones",
-   "code": "AddReferencePoint({side='GT-00001K7KO6KDO', guid='bba3e5a8-d83f-52aa-91a7-69cf2ff22d33', name='红方-反舰巡逻-WP3', lat=28.022785, lon=126.698086, highlighted=true})",
+   "code": "AddReferencePoint({side='HN-00001K7KPKQRE', guid='372afa22-8178-503f-9de6-b00bad1515b2', name='红方-反舰巡逻-WP3', lat=28.022785, lon=126.698086, highlighted=true})",
    "ok": true,
    "ret": 0,
-   "out": "{\r\n name = '红方-反舰巡逻-WP3', \r\n latitude = '28.022785', \r\n longitude = '126.698086', \r\n guid = 'bba3e5a8-d83f-52aa-91a7-69cf2ff22d33', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+   "out": "{\r\n name = '红方-反舰巡逻-WP3', \r\n latitude = '28.022785', \r\n longitude = '126.698086', \r\n guid = '372afa22-8178-503f-9de6-b00bad1515b2', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
   },
   {
    "block": "zones",
-   "code": "AddReferencePoint({side='GT-00001K7KO6KDO', guid='b35e7f08-cbbb-591c-a9be-e431375c2b84', name='红方-反舰巡逻-WP4', lat=28.965594, lon=126.698086, highlighted=true})",
+   "code": "AddReferencePoint({side='HN-00001K7KPKQRE', guid='da65a146-3722-51e9-930f-9656cab7e610', name='红方-反舰巡逻-WP4', lat=28.965594, lon=126.698086, highlighted=true})",
    "ok": true,
    "ret": 0,
-   "out": "{\r\n name = '红方-反舰巡逻-WP4', \r\n latitude = '28.965594', \r\n longitude = '126.698086', \r\n guid = 'b35e7f08-cbbb-591c-a9be-e431375c2b84', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+   "out": "{\r\n name = '红方-反舰巡逻-WP4', \r\n latitude = '28.965594', \r\n longitude = '126.698086', \r\n guid = 'da65a146-3722-51e9-930f-9656cab7e610', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
   },
   {
    "block": "zones",
-   "code": "SetMission('GT-00001K7KO6KDO', 'GT-00001K7KO6MT2', {patrolZone={'c97275bd-6818-563b-92a2-536deaca55fc', 'df2d02df-d022-52bd-b313-e6e176f0bf34', 'bba3e5a8-d83f-52aa-91a7-69cf2ff22d33', 'b35e7f08-cbbb-591c-a9be-e431375c2b84'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "code": "SetMission('HN-00001K7KPKQRE', 'HN-00001K7KPKT80', {patrolZone={'7b78f38a-9048-5e70-b2d3-e0bbbbf7ac70', '48254282-f40c-5321-bc55-31c7778c6bf5', '372afa22-8178-503f-9de6-b00bad1515b2', 'da65a146-3722-51e9-930f-9656cab7e610'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
    "ok": true,
    "ret": 0,
-   "out": "mission {guid = 'GT-00001K7KO6MT2',name = '红方-反舰巡逻'}"
+   "out": "mission {guid = 'HN-00001K7KPKT80',name = '红方-反舰巡逻'}"
   },
   {
    "block": "zones",
-   "code": "AddReferencePoint({side='GT-00001K7KO6KDP', guid='efc7b2ee-7d4f-51e7-8374-a499719dfd78', name='蓝方-反舰打击-WP1', lat=28.865368, lon=120.932183, highlighted=true})",
+   "code": "AddReferencePoint({side='HN-00001K7KPKQRF', guid='1846e139-0951-50a9-8a3e-a965566f2109', name='蓝方-反舰打击-WP1', lat=28.865368, lon=120.932183, highlighted=true})",
    "ok": true,
    "ret": 0,
-   "out": "{\r\n name = '蓝方-反舰打击-WP1', \r\n latitude = '28.865368', \r\n longitude = '120.932183', \r\n guid = 'efc7b2ee-7d4f-51e7-8374-a499719dfd78', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+   "out": "{\r\n name = '蓝方-反舰打击-WP1', \r\n latitude = '28.865368', \r\n longitude = '120.932183', \r\n guid = '1846e139-0951-50a9-8a3e-a965566f2109', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
   },
   {
    "block": "zones",
-   "code": "AddReferencePoint({side='GT-00001K7KO6KDP', guid='01c9709c-4cb5-5940-884e-39253be613eb', name='蓝方-反舰打击-WP2', lat=28.04041, lon=120.932183, highlighted=true})",
+   "code": "AddReferencePoint({side='HN-00001K7KPKQRF', guid='524468e1-3451-58ab-92ea-4534b898775d', name='蓝方-反舰打击-WP2', lat=28.04041, lon=120.932183, highlighted=true})",
    "ok": true,
    "ret": 0,
-   "out": "{\r\n name = '蓝方-反舰打击-WP2', \r\n latitude = '28.040410', \r\n longitude = '120.932183', \r\n guid = '01c9709c-4cb5-5940-884e-39253be613eb', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+   "out": "{\r\n name = '蓝方-反舰打击-WP2', \r\n latitude = '28.040410', \r\n longitude = '120.932183', \r\n guid = '524468e1-3451-58ab-92ea-4534b898775d', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
   },
   {
    "block": "zones",
-   "code": "AddReferencePoint({side='GT-00001K7KO6KDP', guid='4f696612-4f3a-5acf-9a29-8f4442bec8e6', name='蓝方-反舰打击-WP3', lat=28.04041, lon=121.870478, highlighted=true})",
+   "code": "AddReferencePoint({side='HN-00001K7KPKQRF', guid='0edeb2fd-ec04-53f3-b9f6-0e516159d6d1', name='蓝方-反舰打击-WP3', lat=28.04041, lon=121.870478, highlighted=true})",
    "ok": true,
    "ret": 0,
-   "out": "{\r\n name = '蓝方-反舰打击-WP3', \r\n latitude = '28.040410', \r\n longitude = '121.870478', \r\n guid = '4f696612-4f3a-5acf-9a29-8f4442bec8e6', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+   "out": "{\r\n name = '蓝方-反舰打击-WP3', \r\n latitude = '28.040410', \r\n longitude = '121.870478', \r\n guid = '0edeb2fd-ec04-53f3-b9f6-0e516159d6d1', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
   },
   {
    "block": "zones",
-   "code": "AddReferencePoint({side='GT-00001K7KO6KDP', guid='370371dc-a308-57aa-89e8-e5e138501fdf', name='蓝方-反舰打击-WP4', lat=28.865368, lon=121.870478, highlighted=true})",
+   "code": "AddReferencePoint({side='HN-00001K7KPKQRF', guid='3e800e78-3922-5c82-bc1f-7a59f536c979', name='蓝方-反舰打击-WP4', lat=28.865368, lon=121.870478, highlighted=true})",
    "ok": true,
    "ret": 0,
-   "out": "{\r\n name = '蓝方-反舰打击-WP4', \r\n latitude = '28.865368', \r\n longitude = '121.870478', \r\n guid = '370371dc-a308-57aa-89e8-e5e138501fdf', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+   "out": "{\r\n name = '蓝方-反舰打击-WP4', \r\n latitude = '28.865368', \r\n longitude = '121.870478', \r\n guid = '3e800e78-3922-5c82-bc1f-7a59f536c979', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
   },
   {
    "block": "zones",
-   "code": "SetMission('GT-00001K7KO6KDP', 'GT-00001K7KO6MTF', {patrolZone={'efc7b2ee-7d4f-51e7-8374-a499719dfd78', '01c9709c-4cb5-5940-884e-39253be613eb', '4f696612-4f3a-5acf-9a29-8f4442bec8e6', '370371dc-a308-57aa-89e8-e5e138501fdf'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "code": "SetMission('HN-00001K7KPKQRF', 'HN-00001K7KPKT81', {patrolZone={'1846e139-0951-50a9-8a3e-a965566f2109', '524468e1-3451-58ab-92ea-4534b898775d', '0edeb2fd-ec04-53f3-b9f6-0e516159d6d1', '3e800e78-3922-5c82-bc1f-7a59f536c979'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
    "ok": true,
    "ret": 0,
-   "out": "mission {guid = 'GT-00001K7KO6MTF',name = '蓝方-反舰打击'}"
+   "out": "mission {guid = 'HN-00001K7KPKT81',name = '蓝方-反舰打击'}"
   },
   {
    "block": "assign",
-   "code": "AssignUnitListToMission('GT-00001K7KO6KDS,GT-00001K7KO6KGP,GT-00001K7KO6KRI', 'GT-00001K7KO6MT2', false)",
+   "code": "AssignUnitListToMission('HN-00001K7KPKQRI,HN-00001K7KPKQUF,HN-00001K7KPKR98', 'HN-00001K7KPKT80', false)",
    "ok": true,
    "ret": 0,
    "out": ""
   },
   {
    "block": "assign",
-   "code": "AssignUnitListToMission('GT-00001K7KO6L1T,GT-00001K7KO6LS8,GT-00001K7KO6M0S,GT-00001K7KO6MJM,GT-00001K7KO6MLF,GT-00001K7KO6MN8,GT-00001K7KO6MP1', 'GT-00001K7KO6MTF', false)",
+   "code": "AssignUnitListToMission('HN-00001K7KPKRC9,HN-00001K7KPKRIK,HN-00001K7KPKRN8,HN-00001K7KPKT0S,HN-00001K7KPKT2L,HN-00001K7KPKT4E,HN-00001K7KPKT67', 'HN-00001K7KPKT81', false)",
    "ok": true,
    "ret": 0,
    "out": ""
@@ -236,13 +236,13 @@
     "check": "文件已落盘且非空",
     "ok": true,
     "warn": false,
-    "detail": "47820 字节"
+    "detail": "45772 字节"
    },
    {
     "check": "引擎可回读（GetScenarioContent）",
     "ok": true,
     "warn": false,
-    "detail": "回读 241987 字节"
+    "detail": "回读 241272 字节"
    },
    {
     "check": "标题一致",
@@ -335,19 +335,19 @@
     "detail": "spec={'temp': 20, 'rainfall': 0, 'cloud': 0.6, 'seastate': 5} engine={'temp': 20, 'rainfall': 0, 'cloud': 0.6, 'seastate': 5}"
    },
    {
-    "check": "词表提示",
+    "check": "自动修正 / 提示",
     "ok": true,
     "warn": true,
     "detail": "舰艇 蓝方 福特级 #1 的原坐标在陆地，已吸附到最近的海面 (28.5500, 121.5346)"
    },
    {
-    "check": "词表提示",
+    "check": "自动修正 / 提示",
     "ok": true,
     "warn": true,
     "detail": "提示：单元 蓝方 伯克级 #2 的别名 '伯克级' 与引擎类名 '“阿利伯克”级导弹驱逐舰' 不完全一致"
    },
    {
-    "check": "词表提示",
+    "check": "自动修正 / 提示",
     "ok": true,
     "warn": true,
     "detail": "舰艇 蓝方 伯克级 #2 的原坐标在陆地，已吸附到最近的海面 (28.5690, 121.5411)"

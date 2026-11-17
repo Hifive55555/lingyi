@@ -1,12 +1,12 @@
 -- ============================================================
 -- 想定：东海反舰遭遇战-V01
--- 生成：sce_agent（想定编辑智能体）  2026-11-17 20:38:10
+-- 生成：sce_agent（想定编辑智能体）  2026-11-17 21:02:48
 -- 保存路径：D:/LingYi/Data/Scenarios/东海反舰遭遇战-V01.scen
 -- 规模：单元 5 型 / 6 个；任务 2 个；参考点 8 个
 -- ============================================================
 -- [1] 新建空白想定 + 元信息（DESCRIPTION 是 Base64）
 NewScenario('','')
-SetScenarioInfo({TITLE='东海反舰遭遇战-V01', DURATION=10800, COMPLEXITY=2, DIFFICULTY=2, SEED=18043, DESCRIPTION='PEJPRFkgc2Nyb2xsPWF1dG8+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiIGFsaWduPWNlbnRlcj48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxOHB0OyBGT05ULUZBTUlMWTogJ+m7keS9kyciPuS4nOa1t+WPjeiIsOmBremBh+aImC1WMDE8L1NQQU4+PC9QPjxQIHN0eWxlPSJNQVJHSU46IDEycHggMHB4Ij48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxNHB0OyBGT05ULUZBTUlMWTogJ+Wui+S9kyciPuagh+mimO+8muS4nOa1t+WPjeiIsOmBremBh+aImDwvU1BBTj48L1A+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiPjxTUEFOIHN0eWxlPSJGT05ULVNJWkU6IDE0cHQ7IEZPTlQtRkFNSUxZOiAn5a6L5L2TJyI+6K6+5a6aIDIwMjYg5bm0IDMg5pyIIDEg5pel5LiK5Y2IIDgg5pe277yM5Lic5rW35Lit6YOo44CC57qi5pa5IDIg6ImYIDA1MkTjgIExIOiJmCAwNTRBIOS7juilv+S+pyAxMTAg5rW36YeM6L+b5YWl77yMPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj7miafooYzlj43oiLDlt6HpgLvvvIzlt6HpgLvljYrlvoQgNDAg5rW36YeM77yb6JOd5pa5IDEg5Liq6Iiq5q+N5omT5Ye7576k77yMMSDoiZjnpo/nibnnuqfjgIEyIOiJmOS8r+WFi+e6p+WcqOS4nOS+pyAxMzAg5rW36YeM77yMPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj40IOaetiBGLTM1QyDmiafooYzlj43oiLDmiZPlh7vjgILmtbflhrUgNCDnuqfvvIzkupHph48gMC4244CC5oyB57utIDMg5bCP5pe244CC5Y+M5pa56Ieq55Sx5byA54Gr44CCPC9TUEFOPjwvUD48L0JPRFk+'})
+SetScenarioInfo({TITLE='东海反舰遭遇战-V01', DURATION=10800, COMPLEXITY=2, DIFFICULTY=2, SEED=98863, DESCRIPTION='PEJPRFkgc2Nyb2xsPWF1dG8+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiIGFsaWduPWNlbnRlcj48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxOHB0OyBGT05ULUZBTUlMWTogJ+m7keS9kyciPuS4nOa1t+WPjeiIsOmBremBh+aImC1WMDE8L1NQQU4+PC9QPjxQIHN0eWxlPSJNQVJHSU46IDEycHggMHB4Ij48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxNHB0OyBGT05ULUZBTUlMWTogJ+Wui+S9kyciPuagh+mimO+8muS4nOa1t+WPjeiIsOmBremBh+aImDwvU1BBTj48L1A+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiPjxTUEFOIHN0eWxlPSJGT05ULVNJWkU6IDE0cHQ7IEZPTlQtRkFNSUxZOiAn5a6L5L2TJyI+6K6+5a6aIDIwMjYg5bm0IDMg5pyIIDEg5pel5LiK5Y2IIDgg5pe277yM5Lic5rW35Lit6YOo44CC57qi5pa5IDIg6ImYIDA1MkTjgIExIOiJmCAwNTRBIOS7juilv+S+pyAxMTAg5rW36YeM6L+b5YWl77yMPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj7miafooYzlj43oiLDlt6HpgLvvvIzlt6HpgLvljYrlvoQgNDAg5rW36YeM77yb6JOd5pa5IDEg5Liq6Iiq5q+N5omT5Ye7576k77yMMSDoiZjnpo/nibnnuqfjgIEyIOiJmOS8r+WFi+e6p+WcqOS4nOS+pyAxMzAg5rW36YeM77yMPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj40IOaetiBGLTM1QyDmiafooYzlj43oiLDmiZPlh7vjgILmtbflhrUgNCDnuqfvvIzkupHph48gMC4244CC5oyB57utIDMg5bCP5pe244CC5Y+M5pa56Ieq55Sx5byA54Gr44CCPC9TUEFOPjwvUD48L0JPRFk+'})
 
 -- [2] 添加推演方（AddSide 返回推演方 GUID）
 S_1 = AddSide({side='红方'})
@@ -42,17 +42,17 @@ M_2 = AddMission(%{S:蓝方}, '蓝方-反舰打击', 'Patrol', {isactive=true, t
 
 -- [7] 参考点 + 绑定巡逻区（AddMission 的 patrolZone 参数会被引擎忽略）
 -- 红方-反舰巡逻 的巡逻区参考点（GUID 由生成端确定性给出）
-AddReferencePoint({side=%{S:红方}, guid='9f8015de-459b-5974-bab4-251b0af7f187', name='红方-反舰巡逻-WP1', lat=28.965594, lon=125.62533, highlighted=true})
-AddReferencePoint({side=%{S:红方}, guid='44a88870-ed2d-57fb-905b-f3d466cc2167', name='红方-反舰巡逻-WP2', lat=28.022785, lon=125.62533, highlighted=true})
-AddReferencePoint({side=%{S:红方}, guid='b38b0eee-d0b1-5b8d-ad0a-f79bfda3bf92', name='红方-反舰巡逻-WP3', lat=28.022785, lon=126.698086, highlighted=true})
-AddReferencePoint({side=%{S:红方}, guid='25423efb-feeb-5cf5-8ae4-b7199ee022c8', name='红方-反舰巡逻-WP4', lat=28.965594, lon=126.698086, highlighted=true})
-SetMission(%{S:红方}, %{M:红方-反舰巡逻}, {patrolZone={'9f8015de-459b-5974-bab4-251b0af7f187', '44a88870-ed2d-57fb-905b-f3d466cc2167', 'b38b0eee-d0b1-5b8d-ad0a-f79bfda3bf92', '25423efb-feeb-5cf5-8ae4-b7199ee022c8'}, unloadMountDBID=0.0, unloadMountCount=0.0})
+AddReferencePoint({side=%{S:红方}, guid='e2218edd-ecc9-51b6-a26c-d74af25d8e63', name='红方-反舰巡逻-WP1', lat=28.965594, lon=125.62533, highlighted=true})
+AddReferencePoint({side=%{S:红方}, guid='43ce5451-ddb6-5a33-bc2b-486a6d4686b1', name='红方-反舰巡逻-WP2', lat=28.022785, lon=125.62533, highlighted=true})
+AddReferencePoint({side=%{S:红方}, guid='95d70fdc-03fa-5406-80ba-ea29b25e8439', name='红方-反舰巡逻-WP3', lat=28.022785, lon=126.698086, highlighted=true})
+AddReferencePoint({side=%{S:红方}, guid='c99dc5ec-6215-5ff6-9c10-47dd401d8892', name='红方-反舰巡逻-WP4', lat=28.965594, lon=126.698086, highlighted=true})
+SetMission(%{S:红方}, %{M:红方-反舰巡逻}, {patrolZone={'e2218edd-ecc9-51b6-a26c-d74af25d8e63', '43ce5451-ddb6-5a33-bc2b-486a6d4686b1', '95d70fdc-03fa-5406-80ba-ea29b25e8439', 'c99dc5ec-6215-5ff6-9c10-47dd401d8892'}, unloadMountDBID=0.0, unloadMountCount=0.0})
 -- 蓝方-反舰打击 的巡逻区参考点（GUID 由生成端确定性给出）
-AddReferencePoint({side=%{S:蓝方}, guid='80443716-2051-5a80-aa9b-97dfac8625c5', name='蓝方-反舰打击-WP1', lat=28.865368, lon=120.932183, highlighted=true})
-AddReferencePoint({side=%{S:蓝方}, guid='2d6d4b4d-a44f-5747-b743-f7fef554938f', name='蓝方-反舰打击-WP2', lat=28.04041, lon=120.932183, highlighted=true})
-AddReferencePoint({side=%{S:蓝方}, guid='9587d97c-a287-5b57-a982-5b4fc0bf17c6', name='蓝方-反舰打击-WP3', lat=28.04041, lon=121.870478, highlighted=true})
-AddReferencePoint({side=%{S:蓝方}, guid='fd7f0f51-bd38-52ae-996e-607cf5592c1e', name='蓝方-反舰打击-WP4', lat=28.865368, lon=121.870478, highlighted=true})
-SetMission(%{S:蓝方}, %{M:蓝方-反舰打击}, {patrolZone={'80443716-2051-5a80-aa9b-97dfac8625c5', '2d6d4b4d-a44f-5747-b743-f7fef554938f', '9587d97c-a287-5b57-a982-5b4fc0bf17c6', 'fd7f0f51-bd38-52ae-996e-607cf5592c1e'}, unloadMountDBID=0.0, unloadMountCount=0.0})
+AddReferencePoint({side=%{S:蓝方}, guid='f205ea80-6f1c-508d-81a6-07eb993855a8', name='蓝方-反舰打击-WP1', lat=28.865368, lon=120.932183, highlighted=true})
+AddReferencePoint({side=%{S:蓝方}, guid='c7ff3b4c-95f1-5abb-a2da-b620b5b37b54', name='蓝方-反舰打击-WP2', lat=28.04041, lon=120.932183, highlighted=true})
+AddReferencePoint({side=%{S:蓝方}, guid='ce7a70bf-9cc5-51f2-9dc2-6dabb51092a2', name='蓝方-反舰打击-WP3', lat=28.04041, lon=121.870478, highlighted=true})
+AddReferencePoint({side=%{S:蓝方}, guid='ca79c115-c2e6-5490-8261-d4ddc5ed2f02', name='蓝方-反舰打击-WP4', lat=28.865368, lon=121.870478, highlighted=true})
+SetMission(%{S:蓝方}, %{M:蓝方-反舰打击}, {patrolZone={'f205ea80-6f1c-508d-81a6-07eb993855a8', 'c7ff3b4c-95f1-5abb-a2da-b620b5b37b54', 'ce7a70bf-9cc5-51f2-9dc2-6dabb51092a2', 'ca79c115-c2e6-5490-8261-d4ddc5ed2f02'}, unloadMountDBID=0.0, unloadMountCount=0.0})
 
 -- [8] 单元-任务分配
 -- 第一参=逗号分隔单元 GUID，第二参=任务 GUID，第三参必须给

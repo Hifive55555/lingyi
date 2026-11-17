@@ -1,0 +1,318 @@
+{
+ "ok": true,
+ "title": "海洋空战-V02",
+ "name": "海洋空战-V02",
+ "scen_path": "D:/LingYi/Data/Scenarios/海洋空战-V02.scen",
+ "size": 42214,
+ "elapsed": 2.88,
+ "error": "",
+ "steps": [
+  {
+   "block": "info",
+   "code": "NewScenario('','')",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF76M"
+  },
+  {
+   "block": "info",
+   "code": "SetScenarioInfo({TITLE='海洋空战-V02', DURATION=6000, COMPLEXITY=2, DIFFICULTY=2, SEED=48069, DESCRIPTION='PEJPRFkgc2Nyb2xsPWF1dG8+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiIGFsaWduPWNlbnRlcj48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxOHB0OyBGT05ULUZBTUlMWTogJ+m7keS9kyciPua1t+a0i+epuuaImC1WMDI8L1NQQU4+PC9QPjxQIHN0eWxlPSJNQVJHSU46IDEycHggMHB4Ij48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxNHB0OyBGT05ULUZBTUlMWTogJ+Wui+S9kyciPueUseaXouacieaDs+WumuOAiua1t+a0i+epuuaImOOAi+e7k+aehOWkjeWIuzwvU1BBTj48L1A+PC9CT0RZPg=='})",
+   "ok": true,
+   "ret": 0,
+   "out": "设置成功"
+  },
+  {
+   "block": "sides",
+   "code": "S_1 = AddSide({side='红方'})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7AT"
+  },
+  {
+   "block": "sides",
+   "code": "S_2 = AddSide({side='蓝方'})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7AU"
+  },
+  {
+   "block": "setup",
+   "code": "SetSidePosture('7A-00001K7KPF7AT', '7A-00001K7KPF7AU', 'H')",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSidePosture('7A-00001K7KPF7AU', '7A-00001K7KPF7AT', 'H')",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSideOptions({side='7A-00001K7KPF7AT', CAMERALON=79.8865, CAMERALAT=12.9661, CAMERAALT=44337001.0})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSideOptions({side='7A-00001K7KPF7AU', CAMERALON=79.8865, CAMERALAT=12.9661, CAMERAALT=44337001.0})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetDoctrine({side='7A-00001K7KPF7AT'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetDoctrine({side='7A-00001K7KPF7AU'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "weather",
+   "code": "SetWeather(15, 0, 0.0, 0)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "units",
+   "code": "U_1 = AddUnit({side='7A-00001K7KPF7AT', type='Aircraft', DATASOURCE=0.0, name='闪电 #2', dbid=3836.0, latitude='25.527906', longitude='153.254548', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7B1"
+  },
+  {
+   "block": "units",
+   "code": "U_9 = AddUnit({side='7A-00001K7KPF7AU', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #1', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7DI"
+  },
+  {
+   "block": "units",
+   "code": "U_12 = AddUnit({side='7A-00001K7KPF7AU', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #4', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7F1"
+  },
+  {
+   "block": "units",
+   "code": "U_8 = AddUnit({side='7A-00001K7KPF7AU', type='Aircraft', DATASOURCE=0.0, name='闪电 #1', dbid=3836.0, latitude='25.932216', longitude='159.772978', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7GG"
+  },
+  {
+   "block": "units",
+   "code": "U_5 = AddUnit({side='7A-00001K7KPF7AU', type='Aircraft', DATASOURCE=0.0, name='闪电 #4', dbid=3836.0, latitude='25.932216', longitude='159.772978', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7ID"
+  },
+  {
+   "block": "units",
+   "code": "U_10 = AddUnit({side='7A-00001K7KPF7AU', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7KA"
+  },
+  {
+   "block": "units",
+   "code": "U_11 = AddUnit({side='7A-00001K7KPF7AU', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #3', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7LP"
+  },
+  {
+   "block": "units",
+   "code": "U_8 = AddUnit({side='7A-00001K7KPF7AT', type='Aircraft', DATASOURCE=0.0, name='闪电 #1', dbid=3836.0, latitude='25.527906', longitude='153.254548', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7N8"
+  },
+  {
+   "block": "units",
+   "code": "U_9 = AddUnit({side='7A-00001K7KPF7AT', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #1', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7P5"
+  },
+  {
+   "block": "units",
+   "code": "U_10 = AddUnit({side='7A-00001K7KPF7AT', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7QK"
+  },
+  {
+   "block": "units",
+   "code": "U_11 = AddUnit({side='7A-00001K7KPF7AT', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #3', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7S3"
+  },
+  {
+   "block": "units",
+   "code": "U_12 = AddUnit({side='7A-00001K7KPF7AT', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #4', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7TI"
+  },
+  {
+   "block": "units",
+   "code": "U_14 = AddUnit({side='7A-00001K7KPF7AT', type='Ship', DATASOURCE=0.0, name='CVN-78“杰拉德.R.福特”福特级号航空母舰', dbid=506.0, latitude='25.527906', longitude='153.254548', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF7V1"
+  },
+  {
+   "block": "units",
+   "code": "U_14 = AddUnit({side='7A-00001K7KPF7AU', type='Ship', DATASOURCE=0.0, name='CVN-78“杰拉德.R.福特”福特级号航空母舰', dbid=506.0, latitude='25.932216', longitude='159.772978', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF8UT"
+  },
+  {
+   "block": "units",
+   "code": "U_16 = AddUnit({side='7A-00001K7KPF7AU', type='Ship', DATASOURCE=0.0, name='DDG 113“约翰.芬”阿里伯克级 Flight IIA导弹驱逐舰', dbid=2866.0, latitude='25.837252', longitude='157.506848', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF958"
+  },
+  {
+   "block": "units",
+   "code": "U_16 = AddUnit({side='7A-00001K7KPF7AT', type='Ship', DATASOURCE=0.0, name='DDG 113“约翰.芬”阿里伯克级 Flight IIA导弹驱逐舰', dbid=2866.0, latitude='25.798576', longitude='155.266136', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPF9B6"
+  },
+  {
+   "block": "save",
+   "code": "Command_SaveScen('D:/LingYi/Data/Scenarios/海洋空战-V02.scen')",
+   "ok": true,
+   "ret": 0,
+   "out": "Scenarios/海洋空战-V02.scen"
+  }
+ ],
+ "digest_summary": "《海洋空战-V02》 2 方 16 单元（红方[Aircraft:6 Ship:2], 蓝方[Aircraft:6 Ship:2]）；任务 0 个（无）；参考点 0",
+ "verify": {
+  "ok": true,
+  "passed": 17,
+  "total": 17,
+  "failed": [],
+  "checks": [
+   {
+    "check": "文件已落盘且非空",
+    "ok": true,
+    "warn": false,
+    "detail": "42214 字节"
+   },
+   {
+    "check": "引擎可回读（GetScenarioContent）",
+    "ok": true,
+    "warn": false,
+    "detail": "回读 224175 字节"
+   },
+   {
+    "check": "标题一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec='海洋空战-V02' engine='海洋空战-V02'"
+   },
+   {
+    "check": "推演时长一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec=6000s engine=6000s"
+   },
+   {
+    "check": "推演方集合一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec=['红方', '蓝方'] engine=['红方', '蓝方']"
+   },
+   {
+    "check": "两两对抗关系正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致（H=3 U=2 F=1 N=0）"
+   },
+   {
+    "check": "兵力数量分布一致",
+    "ok": true,
+    "warn": false,
+    "detail": "红方 Aircraft:6, Ship:2, Submarine:0, Facility:0, Satellite:0；蓝方 Aircraft:6, Ship:2, Submarine:0, Facility:0, Satellite:0"
+   },
+   {
+    "check": "单元齐全（按 推演方+名称）",
+    "ok": true,
+    "warn": false,
+    "detail": "16 型单元全部在册"
+   },
+   {
+    "check": "单元 DBID 正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "单元初始坐标正确（±0.002°）",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "任务齐全（推演方+名称）",
+    "ok": true,
+    "warn": false,
+    "detail": "0 个任务全部在册"
+   },
+   {
+    "check": "任务类型/子类型正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "巡逻区顶点数正确（Patrol）",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "单元-任务分配数正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "没有多余任务",
+    "ok": true,
+    "warn": true,
+    "detail": "OK"
+   },
+   {
+    "check": "条令关键字段一致",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "气象一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec={'temp': 15, 'rainfall': 0, 'cloud': 0.0, 'seastate': 0} engine={'temp': 15, 'rainfall': 0, 'cloud': 0.0, 'seastate': 0}"
+   }
+  ]
+ }
+}

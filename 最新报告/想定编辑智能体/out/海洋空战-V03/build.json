@@ -1,0 +1,430 @@
+{
+ "ok": true,
+ "title": "海洋空战-V03",
+ "name": "海洋空战-V03",
+ "scen_path": "D:/LingYi/Data/Scenarios/海洋空战-V03.scen",
+ "size": 75538,
+ "elapsed": 3.77,
+ "error": "",
+ "steps": [
+  {
+   "block": "info",
+   "code": "NewScenario('','')",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFD1M"
+  },
+  {
+   "block": "info",
+   "code": "SetScenarioInfo({TITLE='海洋空战-V03', DURATION=6000, COMPLEXITY=2, DIFFICULTY=2, SEED=48069, DESCRIPTION='PEJPRFkgc2Nyb2xsPWF1dG8+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiIGFsaWduPWNlbnRlcj48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxOHB0OyBGT05ULUZBTUlMWTogJ+m7keS9kyciPua1t+a0i+epuuaImC1WMDM8L1NQQU4+PC9QPjxQIHN0eWxlPSJNQVJHSU46IDEycHggMHB4Ij48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxNHB0OyBGT05ULUZBTUlMWTogJ+Wui+S9kyciPueUseaXouacieaDs+WumuOAiua1t+a0i+epuuaImOOAi+e7k+aehOWkjeWIuzwvU1BBTj48L1A+PC9CT0RZPg=='})",
+   "ok": true,
+   "ret": 0,
+   "out": "设置成功"
+  },
+  {
+   "block": "sides",
+   "code": "S_1 = AddSide({side='红方'})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDA3"
+  },
+  {
+   "block": "sides",
+   "code": "S_2 = AddSide({side='蓝方'})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDA4"
+  },
+  {
+   "block": "setup",
+   "code": "SetSidePosture('7A-00001K7KPFDA3', '7A-00001K7KPFDA4', 'H')",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSidePosture('7A-00001K7KPFDA4', '7A-00001K7KPFDA3', 'H')",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSideOptions({side='7A-00001K7KPFDA3', CAMERALON=79.8865, CAMERALAT=12.9661, CAMERAALT=44337001.0})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSideOptions({side='7A-00001K7KPFDA4', CAMERALON=79.8865, CAMERALAT=12.9661, CAMERAALT=44337001.0})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetDoctrine({side='7A-00001K7KPFDA3'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetDoctrine({side='7A-00001K7KPFDA4'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "weather",
+   "code": "SetWeather(15, 0, 0.0, 0)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "units",
+   "code": "U_1 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='闪电 #2', dbid=3836.0, latitude='25.527906', longitude='153.254548', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDA7"
+  },
+  {
+   "block": "units",
+   "code": "U_9 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #1', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDC4"
+  },
+  {
+   "block": "units",
+   "code": "U_12 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #4', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDDJ"
+  },
+  {
+   "block": "units",
+   "code": "U_8 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='闪电 #1', dbid=3836.0, latitude='25.932216', longitude='159.772978', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDF2"
+  },
+  {
+   "block": "units",
+   "code": "U_5 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='闪电 #4', dbid=3836.0, latitude='25.932216', longitude='159.772978', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDJD"
+  },
+  {
+   "block": "units",
+   "code": "U_10 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDLA"
+  },
+  {
+   "block": "units",
+   "code": "U_11 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #3', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDMP"
+  },
+  {
+   "block": "units",
+   "code": "U_8 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='闪电 #1', dbid=3836.0, latitude='25.527906', longitude='153.254548', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDO8"
+  },
+  {
+   "block": "units",
+   "code": "U_9 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #1', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDQ5"
+  },
+  {
+   "block": "units",
+   "code": "U_10 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDRK"
+  },
+  {
+   "block": "units",
+   "code": "U_11 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #3', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDT3"
+  },
+  {
+   "block": "units",
+   "code": "U_12 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #4', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFDUI"
+  },
+  {
+   "block": "units",
+   "code": "U_14 = AddUnit({side='7A-00001K7KPFDA3', type='Ship', DATASOURCE=0.0, name='CVN-78“杰拉德.R.福特”福特级号航空母舰', dbid=506.0, latitude='25.527906', longitude='153.254548', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFE01"
+  },
+  {
+   "block": "units",
+   "code": "U_14 = AddUnit({side='7A-00001K7KPFDA4', type='Ship', DATASOURCE=0.0, name='CVN-78“杰拉德.R.福特”福特级号航空母舰', dbid=506.0, latitude='25.932216', longitude='159.772978', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFEU7"
+  },
+  {
+   "block": "units",
+   "code": "U_16 = AddUnit({side='7A-00001K7KPFDA4', type='Ship', DATASOURCE=0.0, name='DDG 113“约翰.芬”阿里伯克级 Flight IIA导弹驱逐舰', dbid=2866.0, latitude='25.837252', longitude='157.506848', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFF4I"
+  },
+  {
+   "block": "units",
+   "code": "U_16 = AddUnit({side='7A-00001K7KPFDA3', type='Ship', DATASOURCE=0.0, name='DDG 113“约翰.芬”阿里伯克级 Flight IIA导弹驱逐舰', dbid=2866.0, latitude='25.798576', longitude='155.266136', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFFAG"
+  },
+  {
+   "block": "units",
+   "code": "U_17 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='闪电 #2#2', dbid=3836.0, latitude='25.527906', longitude='153.254548', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFFGE"
+  },
+  {
+   "block": "units",
+   "code": "U_27 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='闪电 #1#2', dbid=3836.0, latitude='25.527906', longitude='153.254548', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFGUM"
+  },
+  {
+   "block": "units",
+   "code": "U_25 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #1#2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFH0J"
+  },
+  {
+   "block": "units",
+   "code": "U_29 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #2#2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFH22"
+  },
+  {
+   "block": "units",
+   "code": "U_30 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #3#2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFH3H"
+  },
+  {
+   "block": "units",
+   "code": "U_26 = AddUnit({side='7A-00001K7KPFDA3', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #4#2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFH75"
+  },
+  {
+   "block": "units",
+   "code": "U_31 = AddUnit({side='7A-00001K7KPFDA3', type='Ship', DATASOURCE=0.0, name='CVN-78“杰拉德.R.福特”福特级号航空母舰#2', dbid=506.0, latitude='25.527906', longitude='153.254548', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFH8K"
+  },
+  {
+   "block": "units",
+   "code": "U_32 = AddUnit({side='7A-00001K7KPFDA3', type='Ship', DATASOURCE=0.0, name='DDG 113“约翰.芬”阿里伯克级 Flight IIA导弹驱逐舰#2', dbid=2866.0, latitude='25.798576', longitude='155.266136', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFHEV"
+  },
+  {
+   "block": "units",
+   "code": "U_25 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #1#2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFHKT"
+  },
+  {
+   "block": "units",
+   "code": "U_26 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #4#2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFIMB"
+  },
+  {
+   "block": "units",
+   "code": "U_27 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='闪电 #1#2', dbid=3836.0, latitude='25.932216', longitude='159.772978', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFINQ"
+  },
+  {
+   "block": "units",
+   "code": "U_28 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='闪电 #4#2', dbid=3836.0, latitude='25.932216', longitude='159.772978', alt=10972.8, heading=0.0, loadoutid=3004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFIPN"
+  },
+  {
+   "block": "units",
+   "code": "U_29 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #2#2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFITH"
+  },
+  {
+   "block": "units",
+   "code": "U_30 = AddUnit({side='7A-00001K7KPFDA4', type='Aircraft', DATASOURCE=0.0, name='F/A-18E #3#2', dbid=753.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=4617.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFIV0"
+  },
+  {
+   "block": "units",
+   "code": "U_31 = AddUnit({side='7A-00001K7KPFDA4', type='Ship', DATASOURCE=0.0, name='CVN-78“杰拉德.R.福特”福特级号航空母舰#2', dbid=506.0, latitude='25.932216', longitude='159.772978', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFJ0F"
+  },
+  {
+   "block": "units",
+   "code": "U_32 = AddUnit({side='7A-00001K7KPFDA4', type='Ship', DATASOURCE=0.0, name='DDG 113“约翰.芬”阿里伯克级 Flight IIA导弹驱逐舰#2', dbid=2866.0, latitude='25.837252', longitude='157.506848', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "7A-00001K7KPFJQI"
+  },
+  {
+   "block": "save",
+   "code": "Command_SaveScen('D:/LingYi/Data/Scenarios/海洋空战-V03.scen')",
+   "ok": true,
+   "ret": 0,
+   "out": "Scenarios/海洋空战-V03.scen"
+  }
+ ],
+ "digest_summary": "《海洋空战-V03》 2 方 32 单元（红方[Aircraft:12 Ship:4], 蓝方[Aircraft:12 Ship:4]）；任务 0 个（无）；参考点 0",
+ "verify": {
+  "ok": true,
+  "passed": 17,
+  "total": 17,
+  "failed": [],
+  "checks": [
+   {
+    "check": "文件已落盘且非空",
+    "ok": true,
+    "warn": false,
+    "detail": "75538 字节"
+   },
+   {
+    "check": "引擎可回读（GetScenarioContent）",
+    "ok": true,
+    "warn": false,
+    "detail": "回读 439655 字节"
+   },
+   {
+    "check": "标题一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec='海洋空战-V03' engine='海洋空战-V03'"
+   },
+   {
+    "check": "推演时长一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec=6000s engine=6000s"
+   },
+   {
+    "check": "推演方集合一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec=['红方', '蓝方'] engine=['红方', '蓝方']"
+   },
+   {
+    "check": "两两对抗关系正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致（H=3 U=2 F=1 N=0）"
+   },
+   {
+    "check": "兵力数量分布一致",
+    "ok": true,
+    "warn": false,
+    "detail": "红方 Aircraft:12, Ship:4, Submarine:0, Facility:0, Satellite:0；蓝方 Aircraft:12, Ship:4, Submarine:0, Facility:0, Satellite:0"
+   },
+   {
+    "check": "单元齐全（按 推演方+名称）",
+    "ok": true,
+    "warn": false,
+    "detail": "32 型单元全部在册"
+   },
+   {
+    "check": "单元 DBID 正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "单元初始坐标正确（±0.002°）",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "任务齐全（推演方+名称）",
+    "ok": true,
+    "warn": false,
+    "detail": "0 个任务全部在册"
+   },
+   {
+    "check": "任务类型/子类型正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "巡逻区顶点数正确（Patrol）",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "单元-任务分配数正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "没有多余任务",
+    "ok": true,
+    "warn": true,
+    "detail": "OK"
+   },
+   {
+    "check": "条令关键字段一致",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "气象一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec={'temp': 15, 'rainfall': 0, 'cloud': 0.0, 'seastate': 0} engine={'temp': 15, 'rainfall': 0, 'cloud': 0.0, 'seastate': 0}"
+   }
+  ]
+ }
+}

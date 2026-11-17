@@ -288,9 +288,64 @@ class ScenarioSpec:
         return self
 
     def scale_units(self, factor: float, min_count: int = 1) -> "ScenarioSpec":
-        """兵力规模缩放：按单元 count 缩放（不小于 min_count）。"""
-        for u in self.units:
-            u.count = max(min_count, int(round(u.count * factor)))
+        """兵力规模缩放。
+
+        两种情形分开处理（否则"每个单元 count=1"的想定缩放会毫无效果——实测踩过）：
+
+        * 单元带 `count>1`（"2 艘 052D" 写成一个单元）→ 按 `count` 缩放；
+        * 全部单元都是 `count=1`（复刻自既有想定时常见）→ 在**单元条目**层面增减：
+          放大就复制出 `名字#2`、`名字#3`（最多到 #4），缩小就按 seed 抽样删掉一部分，
+          并同步维护任务里的单元清单。
+        """
+        import random as _random
+        rnd = _random.Random(self.seed or 1)
+        for s in self.sides:
+            mine = [u for u in self.units if u.side == s.name]
+            if not mine:
+                continue
+            if any(u.count > 1 for u in mine):
+                for u in mine:
+                    u.count = max(min_count, int(round(u.count * factor)))
+                continue
+            n = len(mine)
+            target = max(1, int(round(n * factor)))
+            if target == n:
+                continue
+            if target < n:
+                # 缩编：**按兵种分层**抽样，避免"缩一半把舰艇全砍掉"这种畸形结果
+                by_kind: Dict[str, List[Unit]] = {}
+                for u in mine:
+                    by_kind.setdefault(u.kind, []).append(u)
+                keep_ids = set()
+                for kind, group in by_kind.items():
+                    k_t = int(round(len(group) * factor))
+                    if factor >= 0.5 and k_t == 0:
+                        k_t = 1                     # 兵力减半时每个兵种至少留 1 个
+                    k_t = max(0, min(len(group), k_t))
+                    for u in rnd.sample(group, k_t):
+                        keep_ids.add(id(u))
+                if not keep_ids:                    # 兜底：至少留 1 个
+                    keep_ids.add(id(rnd.choice(mine)))
+                drop = [u for u in mine if id(u) not in keep_ids]
+                for u in drop:
+                    self.units.remove(u)
+                    for m in self.missions:
+                        if u.name in m.units:
+                            m.units.remove(u.name)
+            else:                               # 扩编：复制出兄弟单元
+                copies_per = min(3, max(1, int(round(factor)) - 1))
+                base = list(mine)
+                for u in base:
+                    for k in range(2, 2 + copies_per):
+                        twin = Unit(**u.to_dict())
+                        twin.name = "%s#%d" % (u.name, k)
+                        self.units.append(twin)
+                        if u.mission:
+                            m = self.mission(u.mission)
+                            if m:
+                                m.units.append(twin.name)
+        # 清理空任务（缩编可能把某任务的人抽空）
+        self.missions = [m for m in self.missions if m.units]
         return self
 
     def spread(self, factor: float) -> "ScenarioSpec":

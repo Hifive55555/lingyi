@@ -1,0 +1,4 @@
+variant,ok,size,elapsed,units,missions,refpoints,passed,total,error,axis_force_scale
+海洋空战-V01,True,26554,2.7,8,0,0,17,17,,0.5
+海洋空战-V02,True,42214,2.9,16,0,0,17,17,,1
+海洋空战-V03,True,75538,3.8,32,0,0,17,17,,2

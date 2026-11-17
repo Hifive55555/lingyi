@@ -1,0 +1,164 @@
+{
+ "title": "海洋空战-V01",
+ "start_time": "2026-03-01 08:00:00",
+ "duration_s": 6000,
+ "complexity": 2,
+ "difficulty": 2,
+ "description": "由既有想定《海洋空战》结构复刻",
+ "center": {
+  "lat": 12.876,
+  "lon": 78.241
+ },
+ "seed": 48069,
+ "sides": [
+  {
+   "name": "红方",
+   "posture": {
+    "蓝方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": false
+  },
+  {
+   "name": "蓝方",
+   "posture": {
+    "红方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": false
+  }
+ ],
+ "units": [
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F/A-18E #4",
+   "dbid": 753,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 4617
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "闪电 #1",
+   "dbid": 3836,
+   "lat": 25.932216,
+   "lon": 159.772978,
+   "alt": 10972.8,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 3004
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F/A-18E #2",
+   "dbid": 753,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 4617
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "闪电 #1",
+   "dbid": 3836,
+   "lat": 25.527906,
+   "lon": 153.254548,
+   "alt": 10972.8,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 3004
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "F/A-18E #2",
+   "dbid": 753,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 4617
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "F/A-18E #4",
+   "dbid": 753,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 4617
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "CVN-78“杰拉德.R.福特”福特级号航空母舰",
+   "dbid": 506,
+   "lat": 25.932216,
+   "lon": 159.772978,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "DDG 113“约翰.芬”阿里伯克级 Flight IIA导弹驱逐舰",
+   "dbid": 2866,
+   "lat": 25.798576,
+   "lon": 155.266136,
+   "heading": 0.0,
+   "count": 1
+  }
+ ],
+ "missions": [],
+ "weather": {
+  "temp": 15,
+  "rainfall": 0,
+  "cloud": 0.0,
+  "seastate": 0
+ },
+ "provenance": {
+  "source": "digest",
+  "source_title": "海洋空战",
+  "family": {
+   "force_scale": 0.5
+  },
+  "variant_index": 1
+ }
+}

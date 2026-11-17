@@ -1,16 +1,16 @@
 {
  "title": "东海反舰遭遇战-V07",
  "description": "<BODY scroll=auto><P style=\"MARGIN: 12px 0px\" align=center><SPAN style=\"FONT-SIZE: 18pt; FONT-FAMILY: '黑体'\">东海反舰遭遇战-V07</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">标题：东海反舰遭遇战</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">设定 2026 年 3 月 1 日上午 8 时，东海中部。红方 2 艘 052D、1 艘 054A 从西侧 110 海里进入，</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">执行反舰巡逻，巡逻半径 40 海里；蓝方 1 个航母打击群，1 艘福特级、2 艘伯克级在东侧 130 海里，</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">4 架 F-35C 执行反舰打击。海况 4 级，云量 0.6。持续 3 小时。双方自由开火。</SPAN></P></BODY>",
- "start_time_ticks": "-8584067165542105808",
+ "start_time_ticks": "-8584067151015695808",
  "duration_s": 10800,
  "complexity": 0,
  "difficulty": 0,
  "sides": [
   {
-   "id": "GT-00001K7KO6PLE",
+   "id": "HN-00001K7KPKURA",
    "name": "红方",
    "postures": {
-    "GT-00001K7KO6PLF": "3"
+    "HN-00001K7KPKURB": "3"
    },
    "doctrine": {
     "Nukes": "0",
@@ -31,9 +31,9 @@
     "RS": "0",
     "ST": "0",
     "SAM_ASUW": "0",
-    "E_Radar": "0",
-    "E_Sonar": "0",
-    "E_OECM": "0",
+    "E_Radar": "230",
+    "E_Sonar": "150",
+    "E_OECM": "185",
     "QuickTurnAround": "1",
     "AirOpsTempo": "0",
     "BingoJoker": "0",
@@ -64,10 +64,10 @@
    "reference_point_count": 4
   },
   {
-   "id": "GT-00001K7KO6PLF",
+   "id": "HN-00001K7KPKURB",
    "name": "蓝方",
    "postures": {
-    "GT-00001K7KO6PLE": "3"
+    "HN-00001K7KPKURA": "3"
    },
    "doctrine": {
     "Nukes": "0",
@@ -88,9 +88,9 @@
     "RS": "0",
     "ST": "0",
     "SAM_ASUW": "0",
-    "E_Radar": "15",
-    "E_Sonar": "0",
-    "E_OECM": "0",
+    "E_Radar": "232",
+    "E_Sonar": "180",
+    "E_OECM": "165",
     "QuickTurnAround": "1",
     "AirOpsTempo": "0",
     "BingoJoker": "0",
@@ -123,7 +123,7 @@
  ],
  "units": [
   {
-   "id": "GT-00001K7KO6RSL",
+   "id": "HN-00001K7KPL013",
    "name": "蓝方 F-35C #3",
    "kind": "Aircraft",
    "side": "蓝方",
@@ -133,10 +133,11 @@
    "heading": 270.0,
    "alt": 10972.799805,
    "loadoutid": 0,
-   "mission": "GT-00001K7KO6S21"
+   "mission": "HN-00001K7KPL02T",
+   "mission_name": "蓝方-反舰打击"
   },
   {
-   "id": "GT-00001K7KO6S07",
+   "id": "HN-00001K7KPKVTH",
    "name": "蓝方 F-35C #3",
    "kind": "Aircraft",
    "side": "蓝方",
@@ -146,10 +147,11 @@
    "heading": 270.0,
    "alt": 10972.799805,
    "loadoutid": 0,
-   "mission": "GT-00001K7KO6S21"
+   "mission": "HN-00001K7KPL02T",
+   "mission_name": "蓝方-反舰打击"
   },
   {
-   "id": "GT-00001K7KO6RUE",
+   "id": "HN-00001K7KPKVVA",
    "name": "蓝方 F-35C #3",
    "kind": "Aircraft",
    "side": "蓝方",
@@ -159,10 +161,11 @@
    "heading": 270.0,
    "alt": 10972.799805,
    "loadoutid": 0,
-   "mission": "GT-00001K7KO6S21"
+   "mission": "HN-00001K7KPL02T",
+   "mission_name": "蓝方-反舰打击"
   },
   {
-   "id": "GT-00001K7KO6RQS",
+   "id": "HN-00001K7KPKVRO",
    "name": "蓝方 F-35C #3",
    "kind": "Aircraft",
    "side": "蓝方",
@@ -172,10 +175,67 @@
    "heading": 270.0,
    "alt": 10972.799805,
    "loadoutid": 0,
-   "mission": "GT-00001K7KO6S21"
+   "mission": "HN-00001K7KPL02T",
+   "mission_name": "蓝方-反舰打击"
   },
   {
-   "id": "GT-00001K7KO6Q38",
+   "id": "HN-00001K7KPKVIG",
+   "name": "蓝方 伯克级 #2",
+   "kind": "Ship",
+   "side": "蓝方",
+   "dbid": 112,
+   "lat": 30.134204,
+   "lon": 122.159151,
+   "heading": 270.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "HN-00001K7KPL02T",
+   "mission_name": "蓝方-反舰打击"
+  },
+  {
+   "id": "HN-00001K7KPKUUB",
+   "name": "红方 052D #1",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 2296,
+   "lat": 27.203638,
+   "lon": 125.475122,
+   "heading": 90.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "HN-00001K7KPL02S",
+   "mission_name": "红方-反舰巡逻"
+  },
+  {
+   "id": "HN-00001K7KPKURE",
+   "name": "红方 052D #1",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 2296,
+   "lat": 27.203638,
+   "lon": 125.475122,
+   "heading": 90.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "HN-00001K7KPL02S",
+   "mission_name": "红方-反舰巡逻"
+  },
+  {
+   "id": "HN-00001K7KPKVN4",
+   "name": "蓝方 伯克级 #2",
+   "kind": "Ship",
+   "side": "蓝方",
+   "dbid": 112,
+   "lat": 30.134204,
+   "lon": 122.159151,
+   "heading": 270.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "HN-00001K7KPL02T",
+   "mission_name": "蓝方-反舰打击"
+  },
+  {
+   "id": "HN-00001K7KPKV94",
    "name": "红方 054A #2",
    "kind": "Ship",
    "side": "红方",
@@ -185,23 +245,11 @@
    "heading": 90.0,
    "alt": 0.0,
    "loadoutid": 0,
-   "mission": "GT-00001K7KO6S20"
+   "mission": "HN-00001K7KPL02S",
+   "mission_name": "红方-反舰巡逻"
   },
   {
-   "id": "GT-00001K7KO6PLI",
-   "name": "红方 052D #1",
-   "kind": "Ship",
-   "side": "红方",
-   "dbid": 2296,
-   "lat": 27.203638,
-   "lon": 125.475122,
-   "heading": 90.0,
-   "alt": 0.0,
-   "loadoutid": 0,
-   "mission": "GT-00001K7KO6S20"
-  },
-  {
-   "id": "GT-00001K7KO6Q69",
+   "id": "HN-00001K7KPKVC5",
    "name": "蓝方 福特级 #1",
    "kind": "Ship",
    "side": "蓝方",
@@ -211,66 +259,28 @@
    "heading": 270.0,
    "alt": 0.0,
    "loadoutid": 0,
-   "mission": "GT-00001K7KO6S21"
-  },
-  {
-   "id": "GT-00001K7KO6QCK",
-   "name": "蓝方 伯克级 #2",
-   "kind": "Ship",
-   "side": "蓝方",
-   "dbid": 112,
-   "lat": 30.134204,
-   "lon": 122.159151,
-   "heading": 270.0,
-   "alt": 0.0,
-   "loadoutid": 0,
-   "mission": "GT-00001K7KO6S21"
-  },
-  {
-   "id": "GT-00001K7KO6POF",
-   "name": "红方 052D #1",
-   "kind": "Ship",
-   "side": "红方",
-   "dbid": 2296,
-   "lat": 27.203638,
-   "lon": 125.475122,
-   "heading": 90.0,
-   "alt": 0.0,
-   "loadoutid": 0,
-   "mission": "GT-00001K7KO6S20"
-  },
-  {
-   "id": "GT-00001K7KO6QH8",
-   "name": "蓝方 伯克级 #2",
-   "kind": "Ship",
-   "side": "蓝方",
-   "dbid": 112,
-   "lat": 30.134204,
-   "lon": 122.159151,
-   "heading": 270.0,
-   "alt": 0.0,
-   "loadoutid": 0,
-   "mission": "GT-00001K7KO6S21"
+   "mission": "HN-00001K7KPL02T",
+   "mission_name": "蓝方-反舰打击"
   }
  ],
  "missions": [
   {
-   "id": "GT-00001K7KO6S20",
+   "id": "HN-00001K7KPL02S",
    "name": "红方-反舰巡逻",
    "side": "红方",
    "mtype": "Patrol",
    "subtype": "NAVAL",
    "type_code": "1",
    "assigned": [
-    "GT-00001K7KO6PLI",
-    "GT-00001K7KO6POF",
-    "GT-00001K7KO6Q38"
+    "HN-00001K7KPKV94",
+    "HN-00001K7KPKURE",
+    "HN-00001K7KPKUUB"
    ],
    "zone_ids": [
-    "ffa84c2e-922e-543a-9032-f4c16a29adbd",
-    "ed8abcaa-cb00-5fce-912a-0e21b881de4c",
-    "b9a14ad5-9efa-5128-80c1-d7fa7c8ebf4d",
-    "95a915d0-46bd-5cc0-b057-242a7ef7810c"
+    "8ec8abad-1142-524d-9be4-e815a741a667",
+    "cd1a1202-c070-5b9a-a89e-680dae611845",
+    "c6f53029-f6c8-5177-b512-2f2e40486cfb",
+    "55a63ee7-e1e4-5051-b160-7f6866d79303"
    ],
    "zone": [
     {
@@ -292,26 +302,26 @@
    ]
   },
   {
-   "id": "GT-00001K7KO6S21",
+   "id": "HN-00001K7KPL02T",
    "name": "蓝方-反舰打击",
    "side": "蓝方",
    "mtype": "Patrol",
    "subtype": "NAVAL",
    "type_code": "1",
    "assigned": [
-    "GT-00001K7KO6QH8",
-    "GT-00001K7KO6QCK",
-    "GT-00001K7KO6Q69",
-    "GT-00001K7KO6RSL",
-    "GT-00001K7KO6RUE",
-    "GT-00001K7KO6S07",
-    "GT-00001K7KO6RQS"
+    "HN-00001K7KPKVN4",
+    "HN-00001K7KPKVRO",
+    "HN-00001K7KPKVC5",
+    "HN-00001K7KPKVIG",
+    "HN-00001K7KPKVTH",
+    "HN-00001K7KPL013",
+    "HN-00001K7KPKVVA"
    ],
    "zone_ids": [
-    "f5f61c78-97da-55b8-a65b-c6400fd31820",
-    "05fa7e65-696e-5362-a3c4-a55490ff16b7",
-    "d9ad597c-c460-5111-9c4b-21aa13caf231",
-    "d3d1a96f-4cc7-59c5-ba05-c2434823af26"
+    "c17b06f6-fd1c-5091-975a-3fd5b6133e9e",
+    "ae61dcdf-9a92-5431-8f84-f91bcb6e6eed",
+    "bc4dd971-5117-5bb9-bb47-b4d299e22b60",
+    "a318ffa2-cc75-5dfd-a7d9-65c45de4413f"
    ],
    "zone": [
     {
@@ -335,7 +345,7 @@
  ],
  "reference_points": [
   {
-   "id": "ffa84c2e-922e-543a-9032-f4c16a29adbd",
+   "id": "8ec8abad-1142-524d-9be4-e815a741a667",
    "name": "红方-反舰巡逻-WP1",
    "lat": 27.819216,
    "lon": 125.523904,
@@ -343,7 +353,7 @@
    "highlighted": "True"
   },
   {
-   "id": "ed8abcaa-cb00-5fce-912a-0e21b881de4c",
+   "id": "cd1a1202-c070-5b9a-a89e-680dae611845",
    "name": "红方-反舰巡逻-WP2",
    "lat": 27.152549,
    "lon": 124.765309,
@@ -351,7 +361,7 @@
    "highlighted": "True"
   },
   {
-   "id": "b9a14ad5-9efa-5128-80c1-d7fa7c8ebf4d",
+   "id": "c6f53029-f6c8-5177-b512-2f2e40486cfb",
    "name": "红方-反舰巡逻-WP3",
    "lat": 26.48592,
    "lon": 125.523862,
@@ -359,7 +369,7 @@
    "highlighted": "True"
   },
   {
-   "id": "95a915d0-46bd-5cc0-b057-242a7ef7810c",
+   "id": "55a63ee7-e1e4-5051-b160-7f6866d79303",
    "name": "红方-反舰巡逻-WP4",
    "lat": 27.152587,
    "lon": 126.282457,
@@ -367,7 +377,7 @@
    "highlighted": "True"
   },
   {
-   "id": "f5f61c78-97da-55b8-a65b-c6400fd31820",
+   "id": "c17b06f6-fd1c-5091-975a-3fd5b6133e9e",
    "name": "蓝方-反舰打击-WP1",
    "lat": 30.664749,
    "lon": 122.124705,
@@ -375,7 +385,7 @@
    "highlighted": "True"
   },
   {
-   "id": "05fa7e65-696e-5362-a3c4-a55490ff16b7",
+   "id": "ae61dcdf-9a92-5431-8f84-f91bcb6e6eed",
    "name": "蓝方-反舰打击-WP2",
    "lat": 30.081416,
    "lon": 121.460934,
@@ -383,7 +393,7 @@
    "highlighted": "True"
   },
   {
-   "id": "d9ad597c-c460-5111-9c4b-21aa13caf231",
+   "id": "bc4dd971-5117-5bb9-bb47-b4d299e22b60",
    "name": "蓝方-反舰打击-WP3",
    "lat": 29.498343,
    "lon": 122.124409,
@@ -391,7 +401,7 @@
    "highlighted": "True"
   },
   {
-   "id": "d3d1a96f-4cc7-59c5-ba05-c2434823af26",
+   "id": "a318ffa2-cc75-5dfd-a7d9-65c45de4413f",
    "name": "蓝方-反舰打击-WP4",
    "lat": 30.081677,
    "lon": 122.78818,
@@ -415,6 +425,6 @@
   }
  },
  "raw_sizes": {
-  "xml_bytes": 242409
+  "xml_bytes": 241074
  }
 }
