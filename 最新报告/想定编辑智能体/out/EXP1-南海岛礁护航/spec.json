@@ -1,0 +1,245 @@
+{
+ "title": "南海岛礁护航",
+ "start_time": "2026-08-15 07:00:00",
+ "duration_s": 14400,
+ "complexity": 2,
+ "difficulty": 2,
+ "description": "标题：南海岛礁护航\n\n设定 2026 年 8 月 15 日 07 时，南海中部。红方 1 艘山东舰、2 艘 052D、1 艘 054A 从北侧 120 海里南下，\n执行制海巡逻，巡逻半径 50 海里；4 架歼-15 执行防空巡逻；蓝方 2 艘伯克级、1 艘提康德罗加\n从东南 150 海里接近，2 架 F/A-18E 执行反舰打击。海况 5 级，云量 0.7。持续 4 小时。自由开火。",
+ "center": {
+  "lat": 16.0,
+  "lon": 114.5
+ },
+ "seed": 73793,
+ "sides": [
+  {
+   "name": "红方",
+   "posture": {
+    "蓝方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  },
+  {
+   "name": "蓝方",
+   "posture": {
+    "红方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  }
+ ],
+ "units": [
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 山东舰 #1",
+   "dbid": 3187,
+   "lat": 18.0,
+   "lon": 114.5,
+   "heading": 45,
+   "count": 1,
+   "mission": "红方-制海巡逻",
+   "alias": "山东舰"
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 052D #2",
+   "dbid": 2296,
+   "lat": 17.988379,
+   "lon": 114.360339,
+   "heading": 45,
+   "count": 2,
+   "mission": "红方-制海巡逻",
+   "alias": "052D"
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 054A #3",
+   "dbid": 1965,
+   "lat": 18.152954,
+   "lon": 114.270318,
+   "heading": 45,
+   "count": 1,
+   "mission": "红方-制海巡逻",
+   "alias": "054A"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "红方 歼-15 #4",
+   "dbid": 2496,
+   "lat": 18.38637,
+   "lon": 114.391145,
+   "alt": 8000.0,
+   "heading": 45,
+   "count": 4,
+   "loadoutid": 3,
+   "mission": "红方-防空巡逻",
+   "alias": "歼-15"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "蓝方 伯克级 #1",
+   "dbid": 112,
+   "lat": 14.232233,
+   "lon": 116.339007,
+   "heading": 225,
+   "count": 2,
+   "mission": "蓝方-反舰打击",
+   "alias": "伯克级"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "蓝方 提康德罗加 #2",
+   "dbid": 110,
+   "lat": 14.243854,
+   "lon": 116.476039,
+   "heading": 225,
+   "count": 1,
+   "mission": "蓝方-反舰打击",
+   "alias": "提康德罗加"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "蓝方 F/A-18E #3",
+   "dbid": 753,
+   "lat": 14.079279,
+   "lon": 116.564364,
+   "alt": 8000.0,
+   "heading": 225,
+   "count": 2,
+   "loadoutid": 4617,
+   "mission": "蓝方-反舰打击",
+   "alias": "F/A-18E"
+  }
+ ],
+ "missions": [
+  {
+   "side": "红方",
+   "name": "红方-制海巡逻",
+   "mtype": "Patrol",
+   "subtype": "SEACONTROL",
+   "zone": [
+    {
+     "lat": 18.636367,
+     "lon": 114.996632
+    },
+    {
+     "lat": 17.457855,
+     "lon": 114.996632
+    },
+    {
+     "lat": 17.457855,
+     "lon": 113.75714
+    },
+    {
+     "lat": 18.636367,
+     "lon": 113.75714
+    }
+   ],
+   "units": [
+    "红方 山东舰 #1",
+    "红方 052D #2",
+    "红方 054A #3"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "红方-防空巡逻",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 18.798849,
+     "lon": 114.825813
+    },
+    {
+     "lat": 17.973891,
+     "lon": 114.825813
+    },
+    {
+     "lat": 17.973891,
+     "lon": 113.956477
+    },
+    {
+     "lat": 18.798849,
+     "lon": 113.956477
+    }
+   ],
+   "units": [
+    "红方 歼-15 #4"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "蓝方",
+   "name": "蓝方-反舰打击",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "zone": [
+    {
+     "lat": 14.597601,
+     "lon": 116.885255
+    },
+    {
+     "lat": 13.772643,
+     "lon": 116.885255
+    },
+    {
+     "lat": 13.772643,
+     "lon": 116.034352
+    },
+    {
+     "lat": 14.597601,
+     "lon": 116.034352
+    }
+   ],
+   "units": [
+    "蓝方 伯克级 #1",
+    "蓝方 提康德罗加 #2",
+    "蓝方 F/A-18E #3"
+   ],
+   "isactive": true
+  }
+ ],
+ "weather": {
+  "temp": 20,
+  "rainfall": 0,
+  "cloud": 0.7,
+  "seastate": 5
+ },
+ "provenance": {
+  "parser": "rule",
+  "source_text": "标题：南海岛礁护航\n\n设定 2026 年 8 月 15 日 07 时，南海中部。红方 1 艘山东舰、2 艘 052D、1 艘 054A 从北侧 120 海里南下，\n执行制海巡逻，巡逻半径 50 海里；4 架歼-15 执行防空巡逻；蓝方 2 艘伯克级、1 艘提康德罗加\n从东南 150 海里接近，2 架 F/A-18E 执行反舰打击。海况 5 级，云量 0.7。持续 4 小时。自由开火。\n"
+ }
+}

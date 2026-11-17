@@ -1,0 +1,203 @@
+{
+ "title": "波斯湾航母对峙",
+ "start_time": "2026-10-01 18:00:00",
+ "duration_s": 10800,
+ "complexity": 2,
+ "difficulty": 2,
+ "description": "标题：波斯湾航母对峙\n\n设定 2026 年 10 月 1 日 18 时，波斯湾。红方 1 个航母打击群，1 艘辽宁舰、2 艘 052D、1 艘 093 潜艇\n从西北 100 海里进入；蓝方 1 艘尼米兹级、2 艘伯克级从东南 120 海里进入，4 架 F/A-18E 执行反舰打击。\n红方执行反舰巡逻，半径 40 海里。海况 6 级，云量 0.9，降雨 30。持续 3 小时。谨慎开火。",
+ "center": {
+  "lat": 26.5,
+  "lon": 52.0
+ },
+ "seed": 58906,
+ "sides": [
+  {
+   "name": "红方",
+   "posture": {
+    "蓝方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  },
+  {
+   "name": "蓝方",
+   "posture": {
+    "红方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  }
+ ],
+ "units": [
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 辽宁舰 #1",
+   "dbid": 2007,
+   "lat": 27.678511,
+   "lon": 50.683131,
+   "heading": 45,
+   "count": 1,
+   "mission": "红方-反舰巡逻",
+   "alias": "辽宁舰"
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 052D #2",
+   "dbid": 2296,
+   "lat": 27.66689,
+   "lon": 50.533141,
+   "heading": 45,
+   "count": 2,
+   "mission": "红方-反舰巡逻",
+   "alias": "052D"
+  },
+  {
+   "side": "红方",
+   "kind": "Submarine",
+   "name": "红方 093 #3",
+   "dbid": 164,
+   "lat": 27.831465,
+   "lon": 50.436464,
+   "heading": 45,
+   "count": 1,
+   "mission": "红方-反舰巡逻",
+   "alias": "093"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "蓝方 尼米兹 #1",
+   "dbid": 341,
+   "lat": 25.085786,
+   "lon": 53.580243,
+   "heading": 225,
+   "count": 1,
+   "mission": "蓝方-反舰打击",
+   "alias": "尼米兹"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "蓝方 伯克级 #2",
+   "dbid": 112,
+   "lat": 25.097407,
+   "lon": 53.726903,
+   "heading": 225,
+   "count": 2,
+   "mission": "蓝方-反舰打击",
+   "alias": "伯克级"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "蓝方 F/A-18E #3",
+   "dbid": 753,
+   "lat": 24.932832,
+   "lon": 53.821434,
+   "alt": 8000.0,
+   "heading": 225,
+   "count": 4,
+   "loadoutid": 4617,
+   "mission": "蓝方-反舰打击",
+   "alias": "F/A-18E"
+  }
+ ],
+ "missions": [
+  {
+   "side": "蓝方",
+   "name": "蓝方-反舰打击",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "zone": [
+    {
+     "lat": 25.451154,
+     "lon": 54.16479
+    },
+    {
+     "lat": 24.626196,
+     "lon": 54.16479
+    },
+    {
+     "lat": 24.626196,
+     "lon": 53.254263
+    },
+    {
+     "lat": 25.451154,
+     "lon": 53.254263
+    }
+   ],
+   "units": [
+    "蓝方 尼米兹 #1",
+    "蓝方 伯克级 #2",
+    "蓝方 F/A-18E #3"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "红方-反舰巡逻",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "zone": [
+    {
+     "lat": 28.144105,
+     "lon": 51.140427
+    },
+    {
+     "lat": 27.201296,
+     "lon": 51.140427
+    },
+    {
+     "lat": 27.201296,
+     "lon": 50.075845
+    },
+    {
+     "lat": 28.144105,
+     "lon": 50.075845
+    }
+   ],
+   "units": [
+    "红方 辽宁舰 #1",
+    "红方 052D #2",
+    "红方 093 #3"
+   ],
+   "isactive": true
+  }
+ ],
+ "weather": {
+  "temp": 20,
+  "rainfall": 30,
+  "cloud": 0.9,
+  "seastate": 6
+ },
+ "provenance": {
+  "parser": "rule",
+  "source_text": "标题：波斯湾航母对峙\n\n设定 2026 年 10 月 1 日 18 时，波斯湾。红方 1 个航母打击群，1 艘辽宁舰、2 艘 052D、1 艘 093 潜艇\n从西北 100 海里进入；蓝方 1 艘尼米兹级、2 艘伯克级从东南 120 海里进入，4 架 F/A-18E 执行反舰打击。\n红方执行反舰巡逻，半径 40 海里。海况 6 级，云量 0.9，降雨 30。持续 3 小时。谨慎开火。\n"
+ }
+}

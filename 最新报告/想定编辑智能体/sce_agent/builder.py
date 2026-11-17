@@ -190,7 +190,7 @@ class Builder(object):
                                 readback_ok=rb_ok, readback_detail=rb_detail)
             if notes:
                 for n in notes:
-                    res.report.add("词表提示", True, n, warn=True)
+                    res.report.add("自动修正 / 提示", True, n, warn=True)
             res.ok = res.report.ok
         else:
             res.ok = True

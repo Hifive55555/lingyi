@@ -1,0 +1,446 @@
+{
+ "title": "波斯湾航母对峙",
+ "description": "<BODY scroll=auto><P style=\"MARGIN: 12px 0px\" align=center><SPAN style=\"FONT-SIZE: 18pt; FONT-FAMILY: '黑体'\">波斯湾航母对峙</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">标题：波斯湾航母对峙</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">设定 2026 年 10 月 1 日 18 时，波斯湾。红方 1 个航母打击群，1 艘辽宁舰、2 艘 052D、1 艘 093 潜艇</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">从西北 100 海里进入；蓝方 1 艘尼米兹级、2 艘伯克级从东南 120 海里进入，4 架 F/A-18E 执行反舰打击。</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">红方执行反舰巡逻，半径 40 海里。海况 6 级，云量 0.9，降雨 30。持续 3 小时。谨慎开火。</SPAN></P></BODY>",
+ "start_time_ticks": "-8584067153867525808",
+ "duration_s": 10800,
+ "complexity": 0,
+ "difficulty": 0,
+ "sides": [
+  {
+   "id": "3G-00001K7KPC7BO",
+   "name": "红方",
+   "postures": {
+    "3G-00001K7KPC7BP": "3"
+   },
+   "doctrine": {
+    "Nukes": "0",
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "IPCWA": "0",
+    "WinchesterShotgunRTB": "1",
+    "BingoJokerRTB": "2",
+    "JettisonOrdnance": "0",
+    "BVRLogic": "1",
+    "BTAT": "2",
+    "AE": "1",
+    "MS": "1",
+    "GS": "0",
+    "UR": "0",
+    "RS": "0",
+    "ST": "0",
+    "SAM_ASUW": "0",
+    "E_Radar": "0",
+    "E_Sonar": "0",
+    "E_OECM": "0",
+    "QuickTurnAround": "1",
+    "AirOpsTempo": "0",
+    "BingoJoker": "0",
+    "WinchesterShotgun": "0",
+    "WithdrawDamageThreshold": "0",
+    "WithdrawFuelThreshold": "1",
+    "WithdrawAttackThreshold": "0",
+    "WithdrawDefenceThreshold": "0",
+    "RedeployDamageThreshold": "1",
+    "RedeployFuelThreshold": "5",
+    "RedeployAttackThreshold": "5",
+    "RedeployDefenceThreshold": "5",
+    "IgnoreEMCONUnderAttack": "1",
+    "UseTorpedoesKinematicRange": "2",
+    "RefuelAllies": "0",
+    "BingoThreshold": "3",
+    "AvoidContact": "0",
+    "DiveWhenThreatsDetected": "0",
+    "RechargePercentagePatrol": "60",
+    "RechargePercentageAttack": "10",
+    "AIPUsage": "1",
+    "DippingSonar": "0",
+    "SurfNav": "0",
+    "SubNav": "0",
+    "LandNav": "0"
+   },
+   "is_ai_only": "false",
+   "reference_point_count": 4
+  },
+  {
+   "id": "3G-00001K7KPC7BP",
+   "name": "蓝方",
+   "postures": {
+    "3G-00001K7KPC7BO": "3"
+   },
+   "doctrine": {
+    "Nukes": "0",
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "IPCWA": "0",
+    "WinchesterShotgunRTB": "1",
+    "BingoJokerRTB": "2",
+    "JettisonOrdnance": "0",
+    "BVRLogic": "1",
+    "BTAT": "2",
+    "AE": "1",
+    "MS": "1",
+    "GS": "0",
+    "UR": "0",
+    "RS": "0",
+    "ST": "0",
+    "SAM_ASUW": "0",
+    "E_Radar": "1",
+    "E_Sonar": "0",
+    "E_OECM": "0",
+    "QuickTurnAround": "1",
+    "AirOpsTempo": "0",
+    "BingoJoker": "0",
+    "WinchesterShotgun": "0",
+    "WithdrawDamageThreshold": "0",
+    "WithdrawFuelThreshold": "1",
+    "WithdrawAttackThreshold": "0",
+    "WithdrawDefenceThreshold": "0",
+    "RedeployDamageThreshold": "1",
+    "RedeployFuelThreshold": "5",
+    "RedeployAttackThreshold": "5",
+    "RedeployDefenceThreshold": "5",
+    "IgnoreEMCONUnderAttack": "1",
+    "UseTorpedoesKinematicRange": "2",
+    "RefuelAllies": "0",
+    "BingoThreshold": "3",
+    "AvoidContact": "0",
+    "DiveWhenThreatsDetected": "0",
+    "RechargePercentagePatrol": "60",
+    "RechargePercentageAttack": "10",
+    "AIPUsage": "1",
+    "DippingSonar": "0",
+    "SurfNav": "0",
+    "SubNav": "0",
+    "LandNav": "0"
+   },
+   "is_ai_only": "false",
+   "reference_point_count": 4
+  }
+ ],
+ "units": [
+  {
+   "id": "3G-00001K7KPC88R",
+   "name": "蓝方 F/A-18E #3",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 753,
+   "lat": 24.932832,
+   "lon": 53.821434,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MQ",
+   "mission_name": "蓝方-反舰打击"
+  },
+  {
+   "id": "3G-00001K7KPC8D8",
+   "name": "蓝方 F/A-18E #3",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 753,
+   "lat": 24.932832,
+   "lon": 53.821434,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MQ",
+   "mission_name": "蓝方-反舰打击"
+  },
+  {
+   "id": "3G-00001K7KPC8BP",
+   "name": "蓝方 F/A-18E #3",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 753,
+   "lat": 24.932832,
+   "lon": 53.821434,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MQ",
+   "mission_name": "蓝方-反舰打击"
+  },
+  {
+   "id": "3G-00001K7KPC8AA",
+   "name": "蓝方 F/A-18E #3",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 753,
+   "lat": 24.932832,
+   "lon": 53.821434,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MQ",
+   "mission_name": "蓝方-反舰打击"
+  },
+  {
+   "id": "3G-00001K7KPC7QQ",
+   "name": "蓝方 尼米兹 #1",
+   "kind": "Ship",
+   "side": "蓝方",
+   "dbid": 341,
+   "lat": 25.085786,
+   "lon": 53.580243,
+   "heading": 225.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MQ",
+   "mission_name": "蓝方-反舰打击"
+  },
+  {
+   "id": "3G-00001K7KPC7M4",
+   "name": "红方 052D #2",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 2296,
+   "lat": 27.66689,
+   "lon": 50.533141,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MR",
+   "mission_name": "红方-反舰巡逻"
+  },
+  {
+   "id": "3G-00001K7KPC7BS",
+   "name": "红方 辽宁舰 #1",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 2007,
+   "lat": 27.678511,
+   "lon": 50.683131,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MR",
+   "mission_name": "红方-反舰巡逻"
+  },
+  {
+   "id": "3G-00001K7KPC7J7",
+   "name": "红方 052D #2",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 2296,
+   "lat": 27.66689,
+   "lon": 50.533141,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MR",
+   "mission_name": "红方-反舰巡逻"
+  },
+  {
+   "id": "3G-00001K7KPC847",
+   "name": "蓝方 伯克级 #2",
+   "kind": "Ship",
+   "side": "蓝方",
+   "dbid": 112,
+   "lat": 25.097407,
+   "lon": 53.726903,
+   "heading": 225.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MQ",
+   "mission_name": "蓝方-反舰打击"
+  },
+  {
+   "id": "3G-00001K7KPC7VJ",
+   "name": "蓝方 伯克级 #2",
+   "kind": "Ship",
+   "side": "蓝方",
+   "dbid": 112,
+   "lat": 25.097407,
+   "lon": 53.726903,
+   "heading": 225.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MQ",
+   "mission_name": "蓝方-反舰打击"
+  },
+  {
+   "id": "3G-00001K7KPC7P1",
+   "name": "红方 093 #3",
+   "kind": "Submarine",
+   "side": "红方",
+   "dbid": 164,
+   "lat": 27.831465,
+   "lon": 50.436464,
+   "heading": 45.0,
+   "alt": -20.0,
+   "loadoutid": 0,
+   "mission": "3G-00001K7KPC9MR",
+   "mission_name": "红方-反舰巡逻"
+  }
+ ],
+ "missions": [
+  {
+   "id": "3G-00001K7KPC9MR",
+   "name": "红方-反舰巡逻",
+   "side": "红方",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "type_code": "1",
+   "assigned": [
+    "3G-00001K7KPC7P1",
+    "3G-00001K7KPC7BS",
+    "3G-00001K7KPC7M4",
+    "3G-00001K7KPC7J7"
+   ],
+   "zone_ids": [
+    "489f2ef9-077a-5fab-b294-491a259902b9",
+    "390abab1-7045-50af-83fa-7942339250a7",
+    "ba0da060-47b8-561f-81db-3ee29cf05c4d",
+    "e0f92bdd-b677-5e48-80a5-3cb6030e2ae7"
+   ],
+   "zone": [
+    {
+     "lat": 28.144105,
+     "lon": 51.140427
+    },
+    {
+     "lat": 27.201296,
+     "lon": 51.140427
+    },
+    {
+     "lat": 27.201296,
+     "lon": 50.075845
+    },
+    {
+     "lat": 28.144105,
+     "lon": 50.075845
+    }
+   ]
+  },
+  {
+   "id": "3G-00001K7KPC9MQ",
+   "name": "蓝方-反舰打击",
+   "side": "蓝方",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "type_code": "1",
+   "assigned": [
+    "3G-00001K7KPC8D8",
+    "3G-00001K7KPC847",
+    "3G-00001K7KPC8BP",
+    "3G-00001K7KPC8AA",
+    "3G-00001K7KPC88R",
+    "3G-00001K7KPC7QQ",
+    "3G-00001K7KPC7VJ"
+   ],
+   "zone_ids": [
+    "91c5d0c0-8873-5ed9-9196-f1aa082cfa8b",
+    "75651a68-c790-591c-8344-ec1527c2e27b",
+    "bed7a31b-844b-5d04-9204-cba68c6799a6",
+    "b7a34de7-fdf5-56a0-8e41-9916d8309c01"
+   ],
+   "zone": [
+    {
+     "lat": 25.451154,
+     "lon": 54.16479
+    },
+    {
+     "lat": 24.626196,
+     "lon": 54.16479
+    },
+    {
+     "lat": 24.626196,
+     "lon": 53.254263
+    },
+    {
+     "lat": 25.451154,
+     "lon": 53.254263
+    }
+   ]
+  }
+ ],
+ "reference_points": [
+  {
+   "id": "489f2ef9-077a-5fab-b294-491a259902b9",
+   "name": "红方-反舰巡逻-WP1",
+   "lat": 28.144105,
+   "lon": 51.140427,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "390abab1-7045-50af-83fa-7942339250a7",
+   "name": "红方-反舰巡逻-WP2",
+   "lat": 27.201296,
+   "lon": 51.140427,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "ba0da060-47b8-561f-81db-3ee29cf05c4d",
+   "name": "红方-反舰巡逻-WP3",
+   "lat": 27.201296,
+   "lon": 50.075845,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "e0f92bdd-b677-5e48-80a5-3cb6030e2ae7",
+   "name": "红方-反舰巡逻-WP4",
+   "lat": 28.144105,
+   "lon": 50.075845,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "91c5d0c0-8873-5ed9-9196-f1aa082cfa8b",
+   "name": "蓝方-反舰打击-WP1",
+   "lat": 25.451154,
+   "lon": 54.16479,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "75651a68-c790-591c-8344-ec1527c2e27b",
+   "name": "蓝方-反舰打击-WP2",
+   "lat": 24.626196,
+   "lon": 54.16479,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "bed7a31b-844b-5d04-9204-cba68c6799a6",
+   "name": "蓝方-反舰打击-WP3",
+   "lat": 24.626196,
+   "lon": 53.254263,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "b7a34de7-fdf5-56a0-8e41-9916d8309c01",
+   "name": "蓝方-反舰打击-WP4",
+   "lat": 25.451154,
+   "lon": 53.254263,
+   "side": "蓝方",
+   "highlighted": "True"
+  }
+ ],
+ "weather": {
+  "temp": 20,
+  "rainfall": 30,
+  "cloud": 0.9,
+  "seastate": 6
+ },
+ "counts": {
+  "蓝方": {
+   "Aircraft": 4,
+   "Ship": 3
+  },
+  "红方": {
+   "Ship": 3,
+   "Submarine": 1
+  }
+ },
+ "raw_sizes": {
+  "xml_bytes": 230912
+ }
+}

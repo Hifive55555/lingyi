@@ -1,0 +1,358 @@
+{
+ "ok": true,
+ "title": "波斯湾航母对峙",
+ "name": "EXP1-波斯湾航母对峙",
+ "scen_path": "D:/LingYi/Data/Scenarios/EXP1-波斯湾航母对峙.scen",
+ "size": 40844,
+ "elapsed": 4.33,
+ "error": "",
+ "steps": [
+  {
+   "block": "info",
+   "code": "NewScenario('','')",
+   "ok": true,
+   "ret": 0,
+   "out": "3G-00001K7KPC7BN"
+  },
+  {
+   "block": "info",
+   "code": "SetScenarioInfo({TITLE='波斯湾航母对峙', DURATION=10800, COMPLEXITY=2, DIFFICULTY=2, SEED=58906, DESCRIPTION='PEJPRFkgc2Nyb2xsPWF1dG8+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiIGFsaWduPWNlbnRlcj48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxOHB0OyBGT05ULUZBTUlMWTogJ+m7keS9kyciPuazouaWr+a5vuiIquavjeWvueWzmTwvU1BBTj48L1A+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiPjxTUEFOIHN0eWxlPSJGT05ULVNJWkU6IDE0cHQ7IEZPTlQtRkFNSUxZOiAn5a6L5L2TJyI+5qCH6aKY77ya5rOi5pav5rm+6Iiq5q+N5a+55bOZPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj7orr7lrpogMjAyNiDlubQgMTAg5pyIIDEg5pelIDE4IOaXtu+8jOazouaWr+a5vuOAgue6ouaWuSAxIOS4quiIquavjeaJk+WHu+e+pO+8jDEg6ImY6L695a6B6Iiw44CBMiDoiZggMDUyROOAgTEg6ImYIDA5MyDmvZzoiYc8L1NQQU4+PC9QPjxQIHN0eWxlPSJNQVJHSU46IDEycHggMHB4Ij48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxNHB0OyBGT05ULUZBTUlMWTogJ+Wui+S9kyciPuS7juilv+WMlyAxMDAg5rW36YeM6L+b5YWl77yb6JOd5pa5IDEg6ImY5bC857Gz5YW557qn44CBMiDoiZjkvK/lhYvnuqfku47kuJzljZcgMTIwIOa1t+mHjOi/m+WFpe+8jDQg5p62IEYvQS0xOEUg5omn6KGM5Y+N6Iiw5omT5Ye744CCPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj7nuqLmlrnmiafooYzlj43oiLDlt6HpgLvvvIzljYrlvoQgNDAg5rW36YeM44CC5rW35Ya1IDYg57qn77yM5LqR6YePIDAuOe+8jOmZjembqCAzMOOAguaMgee7rSAzIOWwj+aXtuOAguiwqOaFjuW8gOeBq+OAgjwvU1BBTj48L1A+PC9CT0RZPg=='})",
+   "ok": true,
+   "ret": 0,
+   "out": "设置成功"
+  },
+  {
+   "block": "sides",
+   "code": "S_1 = AddSide({side='红方'})",
+   "ok": true,
+   "ret": 0,
+   "out": "3G-00001K7KPC7BO"
+  },
+  {
+   "block": "sides",
+   "code": "S_2 = AddSide({side='蓝方'})",
+   "ok": true,
+   "ret": 0,
+   "out": "3G-00001K7KPC7BP"
+  },
+  {
+   "block": "setup",
+   "code": "SetSidePosture('3G-00001K7KPC7BO', '3G-00001K7KPC7BP', 'H')",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSidePosture('3G-00001K7KPC7BP', '3G-00001K7KPC7BO', 'H')",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSideOptions({side='3G-00001K7KPC7BO', CAMERALON=52.1289, CAMERALAT=26.3821, CAMERAALT=939329.0})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSideOptions({side='3G-00001K7KPC7BP', CAMERALON=52.1289, CAMERALAT=26.3821, CAMERAALT=939329.0})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetDoctrine({side='3G-00001K7KPC7BO'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetDoctrine({side='3G-00001K7KPC7BP'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "weather",
+   "code": "SetWeather(20, 30, 0.9, 6)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "units",
+   "code": "U_1 = AddUnit({side='3G-00001K7KPC7BO', type='Ship', DATASOURCE=0.0, name='红方 辽宁舰 #1', dbid=2007.0, latitude='27.678511', longitude='50.683131', heading=45})",
+   "ok": true,
+   "ret": 0,
+   "out": "3G-00001K7KPC7BS"
+  },
+  {
+   "block": "units",
+   "code": "U_2 = AddUnit({side='3G-00001K7KPC7BO', type='Ship', DATASOURCE=0.0, name='红方 052D #2', dbid=2296.0, latitude='27.666890', longitude='50.533141', heading=45, count=2.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "3G-00001K7KPC7J7,3G-00001K7KPC7M4"
+  },
+  {
+   "block": "units",
+   "code": "U_3 = AddUnit({side='3G-00001K7KPC7BO', type='Submarine', DATASOURCE=0.0, name='红方 093 #3', dbid=164.0, latitude='27.831465', longitude='50.436464', heading=45})",
+   "ok": true,
+   "ret": 0,
+   "out": "3G-00001K7KPC7P1"
+  },
+  {
+   "block": "units",
+   "code": "U_4 = AddUnit({side='3G-00001K7KPC7BP', type='Ship', DATASOURCE=0.0, name='蓝方 尼米兹 #1', dbid=341.0, latitude='25.085786', longitude='53.580243', heading=225})",
+   "ok": true,
+   "ret": 0,
+   "out": "3G-00001K7KPC7QQ"
+  },
+  {
+   "block": "units",
+   "code": "U_5 = AddUnit({side='3G-00001K7KPC7BP', type='Ship', DATASOURCE=0.0, name='蓝方 伯克级 #2', dbid=112.0, latitude='25.097407', longitude='53.726903', heading=225, count=2.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "3G-00001K7KPC7VJ,3G-00001K7KPC847"
+  },
+  {
+   "block": "units",
+   "code": "U_6 = AddUnit({side='3G-00001K7KPC7BP', type='Aircraft', DATASOURCE=0.0, name='蓝方 F/A-18E #3', dbid=753.0, latitude='24.932832', longitude='53.821434', alt=8000.0, heading=225, loadoutid=4617.0, count=4.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "3G-00001K7KPC88R,3G-00001K7KPC8AA,3G-00001K7KPC8BP,3G-00001K7KPC8D8"
+  },
+  {
+   "block": "missions",
+   "code": "M_1 = AddMission('3G-00001K7KPC7BP', '蓝方-反舰打击', 'Patrol', {isactive=true, type='NAVAL', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = '3G-00001K7KPC9MQ',name = '蓝方-反舰打击'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_2 = AddMission('3G-00001K7KPC7BO', '红方-反舰巡逻', 'Patrol', {isactive=true, type='NAVAL', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = '3G-00001K7KPC9MR',name = '红方-反舰巡逻'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='3G-00001K7KPC7BP', guid='91c5d0c0-8873-5ed9-9196-f1aa082cfa8b', name='蓝方-反舰打击-WP1', lat=25.451154, lon=54.16479, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '蓝方-反舰打击-WP1', \r\n latitude = '25.451154', \r\n longitude = '54.164790', \r\n guid = '91c5d0c0-8873-5ed9-9196-f1aa082cfa8b', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='3G-00001K7KPC7BP', guid='75651a68-c790-591c-8344-ec1527c2e27b', name='蓝方-反舰打击-WP2', lat=24.626196, lon=54.16479, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '蓝方-反舰打击-WP2', \r\n latitude = '24.626196', \r\n longitude = '54.164790', \r\n guid = '75651a68-c790-591c-8344-ec1527c2e27b', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='3G-00001K7KPC7BP', guid='bed7a31b-844b-5d04-9204-cba68c6799a6', name='蓝方-反舰打击-WP3', lat=24.626196, lon=53.254263, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '蓝方-反舰打击-WP3', \r\n latitude = '24.626196', \r\n longitude = '53.254263', \r\n guid = 'bed7a31b-844b-5d04-9204-cba68c6799a6', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='3G-00001K7KPC7BP', guid='b7a34de7-fdf5-56a0-8e41-9916d8309c01', name='蓝方-反舰打击-WP4', lat=25.451154, lon=53.254263, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '蓝方-反舰打击-WP4', \r\n latitude = '25.451154', \r\n longitude = '53.254263', \r\n guid = 'b7a34de7-fdf5-56a0-8e41-9916d8309c01', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('3G-00001K7KPC7BP', '3G-00001K7KPC9MQ', {patrolZone={'91c5d0c0-8873-5ed9-9196-f1aa082cfa8b', '75651a68-c790-591c-8344-ec1527c2e27b', 'bed7a31b-844b-5d04-9204-cba68c6799a6', 'b7a34de7-fdf5-56a0-8e41-9916d8309c01'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = '3G-00001K7KPC9MQ',name = '蓝方-反舰打击'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='3G-00001K7KPC7BO', guid='489f2ef9-077a-5fab-b294-491a259902b9', name='红方-反舰巡逻-WP1', lat=28.144105, lon=51.140427, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红方-反舰巡逻-WP1', \r\n latitude = '28.144105', \r\n longitude = '51.140427', \r\n guid = '489f2ef9-077a-5fab-b294-491a259902b9', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='3G-00001K7KPC7BO', guid='390abab1-7045-50af-83fa-7942339250a7', name='红方-反舰巡逻-WP2', lat=27.201296, lon=51.140427, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红方-反舰巡逻-WP2', \r\n latitude = '27.201296', \r\n longitude = '51.140427', \r\n guid = '390abab1-7045-50af-83fa-7942339250a7', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='3G-00001K7KPC7BO', guid='ba0da060-47b8-561f-81db-3ee29cf05c4d', name='红方-反舰巡逻-WP3', lat=27.201296, lon=50.075845, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红方-反舰巡逻-WP3', \r\n latitude = '27.201296', \r\n longitude = '50.075845', \r\n guid = 'ba0da060-47b8-561f-81db-3ee29cf05c4d', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='3G-00001K7KPC7BO', guid='e0f92bdd-b677-5e48-80a5-3cb6030e2ae7', name='红方-反舰巡逻-WP4', lat=28.144105, lon=50.075845, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红方-反舰巡逻-WP4', \r\n latitude = '28.144105', \r\n longitude = '50.075845', \r\n guid = 'e0f92bdd-b677-5e48-80a5-3cb6030e2ae7', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('3G-00001K7KPC7BO', '3G-00001K7KPC9MR', {patrolZone={'489f2ef9-077a-5fab-b294-491a259902b9', '390abab1-7045-50af-83fa-7942339250a7', 'ba0da060-47b8-561f-81db-3ee29cf05c4d', 'e0f92bdd-b677-5e48-80a5-3cb6030e2ae7'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = '3G-00001K7KPC9MR',name = '红方-反舰巡逻'}"
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('3G-00001K7KPC7QQ,3G-00001K7KPC7VJ,3G-00001K7KPC847,3G-00001K7KPC88R,3G-00001K7KPC8AA,3G-00001K7KPC8BP,3G-00001K7KPC8D8', '3G-00001K7KPC9MQ', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('3G-00001K7KPC7BS,3G-00001K7KPC7J7,3G-00001K7KPC7M4,3G-00001K7KPC7P1', '3G-00001K7KPC9MR', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "save",
+   "code": "Command_SaveScen('D:/LingYi/Data/Scenarios/EXP1-波斯湾航母对峙.scen')",
+   "ok": true,
+   "ret": 0,
+   "out": "Scenarios/EXP1-波斯湾航母对峙.scen"
+  }
+ ],
+ "digest_summary": "《波斯湾航母对峙》 2 方 11 单元（红方[Ship:3 Submarine:1], 蓝方[Aircraft:4 Ship:3]）；任务 2 个（红方-反舰巡逻:Patrol/NAVAL, 蓝方-反舰打击:Patrol/NAVAL）；参考点 8",
+ "verify": {
+  "ok": true,
+  "passed": 19,
+  "total": 19,
+  "failed": [],
+  "checks": [
+   {
+    "check": "文件已落盘且非空",
+    "ok": true,
+    "warn": false,
+    "detail": "40844 字节"
+   },
+   {
+    "check": "引擎可回读（GetScenarioContent）",
+    "ok": true,
+    "warn": false,
+    "detail": "回读 230912 字节"
+   },
+   {
+    "check": "标题一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec='波斯湾航母对峙' engine='波斯湾航母对峙'"
+   },
+   {
+    "check": "推演时长一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec=10800s engine=10800s"
+   },
+   {
+    "check": "推演方集合一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec=['红方', '蓝方'] engine=['红方', '蓝方']"
+   },
+   {
+    "check": "两两对抗关系正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致（H=3 U=2 F=1 N=0）"
+   },
+   {
+    "check": "兵力数量分布一致",
+    "ok": true,
+    "warn": false,
+    "detail": "红方 Aircraft:0, Ship:3, Submarine:1, Facility:0, Satellite:0；蓝方 Aircraft:4, Ship:3, Submarine:0, Facility:0, Satellite:0"
+   },
+   {
+    "check": "单元齐全（按 推演方+名称）",
+    "ok": true,
+    "warn": false,
+    "detail": "6 型单元全部在册"
+   },
+   {
+    "check": "单元 DBID 正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "单元初始坐标正确（±0.002°）",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "任务齐全（推演方+名称）",
+    "ok": true,
+    "warn": false,
+    "detail": "2 个任务全部在册"
+   },
+   {
+    "check": "任务类型/子类型正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "巡逻区顶点数正确（Patrol）",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "单元-任务分配数正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "没有多余任务",
+    "ok": true,
+    "warn": true,
+    "detail": "OK"
+   },
+   {
+    "check": "条令关键字段一致",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "气象一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec={'temp': 20, 'rainfall': 30, 'cloud': 0.9, 'seastate': 6} engine={'temp': 20, 'rainfall': 30, 'cloud': 0.9, 'seastate': 6}"
+   },
+   {
+    "check": "词表提示",
+    "ok": true,
+    "warn": true,
+    "detail": "提示：单元 红方 辽宁舰 #1 的别名 '辽宁舰' 与引擎类名 'CV16 “辽宁”号001型航空母舰' 不完全一致"
+   },
+   {
+    "check": "词表提示",
+    "ok": true,
+    "warn": true,
+    "detail": "提示：单元 蓝方 伯克级 #2 的别名 '伯克级' 与引擎类名 '“阿利伯克”级导弹驱逐舰' 不完全一致"
+   }
+  ]
+ }
+}

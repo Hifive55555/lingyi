@@ -1,0 +1,339 @@
+{
+ "title": "尤卡坦联合演习",
+ "description": "<BODY scroll=auto><P style=\"MARGIN: 12px 0px\" align=center><SPAN style=\"FONT-SIZE: 18pt; FONT-FAMILY: '黑体'\">尤卡坦联合演习</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">标题：尤卡坦联合演习</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">设定 2026 年 9 月 10 日 10 时，尤卡坦。红方 2 艘 054A 在西侧 80 海里，蓝方 2 艘伯克级在东侧 90 海里，</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">双方友好，进行联合演习，各执行反潜巡逻，巡逻半径 25 海里。海况 2 级，云量 0.3。持续 2 小时。</SPAN></P></BODY>",
+ "start_time_ticks": "-8584067154609125808",
+ "duration_s": 7200,
+ "complexity": 0,
+ "difficulty": 0,
+ "sides": [
+  {
+   "id": "4X-00001K7KP9UQK",
+   "name": "红方",
+   "postures": {
+    "4X-00001K7KP9UQL": "1"
+   },
+   "doctrine": {
+    "Nukes": "0",
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "IPCWA": "0",
+    "WinchesterShotgunRTB": "1",
+    "BingoJokerRTB": "2",
+    "JettisonOrdnance": "0",
+    "BVRLogic": "1",
+    "BTAT": "2",
+    "AE": "1",
+    "MS": "1",
+    "GS": "0",
+    "UR": "0",
+    "RS": "0",
+    "ST": "0",
+    "SAM_ASUW": "0",
+    "E_Radar": "0",
+    "E_Sonar": "0",
+    "E_OECM": "0",
+    "QuickTurnAround": "1",
+    "AirOpsTempo": "0",
+    "BingoJoker": "0",
+    "WinchesterShotgun": "0",
+    "WithdrawDamageThreshold": "0",
+    "WithdrawFuelThreshold": "1",
+    "WithdrawAttackThreshold": "0",
+    "WithdrawDefenceThreshold": "0",
+    "RedeployDamageThreshold": "1",
+    "RedeployFuelThreshold": "5",
+    "RedeployAttackThreshold": "5",
+    "RedeployDefenceThreshold": "5",
+    "IgnoreEMCONUnderAttack": "1",
+    "UseTorpedoesKinematicRange": "2",
+    "RefuelAllies": "0",
+    "BingoThreshold": "3",
+    "AvoidContact": "0",
+    "DiveWhenThreatsDetected": "0",
+    "RechargePercentagePatrol": "60",
+    "RechargePercentageAttack": "10",
+    "AIPUsage": "1",
+    "DippingSonar": "0",
+    "SurfNav": "0",
+    "SubNav": "0",
+    "LandNav": "0"
+   },
+   "is_ai_only": "false",
+   "reference_point_count": 4
+  },
+  {
+   "id": "4X-00001K7KP9UQL",
+   "name": "蓝方",
+   "postures": {
+    "4X-00001K7KP9UQK": "1"
+   },
+   "doctrine": {
+    "Nukes": "0",
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "IPCWA": "0",
+    "WinchesterShotgunRTB": "1",
+    "BingoJokerRTB": "2",
+    "JettisonOrdnance": "0",
+    "BVRLogic": "1",
+    "BTAT": "2",
+    "AE": "1",
+    "MS": "1",
+    "GS": "0",
+    "UR": "0",
+    "RS": "0",
+    "ST": "0",
+    "SAM_ASUW": "0",
+    "E_Radar": "230",
+    "E_Sonar": "150",
+    "E_OECM": "185",
+    "QuickTurnAround": "1",
+    "AirOpsTempo": "0",
+    "BingoJoker": "0",
+    "WinchesterShotgun": "0",
+    "WithdrawDamageThreshold": "0",
+    "WithdrawFuelThreshold": "1",
+    "WithdrawAttackThreshold": "0",
+    "WithdrawDefenceThreshold": "0",
+    "RedeployDamageThreshold": "1",
+    "RedeployFuelThreshold": "5",
+    "RedeployAttackThreshold": "5",
+    "RedeployDefenceThreshold": "5",
+    "IgnoreEMCONUnderAttack": "1",
+    "UseTorpedoesKinematicRange": "2",
+    "RefuelAllies": "0",
+    "BingoThreshold": "3",
+    "AvoidContact": "0",
+    "DiveWhenThreatsDetected": "0",
+    "RechargePercentagePatrol": "60",
+    "RechargePercentageAttack": "10",
+    "AIPUsage": "1",
+    "DippingSonar": "0",
+    "SurfNav": "0",
+    "SubNav": "0",
+    "LandNav": "0"
+   },
+   "is_ai_only": "false",
+   "reference_point_count": 4
+  }
+ ],
+ "units": [
+  {
+   "id": "4X-00001K7KP9UTP",
+   "name": "红方 054A #1",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 1965,
+   "lat": 21.5,
+   "lon": -89.433048,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4X-00001K7KP9VG3",
+   "mission_name": "红方-反舰巡逻"
+  },
+  {
+   "id": "4X-00001K7KP9V6Q",
+   "name": "蓝方 伯克级 #1",
+   "kind": "Ship",
+   "side": "蓝方",
+   "dbid": 112,
+   "lat": 21.5,
+   "lon": -86.387821,
+   "heading": 225.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4X-00001K7KP9VG2",
+   "mission_name": "蓝方-反潜巡逻"
+  },
+  {
+   "id": "4X-00001K7KP9VBE",
+   "name": "蓝方 伯克级 #1",
+   "kind": "Ship",
+   "side": "蓝方",
+   "dbid": 112,
+   "lat": 21.5,
+   "lon": -86.387821,
+   "heading": 225.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4X-00001K7KP9VG2",
+   "mission_name": "蓝方-反潜巡逻"
+  },
+  {
+   "id": "4X-00001K7KP9UQO",
+   "name": "红方 054A #1",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 1965,
+   "lat": 21.5,
+   "lon": -89.433048,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4X-00001K7KP9VG3",
+   "mission_name": "红方-反舰巡逻"
+  }
+ ],
+ "missions": [
+  {
+   "id": "4X-00001K7KP9VG3",
+   "name": "红方-反舰巡逻",
+   "side": "红方",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "type_code": "1",
+   "assigned": [
+    "4X-00001K7KP9UQO",
+    "4X-00001K7KP9UTP"
+   ],
+   "zone_ids": [
+    "e7246b9b-3206-54de-acda-4b3672935d66",
+    "6aff58bb-9d6b-5cb7-ba20-c33635842fdc",
+    "e83abd15-72c1-5673-8059-8c59ceb53089",
+    "146f1e44-4f87-585a-9e4a-a50139709907"
+   ],
+   "zone": [
+    {
+     "lat": 21.912479,
+     "lon": -88.989721
+    },
+    {
+     "lat": 21.087521,
+     "lon": -88.989721
+    },
+    {
+     "lat": 21.087521,
+     "lon": -89.876375
+    },
+    {
+     "lat": 21.912479,
+     "lon": -89.876375
+    }
+   ]
+  },
+  {
+   "id": "4X-00001K7KP9VG2",
+   "name": "蓝方-反潜巡逻",
+   "side": "蓝方",
+   "mtype": "Patrol",
+   "subtype": "SUB",
+   "type_code": "0",
+   "assigned": [
+    "4X-00001K7KP9VBE",
+    "4X-00001K7KP9V6Q"
+   ],
+   "zone_ids": [
+    "0fbc5361-942a-5233-9a76-9158cbab92fe",
+    "0f7d2b76-1497-5372-a1c7-e65783124233",
+    "8f6054f7-cf81-564c-a1ab-2415e2fbaf81",
+    "6ea2422b-2581-5644-a9a2-8612bddb1667"
+   ],
+   "zone": [
+    {
+     "lat": 21.794628,
+     "lon": -86.071159
+    },
+    {
+     "lat": 21.205372,
+     "lon": -86.071159
+    },
+    {
+     "lat": 21.205372,
+     "lon": -86.704483
+    },
+    {
+     "lat": 21.794628,
+     "lon": -86.704483
+    }
+   ]
+  }
+ ],
+ "reference_points": [
+  {
+   "id": "e7246b9b-3206-54de-acda-4b3672935d66",
+   "name": "红方-反舰巡逻-WP1",
+   "lat": 21.912479,
+   "lon": -88.989721,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "6aff58bb-9d6b-5cb7-ba20-c33635842fdc",
+   "name": "红方-反舰巡逻-WP2",
+   "lat": 21.087521,
+   "lon": -88.989721,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "e83abd15-72c1-5673-8059-8c59ceb53089",
+   "name": "红方-反舰巡逻-WP3",
+   "lat": 21.087521,
+   "lon": -89.876375,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "146f1e44-4f87-585a-9e4a-a50139709907",
+   "name": "红方-反舰巡逻-WP4",
+   "lat": 21.912479,
+   "lon": -89.876375,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "0fbc5361-942a-5233-9a76-9158cbab92fe",
+   "name": "蓝方-反潜巡逻-WP1",
+   "lat": 21.794628,
+   "lon": -86.071159,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "0f7d2b76-1497-5372-a1c7-e65783124233",
+   "name": "蓝方-反潜巡逻-WP2",
+   "lat": 21.205372,
+   "lon": -86.071159,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "8f6054f7-cf81-564c-a1ab-2415e2fbaf81",
+   "name": "蓝方-反潜巡逻-WP3",
+   "lat": 21.205372,
+   "lon": -86.704483,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "6ea2422b-2581-5644-a9a2-8612bddb1667",
+   "name": "蓝方-反潜巡逻-WP4",
+   "lat": 21.794628,
+   "lon": -86.704483,
+   "side": "蓝方",
+   "highlighted": "True"
+  }
+ ],
+ "weather": {
+  "temp": 20,
+  "rainfall": 0,
+  "cloud": 0.3,
+  "seastate": 2
+ },
+ "counts": {
+  "红方": {
+   "Ship": 2
+  },
+  "蓝方": {
+   "Ship": 2
+  }
+ },
+ "raw_sizes": {
+  "xml_bytes": 136730
+ }
+}

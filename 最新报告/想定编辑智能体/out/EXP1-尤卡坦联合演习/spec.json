@@ -1,0 +1,149 @@
+{
+ "title": "尤卡坦联合演习",
+ "start_time": "2026-09-10 10:00:00",
+ "duration_s": 7200,
+ "complexity": 2,
+ "difficulty": 2,
+ "description": "标题：尤卡坦联合演习\n\n设定 2026 年 9 月 10 日 10 时，尤卡坦。红方 2 艘 054A 在西侧 80 海里，蓝方 2 艘伯克级在东侧 90 海里，\n双方友好，进行联合演习，各执行反潜巡逻，巡逻半径 25 海里。海况 2 级，云量 0.3。持续 2 小时。",
+ "center": {
+  "lat": 21.5,
+  "lon": -88.0
+ },
+ "seed": 26697,
+ "sides": [
+  {
+   "name": "红方",
+   "posture": {
+    "蓝方": "F"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  },
+  {
+   "name": "蓝方",
+   "posture": {
+    "红方": "F"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  }
+ ],
+ "units": [
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 054A #1",
+   "dbid": 1965,
+   "lat": 21.5,
+   "lon": -89.433048,
+   "heading": 45,
+   "count": 2,
+   "mission": "红方-反舰巡逻",
+   "alias": "054A"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "蓝方 伯克级 #1",
+   "dbid": 112,
+   "lat": 21.5,
+   "lon": -86.387821,
+   "heading": 225,
+   "count": 2,
+   "mission": "蓝方-反潜巡逻",
+   "alias": "伯克级"
+  }
+ ],
+ "missions": [
+  {
+   "side": "蓝方",
+   "name": "蓝方-反潜巡逻",
+   "mtype": "Patrol",
+   "subtype": "SUB",
+   "zone": [
+    {
+     "lat": 21.794628,
+     "lon": -86.071159
+    },
+    {
+     "lat": 21.205372,
+     "lon": -86.071159
+    },
+    {
+     "lat": 21.205372,
+     "lon": -86.704483
+    },
+    {
+     "lat": 21.794628,
+     "lon": -86.704483
+    }
+   ],
+   "units": [
+    "蓝方 伯克级 #1"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "红方-反舰巡逻",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "zone": [
+    {
+     "lat": 21.912479,
+     "lon": -88.989721
+    },
+    {
+     "lat": 21.087521,
+     "lon": -88.989721
+    },
+    {
+     "lat": 21.087521,
+     "lon": -89.876375
+    },
+    {
+     "lat": 21.912479,
+     "lon": -89.876375
+    }
+   ],
+   "units": [
+    "红方 054A #1"
+   ],
+   "isactive": true
+  }
+ ],
+ "weather": {
+  "temp": 20,
+  "rainfall": 0,
+  "cloud": 0.3,
+  "seastate": 2
+ },
+ "provenance": {
+  "parser": "rule",
+  "source_text": "标题：尤卡坦联合演习\n\n设定 2026 年 9 月 10 日 10 时，尤卡坦。红方 2 艘 054A 在西侧 80 海里，蓝方 2 艘伯克级在东侧 90 海里，\n双方友好，进行联合演习，各执行反潜巡逻，巡逻半径 25 海里。海况 2 级，云量 0.3。持续 2 小时。\n"
+ }
+}
