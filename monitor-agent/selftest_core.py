@@ -77,6 +77,14 @@ own = [unit('u1', '苏-35S #1', 'air', 49.0, 0.0, spd=900.0)]
 ok(run(own, [m6])[0]['hit'], "不传 gate：算")
 ok(run(own, [m6], gate={'cpa_km': 3.0, 'max_km': 90.0})[0]['hit'], "gate 放宽范围：仍算")
 ok(not run(own, [m6], gate={'max_km': 30.0})[0]['hit'], "gate max_km=30：被过滤掉")
+# 相对门限：CPA 相对当前距离的比值（应对“朝我就算”→全红的问题）
+# 一枚从东南方向斜穿、CPA≈44km、距离≈151km 的弹（CPA/距离≈0.29）
+m_far = missile('m_far', '防空导弹#29', 47.7, 0.6, hdg=0.0, spd=2735.0)
+ok(run(own, [m_far])[0]['hit'], "不设门限：151km 外朝这边飞也算")
+ok(not run(own, [m_far], gate={'cpa_ratio': 0.2})[0]['hit'],
+   "gate cpa_ratio=0.2：CPA/距离≈0.29 > 0.2，被过滤（它就是“擦边飞过”的那类）")
+ok(run(own, [m6], gate={'cpa_ratio': 0.2})[0]['hit'],
+   "gate cpa_ratio=0.2：正对头那枚（CPA≈0）仍然算")
 
 print("6) 弹没有航向：靠距离收缩兜底")
 u6 = unit('u6', '雷鸣号 #1', 'sea', 49.0, 0.0)
@@ -97,6 +105,9 @@ ok(core.is_missile({'Type': 1, 'Name': 'X'}), "Type=1 -> 是弹")
 ok(not core.is_missile({'Type': 0, 'Name': 'F-35A #1'}), "Type=0 的飞机 -> 不是弹")
 ok(core.is_missile({'Type': 0, 'Name': 'AGM-88E AARGM-ER'}),
    "Type=0 但名字是导弹 -> 兜底认出来")
+ok(not core.is_missile({'Type': 0, 'Name': 'DDG 113“约翰.芬”阿利伯克级 Flight IIA导弹驱逐舰'}),
+   "★ 实测踩过：'导弹驱逐舰' 不能被当成来袭弹（名字里有平台词）")
+ok(not core.is_missile({'Type': 0, 'Name': '苏-35S #1'}), "战斗机不算弹")
 
 print("9) 海陆空分组（含：不设门限时，一枚穿场弹会把航路上所有单元都标成「朝我」）")
 own = [unit('a1', '苏-35S #1', 'air', 49.0, 0.0), unit('a2', '苏-27 #5', 'air', 49.2, 0.0),

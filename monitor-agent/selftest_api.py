@@ -232,6 +232,22 @@ m_e3 = Monitor(a, gate={'cpa_km': 5.0, 'max_km': 90.0, 'tgo_s': 900.0})
 m_e3.setup(sit_a)
 ok(m_e3.has_incoming('air1') is True, "三项门限一起给也正常（沿用旧实现的口径）")
 
+print("─" * 62)
+print("场景 F：IGNORE_NAME_KEYS 可以按名字剔掉平台里的“告警”类情报")
+print("─" * 62)
+f = FakeAgent()
+f.aircrafts['air1'] = U('苏-35S #1', 45.00, 1.00)
+sit_f = sit({'c_real': contact('c_real', '防空导弹#40', 45.00, 0.90, hdg=90.0, knots=1600),
+             'c_warn': contact('c_warn', '警告来袭#70', 45.00, 0.85, hdg=90.0, knots=1600)})
+m_f = Monitor(f)
+m_f.setup(sit_f)
+ok(len(m_f.missiles()) == 2, "默认两条都算（2 枚）")
+m_f2 = Monitor(f)
+m_f2.IGNORE_NAME_KEYS = ('警告来袭',)
+m_f2.setup(sit_f)
+ok(len(m_f2.missiles()) == 1, "设了 IGNORE_NAME_KEYS 后只剩真弹（1 枚）：%s"
+   % ([x['n'] for x in m_f2.missiles()],))
+
 print("\n%d 项断言，%d 项失败" % (N[0], len(FAIL)))
 for f in FAIL:
     print("  ! " + f)

@@ -42,7 +42,7 @@ _AI_DIR = _find_ai_dir(_HERE)
 if _AI_DIR not in sys.path:
     sys.path.insert(0, _AI_DIR)
 
-from engine.LingYi.entitys.player import Player           # noqa: E402
+from engine.LingYi.entitys.agent_base import RuleAgentBase   # noqa: E402
 from . import core                                        # noqa: E402
 from .monitor import Monitor                              # noqa: E402
 
@@ -53,7 +53,12 @@ WEB = _HERE / "web"
 PORT = int(os.environ.get("LY_MONITOR_PORT", "8762"))
 
 
-class MonitorAgent(Player):
+class MonitorAgent(RuleAgentBase):
+    """平台规则智能体基类 RuleAgentBase(=Player + initial/step/deduction_end/is_done)。
+
+    注意：必须是 RuleAgentBase。只继承 Player 时平台拿不到 is_done / deduction_end，
+    智能体会被当成“已结束”，一局跑几十步就停。
+    """
     # ---------------------------------------------------------------- 可调参数
     DECISION_SEC = 5           # 决策间隔（推演秒）。5 s 是平台允许的最小值
     MAX_PER_UNIT = 8           # 小窗里单个单元最多列几枚弹（只影响展示）
@@ -62,7 +67,7 @@ class MonitorAgent(Player):
     GATE = None                # None = 不设门限，朝我就算
 
     def __init__(self, side_name="红方", *args, **kwargs):
-        Player.__init__(self, side_name)
+        RuleAgentBase.__init__(self, side_name)
         self.side_cn = side_name
         self.agent_type = "MonitorAgent"
         self.agent_decision_time = self.DECISION_SEC
@@ -90,17 +95,25 @@ class MonitorAgent(Player):
         return None
 
     def step(self, time_elapse, situation):
-        self.now = float(time_elapse or 0.0)
-        self.cycle += 1
+        """注意：平台把 step 里抛出的异常当**致命错误**（直接结束本局），
+        所以整个函数体必须兜住——监控出问题不能连累对局。"""
         try:
+            self.now = float(time_elapse or 0.0)
+            self.cycle += 1
             with self.lock:
                 self.monitor.step(situation, self.now)
                 self._build(self.now)
         except Exception as e:
             log.error("[监控] 快照异常 %s", e, exc_info=True)
-        self._notify()
-        if self.server is not None:
-            self.server.publish()
+        try:
+            self._notify()
+        except Exception as e:
+            log.warning("[监控] 消息栏异常 %s", e)
+        try:
+            if self.server is not None:
+                self.server.publish()
+        except Exception as e:
+            log.warning("[监控] 推送异常 %s", e)
         return None
 
     def deduction_end(self):

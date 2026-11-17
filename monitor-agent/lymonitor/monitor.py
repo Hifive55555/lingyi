@@ -46,8 +46,14 @@ class Monitor(object):
     # 不设门限：对方弹的射程未知，“朝我就算”。
     # 想收紧就改成 {'cpa_km':3.0,'max_km':90.0,'tgo_s':900.0}，None 表示全关。
     GATE = None
-    # 只有“弹没有航向”时才需要历史距离，这里保留多少个周期
-    KEEP_CYCLES = 2
+    # 一条情报算“在飞的弹”的最低速度（km/h ≈ 27 节）。
+    # 用来挡掉平台里速度恒为 0 的杂项/平台类情报（实测会混进来）。
+    MIN_MISSILE_KMH = 50.0
+    # 实测（2026-11-17 诺曼底）：情报里除了真正的弹（'防空导弹#40', db=890），
+    # 还会混进平台的“来袭告警”条目（'警告来袭#70' 等，也是 Type=1）。
+    # 若确认它和真弹是同一件事的两种表示，把关键字填进来即可去重：
+    #     IGNORE_NAME_KEYS = ('警告来袭',)
+    IGNORE_NAME_KEYS = ()
 
     def __init__(self, agent=None, gate=None):
         self.agent = agent
@@ -180,8 +186,15 @@ class Monitor(object):
         for cid, c in cts.items():
             if not core.is_missile(c):
                 continue
+            _nm = str(core.get(c, 'Name', '') or '')
+            if any(k in _nm for k in self.IGNORE_NAME_KEYS):
+                continue
             p = core.pos(c)
             if p is None:
+                continue
+            spd = core.use_speed_kmh(core.get(c, 'CurrentSpeed', 0))
+            if spd < self.MIN_MISSILE_KMH:
+                # 速度 ≈ 0 的“弹”不是弹（平台里残留/舰船类的杂项情报）
                 continue
             try:
                 db = int(core.get(c, 'DBID'))
@@ -193,7 +206,7 @@ class Monitor(object):
                         'db': db, 'pos': p,
                         'hdg': core.num(hdg_raw),
                         'hdg_ok': hdg_raw is not None,
-                        'spd': core.use_speed_kmh(core.get(c, 'CurrentSpeed', 0)),
+                        'spd': spd,
                         'alt': core.num(core.get(c, 'CurrentAltitude', 0))})
         return out
 

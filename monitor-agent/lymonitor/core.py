@@ -28,10 +28,17 @@ MISSILE_TYPE = 1                # ContactType.Missile.value
 GROUP_CN = {'air': '空', 'sea': '海', 'land': '陆'}
 GROUP_ORDER = ('air', 'sea', 'land')
 
-# 有些版本的平台把在飞弹药记成“空中目标”（Type=0），按名称兜底认一下
-MISSILE_NAME_KEYS = ('导弹', 'missile', 'agm-', 'asm-', 'kh-', 'ss-n', 'aim-',
-                     'r-77', 'r-73', '雄风', 'lrasm', 'jsow', '锆石', '战斧',
-                     'tomahawk', '风暴阴影', 'scalp')
+# 有些版本的平台把在飞弹药记成“空中目标”（Type=0），按名称兜底认一下。
+# ⚠ 不能只写 '导弹'：情报里“XX级导弹驱逐舰 / 导弹护卫舰”会把军舰一起匹配进来
+#   （实测 2026-11-17：DDG 113 阿利伯克级 Flight IIA 导弹驱逐舰 被判成来袭弹）。
+#   所以先按平台名排除，再要求命中具体弹型关键字。
+MISSILE_NAME_KEYS = ('missile', 'agm-', 'asm-', 'kh-', 'ss-n', 'aim-', 'r-77',
+                     'r-73', 'r-37', 'pl-15', 'pl-21', '雄风', 'lrasm', 'jsow',
+                     '锆石', '战斧', 'tomahawk', '风暴阴影', 'scalp', '鱼叉',
+                     'harpoon', '标准-', 'sm-6', 'aster', '流星')
+# 名字里出现这些，一定不是“在飞的弹”（是平台/舰船/飞机/设施）
+PLATFORM_NAME_KEYS = ('舰', '船', '艇', '机', '基地', '机场', '雷达', '营', '连',
+                      '站', '旅', '团', '师', 'carrier', 'destroyer', 'frigate')
 
 
 # ----------------------------------------------------------------- 取值小工具
@@ -88,6 +95,10 @@ def is_missile(contact):
     except (TypeError, ValueError):
         pass
     name = str(get(contact, 'Name', '') or '').lower()
+    if not name:
+        return False
+    if any(k in name for k in PLATFORM_NAME_KEYS):
+        return False
     return any(k in name for k in MISSILE_NAME_KEYS)
 
 
@@ -132,7 +143,11 @@ def analyse(own, missiles, prev=None, now=0.0, gate=None, max_per_unit=0):
                      仅在“弹没有航向”时用于兜底（用距离是否收缩代替航向）。
     :param now     : 当前推演时间（s），与 prev 里的时间同一坐标系。
     :param gate    : None = 不设门限（默认，“朝我就算”）；
-                     也可传 {'cpa_km':3,'max_km':90,'tgo_s':900} 自行收紧任意一项。
+                     也可自行收紧任意一项：
+                       {'cpa_km':3, 'max_km':90, 'tgo_s':900}   绝对门限
+                       {'cpa_ratio':0.2}  相对门限：CPA ≤ 当前距离 × 0.2
+                     （实测 138 个单元的大想定里，不设门限会让 91/91 架飞机全被标红，
+                      所以要“看谁真被瞄”时建议加 cpa_ratio 或 cpa_km）
     :param max_per_unit: >0 时每单元最多保留几枚（只影响展示，按 tgo 升序截断）。
     :return        : [{'id','n','g','lat','lon','alt','spd','dmg','hit','n_ms','ms':[...]}]
                      ms 每项 {'id','n','db','spd','d','cpa','tgo'}，按紧急程度排序
@@ -141,6 +156,7 @@ def analyse(own, missiles, prev=None, now=0.0, gate=None, max_per_unit=0):
     g_cpa = num(gate.get('cpa_km'), 0.0)
     g_max = num(gate.get('max_km'), 0.0)
     g_tgo = num(gate.get('tgo_s'), 0.0)
+    g_ratio = num(gate.get('cpa_ratio'), 0.0)
     prev = prev or {}
     out = []
     for u in own:
@@ -175,6 +191,8 @@ def analyse(own, missiles, prev=None, now=0.0, gate=None, max_per_unit=0):
             if not closing:
                 continue
             if g_cpa > 0 and cp > g_cpa:
+                continue
+            if g_ratio > 0 and cp > d * g_ratio:
                 continue
             if g_tgo > 0 and tgo is not None and tgo > g_tgo:
                 continue
