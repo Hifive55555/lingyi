@@ -1,0 +1,2975 @@
+syntax = "proto3";
+
+// version 3.0 - 2026.05.08
+// 小驼峰命名法
+// 命名规范：统一使用"动作 + 实体 + [描述]"模式
+// 请求消息命名：Request + 接口名（首字母大写）
+
+package SimServer;
+//import "ServerEnum.proto";
+//import "ServerSituation.proto";
+
+service SimRpc {
+	
+    //************************************* 批量执行 *************************************
+    rpc executeBatch(RequestExecuteBatch) returns (ReplyExecuteBatch);//统一批量执行接口
+	
+    //************************************* 全LUA指令接口 *************************************
+    rpc executeLua(RequestExecuteLua) returns (Reply);//下达干预指令-lua接口
+    
+    //************************************* 单指令接口 *************************************
+    // ====================== 通用接口 ======================
+    rpc requestSendCurrentFullSituation(RequestEmpty) returns (Reply);//请求推送当前时间完整帧态势（返回值：指令执行状态）
+    rpc getInitSituation(RequestEmpty) returns (stream Reply);//获取想定初始帧态势（返回值：Reply.result内容区为Struct.proto里面的THSituationFull二进制序列化数据）
+
+    // ====================== 想定管理 ======================
+    rpc newScenario(RequestNewScenario) returns (Reply);//新建想定（返回值：Reply.result内容区为想定GUID）
+    rpc loadScenario(RequestLoadScenario) returns (Reply);//加载想定（返回值：指令执行状态）
+    rpc saveScenario(RequestSaveScenario) returns (Reply);//保存想定（返回值：指令执行状态）
+    rpc getScenarioContent(RequestGetScenarioContent) returns (Reply);//获取想定压缩部分解出的XML内容（返回值：Reply.result内容区为XML内容）
+    
+    rpc setScenarioInfo(RequestSetScenarioInfo) returns (Reply);//设置想定信息（返回值：指令执行状态）
+    rpc getScenarioInfo(RequestGetScenarioInfo) returns (Reply);//获取想定信息（返回值：Reply.result内容区为RequestSetScenarioInfo对应的json序列化数据）
+    rpc getScenarioBasicInfo(RequestGetScenarioBasicInfo) returns (Reply);//获取想定基础信息，想定文件的外层未压缩数据（返回值：Struct.proto里面的THScenarioInfo对应的json序列化数据）
+    rpc getScenarioList(RequestGetScenarioList) returns (Reply);//获取想定列表（返回值：Reply.result内容区为MIFileList对应的json序列化数据）
+    
+    // ====================== 推演控制 ======================
+    rpc setSimulationStatus(RequestSetSimulationStatus) returns (Reply);//运行推演（返回值：指令执行状态）
+    rpc setSimulationSpeed(RequestSetSimulationSpeed) returns (Reply);//设置推演速度（返回值：指令执行状态）
+
+    // ====================== 推演方管理 ======================
+    rpc addSide(RequestAddSide) returns (Reply);//添加推演方（返回值：Reply.result内容区为推演方GUID）
+    rpc deleteSide(RequestDelete) returns (Reply);//删除当前阵营（返回值：指令执行状态）
+    rpc renameSide(RequestRename) returns (Reply);//重命名推演方（返回值：指令执行状态）
+    rpc setSidePosture(RequestSetSidePosture) returns (Reply);//设置阵营立场（返回值：指令执行状态）
+    rpc getSidePosture(RequestGetSidePosture) returns (Reply);//获取阵营立场（返回值：Reply.result内容区为立场["F":友好,"H":敌对,"N":中立,"U":非友]）
+    
+    rpc setSideOptions(RequestSetSideOptions) returns (Reply);//设置推演方选项（返回值：指令执行状态）
+    rpc getSideOptions(RequestGetSideOptions) returns (Reply);//获取阵营选项得到阵营认知水平、训练水平等（返回值：Reply.result内容区为RequestSetSideOptions对应的json序列化数据）
+    
+    rpc setSideScore(RequestSetSideScore) returns (Reply);//设置推演方分数（返回值：指令执行状态）
+    rpc getSideScore(RequestGetSideScore) returns (Reply);//获取推演方分数（返回值：Reply.result内容区为分数）
+    rpc getSideUnitLoss(RequestGetSideUnitLoss) returns (Reply);//获取单元损耗信息/战损（返回值：Reply.result内容区为Struct.proto里面的THAARDetails二进制序列化数据）
+ 
+    // ====================== 单元管理 ======================
+    rpc addUnit(RequestAddUnit) returns (Reply);//添加单元（返回值：Reply.result内容区为单元GUID组，逗号分隔）
+    rpc deleteUnit(RequestDelete) returns (Reply);//删除单元（返回值：指令执行状态）
+    rpc renameUnit(RequestRename) returns (Reply);//单元重命名（返回值：指令执行状态）
+    rpc killUnit(RequestKillUnit) returns (Reply);//灭掉一个单元（返回值：指令执行状态）
+	
+    rpc setUnitPosition(RequestSetUnitPosition) returns (Reply);//设置单元位置（返回值：指令执行状态）
+    rpc setUnitHeading(RequestSetUnitHeading) returns (Reply);//设置单元航向（返回值：指令执行状态）
+    rpc setUnitSpeed(RequestSetUnitSpeed) returns (Reply);//设置单元速度（返回值：指令执行状态）
+    rpc setUnitHeight(RequestSetUnitHeight) returns (Reply);//设置高度\深度（数值）--立即移动到设置的高度  （返回值：指令执行状态）
+    rpc setUnitDesiredHeight(RequestSetUnitDesiredHeight) returns (Reply);//设置期望高度\深度（数值）--根据当前速度移动到设置的高度 （返回值：指令执行状态）
+    rpc setUnitPresetHeight(RequestSetUnitPresetHeight) returns (Reply);//设置预设高度\深度（等级：高空 中空 低空 等）--根据当前速度移动到设置的高度 （返回值：指令执行状态）
+    rpc setUnitDesiredSpeed(RequestSetUnitDesiredSpeed) returns (Reply);//设置期望速度（数值） （返回值：指令执行状态）
+    rpc setUnitPresetThrottle(RequestSetUnitPresetThrottle) returns (Reply);//设置预设油门（等级：低速 巡航 军用 等） （返回值：指令执行状态）
+    rpc setUnitAutoDetectable(RequestSetUnitAutoDetectable) returns (Reply);//设置单元自动被探测到 （返回值：指令执行状态）
+    rpc setUnitSide(RequestSetUnitSide) returns (Reply);//设置单元阵营 （返回值：指令执行状态）
+    rpc setUnitDamage(RequestSetUnitDamage) returns (Reply);//设置单元毁伤 （返回值：指令执行状态）
+    rpc setUnitFuel(RequestSetUnitFuel) returns (Reply);//单元油量设置 （返回值：指令执行状态）
+    rpc setUnitReturnToBase(RequestSetUnitReturnToBase) returns (Reply);//返航 （返回值：指令执行状态）
+
+    // ====================== 单元组件管理 ======================
+    rpc addUnitMount(RequestAddUnitMount) returns (Reply);//添加挂架（返回值：Reply.result内容区为挂架GUID）
+    rpc deleteUnitMount(RequestDeleteUnitMount) returns (Reply);//删除挂架（返回值：指令执行状态）
+    rpc addUnitMagazine(RequestAddUnitMagazine) returns (Reply);//添加弹药库（返回值：Reply.result内容区为弹药库GUID）
+    rpc deleteUnitMagazine(RequestDeleteUnitMagazine) returns (Reply);//删除弹药库（返回值：指令执行状态）
+    rpc addUnitWeapon(RequestAddUnitWeapon) returns (Reply);//添加武器（返回值：指令执行状态）
+    rpc deleteUnitWeapon(RequestDeleteUnitWeapon) returns (Reply);//删除武器（返回值：指令执行状态）
+    rpc addUnitSensor(RequestAddUnitSensor) returns (Reply);//添加传感器（返回值：Reply.result内容区为传感器GUID）
+    rpc deleteUnitSensor(RequestDeleteUnitSensor) returns (Reply);//删除传感器（返回值：指令执行状态）
+
+    rpc getSideList(RequestGetSideList) returns (Reply);//获取推演方列表（返回值：Reply.result内容区为MISideList对应的json序列化数据）
+	
+    rpc setUnitTerrainFollow(RequestSetUnitTerrainFollow) returns (Reply);//设置飞机地形跟随（返回值：指令执行状态）
+    rpc setUnitCourse(RequestSetUnitCourse) returns (Reply);//设置单元航线（返回值：指令执行状态）
+	
+    rpc refuelUnit(RequestRefuelUnit) returns (Reply);//实体补给，飞机加油等（返回值：指令执行状态）
+    rpc assignUnitToMission(RequestAssignUnitToMission) returns (Reply);//分配单元到任务（返回值：指令执行状态）
+    
+    rpc setUnitSensorClassSwitch(RequestSetUnitSensorClassSwitch) returns (Reply);//传感器分类开关（返回值：指令执行状态）
+    rpc setUnitSensorSwitch(RequestSetUnitSensorSwitch) returns (Reply);//传感器开关（返回值：指令执行状态）
+    rpc setUnitEMCONAbide(RequestSetUnitEMCONAbide) returns (Reply);//实体是否遵循电磁管控条令（返回值：指令执行状态）
+    rpc setUnitWeaponReloadPriority(RequestSetUnitWeaponReloadPriority) returns (Reply);//设置挂架上的武器优先重载（返回值：指令执行状态）
+    rpc setUnitHoldPosition(RequestSetUnitHoldPosition) returns (Reply);//单元保持阵位（返回值：指令执行状态）
+    rpc fillUnitMagazinesForLoadout(RequestFillUnitMagazinesForLoadout) returns (Reply);//用机载存量填充单元弹仓（返回值：指令执行状态）
+	
+    rpc getUnitWeaponDistributionInfo(RequestGetUnitWeaponDistributionInfo) returns (Reply);//获取单元挂载的武器分配信息（返回值：Reply.result内容区为MIUnitWeaponDistribution对应的json序列化数据）
+    rpc calculateUnitFuelByAirTime(RequestCalculateUnitFuelByAirTime) returns (Reply);//飞机燃油计算，通过飞行时间（秒）计算剩余燃油（千克） （返回值：Reply.result内容区为剩余燃油（千克））
+
+    // ====================== 编队管理 ======================
+    rpc createGroup(RequestCreateGroup) returns (Reply);//创建编队（返回值：Reply.result内容区为编队GUID）
+    rpc detachUnitFromGroup(RequestDetachUnitFromGroup) returns (Reply);//将实体分离出编队（返回值：指令执行状态）
+    rpc addUnitToGroup(RequestAddUnitToGroup) returns (Reply);//单元添加到编队（返回值：指令执行状态）
+    rpc setGroupLeader(RequestSetGroupLeader) returns (Reply);//设置编队领队（返回值：指令执行状态）
+    rpc setGroupUnitBearing(RequestSetGroupUnitBearing) returns (Reply);//设置编组单元方位接口（返回值：指令执行状态）
+    rpc setGroupFormation(RequestSetGroupFormation) returns (Reply);//设置编队阵型（返回值：指令执行状态）
+    
+    // ====================== 任务管理 ======================
+    rpc addMission(RequestAddMission) returns (Reply);//添加任务（返回值：Reply.result内容区为任务GUID）
+    rpc deleteMission(RequestMissionDelete) returns (Reply);//删除任务（返回值：指令执行状态）
+    rpc renameMission(RequestMissionRename) returns (Reply);//任务名称修改（返回值：指令执行状态）
+    rpc setMissionTime(RequestSetMissionTime) returns (Reply);//设置任务开始时间结束时间（返回值：指令执行状态）
+    rpc setMissionStrikeMinimumTrigger(RequestSetMissionStrikeMinimumTrigger) returns (Reply);//设置任务打击最低情报立场请求[打击任务]（返回值：指令执行状态）
+    rpc setMissionAircraftGroupSize(RequestSetMissionAircraftGroupSize) returns (Reply);//设置任务飞机编队规模[打击任务、巡逻任务、支援任务、转场任务、布雷任务、扫雷任务]（返回值：指令执行状态）
+    rpc setMissionBoatGroupSize(RequestSetMissionBoatGroupSize) returns (Reply);//设置任务舰船编队规模[打击任务、巡逻任务、支援任务、布雷任务、扫雷任务]（返回值：指令执行状态）
+    rpc setMissionStrikeFuelAmmo(RequestSetMissionStrikeFuelAmmo) returns (Reply);//设置打击任务燃油弹药规则[打击任务]（返回值：指令执行状态）
+    rpc setMissionMinAircraftRequired(RequestSetMissionMinAircraftRequired) returns (Reply);//设置任务所需最少就绪飞机数[打击任务、巡逻任务、支援任务、转场任务、布雷任务、扫雷任务]（返回值：指令执行状态）
+    rpc setMissionMaxAircraftAction(RequestSetMissionMaxAircraftAction) returns (Reply);//任务允许出动的最大飞机行动数[打击任务]（返回值：指令执行状态）
+    rpc setMissionStrikeAircraftMinMaxRadius(RequestSetMissionStrikeAircraftMinMaxRadius) returns (Reply);//设置打击任务的最小最大打击半径[打击任务]（返回值：指令执行状态）
+    rpc setMissionStrikeBoatMinMaxRadius(RequestSetMissionStrikeBoatMinMaxRadius) returns (Reply);//设置打击任务的最小最大打击半径[打击任务]（返回值：指令执行状态）
+    rpc setMissionRadarUsageRule(RequestSetMissionRadarUsageRule) returns (Reply);//设置打击任务雷达运用规则[打击任务]（返回值：指令执行状态）
+    rpc setMissionTankerConfig(RequestSetMissionTankerConfig) returns (Reply);//任务油轮配置[打击任务、巡逻任务、支援任务、转场任务、布雷任务、扫雷任务]（返回值：指令执行状态）
+
+    rpc setMissionAircraftGroupSizeRequired(RequestSetMissionAircraftGroupSizeRequired) returns (Reply);//设置任务单元数低于编组规模数要求就不能启动[打击任务、巡逻任务、支援任务、转场任务、布雷任务、扫雷任务]（返回值：指令执行状态）
+    rpc setMissionBoatGroupSizeRequired(RequestSetMissionBoatGroupSizeRequired) returns (Reply);//设置任务单元数低于编组规模数要求就不能启动[打击任务、巡逻任务、支援任务、转场任务、布雷任务、扫雷任务]（返回值：指令执行状态）
+    rpc setMissionStrikeAutoPlanner(RequestSetMissionStrikeAutoPlanner) returns (Reply);//设置打击任务是否多扇面攻击,离轴攻击[打击任务]（返回值：指令执行状态）
+    rpc setMissionStrikeOneTimeOnly(RequestSetMissionStrikeOneTimeOnly) returns (Reply);//设置打击任务是否仅限一次[打击任务]（返回值：指令执行状态）
+    rpc setMissionIncludeInATO(RequestSetMissionIncludeInATO) returns (Reply);//任务是否包含在空中任务指令中[打击任务]（返回值：指令执行状态）
+    rpc setMissionPreplanTargetsOnly(RequestSetMissionPreplanTargetsOnly) returns (Reply);//是否仅考虑计划目标（在目标清单）[打击任务]（返回值：指令执行状态）
+
+    rpc setMissionEscortAircraftGroupSize(RequestSetMissionEscortAircraftGroupSize) returns (Reply);//设置任务护航单元编队规模[打击任务-护航]（返回值：指令执行状态）
+    rpc setMissionEscortBoatGroupSize(RequestSetMissionEscortBoatGroupSize) returns (Reply);//设置任务护航单元编队规模[打击任务-护航]（返回值：指令执行状态）
+    rpc setMissionEscortMinAircraftRequired(RequestSetMissionEscortMinAircraftRequired) returns (Reply);//设置任务所需最少就绪飞机数[打击任务-护航]（返回值：指令执行状态）
+    rpc setMissionEscortMaxAircraftAction(RequestSetMissionEscortMaxAircraftAction) returns (Reply);//任务允许出动的最大飞机行动数[打击任务-护航]（返回值：指令执行状态）
+    rpc setMissionEscortResponseRadius(RequestSetMissionEscortResponseRadius) returns (Reply);//护航最大威胁响应半径（返回值：指令执行状态）
+    rpc setMissionEscortAircraftStoinvestigate(RequestSetMissionEscortAircraftStoinvestigate) returns (Reply);//设置任务侦查不明目标飞机数量请求（返回值：指令执行状态）
+    rpc setMissionEscortAircraftStoengage(RequestSetMissionEscortAircraftStoengage) returns (Reply);//设置任务与敌方对抗的飞机数量请求（返回值：指令执行状态）
+    rpc setMissionEscortWingmanEngageDistance(RequestSetMissionEscortWingmanEngageDistance) returns (Reply);//僚机可以在--范围内与敌交战请求（返回值：指令执行状态）
+    rpc setMissionEscortAircraftGroupSizeRequired(RequestSetMissionAircraftGroupSizeRequired) returns (Reply);//设置护航任务飞机数低于编队规模要求不能起飞[护航任务]（返回值：指令执行状态）
+    rpc setMissionEscortBoatGroupSizeRequired(RequestSetMissionBoatGroupSizeRequired) returns (Reply);//设置护航任务船舶数低于编队规模要求不能起飞[护航任务]（返回值：指令执行状态）
+    rpc setMissionEscortBoatStoinvestigate(RequestSetMissionEscortBoatStoinvestigate) returns (Reply);//设置任务侦查不明目标舰船数量请求（返回值：指令执行状态）
+    rpc setMissionEscortBoatStoengage(RequestSetMissionEscortBoatStoengage) returns (Reply);//设置任务与敌方对抗的舰船数量请求（返回值：指令执行状态）
+    rpc setMissionEscortBoatEngageDistance(RequestSetMissionEscortBoatEngageDistance) returns (Reply);//设置任务舰船可以在--范围内与敌交战请求（返回值：指令执行状态）
+	
+    rpc setMissionPatrolZone(RequestSetMissionPatrolZone) returns (Reply);//设置任务巡逻区域请求（返回值：指令执行状态）
+    rpc setMissionPatrolOnStation(RequestSetMissionPatrolOnStation) returns (Reply);//设置任务巡逻阵位上每类平台保持几个（返回值：指令执行状态）
+    rpc setMissionPatrolOneThirdRule(RequestSetMissionPatrolOneThirdRule) returns (Reply);//设置任务巡逻三分之一规则时赋值[巡逻任务、支援任务、布雷任务、扫雷任务]（返回值：指令执行状态）
+    rpc setMissionPatrolCheckOutsidePatrol(RequestSetMissionPatrolCheckOutsidePatrol) returns (Reply);//设置任务是否对巡逻区外的探测目标进行分析（返回值：指令执行状态）
+    rpc setMissionPatrolCheckWeaponRange(RequestSetMissionPatrolCheckWeaponRange) returns (Reply);//设置任务是否对武器射程内探测目标进行分析（返回值：指令执行状态）
+    rpc setMissionPatrolActiveEMCONInZone(RequestSetMissionPatrolActiveEMCONInZone) returns (Reply);//设置任务是否仅在巡逻/警戒区内打开电磁辐射[巡逻任务、支援任务]（返回值：指令执行状态）
+    rpc setMissionPatrolProsecutionZone(RequestSetMissionPatrolProsecutionZone) returns (Reply);//区域按顺序排列的警戒参考点名 设置巡逻任务警戒区需要赋值（返回值：指令执行状态）
+    rpc setMissionPatrolMovementStyle(RequestSetMissionPatrolMovementStyle) returns (Reply);//巡逻任务 动作风格设置（返回值：指令执行状态）
+
+    rpc setMissionPatrolAircraftThrottle(RequestSetMissionPatrolAircraftThrottle) returns (Reply);//设置任务的出航油门、阵位油门[巡逻任务、支援任务、布雷任务、扫雷任务、投送任务]（返回值：指令执行状态）
+    rpc setMissionPatrolAircraftTerrainFollowing(RequestSetMissionPatrolAircraftTerrainFollowing) returns (Reply);//飞机出航地形跟随、阵位地形跟随[巡逻任务、支援任务、布雷任务、扫雷任务]（返回值：指令执行状态）
+    rpc setMissionPatrolSubmarineConfig(RequestSetMissionPatrolSubmarineConfig) returns (Reply);//潜艇出航油门、出航潜深、阵位潜深、阵位油门[巡逻任务、支援任务、布雷任务、扫雷任务]（返回值：指令执行状态）
+    rpc setMissionPatrolShipThrottle(RequestSetMissionPatrolShipThrottle) returns (Reply);//水面舰艇出航油门、阵位油门[巡逻任务、支援任务、布雷任务、扫雷任务、投送任务]（返回值：指令执行状态）
+    rpc setMissionPatrolAircraftAltitude(RequestSetMissionPatrolAircraftAltitude) returns (Reply);//设置任务的飞机出航高度 、阵位高度[巡逻任务、支援任务、布雷任务、扫雷任务、投送任务]（返回值：指令执行状态）
+    rpc setMissionPatrolAircraftAttackConfig(RequestSetMissionPatrolAircraftAttackConfig) returns (Reply);//设置任务飞机的攻击信息[巡逻任务]（返回值：指令执行状态）
+    rpc setMissionPatrolSubmarineAttackConfig(RequestSetMissionPatrolSubmarineAttackConfig) returns (Reply);//设置任务潜艇攻击油门的攻击信息[巡逻任务]（返回值：指令执行状态）
+    rpc setMissionPatrolShipAttackConfig(RequestSetMissionPatrolShipAttackConfig) returns (Reply);//设置任务水面舰艇攻击信息[巡逻任务]（返回值：指令执行状态）
+	
+    rpc setMissionSupportOneTimeOnly(RequestSetMissionSupportOneTimeOnly) returns (Reply);//设置支援任务是否仅限一次（返回值：指令执行状态）
+    rpc setMissionSupportLoopType(RequestSetMissionSupportLoopType) returns (Reply);//设置支援任务导航类型（返回值：指令执行状态）
+	
+    rpc setMissionFerryConfig(RequestSetMissionFerryConfig) returns (Reply);//转场规则 、飞机转场油门、飞机转场高度、转场地形跟随（返回值：指令执行状态）
+    rpc setMissionFerryShipThrottle(RequestSetMissionFerryShipThrottle) returns (Reply);//转场任务水面舰艇航速转场油门（返回值：指令执行状态）
+    rpc setMissionFerrySubThrottle(RequestSetMissionFerrySubThrottle) returns (Reply);//转场任务潜艇航速转场油门（返回值：指令执行状态）
+    rpc setMissionFerrySubDepth(RequestSetMissionFerrySubDepth) returns (Reply);//转场任务潜艇潜深（返回值：指令执行状态）
+
+    rpc setMissionMineArmingDelay(RequestSetMissionMineArmingDelay) returns (Reply);//布雷任务水雷解除保险延迟（返回值：指令执行状态）
+    
+    // ====================== 条令与电磁管控 ======================
+    rpc setDoctrine(RequestSetDoctrine) returns (Reply);//设置条令（返回值：指令执行状态）
+    rpc getDoctrine(RequestGetDoctrine) returns (Reply);//得到条令（返回值：Reply.result内容区为MIDoctrineSettings对应的json序列化数据）
+    rpc setDoctrineWRA(RequestSetDoctrineWRA) returns (Reply);//设置武器使用规则（返回值：指令执行状态）
+    rpc getDoctrineWRA(RequestGetDoctrineWRA) returns (Reply);//获取武器使用规则（返回值：Reply.result内容区为MIDoctrineWRAList对应的json序列化数据）
+    rpc setEMCON(RequestSetEMCON) returns (Reply);//设置电磁管控（返回值：指令执行状态）
+
+    // ====================== 航路点管理 ======================
+    rpc setWaypoint(RequestSetWaypoint) returns (Reply);//航路点设置速度、高度（返回值：指令执行状态）
+    rpc setWaypointDoctrine(RequestSetWaypointDoctrine) returns (Reply);//航路点设置条令（返回值：指令执行状态）
+    rpc setWaypointSensorSwitch(RequestSetWaypointSensorSwitch) returns (Reply);//航路点设置传感器（返回值：指令执行状态）
+
+    // ====================== 天气与环境 ======================
+    rpc setWeather(RequestSetWeather) returns (Reply);//设置天气（返回值：指令执行状态）
+    rpc getWeather(RequestGetWeather) returns (Reply);//获取天气（返回值：Reply.result内容区为MIWeather对应的json序列化数据）
+    rpc getElevation(RequestGetElevation) returns (Reply);//获取地形高程数据（返回值：Reply.result内容区为string的高程值）
+    rpc setElectromagneticBase(RequestSetElectromagneticBase) returns (Reply);//设置电磁环境基准值（返回值：指令执行状态）
+    rpc setElectromagnetic(RequestSetElectromagnetic) returns (Reply);//设置电磁环境（返回值：指令执行状态）
+
+    // ====================== 参考点管理 ======================
+    rpc addReferencePoint(RequestAddReferencePoint) returns (Reply);//添加参考点（返回值：Reply.result内容区为参考点GUID）
+    rpc deleteReferencePoint(RequestDeleteReferencePoint) returns (Reply);//删除参考点（返回值：指令执行状态）
+    rpc setReferencePoint(RequestSetReferencePoint) returns (Reply);//设置参考点（返回值：指令执行状态）
+    rpc getReferencePoints(RequestGetReferencePoints) returns (Reply);//获取参考点集合（返回值：Reply.result内容区为MIReferencePoints对应的json序列化数据）
+    rpc setAxisPoint(RequestSetAxisPoint) returns (Reply);//选定参考点 固定轴或者旋转以及取消（返回值：指令执行状态）
+    
+    // ====================== 飞机行动 ======================
+    rpc executeAircraftSingleAction(RequestExecuteAircraftSingleAction) returns (Reply);//飞机单机出动（返回值：指令执行状态）
+    rpc executeAircraftGroupAction(RequestExecuteAircraftGroupAction) returns (Reply);//飞机编队出动（返回值：指令执行状态）
+    rpc stopAircraftAction(RequestStopAircraftAction) returns (Reply);//飞机中止行动（返回值：指令执行状态）
+    rpc prepareAircraftAction(RequestPrepareAircraftAction) returns (Reply);//飞机准备行动（返回值：指令执行状态）
+    rpc setAircraftReadyTime(RequestSetAircraftReadyTime) returns (Reply);//设置飞机出动准备时间（返回值：指令执行状态）
+    rpc setAircraftLoadout(RequestSetAircraftLoadout) returns (Reply);//设置单元的载荷（返回值：指令执行状态）
+    
+    // ====================== 船舶行动 ======================
+    rpc executeShipSingleAction(RequestExecuteShipSingleAction) returns (Reply);//船舶单独出航（返回值：指令执行状态）
+    rpc executeShipGroupAction(RequestExecuteShipGroupAction) returns (Reply);//船舶编队出航（返回值：指令执行状态）
+    rpc stopShipAction(RequestStopShipAction) returns (Reply);//船舶中止出航（返回值：指令执行状态）
+    
+    // ====================== 情报与接触 ======================
+    rpc renameContact(RequestRename) returns (Reply);//重命名情报单元（返回值：指令执行状态）
+    rpc getContact(RequestGetContact) returns (Reply);//返回情报接触信息（返回值：指令执行状态）
+    rpc getSideContacts(RequestGetSideContacts) returns (Reply);//获取推演方所有情报接触（返回值：指令执行状态）
+    rpc setContactPosture(RequestSetContactPosture) returns (Reply);//标识情报阵营（返回值：指令执行状态）
+    rpc dropContactTargets(RequestDropContactTargets) returns (Reply);//断开情报标识（返回值：指令执行状态）
+    rpc markContactPosition(RequestMarkContactPosition) returns (Reply);//标记情报单元位置（返回值：指令执行状态）
+    rpc setContactUserData(RequestSetContactUserData) returns (Reply);//设置用户数据（返回值：指令执行状态）
+    
+    // ====================== 攻击与目标 ======================
+    rpc dropTarget(RequestDropTarget) returns (Reply);//放弃特定目标（返回值：指令执行状态）
+    rpc dropAllTargets(RequestDropAllTargets) returns (Reply);//放弃所有目标（返回值：指令执行状态）
+    rpc attackContactAuto(RequestAttackContactAuto) returns (Reply);//自动攻击某目标（返回值：指令执行状态）
+    rpc attackContactManual(RequestAttackContactManual) returns (Reply);//手动攻击（返回值：指令执行状态）
+    rpc cancelAttackContact(RequestCancelAttackContact) returns (Reply);//手动取消攻击（返回值：指令执行状态）
+    rpc setAttackCourseManual(RequestSetAttackCourse) returns (Reply);//手动设置、取消武器攻击弹道（返回值：指令执行状态）
+    rpc attackUnitsAuto(RequestAttackUnitsAuto) returns (Reply);//多单元自动攻击目标（可不同目标）（返回值：指令执行状态）
+    rpc attackUnitsManual(RequestAttackUnitsManual) returns (Reply);//多单元手动攻击目标（可不同目标）（返回值：指令执行状态）
+    rpc attackBearing(RequestAttackBearing) returns (Reply);//纯方位攻击（返回值：指令执行状态）
+  
+    // ====================== 特殊武器与效果 ======================
+    rpc executeChaffSingleBurst(RequestExecuteChaffBurst) returns (Reply);//箔条单次爆破（返回值：指令执行状态）
+    rpc executeChaffContinuousBurst(RequestExecuteChaffBurst) returns (Reply);//箔条连续爆破（返回值：指令执行状态）
+    rpc createExplosion(RequestCreateExplosion) returns (Reply);//引爆指定地点的弹头（返回值：指令执行状态）
+    rpc deploySonar(RequestDeploySonar) returns (Reply);//反潜作战（投放声呐）（返回值：指令执行状态）
+   
+    // ====================== 货物与装载 ======================
+    rpc updateUnitCargo(RequestUpdateUnitCargo) returns (Reply);//更新单元的货物（返回值：指令执行状态）
+    rpc executeCargoLoadOperation(RequestExecuteCargoLoadOperation) returns (Reply);//空中行动、船舶出动业务装卸货物（返回值：指令执行状态）
+    
+    // ====================== 附件与导入导出 ======================
+    rpc importInstFile(RequestImportInstFile) returns (Reply);//导入inst文件（返回值：指令执行状态）
+    rpc exportUnitToFile(RequestExportUnitToFile) returns (Reply);//导出单元到文件（返回值：Reply.result内容区为base64编码）
+   
+    // ====================== 数据库与查询 ======================
+    rpc queryDatabase(RequestQueryDatabase) returns (Reply);//查询数据库（返回值：指令执行状态）
+    rpc getFacilityMaxCapacity(RequestGetFacilityMaxCapacity) returns (Reply);//获取设施可容量当前单元的最大个数（返回值：Reply.result内容区为string的个数）
+    rpc getWeaponSalvoQuantity(RequestGetWeaponSalvoQuantity) returns (Reply);//通过武器与目标取到可用武器齐射数量（返回值：Reply.result内容区为string的数量）
+    rpc predictSatelliteOverflight(RequestPredictSatelliteOverflight) returns (Reply);//卫星临空预测（返回值：Reply.result内容区为MISatPredictionTime对应的json序列化数据）
+    
+    // ====================== 事件与触发器 ======================
+    rpc setTrigger(RequestSetTrigger) returns (Reply);//设置触发器（返回值：指令执行状态）
+    rpc setAction(RequestSetAction) returns (Reply);//设置动作（返回值：指令执行状态）
+    rpc setEvent(RequestSetEvent) returns (Reply);//设置事件（返回值：指令执行状态）
+    rpc setCondition(RequestSetCondition) returns (Reply);//设置条件（返回值：指令执行状态）
+    rpc setEventTrigger(RequestSetEventTrigger) returns (Reply);//设置事件触发器（返回值：指令执行状态）
+    rpc setEventAction(RequestSetEventAction) returns (Reply);//设置事件动作（返回值：指令执行状态）
+    rpc setEventCondition(RequestSetEventCondition) returns (Reply);//设置事件条件（返回值：指令执行状态）
+    rpc executeEventAction(RequestExecuteEventAction) returns (Reply);//执行动作事件下的Lua脚本类型动作（返回值：指令执行状态）
+    rpc updateEvent(RequestUpdateEvent) returns (Reply);//更新事件的条件或动作下的Lua脚本内容（返回值：指令执行状态）
+   
+    // ====================== 特殊动作 ======================
+    rpc setSpecialAction(RequestSetSpecialAction) returns (Reply);//新增/设置特殊动作（返回值：指令执行状态）
+    rpc deleteSpecialAction(RequestDelete) returns (Reply);//删除特殊动作（返回值：指令执行状态）
+    rpc executeSpecialAction(RequestExecuteSpecialAction) returns (Reply);//执行Lua特殊动作脚本但不显示动作执行结果（返回值：指令执行状态）
+    
+    // ====================== 日志与消息 ======================
+    rpc queryMessageLog(RequestQueryMessageLog) returns (Reply);//得到消息日志（返回值：Reply.result内容区为Struct.proto里面的THLoggedMessage对应的json序列化数据）
+    rpc sendMessage(RequestSendMessage) returns (Reply);//向推演方或单元发送消息（返回值：指令执行状态）
+    
+    // ====================== 存储与配置 ======================
+    rpc setUserData(RequestSetUserData) returns (Reply);//设置用户数据（返回值：指令执行状态）
+    rpc getUserData(RequestGetUserData) returns (Reply);//获取用户数据（返回值：指令执行状态）
+    
+    // ====================== 其他功能 ======================
+    rpc getEngineGUID(RequestGetEngineGUID) returns (Reply);//获取仿真引擎唯一ID（返回值：指令执行状态）
+    
+    // ====================== 区域管理 ======================
+    rpc addZone(RequestAddZone) returns (Reply);//添加封锁区或禁航区（返回值：Reply.result内容区为区域GUID）
+    rpc setZone(RequestSetZone) returns (Reply);//设置封锁区或禁航区（返回值：指令执行状态）
+    rpc removeZone(RequestRemoveZone) returns (Reply);//删除封锁区或禁航区（返回值：指令执行状态）
+    
+    // ====================== 通信网络 ======================
+    rpc setSideNetwork(RequestSetSideNetwork) returns (Reply);//设置网络类型（返回值：指令执行状态）
+    rpc addClusterNetwork(RequestAddClusterNetwork) returns (Reply);//创建集群网络（返回值：Reply.result内容区为集群网络GUID）
+    rpc updateClusterNetwork(RequestUpdateClusterNetwork) returns (Reply);//更新集群网络（返回值：指令执行状态）
+    rpc updateClusterMember(RequestUpdateClusterMember) returns (Reply);//添加或删除集群成员（返回值：指令执行状态）
+    rpc deleteClusterNetwork(RequestDeleteClusterNetwork) returns (Reply);//删除集群（返回值：指令执行状态）
+    rpc addNetworkPlan(RequestAddNetworkPlan) returns (Reply);//添加网络计划（返回值：Reply.result内容区为通信GUID）
+    rpc setNetworkProperty(RequestSetNetworkProperty) returns (Reply);//配置网络属性（返回值：指令执行状态）
+    rpc removeNetworkPlan(RequestRemoveNetworkPlan) returns (Reply);//删除网络计划（返回值：指令执行状态）
+    rpc setIntelligenceCenter(RequestSetIntelligenceCenter) returns (Reply);//设置情报中心（返回值：指令执行状态）
+    rpc removeIntelligenceCenter(RequestRemoveIntelligenceCenter) returns (Reply);//移除情报中心（返回值：指令执行状态）
+    rpc updateAutoDetection(RequestUpdateAutoDetection) returns (Reply);//更新自动探测（返回值：指令执行状态）
+    
+    // ====================== 心跳与杂项 ======================
+    rpc heartBeat(RequestHeartBeat) returns (Reply);//想定服务心跳（返回值：指令执行状态）
+    rpc assignUnitAsTarget(RequestAssignUnitAsTarget) returns (Reply);//打击任务分配打击目标（返回值：指令执行状态）
+    rpc removeUnitAsTarget(RequestRemoveUnitAsTarget) returns (Reply);//移除打击目标（返回值：指令执行状态）
+
+/*
+    //不实现
+    rpc dumpEvents(RequestDumpEvents) returns (Reply);//打印想定事件（返回值：MIDumpEvents对应的json序列化数据）
+    rpc emulateNoConsole(RequestEmulateNoConsole) returns (Reply);//无平台模拟 在平台中运行事件代码以观察如何担当'event'时有用（返回值：指令执行状态）
+    rpc calculateRange(RequestCalculateRange) returns (Reply);//得到两点间里程 其中点可以是单元/接触GUID或经纬度坐标点。以（起点，终点）的形式。（返回值：正常返回double）
+    rpc getRandomNumber(RequestGetRandomNumber) returns (Reply);//获取随机数（返回值：指令执行状态）
+    rpc getCurrentTime(RequestGetCurrentTime) returns (Reply);//获取当前时间（返回值：指令执行状态）
+    rpc showMessageBox(RequestShowMessageBox) returns (Reply);//打开所传字符串的消息框（返回值：指令执行状态）
+    rpc runScript(RequestRunScript) returns (Reply);//运行脚本（返回值：指令执行状态）
+    rpc showInputBox(RequestShowInputBox) returns (Reply);//显示给用户的信息（返回值：指令执行状态）
+    rpc sendSpecialMessage(RequestSendSpecialMessage) returns (Reply);//显示包括HTML文本消息的特殊消息给阵营（返回值：指令执行状态）
+    rpc setKeyValue(RequestSetKeyValue) returns (Reply);//根据键设置永久性键值的值（返回值：指令执行状态）
+    rpc getKeyValue(RequestGetKeyValue) returns (Reply);//从永久性键值中得到键所对应的值（返回值：指令执行状态）
+    rpc saveScenarioData(RequestSaveScenarioData) returns (Reply);//保存想定数据（返回值：指令执行状态）
+    rpc saveScenarioToService(RequestSaveScenarioToService) returns (Reply);//保存想定到想定服务里的接口（返回值：指令执行状态）
+    rpc addBranchFlag(RequestAddBranchFlag) returns (Reply);//添加分支标识（返回值：指令执行状态）
+    rpc getBranchFlag(RequestGetBranchFlag) returns (Reply);//获得当前引擎所执行的行动（返回值：指令执行状态）
+    rpc sendServerEvent(RequestSendServerEvent) returns (Reply);//发送服务事件（返回值：指令执行状态）
+    rpc sendServerSituation(RequestSendServerSituation) returns (Reply);//发送子服务态势（返回值：指令执行状态）
+    rpc getUnitX(RequestGetUnitX) returns (Reply);//返回触发当前事件的单元，否则返回nil（返回值：指令执行状态）
+    rpc getUnitY(RequestGetUnitY) returns (Reply);//从单元探测事件触发器作用，否则返回nil（返回值：指令执行状态）
+    rpc queryLog(RequestQueryLog) returns (Reply);//查询日志（返回值：指令执行状态）
+    rpc importAttachment(RequestImportAttachment) returns (Reply);//导入附件到想定（返回值：指令执行状态）
+    rpc useAttachmentForSide(RequestUseAttachmentForSide) returns (Reply);//阵营使用附件（返回值：指令执行状态）
+    rpc getInstFileList(RequestGetInstFileList) returns (Reply);//获取Inst文件列表（返回值：MIFileList对应的json序列化数据）
+    rpc setMissionWaypointDoctrine(RequestSetMissionWaypointDoctrine) returns (Reply);//任务中单元航路点设置条令（返回值：指令执行状态）
+    rpc setMissionWaypointSensorSwitch(RequestSetMissionWaypointSensorSwitch) returns (Reply);//任务中单元航路点设置传感器（返回值：指令执行状态）
+    rpc setUnitMount(RequestSetUnitMount) returns (Reply);//设置挂架
+    rpc setUnitMagazine(RequestSetUnitSensor) returns (Reply);//设置弹药库
+    rpc setUnitWeapon(RequestSetUnitSensor) returns (Reply);//设置武器
+    rpc setUnitSensor(RequestSetUnitSensor) returns (Reply);//设置传感器
+    rpc queryDeviceSignatures(RequestQueryDeviceSignatures) returns (Reply);//查询单元信号特征（返回值：特征信息string字符串）
+    rpc updateUnitOrbit(RequestUpdateUnitOrbit) returns (Reply);//更新卫星轨道（返回值：指令执行状态）
+*/
+}
+
+// ====================== 消息定义部分 ======================
+
+// 空参数
+message RequestEmpty {}
+
+// 注册请求
+message RequestExecuteRegister {
+  int32 rid = 1;//服务器分配的ID，客户端首次注册时不需填写(断线重连或心跳需要填写首次注册分配的ID，如果使用我方提供的SDK内部有集成重连与心跳机制)
+  bool exit = 2;//是否退出注册（终端关闭时调用设置true） true-退出  false-注册
+  string side = 3;//推演方名称
+  string aiagent = 4;//智能体标识
+  string username = 5;//用户名或标识
+  int32 cmdsrc = 6;//指令来源  0手操指令、1智能体指令
+  int32 runmode = 7;//运行模式 0-普通模式  1-大样本模式     2-智能体训练模式  3-自由模式_人机对战  4-自由模式_人人对战  5-沙场对决_人机对战  6-沙场对决_人人对战  7-新手引导模式  8-自由训练模式  9-想定工坊模式
+}
+
+// 注册响应
+message ReplyExecuteRegister {
+  int32 code = 1;//0-成功   非0-失败
+  string message = 2;//消息
+  string version = 3;//版本号
+  int32 rid = 4;//返回注册ID
+}
+
+// 通用响应
+message Reply {
+  int32 code = 1;//0-成功   非0-失败
+  bytes result = 2;//二进制内容（成功：结果值  失败：失败原因）
+}
+
+message ExecuteBatchPara{
+  string function = 1;//函数名，例：executeRegister
+  bytes para = 2;//参数二进制序列化数据
+}
+
+message RequestExecuteBatch{
+  bool jumpError = 1;//true:遇错继续执行 false:遇错中断，已执行语句不回滚
+  repeated ExecuteBatchPara batchPara = 2;
+}
+
+// 批量执行响应
+message ReplyExecuteBatch {
+  repeated Reply reply = 1;
+}
+
+message RequestExecuteLua {
+  string script=1;//lua脚本
+}
+
+// ====================== 基础数据结构 ======================
+
+// 地理坐标
+message GeoPosition {
+  double longitude = 1;//经度（-180，180）
+  double latitude = 2;//纬度（-90，90）
+  optional double altitude = 3;//高度（可选）
+}
+
+// 路径点
+message Waypoint {
+  GeoPosition position = 1;//位置
+  optional double speed = 2;//速度（可选）
+  optional double altitude = 3;//高度（可选）
+  optional string name = 4;//名称（可选）
+}
+
+// 单元基础信息
+message BaseUnitInfo {
+  string guid = 1;//单元GUID
+  optional string side = 2;//推演方（可选）
+  optional string name = 3;//名称（可选）
+}
+
+// 任务基础信息
+message BaseMissionInfo {
+  string side = 1;//推演方
+  string missionName = 2;//任务名
+  optional string missionGuid = 3;//任务GUID（可选）
+  optional string missionType = 4;//任务类型（可选）
+}
+
+// ====================== 通用请求消息 ======================
+
+// 简单请求（用于大多数查询接口）
+message SimpleRequest {
+  int32 rid = 1;//注册ID
+  int32 type = 2;//类型
+  string para = 3;//参数
+  string remark = 4;//备注
+}
+
+// 删除请求
+message RequestDelete {
+  repeated string guids = 1;//GUID数组
+}
+
+// 重命名请求
+message RequestRename {
+  string guid = 1;//GUID
+  string name = 2;//新名称
+}
+
+// 获取信息请求
+message RequestGet {
+  string guid = 1;//GUID
+}
+message RequestMissionDelete{
+  string side = 1;
+  string missionid = 2;//删除任务ID
+}
+
+message RequestMissionRename{
+  string side = 1;
+  string missionid = 2;
+  string newname = 3;
+}
+
+// ====================== 想定管理消息 ======================
+
+// 新建想定请求
+message RequestNewScenario {
+  string scenName = 1;//想定名称
+}
+
+// 加载想定请求
+message RequestLoadScenario {
+  string scenName = 1;//想定名称
+  int32 loadScheme = 2;//加载方案
+}
+
+// 保存想定请求
+message RequestSaveScenario {
+  string scenName = 1;//想定名称
+  string scenContent = 2;//想定内容
+}
+
+// 设置想定信息请求
+message RequestSetScenarioInfo {
+  optional string currentTime = 1;//当前时间 exp:"2020-05-01 12:11:02"
+  optional string startTime = 2;//开始时间 exp:"2020-05-01 12:11:02"
+  optional int64 duration = 3;//持续时间 单位：秒
+  optional int32 complexity = 4;//复杂度
+  optional int32 difficulty = 5;//难度
+  optional string location = 6;//位置
+  optional string featureOption = 7;//场景功能和真实感受  [DetailedGunFireControl|UnlimitedBaseMags|RealisticSubComms]，不填写的认为false
+  optional string title = 8;//标题
+  optional string description = 9;//描述 base64编码
+  optional string postureColor = 10;//想定各推演方颜色
+}
+
+message RequestGetScenarioInfo {
+}
+
+message MIFileInfo {
+  string name = 1;//想定名称(不带扩展名，例:TEST)
+  string path = 2;//想定路径(相对路径，例:比赛想定/TEST.scen)
+}
+
+message MIFileList {
+  repeated MIFileInfo fileinfos = 1;
+}
+
+message RequestGetScenarioList {
+}
+
+
+// 获取想定基本信息请求
+message RequestGetScenarioBasicInfo {
+  string scenName = 1;//想定名称
+}
+
+message RequestGetScenarioContent {
+  string scenName = 1;//想定名称
+}
+
+// ====================== 推演控制消息 ======================
+
+// 设置推演状态
+message RequestSetSimulationStatus {
+  string status = 1;//"RUN":运行  "PAUSE":暂停  "END":终止
+  int32 duration = 2;//运行时长（单位：秒）
+}
+
+// 设置推演速度请求
+message RequestSetSimulationSpeed {
+  int32 speed = 1;//倍速（参考ETimeCompression定义）
+}
+
+// ====================== 推演方管理消息 ======================
+
+// 添加推演方请求
+message RequestAddSide {
+  string guid = 1;//GUID（客户端有传入ID则使用传入的，未传入则由引擎生成ID）
+  string name = 2;//名称
+}
+
+// 移除推演方请求
+message RequestRemoveSide {
+  SimpleRequest request = 1;
+}
+
+// 推演方列表
+message MISideList {
+  map<string, string> infos = 1;//推演方信息（key-GUID  value-名称）
+}
+
+// 获取推演方列表
+message RequestGetSideList {
+  string scenName = 1;//想定名称（空：获取当前想定内的推演方列表）
+}
+
+// 设置阵营立场请求
+message RequestSetSidePosture {
+  string sideA = 1;//推演方A
+  string sideB = 2;//推演方B
+  string posture = 3;//立场。"F":友好,"H":敌对,"N":中立,"U":非友
+}
+
+// 获取阵营立场请求
+message RequestGetSidePosture {
+  string sideA = 1;//推演方A
+  string sideB = 2;//推演方B
+}
+
+// 设置推演方选项请求
+message RequestSetSideOptions {
+  string side = 1;//推演方
+  optional string awareness = 2;//认知水平  BLIND-一无所知，NORMAL普通水平，AUTOSIDE-知其属方，AUTOUNIT-知其属方与单元,OMNI-无所不知
+  optional string proficiency = 3;//训练水平  Novice-新手，Regular普通，Cadet-实习，Veteran-老手，Ace-顶级
+  optional bool isAIOnly = 4;//是否由计算机扮演
+  optional double cameraLon = 5;//相机经度
+  optional double cameraLat = 6;//相机纬度
+  optional double cameraAlt = 7;//相机高度
+}
+
+// 获取推演方选项请求
+message RequestGetSideOptions {
+  string side = 1;//推演方
+}
+
+// 设置推演方分数请求
+message RequestSetSideScore {
+  string side = 1;//推演方
+  int32 score = 2;//新分数
+  string reason = 3;//原因
+}
+
+// 获取推演方分数请求
+message RequestGetSideScore {
+  string side = 1;//推演方
+}
+
+// 获取战损请求
+message RequestGetSideUnitLoss {
+  string side = 1;//推演方
+}
+
+// ====================== 单元管理消息 ======================
+
+// 添加单元请求
+message RequestAddUnit {
+  string side = 1;//推演方
+  string unitType = 2;//单元类型（"SATELLITE"：卫星、"SHIP"：舰船、"AIRCRAFT"：飞机、"SUBMARINE"：潜艇、"FACILITY"：设施）
+  string name = 3;//单元名
+  GeoPosition position = 4;//位置 添加飞机时需要填写Altitude
+  optional double heading = 5;//航向（可选）
+  optional int32 dbid = 6;//数据库ID（可选） 目前必填DBID
+  optional string guid = 7;//自定义GUID（可选）
+  optional int32 loadoutid = 8; //添加飞机时必填 挂载方案id
+  optional int32 orbit = 9;//卫星轨道
+  optional string base = 10; //添加飞机时，如果飞机放在机场则必填，否则不用填写
+  optional int32 count = 11;//添加数量
+}
+
+// 灭掉单元请求
+message RequestKillUnit {
+  string guid = 1;//实体guid
+}
+
+// 设置单元位置请求
+message RequestSetUnitPosition {
+  string guid = 1;//实体guid
+  double latitude = 2;//纬度
+  double longitude = 3;//经度
+}
+
+// 设置单元航向
+message RequestSetUnitHeading {
+  string guid = 1;//实体guid
+  double heading = 2;//航向，正北为0顺时针增大到360
+}
+
+// 设置单元速度
+message RequestSetUnitSpeed {
+  string guid = 1;//实体guid
+  double speed = 2;//速度
+}
+
+// 设置单元高度
+message RequestSetUnitHeight {
+  string guid = 1;//实体guid
+  string height = 2;//高度
+}
+
+// 设置单元期望高度
+message RequestSetUnitDesiredHeight {
+  string guid = 1;//实体guid
+  string desiredHeight = 2;//期望高度
+}
+
+// 设置单元预设高度
+message RequestSetUnitPresetHeight {
+  string guid = 1;//实体guid
+  string presetHeight = 2;//预设高度
+}
+
+// 设置单元期望速度
+message RequestSetUnitDesiredSpeed {
+  string guid = 1;//实体guid
+  string desiredSpeed = 2;//期望速度
+}
+
+// 设置单元预设油门
+message RequestSetUnitPresetThrottle {
+  string guid = 1;//实体guid
+  string presetThrottle = 2;//预设油门
+}
+
+// 设置单元自动探测
+message RequestSetUnitAutoDetectable {
+  string guid = 1;//实体guid
+  bool autoDetectable = 2;//自动探测
+}
+
+// 设置单元阵营请求
+message RequestSetUnitSide {
+  string guid = 1;//实体guid
+  string newSide = 2;//新阵营
+}
+
+// 设置单元毁伤请求
+message RequestSetUnitDamage {
+  string guid = 1;//实体guid
+  float damageValue = 2;//毁伤值
+}
+
+//油量
+message THFuelInfo{
+  int32 type=1;//必须赋值  燃油类型--默认为0
+  int32 capacity=2;//必须赋值  油量
+}
+
+// 设置单元油量请求
+message RequestSetUnitFuel {
+  string guid = 1;//实体guid
+  repeated THFuelInfo fuel = 2;//油量值
+}
+
+// 设置单元返航请求
+message RequestSetUnitReturnToBase {
+  string guid = 1;//实体guid
+  bool returnToBase = 2;//是否返航（true:返航 false:取消返航）
+}
+
+// 给单元加油请求
+message RequestRefuelUnit {
+  string guid = 1;//实体guid
+}
+
+// 设置单元地形跟随请求
+message RequestSetUnitTerrainFollow {
+  string guid = 1;//实体guid
+  bool terrainFollow = 2;//地形跟随
+}
+
+// 设置单元航线请求
+message RequestSetUnitCourse {
+  string guid = 1;//实体guid
+  repeated Waypoint course = 2;//航线点
+}
+
+// 分配单元到任务请求
+message RequestAssignUnitToMission {
+  repeated string unitGuids = 1;//单元GUID列表
+  string missionGuid = 2;//任务GUID
+}
+
+// 设置单元传感器分类开关请求
+message RequestSetUnitSensorClassSwitch {
+  string guid = 1;//实体guid
+  optional bool radar = 2;//雷达类开关
+  optional bool sonar = 3;//声呐类开关
+  optional bool oecm = 4;//电子干扰类开关
+}
+
+// 设置单元传感器开关请求
+message RequestSetUnitSensorSwitch {
+  string guid = 1;//实体guid
+  string sensorId = 2;//传感器GUID
+  bool active = 3;//开关
+}
+
+// 设置单元电磁管控遵循请求
+message RequestSetUnitEMCONAbide {
+  string guid = 1;//实体guid
+  bool abide = 2;//是否遵循
+}
+
+// 添加单元挂架请求
+message RequestAddUnitMount {
+  string guid = 1;//实体guid
+  int32 mountDBID = 2;//挂架数据库ID
+  string angle = 3;//角度
+}
+
+// 移除单元挂架请求
+message RequestDeleteUnitMount {
+  string guid = 1;//实体guid
+  string mountGuid = 2;//挂架GUID
+}
+
+// 添加单元弹药库请求
+message RequestAddUnitMagazine {
+  string guid = 1;//实体guid
+  int32 magazineDBID = 2;//弹药库数据库ID
+}
+
+// 移除单元弹药库请求
+message RequestDeleteUnitMagazine {
+  string guid = 1;//实体guid
+  string magazineGuid = 2;//弹药库GUID
+}
+
+// 添加单元武器请求
+message RequestAddUnitWeapon {
+  string guid = 1;//实体guid
+  optional string mountGuid = 2;//添加到挂架 挂架里武器和删除挂架里武器时需赋值
+  optional string magazineGuid = 3;//添加到弹药库 弹药库里武器和删除弹药库里武器时需赋值
+  int32 weaponDBID = 4;//武器数据库ID
+  int32 count = 5;//数量
+}
+
+// 移除单元武器请求
+message RequestDeleteUnitWeapon {
+  string guid = 1;//实体guid
+  optional string mountGuid = 2;//从挂架删除时必填
+  optional string magazineGuid = 3;//从弹药库删除时必填
+  string weaponGuid = 4;//武器GUID
+}
+
+// 添加单元传感器请求
+message RequestAddUnitSensor {
+  string guid = 1;//实体guid
+  int32 sensorDBID = 2;//传感器数据库ID
+  repeated string arcDetect = 3;//探测角度(传感器角度 SB1,SB2,SMF1,SMF2,SMA1,SMA2,SS1,SS2,PB1,PB2,PMF1,PMF2,PMA1,PMA2,PS1,PS2)
+  repeated string arcTrack = 4;//追踪角度
+}
+
+// 移除单元传感器请求
+message RequestDeleteUnitSensor {
+  string guid = 1;//实体guid
+  string sensorGuid = 2;//传感器GUID
+}
+
+// 设置单元武器重载优先级请求
+message RequestSetUnitWeaponReloadPriority {
+  string guid = 1;//实体guid
+  string mountGuid = 2;//挂架GUID
+  int32 weaponDBID = 3;//武器数据库ID
+  bool enabled = 4;//是否优先
+}
+
+// 设置单元保持阵位请求
+message RequestSetUnitHoldPosition {
+  string side = 1;//推演方
+  repeated string unitGuids = 2;//单元GUID列表（空：取当前推演方下所有单元）
+  bool hold = 3;//是否保持阵位
+}
+
+// 填充单元弹药库请求
+message RequestFillUnitMagazinesForLoadout {
+  string guid = 1;//实体guid
+  int32 loadoutId = 2;//挂载方案ID
+  int32 quantity = 3;//数量
+}
+
+//单元武器分配信息
+message MIUnitWeaponDistributionInfo {
+  string status = 1;//状态（例：所有武器都已分配）
+  string ammoTotal = 2;//武器总数
+  string ammoDist = 3;//武器已分配数
+  string salvoCount = 4;//配置的齐射数
+  string autoFire = 5;//能否自动发射
+  string authorize = 6;//武器发射授权
+  string manualFire = 7;//能否手动发射
+}
+
+//单元武器分配
+message MIUnitWeaponDistribution {
+  map<string, MIUnitWeaponDistributionInfo> infos = 1;//key-武器DBID
+}
+
+// 获取单元武器分配信息请求
+message RequestGetUnitWeaponDistributionInfo {
+  string guid = 1;//实体guid
+  string targetId = 2;//目标GUID
+}
+
+// 计算单元燃油请求
+message RequestCalculateUnitFuelByAirTime {
+  string guid = 1;//实体guid
+  double airTime = 2;//飞行时间（秒）
+}
+
+// ====================== 编队管理消息 ======================
+
+// 创建编组请求
+message RequestCreateGroup {
+  string side = 1;//推演方
+  string groupName = 2;//编队名
+  optional string groupGuid = 3;//自定义GUID（可选）
+  repeated string unitGuids = 4;//单元GUID列表
+}
+
+// 从编队移除单元请求
+message RequestDetachUnitFromGroup {
+  string side = 1;//推演方
+  repeated string unitGuids = 3;//单元GUID列表
+}
+
+// 添加单元到编队请求
+message RequestAddUnitToGroup {
+  string side = 1;//推演方
+  string groupId = 2;//编队GUID
+  repeated string unitGuids = 3;//单元GUID列表
+}
+
+// 设置编队领队请求
+message RequestSetGroupLeader {
+  string unitGuid = 1;//编队单元GUID
+}
+
+// 设置编队单元方位请求
+message RequestSetGroupUnitBearing {
+  string unitGuid = 1;//编队单元GUID
+  double longitude = 2;//经度
+  double latitude = 3;//纬度
+  int32 mode = 4;//模式 [0 - 绝对(固定) 1 - 相对(旋转)]
+}
+
+// 设置编队阵型请求
+message RequestSetGroupFormation {
+  string groupId = 1;//编队GUID
+  string formation = 2;//队型（"横队"、"纵队"、"楔队"、"V形/爪形"、"梯队右侧"、"梯队左侧"、"右侧冲突线"、"左侧冲突线"、"菱队"）
+  int32 distance = 3;//单元间隔（单位：米）
+  bool teleportToStation = 4;//瞬移至站位（true:编队成员立即传送至目标位置[一般用于想定编辑]；false:则按路径移动）
+}
+
+// ====================== 任务管理消息 ======================
+
+// 任务配置（完整配置）
+message MissionConfiguration {
+  string type = 1;//任务类型
+  optional string subType = 2;//子类型
+  optional bool isActive = 3;//是否激活
+  optional string startTime = 4;//开始时间
+  optional string endTime = 5;//结束时间
+  optional int32 flightSize = 6;//编队规模
+  optional int32 minAircraft = 7;//最少飞机数
+  optional int32 maxFlightBatches = 8;//最大飞行批次
+  optional int32 strikeRadius = 9;//打击半径
+  optional bool oneTimeOnly = 10;//是否仅限一次
+  repeated string patrolZones = 11;//巡逻区域
+  optional bool activeEMCON = 12;//激活电磁管控
+  // ... 其他配置字段根据需要添加
+}
+
+// 添加任务请求
+message RequestAddMission {
+  string side = 1;//推演方
+  string missionName = 2;//任务名
+  optional string missionGuid = 3;//任务GUID（可选）
+  string missionType = 4;//任务类型（"STRIKE"：打击任务、"PATROL"：巡逻任务、"SUPPORT"：支援任务、"CARGO"：货运任务、"MINING"：布雷任务、"MINECLEARING"：扫雷任务、"FERRY"：转场任务）
+  optional string missionSubtype = 5;//任务子类型（打击任务-["SEA":对海、"AIR":对空、"ASW":反潜、"LAND":对陆]；巡逻任务-["ASW":反潜作战巡逻、"ASuW_Naval":反舰作战巡逻(海上)、"AAW":防空作战巡逻、"ASuW_Land":反舰作战巡逻(地面)、"ASuW_Mixed":反舰作战巡逻(混合)、"SEAD":防空压制巡逻、"SeaControl":海上控制巡逻]）
+  bool isActive = 6;//是否激活
+  optional string destinationGuid = 7;//目的地单元GUID（货运任务目的地、转场任务目的地）
+  repeated string zonePoints = 8;//区域点集GUID（巡逻区域、支援航线、投送区域、布雷区域、扫雷区域）
+  optional uint64 createTime = 9;// 任务创建时间戳
+}
+
+// 设置任务时间请求
+message RequestSetMissionTime {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  string startTime = 3;//开始时间 格式:"05/24/2014 16:05:00"
+  string endTime = 4;//结束时间 格式:"05/24/2014 16:05:00"
+}
+
+// 设置任务打击最低情报立场请求
+message RequestSetMissionStrikeMinimumTrigger {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 strikeMinimumTrigger = 3;//最低情报立场（2: 非友好 3:敌方 4:未知/不明）
+}
+
+// 设置任务飞机编队规模请求
+message RequestSetMissionAircraftGroupSize {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 groupSize = 3;//编队规模（1、2、3、4、6 ）
+}
+
+// 设置任务舰船编队规模请求
+message RequestSetMissionBoatGroupSize {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 groupSize = 3;//编队规模（1、2、3、4、6 ）
+  string missionType = 4;//任务类型（"STRIKE"：打击任务、"PATROL"：巡逻任务、"SUPPORT"：支援任务、"MINING"：布雷任务、"MINECLEARING"：扫雷任务、“ESCORT”:护航任务）
+}
+
+// 设置任务燃油弹药规则请求
+message RequestSetMissionStrikeFuelAmmo {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 strikeFuelAmmo = 3;//燃油弹药规则（0：使用挂载配置中的设定、1：耗尽或抛弃燃油弹药、2：带回燃油弹药）
+}
+
+// 设置任务最少就绪飞机数请求
+message RequestSetMissionMinAircraftRequired {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 strikeMinAircraftReq = 3;//最少飞机数（0[无偏好],1,2,3,4,6,8,12,13[全部]）
+}
+
+// 设置任务最大飞机行动请求
+message RequestSetMissionMaxAircraftAction {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 strikeMax = 3;//最大飞机行动数（0[无偏好],1,2,3,4,6,8,12,13[全部]）
+}
+
+// 设置任务最大打击半径请求
+message RequestSetMissionStrikeAircraftMinMaxRadius {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 strikeMinDist = 3;//设置打击任务最小打击半径 海里
+  int32 strikeMaxDist = 4;//设置打击任务最大打击半径 海里
+}
+
+// 设置任务最大打击半径请求
+message RequestSetMissionStrikeBoatMinMaxRadius {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 strikeMinDist = 3;//设置打击任务最小打击半径 海里
+  int32 strikeMaxDist = 4;//设置打击任务最大打击半径 海里
+}
+
+// 设置任务雷达使用规则请求
+message RequestSetMissionRadarUsageRule {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 strikeRadarUsage = 3;//雷达运用规则（1：全程遵循电磁管控、2：从起始点开启雷达、3：从进攻点开启雷达）
+}
+
+// 油轮配置
+message MITankerConfig {
+  optional string tankerUsage = 1;//使用方式（0：使用最近加油机、1：使用任务内的加油机）
+  repeated string tankerMissionList = 2;//使用任务内的加油机列表
+  optional bool tankerFollowsReceivers = 3;//加油机遵循受油机的飞行计划
+  optional bool launchMissionWithoutTankersInPlace = 4;//加油机没到位的情况下启动任务
+  optional int32 tankerMinNumberTotal = 5;//所需油轮最低数量
+  optional int32 tankerMinNumberAirborne = 6;//空中油轮最低数量
+  optional int32 tankerMinNumberStation = 7;//就位油轮最低数量
+  optional int32 maxReceiversInQueuePerTankerAirborne = 8;//每架加油机允许加油列队最大长度
+  optional int32 fuelQtyToStartLookingForTankerAirborne = 9;//受油机开始寻找加油机的时机，燃料百分比
+  optional string tankerMaxDistanceAirborne = 10;//空中油轮距离，用'internal'或设置一个里程，代码会匹配最低可用设置。
+}
+
+// 设置任务油轮配置请求
+message RequestSetMissionTankerConfig {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  MITankerConfig tankerConfig = 3;//油轮配置
+}
+
+// 设置任务编队规模要求请求
+message RequestSetMissionAircraftGroupSizeRequired {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool useGroupSize = 3;//是否要求编队规模
+}
+
+// 设置任务编队规模要求请求
+message RequestSetMissionBoatGroupSizeRequired {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool useGroupSize = 3;//是否要求编队规模
+}
+
+// 设置任务自动多扇面攻击请求
+message RequestSetMissionStrikeAutoPlanner {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool strikeAutoPlanner = 3;//是否允许离轴攻击
+}
+
+// 设置任务仅限一次请求
+message RequestSetMissionStrikeOneTimeOnly {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool strikeOneTimeOnly = 3;//是否仅限一次
+}
+
+// 设置任务包含在ATO中请求
+message RequestSetMissionIncludeInATO {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool includeInATO = 3;//是否包含在ATO中
+}
+
+// 设置任务仅考虑计划目标请求
+message RequestSetMissionPreplanTargetsOnly {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool strikePreplan = 3;//是否仅考虑计划目标（在目标清单）
+}
+
+// 设置任务护航编队规模请求
+message RequestSetMissionEscortAircraftGroupSize {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 escortGroupSize = 3;//编队规模（1：单机 2：2机编队 3：3机编队 4：4机编队 6：6机编队）
+  optional int32 escortGroupSizeNonshooter = 4;//非火力打击 编队规模（1：单机、2：使用与战斗机和压制敌防空相同设置）
+}
+
+// 设置任务护航编队规模请求
+message RequestSetMissionEscortBoatGroupSize {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 escortGroupSize = 3;//编队规模（1：单机 2：2机编队 3：3机编队 4：4机编队 6：6机编队）
+  optional int32 escortGroupSizeNonshooter = 4;//非火力打击 编队规模（1：单机、2：使用与战斗机和压制敌防空相同设置）
+}
+
+// 设置任务最少就绪飞机数请求--护航任务
+message RequestSetMissionEscortMinAircraftRequired {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 escortMinShooter = 3;//设置打击任务所需最少飞机数（13：所有飞机编队出动，0：无偏好 ，1：1机编队，2：2机编队，3：3机编队，4：4机编队，5-6：6机编队，7-8：8机编队，9-12：12机编队）
+  int32 escortMinNonshooter = 4;//非火力打击 执行任务所需的最低就绪护航数 13：所有，0：无偏好
+}
+
+// 设置任务最大飞机行动请求--护航任务
+message RequestSetMissionEscortMaxAircraftAction {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 escortMaxShooter = 3;//飞机任务允许的最大护航数（13-0：无偏好，1：1机编队，2：2机编队，3：3机编队，4：4机编队，5-6：6机编队，7-8：8机编队，9-12：12机编队）
+  int32 escortMaxNonshooter = 4;//非火力打击 飞行任务允许的最大护航数
+}
+
+// 设置任务护航响应半径请求
+message RequestSetMissionEscortResponseRadius {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 escortResponseRadius = 3;//护航最大威胁响应半径
+}
+
+// 设置任务侦查不明目标飞机数量请求
+message RequestSetMissionEscortAircraftStoinvestigate {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 flightStoinvestigate = 3;//飞机数量
+}
+
+// 设置任务与敌方对抗的飞机数量请求
+message RequestSetMissionEscortAircraftStoengage {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 flightStoengage = 3;//飞机数量
+}
+
+// 僚机任务可以在--范围内与敌交战请求
+message RequestSetMissionEscortWingmanEngageDistance {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  double wingmanEngageDistance = 3;//交战距离
+}
+
+// 设置任务侦查不明目标舰船数量请求
+message RequestSetMissionEscortBoatStoinvestigate {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 boatStoinvestigate = 3;//舰船数量
+}
+
+// 设置任务与敌方对抗的舰船数量请求
+message RequestSetMissionEscortBoatStoengage {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 boatStoengage = 3;//舰船数量
+}
+
+// 设置任务舰船可以在--范围内与敌交战请求
+message RequestSetMissionEscortBoatEngageDistance {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  double groupmemberEngageDistance = 3;//舰船交战距离
+}
+
+// 设置任务巡逻区域请求
+message RequestSetMissionPatrolZone {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  repeated string patrolZones = 3;//巡逻区域(区域按顺序排列的参考点名)
+}
+
+// 设置任务阵位数量请求
+message RequestSetMissionPatrolOnStation {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 onStation = 3;//设置阵位上每类平台保持几个
+}
+
+// 设置任务三分之一规则请求
+message RequestSetMissionPatrolOneThirdRule {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool oneThirdRule = 3;//是否三分之一规则
+}
+
+// 设置任务分析巡逻区外目标请求
+message RequestSetMissionPatrolCheckOutsidePatrol {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool checkOPA = 3;//是否分析巡逻区外
+}
+
+// 设置任务检查武器射程请求
+message RequestSetMissionPatrolCheckWeaponRange {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool checkWWR = 3;//是否检查武器射程
+}
+
+// 设置任务激活电磁管控请求
+message RequestSetMissionPatrolActiveEMCONInZone {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool activeEMCON = 3;//是否激活电磁管控
+}
+
+// 设置任务警戒区域请求
+message RequestSetMissionPatrolProsecutionZone {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  repeated string prosecutionZones = 3;//警戒区域
+}
+
+// 设置任务移动风格请求
+message RequestSetMissionPatrolMovementStyle {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 movementStyle = 3;//移动风格 0-区域内随机 1-可重复循环
+}
+
+// 设置任务飞机油门请求
+message RequestSetMissionPatrolAircraftThrottle {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  string transitThrottle = 3;//出航油门"FullStop","Loiter","Cruise","Full","Flank"
+  string stationThrottle = 4;//阵位油门"FullStop","Loiter","Cruise","Full","Flank"
+}
+
+// 设置任务飞机地形跟随请求
+message RequestSetMissionPatrolAircraftTerrainFollowing {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool transitTerrainFollowing = 3;//出航地形跟随
+  bool stationTerrainFollowing = 4;//阵位地形跟随
+}
+
+// 设置任务潜艇配置请求
+message RequestSetMissionPatrolSubmarineConfig {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  string transitThrottle = 3;//出航油门
+  double transitDepth = 4;//出航潜深
+  double stationDepth = 5;//阵位潜深
+  string stationThrottle = 6;//阵位油门
+}
+
+// 设置任务舰船油门请求
+message RequestSetMissionPatrolShipThrottle {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  string transitThrottle = 3;//出航油门
+  string stationThrottle = 4;//阵位油门
+}
+
+// 设置任务飞机高度请求
+message RequestSetMissionPatrolAircraftAltitude {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  double transitAltitude = 3;//出航高度
+  double stationAltitude = 4;//阵位高度
+}
+
+// 设置任务飞机攻击配置请求
+message RequestSetMissionPatrolAircraftAttackConfig {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  string attackThrottle = 3;//攻击油门
+  bool attackTerrainFollowing = 4;//攻击地形跟随
+  double attackAltitude = 5;//攻击高度
+  double attackDistance = 6;//攻击距离
+}
+
+// 设置任务潜艇攻击配置请求
+message RequestSetMissionPatrolSubmarineAttackConfig {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  string attackThrottle = 3;//攻击油门
+  double attackDepth = 4;//攻击潜深
+  double attackDistance = 5;//攻击距离
+}
+
+// 设置任务舰船攻击配置请求
+message RequestSetMissionPatrolShipAttackConfig {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  string attackThrottle = 3;//攻击油门
+  double attackDistance = 4;//攻击距离
+}
+
+// 设置任务单次执行请求
+message RequestSetMissionSupportOneTimeOnly {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  bool oneTimeOnly = 3;//是否单次执行
+}
+
+// 设置任务循环类型请求
+message RequestSetMissionSupportLoopType {
+  string side = 1;//推演方
+  string missionGuid = 2;//任务GUID
+  int32 loopType = 3;//导航类型  "1":仅一次 "0":连续循环
+}
+
+// 设置任务转场配置请求
+message RequestSetMissionFerryConfig {
+  BaseMissionInfo baseInfo = 1;
+  string ferryBehavior = 2;//转场规则  "OneWay"--单程，"Cycle"--循环 ，"Random"--随机
+  string ferryThrottle = 3;//转场油门  Loiter低速 Cruise巡航 Full军用 Flank 加力 Unspecified 不定
+  double ferryAltitude = 4;//转场高度
+  bool ferryTerrainFollowing = 5;//转场地形跟随
+}
+
+// 设置任务转场舰船油门请求
+message RequestSetMissionFerryShipThrottle {
+  BaseMissionInfo baseInfo = 1;
+  string ferryShipThrottle = 2;//转场舰船油门
+}
+
+// 设置任务转场潜艇油门请求
+message RequestSetMissionFerrySubThrottle {
+  BaseMissionInfo baseInfo = 1;
+  string ferrySubThrottle = 2;//转场潜艇油门
+}
+
+// 设置任务转场潜艇深度请求
+message RequestSetMissionFerrySubDepth {
+  BaseMissionInfo baseInfo = 1;
+  double ferrySubDepth = 2;//转场潜艇深度
+}
+
+// 设置任务水雷解除保险延迟请求
+message RequestSetMissionMineArmingDelay {
+  BaseMissionInfo baseInfo = 1;
+  string armingDelay = 2;//解除保险延迟  以'天数:时数:分数:秒数'表示
+}
+
+// ====================== 条令与电磁管控消息 ======================
+
+// 战略武器运用配置
+message StrategicWeaponConfig{
+  optional string useNuclearWeapons = 1;//使用核武器 可："yes"或"1",否:"no" 或"0"
+  optional bool useNuclearWeaponsEditable = 2;//使用核武器 是否可编辑
+}
+
+// 交战规则配置
+message RulesOfEngagementConfig{
+  optional string weaponControlAir = 1;//对空武器控制状态 自由开火:"0",谨慎开火:"1",限制开火:"2",继承:"inherit"
+  optional string weaponControlSurface = 2;//对水面攻击武器控制状态 自由开火:"0",谨慎开火:"1",限制开火:"2",继承:"inherit"
+  optional string weaponControlSubsurface = 3;//对潜攻击武器控制状态 自由开火:"0",谨慎开火:"1",限制开火:"2",继承:"inherit"
+  optional string weaponControlLand = 4;//对地面攻击武器控制状态 自由开火:"0",谨慎开火:"1",限制开火:"2",继承:"inherit"
+  optional string ignorePlottedCourse = 5;//攻击时是否忽略计划航线设置 是："true",否:"false",继承:"inherit"
+  optional string engagingAmbiguousTargets = 6;//接战模糊位置目标 忽略:"0",乐观:"1",悲观:"2",继承:"inherit"
+  optional string engageOpportunityTargets = 7;//接战临机出现目标 是："true",否:"false",继承:"inherit"
+  optional bool weaponControlAirEditable = 8;//对空武器控制状态 是否可编辑
+  optional bool weaponControlSurfaceEditable = 9;//对水面攻击武器控制状态 是否可编辑
+  optional bool weaponControlSubsurfaceEditable = 10;//对潜攻击武器控制状态 是否可编辑
+  optional bool weaponControlLandEditable = 11;//对地面攻击武器控制状态 是否可编辑
+  optional bool ignorePlottedCourseEditable = 12;//攻击时是否忽略计划航线设置 是否可编辑
+  optional bool engagingAmbiguousTargetsEditable = 13;//接战模糊位置目标 是否可编辑
+  optional bool engageOpportunityTargetsEditable = 14;//接战临机出现目标 是否可编辑
+}
+
+// 电磁管控配置
+message ElectromagneticSpectrumManagementConfig{
+  optional string ignoreEmconWhileUnderAttack = 1;//受到攻击忽略电磁管控 是："true",否:"false",继承:"inherit"
+  optional bool ignoreEmconWhileUnderAttackEditable = 2;//受到攻击忽略电磁管控 是否可编辑
+}
+
+// 杂项配置
+message MiscellaneousConfig{
+  optional string kinematicRangeForTorpedoes = 1;//鱼雷使用动力航程 AutomaticAndManualFire(0), ManualFireOnly(1), No(2),继承:"inherit"
+  optional string automaticEvasion = 2;//自动规避 是："true",否:"false",继承:"inherit"
+  optional string useRefuelUnrep = 3;//加油/补给 0--允许，1--允许但不允许，2--不允许,继承:"inherit"
+  optional string refuelUnrepSelection = 4;//对所选单元进行加油/补给 0--选择最近的加油机 1--选择我们 2--优先考虑,继承:"inherit"
+  optional string refuelUnrepAllied = 5;//对盟军单元进行加油/补给 0--是，1--是，仅接受，2--是，仅送出，3--否,继承:"inherit"
+  optional bool kinematicRangeForTorpedoesEditable = 6;//鱼雷使用动力航程 是否可编辑
+  optional bool automaticEvasionEditable = 7;//自动规避 是否可编辑
+  optional bool useRefuelUnrepEditable = 8;//加油/补给 是否可编辑
+  optional bool refuelUnrepSelectionEditable = 9;//对所选单元进行加油/补给 是否可编辑
+  optional bool refuelUnrepAlliedEditable = 10;//对盟军单元进行加油/补给 是否可编辑
+}
+
+// 空中作战行动配置
+message AirOperationsConfig{
+  optional string airOperationsTempo = 1;//空战节奏 快速出动："0",一般强度出动:"1",继承:"inherit"
+  optional string quickTurnaroundForAircraft = 2;//快速出动 Yes:"0", FightersAndASW:"1", No:"2"
+  optional string fuelStatePlanned = 3;//燃油状态，预先规划  Bingo:"0",10%:"1",20%:"2",25%:"3",30%:"4",40%:"5",50%:"6",60%:"7",70%:"8",75%:"9",80%:"10",90%:"11",继承:"inherit"
+  optional string fuelStateRtb = 4;//燃油状态，返航  不返航:"0", 返航最后一架:"1", 返航第一架:"2", 返航离开编队:"3",继承:"inherit"
+  optional string weaponStatePlanned = 5;//武器状态，预先规划:
+											// 使用挂载设置: "0"
+											// 任务武器已耗光，立即脱离战斗: "2001"
+											// 任务武器已耗光.允许使用航炮对临机目标进行打击（推荐）: "2002"
+											// 所有超视距与防区外打击武器已经耗光.立即脱离战斗: "3001"
+											// 所有超视距与防区外打击武器已经耗光.允许使用视距内或防区内打击武器对较易攻击的临机出现目标进行攻击.不使用航炮: "3002"
+											// 所有超视距与防区外打击武器已经耗光.允许使用视距内、防区内打击武器或者航炮对较易攻击的临机出现目标进行攻击: "3003"
+											// 25 % 相关武器已经耗光.立即脱离战斗: "4001"
+											// 25%相关武器已经耗光. 允许与临机出现目标交战，包括航炮: "4002"
+											// 50%相关武器已经耗光. 立即脱离战斗: "4011"
+											// 50%相关武器已经耗光. 允许与临机出现目标交战，包括航炮: "4012"
+											// 75%相关武器已经耗光. 立即脱离战斗: "4021"
+											// 75%相关武器已经耗光. 允许与临机出现目标交战，包括航炮: "4022"
+											// 使用超视距或防区外打击武器进行一次交战.立即脱离战斗: "5001"
+											// 使用超视距或防区外打击武器进行一次交战.允许使用视距内或防区内打击武器对较易攻击的临机出现目标进行攻击.不使用航炮: "5002"
+											// 使用超视距或防区外打击武器进行一次交战.允许使用视距内、防区内打击武器或者航炮对较易攻击的临机出现目标进行攻击: "5003"
+											// 同时使用超视距 / 视距内或防区外 / 防区内打击武器进行一次交战.不使用航炮: "5005"
+											// 同时使用超视距 / 视距内或防区外 / 防区内打击武器进行一次交战.允许使用航炮对较易攻击的临机出现目标进行攻击: "5006"
+											// 使用视距内或防区内打击武器进行一次交战.立即脱离战斗: "5011"
+											// 使用视距内或防区内打击武器进行一次交战. 允许使用航炮与临机出现目标格斗: "5012"
+											// 使用航炮进行一次交战: "5021"
+											// 和上级一致: "inherit"
+  optional string weaponStateRtb = 6;//武器状态-返航:  不返航:"0", 返航最后一架:"1", 返航第一架:"2", 返航离开编队:"3",继承:"inherit"
+  optional string gunStrafing = 7;//空对地扫射: 禁止扫射:"0", 允许扫射:"1",继承:"inherit"
+  optional string jettisonOrdnance = 8;//抛弃弹药: 禁止:"0", 允许:"1",继承:"inherit"
+  optional string bvrLogic = 9;//超视距战斗：跟踪导弹:"0", 相机而动:"1", 相机而动和搜寻:"2",继承:"inherit"
+  optional bool airOperationsTempoEditable = 10;//空战节奏 是否可编辑
+  optional bool quickTurnaroundForAircraftEditable = 11;//快速出动 是否可编辑
+  optional bool fuelStatePlannedEditable = 12;//燃油状态，预先规划 是否可编辑
+  optional bool fuelStateRtbEditable = 13;//燃油状态，返航 是否可编辑
+  optional bool weaponStatePlannedEditable = 14;//武器状态，预先规划 是否可编辑
+  optional bool weaponStateRtbEditable = 15;//武器状态-返航 是否可编辑
+  optional bool gunStrafingEditable = 16;//空对地扫射 是否可编辑
+  optional bool jettisonOrdnanceEditable = 17;//抛弃弹药 是否可编辑
+  optional bool bvrLogicEditable = 18;//超视距战斗 是否可编辑
+}
+
+// 反舰作战行动配置
+message AntiSurfaceOperationsConfig{
+  optional string useSamsInAntiSurfaceMode = 1;//以反舰模式使用舰空导弹 是:"true", 否:"false",继承:"inherit"
+  optional string maintainStandoff = 2;//与目标保持距离 是:"true"或”1“, 否:"false"或”0“,继承:"inherit"
+  optional bool useSamsInAntiSurfaceModeEditable = 3;//以反舰模式使用舰空导弹 是否可编辑
+  optional bool maintainStandoffEditable = 4;//与目标保持距离 是否可编辑
+}
+
+// 反潜作战行动配置
+message AntiSubmarineOperationsConfig{
+  optional string avoidContact = 1;//规避搜索 No:"0", YesExceptSelfDefence:"1", YesAlways:"2",继承:"inherit"
+  optional string diveOnThreat = 2;//探测到威胁进行下潜  YesESMOnly:"0", Yes, 潜望镜或雷达探测到:"1",  YesShips20nmAircraft30nm:"2", No:"3",继承:"inherit"
+  optional string rechargeOnPatrol = 3;//电池充电%，出航/阵位 RechargeEmpty:"0", Recharge10Percent:10", Recharge20Percent:"20", Recharge30Percent:"30", 
+											//Recharge40Percent"40", Recharge50Percent"50", Recharge60Percent"60", Recharge70Percent"70",
+											//Recharge80Percent:"80", Recharge90_Percent:"90",继承:"inherit"
+  optional string rechargeOnAttack = 4;//电池充电%，进攻/防御RechargeEmpty:0, Recharge10Percent:"10", Recharge20Percent:"20", Recharge30Percent:"30", 
+										//Recharge40Percent:"40", Recharge50Percent:"50", Recharge60Percent:"60", Recharge70Percent:"70", 
+										//Recharge80Percent:"80", Recharge90_Percent:"90",继承:"inherit"
+  optional string useAip = 5;//使用AIP推进技术 No:"0", YesAttackOnly:"1", YesAlways:"2",继承:"inherit"
+  optional string dippingSonar = 6;//吊放声呐 Automatically_HoverAnd150ft:"0", ManualAndMissionOnly:"1",继承:"inherit"
+  optional bool avoidContactEditable = 7;//规避搜索 是否可编辑
+  optional bool diveOnThreatEditable = 8;//探测到威胁进行下潜 是否可编辑
+  optional bool rechargeOnPatrolEditable = 9;//电池充电%，出航/阵位 是否可编辑
+  optional bool rechargeOnAttackEditable = 10;//电池充电%，进攻/防御 是否可编辑
+  optional bool useAipEditable = 11;//使用AIP推进技术 是否可编辑
+  optional bool dippingSonarEditable = 12;//吊放声呐 是否可编辑
+}
+
+// 撤退与重新部署配置
+message WithdrawalAndRedeploymentConfig{
+  optional string withdrawOnDamage = 1;//满足如下条件时撤退 - -毁伤程度大于:忽略："0",5%:"1",25%:"2",50%:"3",75%:"4",继承:"inherit"
+  optional string withdrawOnFuel = 2;//满足如下条件时撤退--燃油少于:忽略："0",bingo:"1",25%:"2",50%:"3",75%:"4",100%:"5",继承:"inherit"
+  optional string withdrawOnAttack = 3;//满足如下条件时撤退--主要攻击攻击武器至少：忽略："0",耗尽:"1",25%:"2",50%:"3",75%:"4",100%:"5",满载武器:"6",继承:"inherit"
+  optional string withdrawOnDefence = 4;//满足如下条件时撤退--主要防御武器至少:忽略："0",耗尽:"1",25%:"2",50%:"3",75%:"4",100%:"5",满载武器:"6",继承:"inherit"
+  optional string deployOnDamage = 5;//满足如下条件时重新部署--毁伤程度小于:忽略："0",%5:"1",25%:"2",50%:"3",75%:"4",继承:"inherit"
+  optional string deployOnFuel = 6;//满足如下条件时重新部署--燃油至少处于:忽略："0",bingo:"1",25%:"2",50%:"3",75%:"4",100%:"5",继承:"inherit"
+  optional string deployOnAttack = 7;//满足如下条件时重新部署--主要攻击武器处于:忽略："0",耗尽:"1",25%:"2",50%:"3",75%:"4",100%:"5",满载武器:"6",继承:"inherit"
+  optional string deployOnDefence = 8;//满足如下条件时重新部署--主要防御武器处于:忽略："0",耗尽:"1",25%:"2",50%:"3",75%:"4",100%:"5",满载武器:"6",继承:"inherit"
+}
+
+// 条令设置
+message MIDoctrineSettings {
+  optional StrategicWeaponConfig strategicWeaponConfig = 1;//战略武器运用
+  optional RulesOfEngagementConfig rulesOfEngagementConfig = 2;//交战规则
+  optional ElectromagneticSpectrumManagementConfig electromagneticSpectrumManagementConfig = 3;//电磁管控
+  optional MiscellaneousConfig miscellaneousConfig = 4;//杂项
+  optional AirOperationsConfig airOperationsConfig = 5;//空中作战行动
+  optional AntiSurfaceOperationsConfig antiSurfaceOperationsConfig = 6;//反舰作战行动
+  optional AntiSubmarineOperationsConfig antiSubmarineOperationsConfig = 7;//反潜作战行动
+  optional WithdrawalAndRedeploymentConfig withdrawalAndRedeploymentConfig = 8;//撤退与重新部署
+  //原Proto保留字段
+  optional string navigationSurfaceMode = 9;//反水面作战导航 "0"：最短路径  "1":深水航行  "2":近海航行  继承:"inherit"
+  optional string navigationSubsurfaceMode = 10;//反潜作战导航  "0":最短 "1":深水 "2"：战斗  "3":近岸  继承:"inherit"
+  optional string navigationLandMode = 11;//陆战导航
+  optional bool navigationSurfaceModeEditable = 12;//吊放声呐 是否可编辑
+  optional bool navigationSubsurfaceModeEditable = 13;//吊放声呐 是否可编辑
+  optional bool navigationLandModeEditable = 14;//吊放声呐 是否可编辑
+}
+
+// 设置条令请求
+message RequestSetDoctrine {
+  string targetType = 1;//目标类型：side/mission/unit/group
+  string targetId = 2;//目标ID
+  MIDoctrineSettings doctrine = 3;//条令设置
+  optional string side = 4;//推演方ID（可选）当目标类型为mission时需赋值
+  optional bool escort = 5;//设置护航任务条令时，必须赋值
+}
+
+// 获取条令请求
+message RequestGetDoctrine {
+  string targetType = 1;//目标类型：side/mission/unit/group
+  string targetId = 2;//目标ID
+  optional string side = 3;//推演方（可选）当目标类型为mission时需赋值
+  optional bool escort = 4;//获取护航任务条令时，必须赋值
+}
+
+// 目标类型枚举
+enum EWRA_WeaponTargetType
+{
+  Null = 0;
+  None = 1001;
+  Decoy = 1002;
+  Air_Contact_Unknown_Type = 1999;//Air Contact - Unknown Type
+  Aircraft_Unspecified = 2000;//Aircraft - Unspecified
+  Aircraft_5th_Generation = 2001;//Aircraft - 5th Generation Fighter/Attack [Agility/Gen: 5.0+] (F-22, Eurofighter, Rafale)
+  Aircraft_4th_Generation = 2002;//Aircraft - 4th Generation Fighter/Attack [Agility/Gen: 4.0-4.9] (F-14, F-15, F-16, MiG-29, Su-27)
+  Aircraft_3rd_Generation = 2003;//Aircraft - 3rd Generation Fighter/Attack [Agility/Gen: 3.0-3.9] (F-4, F-5, MiG-21, MiG-23)
+  Aircraft_Less_Capable = 2004;//Aircraft - Less Capable Fighter/Attack [Agility: 2.0-2.9] (F-111, Lightning, Su-7, MiG-17)
+  Aircraft_High_Perf_Bombers = 2011;//Aircraft - High-performance Bombers [Agility: 2.0+] (B-1B, B-2A, Tu-22M)
+  Aircraft_Medium_Perf_Bombers = 2012;//Aircraft - Medium-performance Bombers [Agility: 1.5-1.9] (B-52, Vulcan, Tu-16)
+  Aircraft_Low_Perf_Bombers = 2013;//Aircraft - Low-performance Bombers [Agility: 1.0-1.4] (B-24, Canberra, Tu-95, Bison)
+  Aircraft_High_Perf_Recon_EW = 2021;//Aircraft - High-Performance Reconnaissance and Electronic Warfare [Agility: 4.0+]
+  Aircraft_Medium_Perf_Recon_EW = 2022;//Aircraft - Medium-Performance Reconnaissance and Electronic Warfare [Agility: 3.0-3.9]
+  Aircraft_Low_Perf_Recon_EW = 2023;//Aircraft - Low-Performance Reconnaissance and Electronic Warfare [Agility: 2.0-2.9]
+  Aircraft_AEW = 2031;//Aircraft - Airborne Early Warning and Control
+  Aircraft_MicroUAV = 2032;//
+  Aircraft_Tanker = 2033;//
+  Helicopter_Unspecified = 2100;//Helicopter - Unspecified
+  Guided_Weapon_Unspecified = 2200;//Guided Weapon - Unspecified
+  Guided_Weapon_Supersonic_Sea_Skimming = 2201;//Guided Weapon - Supersonic Sea-Skimming
+  Guided_Weapon_Subsonic_Sea_Skimming = 2202;//Guided Weapon - Subsonic Sea-Skimming
+  Guided_Weapon_Supersonic = 2203;//Guided Weapon - Supersonic
+  Guided_Weapon_Subsonic = 2204;//Guided Weapon - Subsonic
+  Guided_Weapon_Ballistic = 2211;//Guided Weapon - Ballistic
+  Satellite_Unspecified = 2300;//Satellite - Unspecified
+  C_RAM = 2400;//
+  Surface_Contact_Unknown_Type = 2999;//Surface Contact - Unknown Type
+  Ship_Unspecified = 3000;//Ship - Unspecified
+  Ship_Carrier_0_25000_tons = 3001;//Ship - Carrier, 0-25000 tons
+  Ship_Carrier_25001_45000_tons = 3002;//Ship - Carrier, 25001-45000 tons
+  Ship_Carrier_45001_95000_tons = 3003;//Ship - Carrier, 45001-95000 tons
+  Ship_Carrier_95000_tons = 3004;//Ship - Carrier, 95000+ tons
+  Ship_Surface_Combatant_0_500_tons = 3101;//Ship - Surface Combatant, 0-500 tons
+  Ship_Surface_Combatant_501_1500_tons = 3102;//Ship - Surface Combatant, 501-1500 tons, plus Missile Boats with smaller displacement
+  Ship_Surface_Combatant_1501_5000_tons = 3103;//Ship - Surface Combatant, 1501-5000 tons, plus Frigates and Corvettes with smaller displacement
+  Ship_Surface_Combatant_5001_10000_tons = 3104;//Ship - Surface Combatant, 5001-10000 tons, plus Destroyers with smaller displacement
+  Ship_Surface_Combatant_10001_25000_tons = 3105;//Ship - Surface Combatant, 10001-25000 tons, plus Cruisers with smaller displacement
+  Ship_Surface_Combatant_25001_45000_tons = 3106;//Ship - Surface Combatant, 25001-45000 tons
+  Ship_Surface_Combatant_45001_95000_tons = 3107;//Ship - Surface Combatant, 45001-95000 tons
+  Ship_Surface_Combatant_95000_tons = 3108;//Ship - Surface Combatant, 95000+ tons
+  Ship_Amphibious_0_500_tons = 3201;//Ship - Amphibious, 0-500 tons
+  Ship_Amphibious_501_1500_tons = 3202;//Ship - Amphibious, 501-1500 tons
+  Ship_Amphibious_1501_5000_tons = 3203;//Ship - Amphibious, 1501-5000 tons
+  Ship_Amphibious_5001_10000_tons = 3204;//Ship - Amphibious, 5001-10000 tons
+  Ship_Amphibious_10001_25000_tons = 3205;//Ship - Amphibious, 10001-25000 tons
+  Ship_Amphibious_25001_45000_tons = 3206;//Ship - Amphibious, 25001-45000 tons
+  Ship_Amphibious_45001_95000_tons = 3207;//Ship - Amphibious, 45001-95000 tons
+  Ship_Amphibious_95000_tons = 3208;//Ship - Amphibious, 95000+ tons
+  Ship_Auxiliary_0_500_tons = 3301;//Ship - Auxiliary, 0-500 tons
+  Ship_Auxiliary_501_1500_tons = 3302;//Ship - Auxiliary, 501-1500 tons
+  Ship_Auxiliary_1501_5000_tons = 3303;//Ship - Auxiliary, 1501-5000 tons
+  Ship_Auxiliary_5001_10000_tons = 3304;//Ship - Auxiliary, 5001-10000 tons
+  Ship_Auxiliary_10001_25000_tons = 3305;//Ship - Auxiliary, 10001-25000 tons
+  Ship_Auxiliary_25001_45000_tons = 3306;//Ship - Auxiliary, 25001-45000 tons
+  Ship_Auxiliary_45001_95000_tons = 3307;//Ship - Auxiliary, 45001-95000 tons
+  Ship_Auxiliary_95000_tons = 3308;//Ship - Auxiliary, 95000+ tons
+  Ship_Merchant_Civilian_0_500_tons = 3401;//Ship - Merchant / Civilian, 0-500 tons
+  Ship_Merchant_Civilian_501_1500_tons = 3402;//Ship - Merchant / Civilian, 501-1500 tons
+  Ship_Merchant_Civilian_1501_5000_tons = 3403;//Ship - Merchant / Civilian, 1501-5000 tons
+  Ship_Merchant_Civilian_5001_10000_tons = 3404;//Ship - Merchant / Civilian, 5001-10000 tons
+  Ship_Merchant_Civilian_10001_25000_tons = 3405;//Ship - Merchant / Civilian, 10001-25000 tons
+  Ship_Merchant_Civilian_25001_45000_tons = 3406;//Ship - Merchant / Civilian, 25001-45000 tons
+  Ship_Merchant_Civilian_45001_95000_tons = 3407;//Ship - Merchant / Civilian, 45001-95000 tons
+  Ship_Merchant_Civilian_95000_tons = 3408;//Ship - Merchant / Civilian, 95000+ tons
+  Submarine_Surfaced = 3501;//Ship - Surfaced Submarine
+  Subsurface_Contact_Unknown_Type = 3999;//Sub-Surface Contact - Unknown Type
+  Submarine_Unspecified = 4000;//Submarine - Unspecified
+  Land_Contact_Unknown_Type = 4999;//Land Contact - Unknown Type
+  Land_Structure_Soft_Unspecified = 5000;//Land Structure - Soft - Unspecified
+  Land_Structure_Soft_Building_Surface = 5001;//Land Structure - Soft - Building (Surface)
+  Land_Structure_Soft_Building_Reveted = 5002;//Land Structure - Soft - Building (Reveted)
+  Land_Structure_Soft_Structure_Open = 5005;//Land Structure - Soft - Structure (Open)
+  Land_Structure_Soft_Structure_Reveted = 5006;//Land Structure - Soft - Structure (Reveted)
+  Land_Structure_Soft_Aerostat_Moring = 5011;//Land Structure - Soft - Aerostat Moring
+  Land_Structure_Hardened_Unspecified = 5100;//Land Structure - Hardened - Unspecified
+  Land_Structure_Hardened_Building_Surface = 5101;//Land Structure - Hardened - Building (Surface)
+  Land_Structure_Hardened_Building_Reveted = 5102;//Land Structure - Hardened - Building (Reveted)
+  Land_Structure_Hardened_Building_Bunker = 5103;//Land Structure - Hardened - Building (Bunker)
+  Land_Structure_Hardened_Building_Underground = 5104;//Land Structure - Hardened - Building (Underground)
+  Land_Structure_Hardened_Structure_Open = 5105;//Land Structure - Hardened - Structure (Open)
+  Land_Structure_Hardened_Structure_Reveted = 5106;//Land Structure - Hardened - Structure (Reveted)
+  Runway_Facility_Unspecified = 5200;//Runway Facility - Unspecified
+  Runway = 5201;//Runway
+  Runway_Grade_Taxiway = 5202;//Runway-Grade Taxiway
+  Runway_Access_Point = 5203;//Runway Access Point
+  Radar_Unspecified = 5300;//Radar - Unspecified
+  Mobile_Target_Soft_Unspecified = 5400;//Mobile Target - Soft - Unspecified
+  Mobile_Target_Soft_Mobile_Vehicle = 5401;//Mobile Target - Soft - Mobile Vehicle(s)
+  Mobile_Target_Soft_Mobile_Personnel = 5402;//Mobile Target - Soft - Mobile Personnel
+  Mobile_Target_Hardened_Unspecified = 5500;//Mobile Target - Hardened - Unspecified
+  Mobile_Target_Hardened_Mobile_Vehicle = 5501;//Mobile Target - Hardened - Mobile Vehicle(s)
+  Underwater_Structure = 5601;//Underwater Structure
+  Air_Base_Single_Unit_Airfield = 5801;//Air Base (Single-Unit Airfield)
+}
+
+// 设置武器使用规则请求
+message RequestSetDoctrineWRA {
+  string targetType = 1;//目标类型：side/mission/unit/group
+  string targetId = 2;//目标ID
+  string weaponId = 3;//武器数据库ID
+  optional string side = 4;//推演方（可选）当目标类型为mission时需赋值
+  MIDoctrineWRAInfo doctrineWRAInfo = 5;//设置武器使用规则信息
+}
+
+// 武器使用规则信息
+message MIDoctrineWRAInfo{
+  EWRA_WeaponTargetType targetTypeEnum = 1;//目标类型枚举
+  optional string weaponQty = 2;//齐射武器数  继承：'inherit'、系统默认：'system'、 最大：'Max'或数字字符串  'none':禁用
+  optional string shooterQty = 3;//齐射发射架数  继承：'inherit'、系统默认：'system'、 最大：'Max'或数字字符串
+  optional string firingRange = 4;//自动开火距离 继承：'inherit'、系统默认：'system'、 最大：'Max'或数字字符串 不自动启用自动开火 none
+  optional string selfDefenceRange = 5;//自动防御距离  继承：'inherit'、系统默认：'system'、 最大：'Max'或数字字符串
+}
+
+// 武器使用规则列表
+message MIDoctrineWRAList {
+  map<string, MIDoctrineWRAInfo> doctrineWRAInfos = 1;//武器使用规则（key-武器DBID/武器GUID  value-武器使用规则信息）
+} 
+
+// 获取武器使用规则请求
+message RequestGetDoctrineWRA {
+  string targetType = 1;//目标类型side/mission/unit/group
+  string targetId = 2;//目标ID
+  optional string side = 3;//推演方（可选）
+  optional bool escort = 4;//获取护航任务条令时，必须赋值
+}
+
+// 设置电磁管控请求
+message RequestSetEMCON {
+  string category = 1;//类别：'Side', 'Mission', 'Group', 'Unit'
+  string nameId = 2;//名称或ID
+  string content = 3;//内容 ['Radar/Sonar/OECM=Active/Passive;' / 'Inherit']
+}
+
+// ====================== 航路点管理 ======================
+
+// 设置航路点速度、高度请求
+message RequestSetWaypoint{
+  string guid = 1;//实体id
+  string pointid = 2;//航路点guid
+  optional string speed = 3;//实体速度  节
+  optional string altitude = 4;//实体高度  米
+}
+
+// 设置航路点条令请求
+message RequestSetWaypointDoctrine{
+  string guid = 1;//实体id
+  string pointid= 2;//航路点guid
+  optional bool escort = 3;//是否护航
+  MIDoctrineSettings doctrine = 4;//条令设置
+}
+
+// 设置航路点传感器请求
+message RequestSetWaypointSensorSwitch{
+  string guid = 1;//实体id
+  string pointid = 2;//航路点guid
+  string sensorid = 3;//传感器ID
+  optional bool radar = 4;//开关雷达则赋值
+  optional bool sonar = 5;//开关声呐则赋值
+  optional bool OECM = 6;//开关电子干扰则赋值
+}
+
+// ====================== 天气环境消息 ======================
+
+// 设置天气请求
+message RequestSetWeather {
+  int32 temperature = 1;//温度（摄氏度）当前基线温度（摄氏度），随纬度变化
+  int32 rainfall = 2;//降水量  降水量，0-50.
+  double cloudCover = 3;//云层覆盖度  云层覆盖度， 0.0-1.0
+  double seaState = 4;//海况  当前海况， 0-9
+}
+
+// 获取天气请求
+message RequestGetWeather {
+  SimpleRequest request = 1;
+}
+
+// 天气信息
+message MIWeather{
+  optional int32 temperature = 1;//温度（摄氏度）
+  optional int32 rainfall = 2;//降水量
+  optional double cloudCover = 3;//云层覆盖度
+  optional double seaState = 4;//海况
+}
+
+// 获取地形高程请求
+message RequestGetElevation {
+  string latitude = 1;// 纬度
+  string longitude = 2;// 经度
+}
+
+// 设置电磁环境基准值请求
+message RequestSetElectromagneticBase {
+  double electromagneticComplexityBase = 1;// 电磁复杂度基准值
+  double electromagneticEnergyBase = 2;// 电磁能量值基准值
+}
+
+// 设置电磁环境请求
+message RequestSetElectromagnetic {
+  double ElectromagneticComplexity = 1;// 电磁复杂度
+  double ElectromagneticEnergy = 2;// 电磁能量
+}
+
+// ====================== 参考点管理消息 ======================
+
+// 添加参考点请求
+message RequestAddReferencePoint {
+  string side = 1;//推演方
+  string name = 2;//参考点名
+  double longitude = 3;//经度 范围(-180,180) 如果大于180，则X-360，小于-180，则X+360
+  double latitude = 4;//纬度 范围(-90,90) 如果大于90，则180-X，小于-90，则-180-X
+  optional string guid = 5;//GUID（可选）
+}
+
+// 删除参考点请求
+message RequestDeleteReferencePoint{
+  string side = 1;//推演方
+  RequestDelete deletePoints = 2;//参考点GUID
+}
+
+// 设置参考点请求
+message RequestSetReferencePoint {
+  string side = 1;//推演方
+  string name = 2;//参考点名
+  double longitude = 3;//经度
+  double latitude = 4;//纬度
+}
+
+// 获取参考点请求
+message RequestGetReferencePoints {
+  string side = 1;//推演方
+  repeated string area = 2;//参考点名列表
+}
+
+// 参考点信息
+message MIReferencePointInfo{
+  string side = 1;//推演方
+  string name = 2;//参考点名
+  double longitude = 3;//经度
+  double latitude = 4;//纬度
+  string guid = 5;//参考点GUID
+  optional bool locked = 6;//锁定
+  optional string bearingtype = 7;//轴承类型 0:Fixed 1:Rotating
+  optional string relativeto = 8;//关联单元名字
+}
+
+// 参考点列表信息
+message MIReferencePoints{
+  repeated MIReferencePointInfo points = 1;//参考点列表
+}
+
+//选定参考点 固定轴或者旋转以及取消
+message RequestSetAxisPoint{
+  string unitid=1;//单元id
+  string orientationtype=2;//设定轴心类型  0.取消 1.旋转 2.固定
+  string referencenpoints=3;//多个参考点ID  用,区分
+}
+
+// ====================== 飞机行动消息 ======================
+
+// 飞机行动基础信息
+message AircraftActionBase {
+  string side = 1;//推演方
+  repeated string guids = 2;//飞机GUID列表
+}
+
+// 执行飞机单机行动请求
+message RequestExecuteAircraftSingleAction {
+  AircraftActionBase base = 1;
+}
+
+// 执行飞机编队行动请求
+message RequestExecuteAircraftGroupAction {
+  AircraftActionBase base = 1;
+}
+
+// 停止飞机行动请求
+message RequestStopAircraftAction {
+  AircraftActionBase base = 1;
+}
+
+// 准备飞机行动请求
+message RequestPrepareAircraftAction {
+  string unitName = 1;//实体GUID
+  int64 loadoutID = 2;//挂载方案DBID
+  int32 mode = 3;//模式 1:确认-出动准备 2:确认-出动准备(不含可选武器) 3:立即出动准备(想定编辑) 4:立即出动准备-忽略弹药库(想定编辑)
+  int64 timeToReadyMinutes = 4;//载荷准备时间（分钟）
+}
+
+// 设置飞机准备时间请求
+message RequestSetAircraftReadyTime {
+  AircraftActionBase base = 1;
+  int64 seconds = 2;//准备时间（秒）
+}
+
+// 设置飞机载荷请求
+message RequestSetAircraftLoadout {
+  string unitName = 1;//实体GUID
+  int64 loadoutID = 2;//挂载方案DBID
+  int64 timeToReadyMinutes = 3;//准备时间（分钟）
+}
+
+// ====================== 船舶行动消息 ======================
+
+// 执行船舶单机行动请求
+message RequestExecuteShipSingleAction {
+  AircraftActionBase base = 1;
+}
+
+// 执行船舶编队行动请求
+message RequestExecuteShipGroupAction {
+  AircraftActionBase base = 1;
+}
+
+// 停止船舶行动请求
+message RequestStopShipAction {
+  AircraftActionBase base = 1;
+}
+
+// ====================== 情报与接触消息 ======================
+
+// 获取情报接触请求
+message RequestGetContact {
+  string side = 1;//推演方名或ID
+  string guid = 2;//目标情报单元GUID
+}
+
+// 获取推演方所有情报接触请求
+message RequestGetSideContacts {
+  string side = 1;//推演方名或ID
+}
+
+// 设置情报阵营请求
+message RequestSetContactPosture {
+  string side = 1;//推演方
+  repeated string guidList = 2;//情报目标GUID列表
+  string posture = 3;//阵营  中立："Neutral",友好："Friendly",不友好："Unfriendly",敌对："Hostile",未知："Unknown"
+}
+
+// 断开情报标识请求
+message RequestDropContactTargets {
+  string side = 1;//推演方
+  repeated string guidList = 2;//情报目标GUID列表
+}
+
+// 标记情报单元位置请求
+message RequestMarkContactPosition {
+  string side = 1;//推演方
+  string guid = 2;//情报目标GUID
+  string newName = 3;//新名称
+}
+
+// 设置用户数据请求
+message RequestSetContactUserData {
+  string side = 1;//推演方
+  string guid = 2;//情报目标GUID
+  string newName = 3;//新名称
+}
+
+// ====================== 攻击与目标消息 ======================
+
+// 攻击安排
+message AttackArrange {
+  int32 mode = 1;//攻击模式 0：自动攻击 1：手动攻击
+  int32 mount = 2;//挂架DBID
+  int32 weapon = 3;//武器DBID
+  int32 qty = 4;//发射数量
+  optional string latitude = 5;//目标纬度（纯方位攻击）
+  optional string longitude = 6;//目标经度（纯方位攻击）
+  repeated Waypoint course = 7;//导弹路径规划点
+  repeated string guid = 8;//指定导弹的GUID
+}
+
+// 放弃特定目标请求
+message RequestDropTarget {
+  string side = 1;//推演方
+  string unitId = 2;//实体GUID
+  string targetId = 3;//目标GUID
+}
+
+// 放弃所有目标请求
+message RequestDropAllTargets {
+  string side = 1;//推演方
+  string unitId = 2;//实体GUID
+}
+
+// 自动攻击目标请求
+message RequestAttackContactAuto {
+  string guid = 1;//实体GUID
+  string target = 2;//目标GUID
+  int32 mode = 3;//模式 0：自动攻击  1：手动攻击
+}
+
+// 手动攻击请求
+message RequestAttackContactManual {
+  string guid = 1;//实体GUID
+  string target = 2;//目标GUID
+  AttackArrange arrange = 3;//攻击安排
+}
+
+// 取消攻击请求
+message RequestCancelAttackContact {
+  string guid = 1;//攻击单元GUID
+  string targetGuid = 2;//敌方GUID
+  optional int32 mountID = 3;//挂架ID
+  int32 weaponID = 4;//武器DBID
+  optional int32 count = 5;//取消武器发射数量
+}
+
+// 设置攻击航线请求
+message RequestSetAttackCourse {
+  string attacker = 1;//攻击单元GUID
+  string target = 2;//被攻击单元GUID
+  int32 weaponDBID = 3;//武器DBID
+  repeated Waypoint course = 4;//导弹航路（可选，不赋值则取消武器航路）
+}
+
+// 多单元自动攻击请求
+message RequestAttackUnitsAuto {
+  repeated RequestAttackContactAuto attackList = 1;//攻击列表
+}
+
+// 多单元手动攻击请求
+message RequestAttackUnitsManual {
+  repeated RequestAttackContactManual attackList = 1;//攻击列表
+}
+
+// 纯方位攻击请求
+message RequestAttackBearing {
+  string guid = 1;//实体GUID
+  string target = 2;//纯方位攻击标志 "BOL"
+  int32 mode = 3;//攻击模式
+  int32 mount = 4;//挂架DBID
+  int32 weapon = 5;//武器DBID
+  int32 qty = 6;//发射数量
+  string latitude = 7;//目标纬度
+  string longitude = 8;//目标经度
+  repeated Waypoint course = 9;//导弹路径规划点
+  repeated string missileGuid = 10;//指定导弹的GUID
+}
+
+// ====================== 特殊武器与效果消息 ======================
+
+// 箔条爆破请求
+message RequestExecuteChaffBurst {
+  string unitId = 1;//单元ID
+  bool enabled = 2;//启用/禁用
+  bool continuous = 3;//是否连续 false:单次爆破 true:连续爆破
+}
+
+// 创建爆炸请求
+message RequestCreateExplosion {
+  int32 warheadId = 1;//战斗部ID
+  double latitude = 2;//纬度
+  double longitude = 3;//经度
+  double altitude = 4;//高度
+  optional double radius = 5;//半径（可选）
+}
+
+// 部署声呐请求
+message RequestDeploySonar {
+  string guid = 1;//实体GUID
+  string type = 2;//声呐类型 被动"PASSIVE"、主动"ACTIVE"、吊放"DIPPING"
+  bool shallow = 3;//是否浅层
+}
+
+// ====================== 货物与装载消息 ======================
+
+// 添加货物信息请求
+message RequestAddUnitCargo{
+  optional int32 count=1;//货物数量 默认为1
+  int32 cargoid=2;//货物DBID
+}
+
+// 更新单元的货物请求
+message RequestUpdateUnitCargo{
+  string guid = 1;//实体GUID
+  repeated RequestAddUnitCargo ADD_CARGO=2;//添加货物信息
+  repeated string REMOVE_CARGO=3;//移除货物信息  货物ID列表
+}
+
+// 执行货物装载操作请求
+message RequestExecuteCargoLoadOperation {
+  string hostGuid = 1;//主机GUID
+  string targetGuid = 2;//目标GUID
+  repeated string cargoToUnit = 3;//装载到单元的货物列表
+  repeated string cargoToHost = 4;//卸载到主机的货物列表
+}
+
+// ====================== 附件与导入导出消息 ======================
+
+// 导入INST文件请求
+message RequestImportInstFile {
+  string side = 1;//推演方
+  string fileContent = 2;//文件内容 内容是base64编码
+}
+
+// 导出单元到文件请求
+message RequestExportUnitToFile {
+  string side = 1;//推演方
+  repeated string guidList = 2;//单元GUID列表
+  string filename = 3;//文件名
+  string name = 4;//名称
+  string comment = 5;//注释
+}
+
+// ====================== 数据库与查询消息 ======================
+
+// 查询数据库请求
+message RequestQueryDatabase {
+  string objectType = 1;//目标类型 mount:挂架 facility:设施 submarine:潜艇 weapon:武器 ship:舰艇 sensor:传感器 aircraft:飞机 satellite:卫星
+  int32 dbid = 2;//数据库ID
+}
+
+// 获取设施最大容量请求
+message RequestGetFacilityMaxCapacity {
+  string dbid = 1;//单元DBID
+  string guid = 2;//停靠单元GUID
+  int64 addtype = 3;//添加类型0:添加飞机(在机场或舰艇上),1:添加船(码头上)
+}
+
+// 获取武器齐射数量请求
+message RequestGetWeaponSalvoQuantity {
+  string attackerID = 1;//实体GUID
+  string contactId = 2;//目标ID
+  string weaponId = 3;//武器DBID
+}
+
+//卫星过顶信息
+message MISatPredictionTimeInfo{
+  string satelliteID = 1;//卫星ID
+  double enterTime = 2;//仿真时间
+  double remainTime = 3;//卫星过顶时长
+}
+
+// 卫星过顶信息列表
+message MISatPredictionTime{
+  repeated MISatPredictionTimeInfo satPredictionTimes = 1;//卫星过顶信息列表
+}
+
+// 预测卫星临空请求
+message RequestPredictSatelliteOverflight {
+  repeated string guidList = 1;//卫星GUID列表
+  double longitude = 2;//经度
+  double latitude = 3;//纬度
+  int64 totalSeconds = 4;//总秒数[15,604800]
+}
+
+// ====================== 事件与触发器消息 ======================
+
+// 设置触发器推演方得分请求
+message RequestSetPointsTrigger{
+  string sideID = 1;//阵营  要调整点数的推演方
+  string pointValue = 2;//点数
+  string reachDirection = 3;//超过 = "0", 恰好 = "1", 不足 = "2"
+}
+
+// 设置触发器随机时间请求
+message RequestSetRandomTimeTrigger{
+  string earliestTime = 1;//开始检查的最早日期/时间
+  string latestTime = 2;//停止检查的最晚日期/时间
+}
+
+// 设置触发器固定时间请求
+message RequestSetRegularTimeTrigger{
+  string interval = 1;//间隔时间
+}
+
+// 设置触发器时间请求
+message RequestSetTimeTrigger{
+  string time = 1;//实际设置日期/时间
+}
+
+// 设置触发器目标信息请求
+message RequestTargetTriggerInfo{
+  string targetSide = 1;//目标阵营
+  string targetType = 2;//目标类型（舰船、潜艇等）   参考EnumDefine.h内的LUA_EActiveUnitCategoryText定义
+  optional string targetSubType = 3;//目标分类 单元类型下的子类型
+  optional string specificUnitClass = 4;//单元级别（即唯一的 DBID）
+  optional string specificUnitID = 5;//实际单元
+  optional string weaponID = 6;//武器ID 单元损耗触发器ID
+}
+
+// 设置触发器单元被破坏请求
+message RequestSetUnitDamagedTrigger{
+  string damagePercent = 1;//单元损伤百分比
+  RequestTargetTriggerInfo unitDamagedTarget = 2;//触发器目标信息
+}
+
+// 设置触发器单元被摧毁请求
+message RequestSetUnitDestroyedTrigger{
+  RequestTargetTriggerInfo unitDamagedTarget = 1;//触发器目标信息
+}
+
+// 设置触发器单元被探测请求
+message RequestSetUnitDetectedTrigger{
+  RequestTargetTriggerInfo unitDamagedTarget = 1;//触发器目标信息
+  string detectorSideID = 2;//探测的推演方
+  string MCL = 3;//最小分类级别
+  repeated string area = 4;//设置触发器目标区域 参考点的名称
+}
+
+// 设置触发器单元进入区域请求
+message RequestSetUnitEntersAreaTrigger{
+  RequestTargetTriggerInfo unitDamagedTarget = 1;//触发器目标信息
+  string earliestTime = 2;//最早到达日期/时间
+  string latestTime = 3;//最晚到达日期/时间
+  string notArea = 4;//不在区域内
+  string exitArea = 5;//离开区域
+  repeated string area = 6;//设置触发器目标区域 参考点的名称
+  optional bool setExitArea = 7;//设置离开区域
+}
+
+// 设置触发器单元保留在区域内请求
+message RequestSetUnitRemainsInAreaTrigger{
+  RequestTargetTriggerInfo unitDamagedTarget = 1;//触发器目标信息
+  string TD = 2;//区域内停留时间（秒数，或日数:时数:分数:秒数）
+  repeated string area = 3;//设置触发器目标区域 参考点的名称
+}
+
+// 设置触发器单元保留在区域内请求
+message RequestSetUnitBaseStatusTrigger{
+  string targetStatus = 1;//目标状态
+  string delayedSec = 2;//触发器延时 秒
+}
+
+// 设置触发器请求
+message RequestSetTrigger {
+  string mode = 1;//模式：添加(add)/删除(remove)/更新(update)
+  string type = 2;//类型设置触发器类型 "Points", "RandomTime", "RegularTime", "ScenEnded", "ScenLoaded", "Time", "UnitDamaged", 
+					        //"UnitDestroyed", "UnitDetected", "UnitEntersArea", "UnitRemainsInArea", "UnitBaseStatus", "unitexpend"(武器消耗)--和单元损耗（UnitDamaged）触发器一样
+  string name = 3;//触发器名称
+  optional string rename = 4;//触发器新名称（可选）
+  // ... 其他字段根据type动态使用
+  optional RequestSetPointsTrigger score = 5;//推演方得分触发器
+  optional RequestSetRandomTimeTrigger randomTime = 6;//随机时间触发器
+  optional RequestSetRegularTimeTrigger regularTime = 7;//固定时间触发器
+  optional RequestSetTimeTrigger time = 8;//时间触发器
+  optional RequestSetUnitDamagedTrigger unitDamaged = 9;//单元被破坏触发器
+  optional RequestSetUnitDestroyedTrigger unitDestroyed = 10;//单元被摧毁触发器
+  optional RequestSetUnitDetectedTrigger unitDetected = 11;//单元被探测触发器
+  optional RequestSetUnitEntersAreaTrigger unitEntersArea = 12;//单元进入区域触发器
+  optional RequestSetUnitRemainsInAreaTrigger unitRemainsInArea = 13;//单元保留在区域内触发器
+  optional RequestSetUnitBaseStatusTrigger unitBaseStatus = 14;//单元基本状态触发器
+  optional string ISTIDY = 15;//是否精简返回参数
+}
+
+// 设置改变任务状态动作请求
+message RequestSetChangeMissionStatusAction{
+  string sideId = 1;//推演方
+  string missionID = 2;//任务ID
+  string newStatus = 3;//新状态 激活:"0" 未激活:"1"
+}
+
+// 设置Lua脚本动作请求
+message RequestSetLuaScriptAction{
+  string scriptText = 1;//lua脚本内容
+}
+
+// 设置消息动作请求
+message RequestSetMessageAction{
+  string sideId = 1;//推演方
+  string messageText = 2;//消息内容
+}
+
+// 设置得分动作请求
+message RequestSetPointsAction{
+  string sideId = 1;//推演方
+  string pointChange = 2;//分数变化
+}
+
+// 设置转移到区域动作请求
+message RequestSetTeleportInAreaAction{
+  repeated string unitIDs = 1;//单元进入区域的所有单元ID
+  repeated string area = 2;//转移到区域 参考点的名称
+}
+
+// 设置动作请求
+message RequestSetAction {
+  string mode = 1;//模式：添加(add)/删除(remove)/更新(update)
+  string type = 2;//类型 改变任务状态："ChangeMissionStatus", 终止想定:"EndScenario", Lua脚本："LuaScript", 消息:"Message", 得分："Points", 转移到区域:"TeleportInArea"
+  string name = 3;//动作名称
+  optional string rename = 4;//新名称（可选）
+  // ... 其他字段根据type动态使用
+  optional RequestSetChangeMissionStatusAction changeMissionStatus = 5;//改变任务状态动作
+  optional RequestSetLuaScriptAction luaScript = 6;//Lua脚本动作
+  optional RequestSetMessageAction msg = 7;//消息动作
+  optional RequestSetPointsAction points = 8;//得分动作
+  optional RequestSetTeleportInAreaAction teleportInArea = 9;//转移到区域动作
+  optional string ISTIDY = 10;//是否精简返回参数
+}
+
+// 设置事件请求
+message RequestSetEvent {
+  string name = 1;//事件名
+  string mode = 2;//模式：添加(add)/删除(remove)/更新(update)
+  optional string rename = 3;//事件新名称（可选）
+  optional bool isActive = 4;//是否激活
+  optional bool isRepeatable = 5;//是否可重复
+  optional bool IsShown = 6;//显示在日志
+  int32 probability = 7; //概率
+  repeated string trigger = 8;//触发器列表描述或GUID
+  repeated string condition = 9;//条件列表描述或GUID
+  repeated string action = 10;//动作列表描述或GUID
+}
+
+// 设置阵营立场条件请求
+message RequestSetSidePostureCondition{
+  string ObserverSideID = 1;//推演方
+  string TargetSideID = 2;//目标推演方
+  int32 TargetPosture = 3;//目标立场 中立(0),友方(1),非友方(2),敌方(3),不明(4)
+}
+
+// 设置Lua脚本条件请求
+message RequestSetLuaScriptCondition{
+  string scriptText = 1;//lua脚本内容
+}
+
+// 设置条件请求
+message RequestSetCondition {
+  string mode = 1;//模式：添加(add)/删除(remove)/更新(update)
+  string type = 2;//类型 想定已经开始："ScenHasStarted", 阵营立场:"SidePosture", lua脚本："LuaScript"
+  string name = 3;//条件名称
+  optional string rename = 4;//新名称（可选）
+  optional string NOT=5;//取反 'true'或'false' 在type值为"ScenHasStarted"/"SidePosture"需赋值
+  // ... 其他字段根据type动态使用
+  optional RequestSetSidePostureCondition sidePosture = 6;//阵营立场条件
+  optional RequestSetLuaScriptCondition luaScript = 7;//Lua脚本条件
+}
+
+// 设置事件触发器请求
+message RequestSetEventTrigger {
+  string eventName = 1;//事件名
+  string mode = 2;//设置模式 添加："add", 删除： 'remove', 更新： 'update'
+  string name = 3;//名称
+}
+
+// 设置事件动作请求
+message RequestSetEventAction {
+  string eventName = 1;//事件名
+  string mode = 2;//设置模式 添加："add", 删除： 'remove', 更新： 'update'
+  string name = 3;//名称
+}
+
+// 设置事件条件请求
+message RequestSetEventCondition {
+  string eventName = 1;//事件名
+  string mode = 2;//设置模式 添加："add", 删除： 'remove', 更新： 'update'
+  string name = 3;//名称
+}
+
+// 执行事件动作请求
+message RequestExecuteEventAction {
+  string eventDescriptionOrID = 1;//事件动作的描述或ID
+  string script = 2;//Lua脚本内容
+}
+
+// 更新事件请求
+message RequestUpdateEvent {
+  string eventDescriptionOrID = 1;//要更新的事件名称/ GUID
+  string type = 2;//需要更新的类型(add_condition,remove_condition,replace_condition,add_action,remove_action,replace_action)
+  string description = 3;//脚本的描述（可把GUID用于已有的移除/替换项）
+  string script = 4;//Lua脚本
+}
+
+// ====================== 特殊动作消息 ======================
+
+// 设置特殊动作请求
+message RequestSetSpecialAction {
+  string side = 1;//推演方
+  string actionNameOrID = 2;//动作名称或ID
+  string description = 3;//描述
+  string scriptText = 4;//脚本文本
+  optional bool isActive = 5;//是否激活
+  optional bool isRepeatable = 6;//是否可重复
+  optional string newName = 7;//新名称（可选）
+}
+
+// 执行特殊动作请求
+message RequestExecuteSpecialAction {
+  SimpleRequest request = 1;
+}
+
+// ====================== 日志与消息消息 ======================
+
+// 查询消息日志请求
+message RequestQueryMessageLog {
+  SimpleRequest request = 1;
+}
+
+// 发送消息请求
+message RequestSendMessage {
+  string msgString = 1;//消息内容字符串值
+}
+
+// ====================== 存储与配置消息 ======================
+
+// 设置用户数据请求
+message RequestSetUserData {
+  string side = 1;//推演方名或ID
+  string sKey = 2;//设置值的键
+  bytes base64Json = 3;//设置的值
+}
+
+// 获取用户数据请求
+message RequestGetUserData {
+  string side = 1;//推演方名或ID
+  string sKey = 2;//取值的键
+}
+
+// ====================== 其他功能消息 ======================
+
+// 获取引擎GUID请求
+message RequestGetEngineGUID {
+  SimpleRequest request = 1;
+}
+
+// 请求当前完整态势请求
+message RequestRequestCurrentFullSituation {
+  SimpleRequest request = 1;
+}
+
+// ====================== 区域管理消息 ======================
+
+// 添加区域请求
+message RequestAddZone {
+  string side = 1;//推演方
+  int32 zoneType = 2;//区域类型  2:空中走廊，1:封锁区，0：禁航区
+  string description = 3;//区域描述
+}
+
+// 设置区域请求
+message RequestSetZone {
+  string side = 1;//推演方
+  int32 zoneType = 2;//区域类型  2:空中走廊，1:封锁区，0：禁航区
+  string description = 3;//区域描述
+  optional string rename = 4;//新名称（可选）
+  optional double altitude = 5;//高度（可选）
+  optional bool isActive = 6;//是否激活（可选）
+  repeated string area = 7;//区域点列表（可选）
+  repeated int32 affects = 8;//影响类型（可选）"1":飞机；"3":潜艇；"4":地面单元；"2":水面舰艇
+  optional bool locked = 9;//区域已锁定
+  optional int32 markAs = 10;//2:非友方，3:敌方
+  optional double diameter = 11;//直径 公里
+}
+
+// 移除区域请求
+message RequestRemoveZone {
+  string side = 1;//推演方
+  int32 zoneType = 2;//区域类型  2:空中走廊，1:封锁区，0：禁航区
+  string zoneGuid = 3;//区域GUID
+}
+
+// ====================== 通信网络消息 ======================
+
+// 设置网络类型请求
+message RequestSetSideNetwork {
+  string sideGuid = 1;//推演方GUID
+  int32 networkType = 2;//网络类型 0关,2开
+  optional int32 subNetworkType = 3;//子网络类型（可选）
+}
+
+// 创建集群网络请求
+message RequestAddClusterNetwork {
+  string sideGuid = 1;//推演方GUID
+  optional string clusterGuid = 2;//集群GUID
+  string clusterName = 3;//集群名称
+  int32 clusterType = 4;//集群类型 1 静态集群  2 动态集群
+  optional int32 color = 5;//颜色（可选）
+  optional int32 maxUnits = 6;//最大单元数（可选）
+  int32 supUnitType = 7;//包含单元类型
+}
+
+// 更新集群网络请求
+message RequestUpdateClusterNetwork {
+  string sideGuid = 1;//推演方GUID
+  string clusterGuid = 2;//集群GUID
+  string clusterName = 3;//集群名称
+  optional int32 color = 4;//颜色（可选）
+  optional int32 maxUnits = 5;//最大单元数（可选）
+  optional int32 supUnitType = 6;//包含单元类型
+  optional int64 startTime = 7;//集群开始时间
+  optional int64 endTime = 8;//集群结束时间
+  optional int32 areaType = 9;//区域类型 相对区域时 1 固定区域时 0
+  optional string bindUnitID = 10;//绑定单元ID
+  optional int32 areaRadius = 11;//区域半径 海里
+  repeated string referencePoints = 12;//参考点ID集合
+}
+
+// 更新集群成员请求
+message RequestUpdateClusterMember {
+  int32 operation = 1;//操作 0-删除 1-添加
+  string sideGuid = 2;//推演方GUID
+  string clusterGuid = 3;//集群GUID
+  repeated string memberList = 4;//成员ID列表
+}
+
+// 删除集群网络请求
+message RequestDeleteClusterNetwork {
+  string sideGuid = 1;//推演方GUID
+  string clusterGuid = 2;//集群GUID
+}
+
+// 添加网络计划请求
+message RequestAddNetworkPlan {
+  string sendGuid = 1;//发送者GUID
+  string recGuid = 2;//接收者GUID
+}
+
+// 设置网络属性请求
+message RequestSetNetworkProperty {
+  string sendGuid = 1;//发送者GUID
+  string recGuid = 2;//接收者GUID
+  float msgPassProbability = 3;//通断概率 0-1
+  float msgDelayMin = 4;//最小延迟
+  float msgDelayMax = 5;//最大延迟
+}
+
+// 移除网络计划请求
+message RequestRemoveNetworkPlan {
+  string sendGuid = 1;//发送者GUID
+  string recGuid = 2;//接收者GUID
+}
+
+// 设置情报中心请求
+message RequestSetIntelligenceCenter {
+  string centerGuid = 1;//通信节点GUID
+  int64 aircraftDownloadCycle = 2;//飞行器下传周期 单位为s
+  int64 shipDownloadCycle = 3;//水面目标下传周期 单位为s
+  int64 submarineDownloadCycle = 4;//水下目标下传周期 单位为s
+  int64 facilityDownloadCycle = 5;//地面目标下传周期 单位为s
+}
+
+// 移除情报中心请求
+message RequestRemoveIntelligenceCenter {
+  string centerGuid = 1;//通信节点GUID
+}
+
+// 更新自动探测请求
+message RequestUpdateAutoDetection {
+  string unitGuid = 1;//单元GUID
+}
+
+// ====================== 心跳与杂项消息 ======================
+
+// 心跳请求
+message RequestHeartBeat {
+  SimpleRequest request = 1;
+}
+
+// 打击任务分配打击目标请求
+message RequestAssignUnitAsTarget {
+  repeated string targetGuids = 1;//打击目标guid列表
+  string missionName = 2;//打击任务名
+}
+
+// 移除打击目标请求
+message RequestRemoveUnitAsTarget {
+  repeated string targetGuids = 1;//打击目标guid列表
+  string missionName = 2;//打击任务名
+}
+
+/*
+// ====================== 工具函数消息 ======================
+
+// 单元筛选器
+message MIUnitFilterObject{
+  string ID = 1;//ID
+  string targetSide = 2;//目标推演方ID
+  string targetType = 3;//活动单元类型
+  string targetSubType = 4;//目标子类型
+  string showAllTypes = 5;//显示所有类型
+  string specificUnitClass = 6;//特定单元类别
+  string specificUnitID = 7;//特定单元ID
+  string weaponSide = 8;//武器阵营
+}
+
+// 货物筛选器
+message MICargoFilterObject{
+  string ID = 1;//ID
+  string cargoType = 2;//货物类型
+  optional string specificObjectType = 3;//货物对象类型
+  optional string specificCargoDBID = 4;//特定货物DBID
+  optional string specificCargoObjID = 5;//特定货物对象ID
+  string thresholdReceived = 6;//接收阈值
+  string thresholdSent = 7;//发送阈值
+  string received = 8;//接收
+  string sent = 9;//发送
+}
+
+// 区域参考点
+message MIAreaReferencePoint{
+  string ID = 1;//ID
+  string lon = 2;//经度
+  string lat = 3;//纬度
+  optional string alt = 4;//高程
+  string name = 5;//名称
+  optional string iH = 6;//是否高亮
+  optional string iRT = 7;//关联单元ID
+  optional string RB = 8;//相对方位
+  optional string RD = 9;//相对距离
+  optional string BT = 10;//轴承类型
+  string colorR = 11;//颜色红
+  string colorG = 12;//颜色绿
+  string colorB = 13;//颜色蓝
+  repeated string tags = 14;//标记组
+  optional string isLocked = 15;//是否锁定
+  optional string creationDate = 16;//创建日期
+  optional string expiration = 17;//截至日期
+  optional string fades = 18;//淡入淡出
+  optional string forceMinimize = 19;//强制最小化
+  string RGroup = 20;//参考点组类型
+}
+
+// 想定结束触发器信息
+message MIScenEndedEventTrigger{
+  string ID = 1;//触发器ID
+}
+
+// 单元进入区域触发器信息
+message MIUnitEntersAreaEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  optional MIUnitFilterObject targetFilter = 3;//单元筛选器
+  repeated MIAreaReferencePoint area = 4;//区域
+  string eTOA = 5;//最早时间
+  string lTOA = 6;//最晚时间
+  optional string NOT = 7;//不在区域内 为true时，如果符合条件的单元在指定的时间范围内不在指定区域，则触发
+  optional string exitArea = 8;//离开区域 为true时，如果符合条件的单元在指定时间范围内退出指定区域，则触发
+}
+
+// 单元基本状态触发器信息
+message MIUnitBaseStatusEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  optional MIUnitFilterObject targetFilter = 3;//单元筛选器
+  optional string targetCondition = 4;//目标条件
+  optional string TargetBase = 5;//目标单元ID
+}
+
+// 时间触发器信息
+message MITimeEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  optional string time = 3;//时间
+  optional string fired = 4;//开启
+}
+
+// 移动单元货物触发器信息
+message MIUnitCargoMovedEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  optional MICargoFilterObject targetFilter = 3;//单元筛选器
+  optional string baseUnit = 4;//基地单元ID
+}
+
+// 单元任在区域内触发器信息
+message MIUnitRemainsInAreaEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  optional MIUnitFilterObject targetFilter = 3;//单元筛选器
+  repeated MIAreaReferencePoint area = 4;//区域
+  string timeDuration = 5;//持续时间
+  optional string mTA = 6;
+}
+
+// 随机时间触发器信息
+message MIRandomTimeEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  string earliestTime = 3;//最早时间
+  string latestTime = 4;//最晚时间
+  optional string fired = 5;//开启
+}
+
+// 固定时间触发器信息
+message MIRegularTimeEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  string interval = 3;//常规时间间隔
+}
+
+// 想定加载触发器信息
+message MIScenLoadedEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+}
+
+// 单元销毁触发器信息
+message MIUnitDestroyedEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  optional MIUnitFilterObject targetFilter = 3;//单元筛选器
+}
+
+// 分值触发器信息
+message MIPointsEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  string sideID = 3;//推演方ID
+  string pointValue = 4;//分值
+  string reachDirection = 5;//得分趋势
+}
+
+// 单元损坏触发器信息
+message MIUnitDamagedEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  string damagePercent = 3;//伤害百分比
+  optional MIUnitFilterObject targetFilter = 4;//单元筛选器
+}
+
+// 单元探测触发器信息
+message MIUnitDetectedEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  optional MIUnitFilterObject targetFilter = 3;//单元筛选器
+  repeated MIAreaReferencePoint area = 4;//区域
+  string detectorSideID = 5;//探测方ID
+  string minimumClassificationLevel = 6;//识别程度
+}
+
+// 单元放射触发器信息
+message MIUnitEmissionsEventTrigger{
+  string ID = 1;//触发器ID
+  string description = 2;//触发器描述
+  optional MIUnitFilterObject targetFilter = 3;//单元筛选器
+  repeated MIAreaReferencePoint area = 4;//区域
+  string detectorSideID = 5;//探测方ID
+  string minimumClassificationLevel = 6;//识别程度
+}
+
+// 触发器列表信息
+message MIEventTrigger{
+  repeated MIScenEndedEventTrigger scenEndedEventTriggers = 1;//想定结束触发器列表
+  repeated MIUnitEntersAreaEventTrigger unitEntersAreaEventTriggers = 2;//单元进入区域触发器列表
+  repeated MIUnitBaseStatusEventTrigger unitBaseStatusEventTriggers = 3;//单元基本状态触发器列表
+  repeated MITimeEventTrigger timeEventTriggers = 4;//时间触发器列表
+  repeated MIUnitCargoMovedEventTrigger unitCargoMovedEventTriggers = 5;//移动单元货物触发器列表
+  repeated MIUnitRemainsInAreaEventTrigger remainsInAreaEventTriggers = 6;//单元任在区域内触发器列表
+  repeated MIRandomTimeEventTrigger randomTimeEventTriggers = 7;//随机时间触发器列表
+  repeated MIRegularTimeEventTrigger regularTimeEventTriggers = 8;//固定时间触发器列表
+  repeated MIScenLoadedEventTrigger scenLoadedEventTriggers = 9;//想定加载触发器列表
+  repeated MIPointsEventTrigger pointsEventTriggers = 10;//分值触发器列表
+  repeated MIUnitDamagedEventTrigger unitDamagedEventTriggers = 11;//单元损坏触发器列表
+  repeated MIUnitDetectedEventTrigger unitDetectedEventTriggers = 12;//单元探测触发器列表
+  repeated MIUnitEmissionsEventTrigger unitEmissionsEventTriggers = 13;//单元放射触发器列表
+}
+
+// LUA脚本条件信息
+message MILuaScriptEventCondition{
+  string ID = 1;//条件ID
+  string description = 2;//条件描述
+  string scriptText = 3;//Lua文本内容
+}
+
+// 想定开始条件信息
+message MIScenHasStartedEventCondition{
+  string ID = 1;//条件ID
+  string description = 2;//条件描述
+  optional string NOT = 3;//条件取反
+}
+
+// 想定开始条件信息
+message MISidePostureEventCondition{
+  string ID = 1;//条件ID
+  string description = 2;//条件描述
+  string observerSideID = 3;//观察者推演方ID
+  string targetSideID = 4;//目标推演方ID
+  string targetPosture = 5;//目标立场
+  optional string NOT = 6;//条件取反
+}
+
+// 条件列表信息
+message MIEventCondition{
+  repeated MILuaScriptEventCondition luaScriptEventConditions = 1;//LUA脚本条件列表
+  repeated MIScenHasStartedEventCondition scenHasStartedEventConditions = 2;//想定开始条件列表
+  repeated MISidePostureEventCondition sidePostureEventConditions = 3;//推演方立场条件列表
+}
+
+// 得分动作信息
+message MIPointsEventAction{
+  string ID = 1;//动作ID
+  string description = 2;//动作描述
+  string sideID = 3;//推演方ID
+  string pointChange = 4;//分数改变
+}
+
+// 消息动作信息
+message MIMessageEventAction{
+  string ID = 1;//动作ID
+  string description = 2;//动作描述
+  string sideID = 3;//推演方ID
+  string text = 4;//文本内容
+}
+
+// 更改任务状态动作信息
+message MIChangeMissionStatusEventAction{
+  string ID = 1;//动作ID
+  string description = 2;//动作描述
+  string missionID = 3;//任务ID
+  string newStatus = 4;//任务状态
+}
+
+// Lua脚本动作信息
+message MILuaScriptEventAction{
+  string ID = 1;//动作ID
+  string description = 2;//动作描述
+  string scriptText = 3;//Lua文本内容
+}
+
+// 区域内移动动作信息
+message MITeleportInAreaEventAction{
+  string ID = 1;//动作ID
+  string description = 2;//动作描述
+  repeated string unitIDs = 3;//单元ID列表
+  repeated MIAreaReferencePoint area = 4;//区域
+}
+
+// 想定结束动作信息
+message MIEndScenarioEventAction{
+  string ID = 1;//动作ID
+}
+
+// 动作列表信息
+message MIEventAction{
+  repeated MIPointsEventAction pointsEventActions = 1;//得分动作列表
+  repeated MIMessageEventAction scenHasStartedEventActions = 2;//消息动作列表
+  repeated MIChangeMissionStatusEventAction sidePostureEventActions = 3;//更改任务状态动作列表
+  repeated MILuaScriptEventAction luaScriptEventActions = 4;//Lua脚本动作列表
+  repeated MITeleportInAreaEventAction teleportInAreaEventActions = 5;//区域内移动动作列表
+  repeated MIEndScenarioEventAction endScenarioEventActions = 6;//想定结束动作列表
+}
+
+// 特殊动作信息
+message MISpecialAction{
+  string ID = 1;//特殊动作ID
+  string name = 2;//特殊动作名字
+  string description = 3;//特殊动作描述
+  string isRepeatable = 4;//是否可重复
+  string isActive = 5;//是否激活
+  string scriptText = 6;//脚本文本
+}
+
+// 仿真事件信息
+message MISimEvent{
+  string ID = 1;//仿真事件ID
+  string description = 2;//描述
+  string isRepeatable = 3;//是否可重复
+  string isActive = 4;//是否激活
+  string isShown = 5;//是否显示
+  string probability = 6;//概率
+  repeated string eventTriggerIDs = 7;//触发器ID列表
+  repeated string eventConditionIDs = 8;//条件ID列表
+  repeated string eventActionIDs = 9;//动作ID列表
+  repeated MISpecialAction specialActions = 10;//特殊动作列表
+}
+
+// 打印事件返回信息
+message MIDumpEvents{
+  repeated MIEventTrigger eventTriggers = 1;//触发器列表
+  repeated MIEventCondition eventConditions = 2;//条件列表
+  repeated MIEventAction eventActions = 3;//动作列表
+  repeated MISimEvent simEvents = 4;//仿真事件列表
+}
+
+// 打印事件请求
+message RequestDumpEvents {
+  SimpleRequest request = 1;
+}
+
+// 无平台模拟请求
+message RequestEmulateNoConsole {
+  SimpleRequest request = 1;
+  optional bool mode = 2;
+}
+
+// 计算距离请求
+message RequestCalculateRange {
+  string fromUnit = 1;//起点单元GUID
+  string toUnit = 2;//终点单元GUID
+  optional GeoPosition startPoint = 3;//起点坐标（可选）
+  optional GeoPosition endPoint = 4;//终点坐标（可选）
+}
+
+// 获取随机数请求
+message RequestGetRandomNumber {
+  SimpleRequest request = 1;
+}
+
+// 获取当前时间请求
+message RequestGetCurrentTime {
+  SimpleRequest request = 1;
+}
+
+// 显示消息框请求
+message RequestShowMessageBox {
+  string message = 1;//显示给用户的信息
+  int32 style = 2;//消息框样式号
+}
+
+// 运行脚本请求
+message RequestRunScript {
+  string scriptFilePath = 1;//脚本文件相对路径
+}
+
+// 显示输入框请求
+message RequestShowInputBox {
+  string message = 1;//给用户显示的消息
+}
+
+// ====================== 辅助消息类型 ======================
+
+// 打击任务配置
+message StrikeMissionConfig {
+  string subType = 1;//子类型
+  int32 minAircraft = 2;//最少飞机数
+  int32 maxFlightBatches = 3;//最大飞行批次
+  int32 strikeRadius = 4;//打击半径
+  bool oneTimeOnly = 5;//是否仅限一次
+}
+
+// 巡逻任务配置
+message PatrolMissionConfig {
+  repeated string patrolZones = 1;//巡逻区域
+  int32 onStationCount = 2;//阵位平台数
+  bool activeEMCON = 3;//是否激活电磁管控
+}
+
+// 支援任务配置
+message SupportMissionConfig {
+  repeated string zones = 1;//区域
+  bool oneTimeOnly = 2;//是否仅限一次
+  int32 loopType = 3;//循环类型
+}
+
+// 转场任务配置
+message FerryMissionConfig {
+  string destination = 1;//目的地
+  string behavior = 2;//行为规则
+  string throttle = 3;//油门
+  double altitude = 4;//高度
+  bool terrainFollowing = 5;//地形跟随
+}
+
+// 投送任务配置
+message CargoMissionConfig {
+  repeated string zones = 1;//区域
+  string throttle = 2;//油门
+  double altitude = 3;//高度
+}
+
+// 布雷任务配置
+message MiningMissionConfig {
+  repeated string zones = 1;//区域
+  string armingDelay = 2;//解除保险延迟
+}
+
+// 扫雷任务配置
+message MineClearingMissionConfig {
+  repeated string zones = 1;//区域
+}
+
+// 发送特殊消息请求
+message RequestSendSpecialMessage {
+  string side = 1;//推演方名字或ID
+  string message = 2;//HTML消息
+}
+
+// 设置键值请求
+message RequestSetKeyValue {
+  string strKey = 1;//取值的键
+  string strValue = 2;//需存储的值
+}
+
+// 获取键值请求
+message RequestGetKeyValue {
+  SimpleRequest request = 1;
+}
+
+// 保存想定数据请求
+message RequestSaveScenarioData {
+  bool isSaveScenData = 1;//是否保存
+  string dataType = 2;//类型
+  string dataPath = 3;//保存文件路径
+  int64 dataTime = 4;//时间
+}
+
+// 保存想定到服务请求
+message RequestSaveScenarioToService {
+  string userName = 1;//用户名称
+  string type = 2;//想定类型
+  string battlePlan = 3;//作战方案
+  string roomName = 4;//房间名称
+  string scenName = 5;//想定名称
+}
+
+// 添加分支标识请求
+message RequestAddBranchFlag {
+  string side = 1;//推演方ID
+  string condition = 2;//条件
+  string action = 3;//动作
+}
+
+// 获取分支标识请求
+message RequestGetBranchFlag {
+  string side = 1;//推演方ID
+}
+
+// 发送服务事件请求
+message RequestSendServerEvent {
+  string name = 1;//服务名称
+  string content = 2;//事件内容
+}
+
+// 发送服务态势请求
+message RequestSendServerSituation {
+  string name = 1;//服务名称
+  int64 type = 2;//服务类型
+  string situation = 3;//态势
+}
+
+// 获取单元X请求
+message RequestGetUnitX {
+  SimpleRequest request = 1;
+}
+
+// 获取单元Y请求
+message RequestGetUnitY {
+  SimpleRequest request = 1;
+}
+
+// 查询日志请求
+message RequestQueryLog {
+  int32 type = 1;//日志类型 0-用户日志   1-指令日志 2-目标日志
+  int32 index = 2;//起始索引
+  int32 count = 3;//数量
+  string startTime = 4;// 开始时间(格式：2019-01-01 01:01:10)
+  string endTime = 5;// 结束时间(格式：2019-01-01 01:01:10)
+  repeated int32 userIds = 6;//用户ID列表、为空则查询所有用户
+}
+
+// 导入附件请求
+message RequestImportAttachment {
+  string attachment = 1;//附件名称或GUID
+}
+
+// 阵营使用附件请求
+message RequestUseAttachmentForSide {
+  string attachment = 1;//附件名称或GUID
+  string sideName = 2;//阵营名称
+}
+
+// 获取INST文件列表请求
+message RequestGetInstFileList {
+  SimpleRequest request = 1;
+}
+
+// 设置任务中单元航路点条令请求
+message RequestSetMissionWaypointDoctrine{
+  string guid = 1;//实体id
+  string pointid= 2;//航路点guid
+  optional bool escort = 3;//是否护航
+  MIDoctrineSettings doctrine = 4;//条令设置
+}
+
+// 设置任务中单元航路点传感器请求
+message RequestSetMissionWaypointSensorSwitch{
+  string guid = 1;//实体id
+  string pointid = 2;//航路点guid
+  string sensorid = 3;//传感器ID
+  optional bool radar = 4;//开关雷达则赋值
+  optional bool sonar = 5;//开关声呐则赋值
+  optional bool OECM = 6;//开关电子干扰则赋值
+}
+
+// 查询设备特征请求
+message RequestQueryDeviceSignatures {
+  int32 objectType = 1;//目标类型 None:0,Aircraft(飞机):1,Ship(舰艇):2,Submarine(潜艇):3,Facility(设施):4,Aimpoint():5,Weapon(武器):6,Satellite(卫星):7
+  int32 dbid = 2;//数据库ID
+}
+
+// 更新单元轨道请求
+message RequestUpdateUnitOrbit {
+  string satelliteID = 1;//卫星单元GUID
+  string TLE = 2;//更新的TLE值
+}
+*/

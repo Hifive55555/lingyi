@@ -1,0 +1,190 @@
+{
+ "title": "东海反舰遭遇战",
+ "start_time": "2026-03-01 08:00:00",
+ "duration_s": 10800,
+ "complexity": 2,
+ "difficulty": 2,
+ "description": "标题：东海反舰遭遇战\n\n设定 2026 年 3 月 1 日上午 8 时，东海中部。红方 2 艘 052D、1 艘 054A 从西侧 110 海里进入，\n执行反舰巡逻，巡逻半径 40 海里；蓝方 1 个航母打击群，1 艘福特级、2 艘伯克级在东侧 130 海里，\n4 架 F-35C 执行反舰打击。海况 4 级，云量 0.6。持续 3 小时。双方自由开火。",
+ "center": {
+  "lat": 28.5,
+  "lon": 124.0
+ },
+ "seed": 98863,
+ "sides": [
+  {
+   "name": "红方",
+   "posture": {
+    "蓝方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  },
+  {
+   "name": "蓝方",
+   "posture": {
+    "红方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  }
+ ],
+ "units": [
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 052D #1",
+   "dbid": 2296,
+   "lat": 28.5,
+   "lon": 121.913863,
+   "heading": 45,
+   "count": 2,
+   "mission": "红方-反舰巡逻",
+   "alias": "052D"
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 054A #2",
+   "dbid": 1965,
+   "lat": 28.488379,
+   "lon": 121.762721,
+   "heading": 45,
+   "count": 1,
+   "mission": "红方-反舰巡逻",
+   "alias": "054A"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "蓝方 福特级 #1",
+   "dbid": 506,
+   "lat": 28.5,
+   "lon": 126.465435,
+   "heading": 225,
+   "count": 1,
+   "mission": "蓝方-反舰打击",
+   "alias": "福特级"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "蓝方 伯克级 #2",
+   "dbid": 112,
+   "lat": 28.511621,
+   "lon": 126.616577,
+   "heading": 225,
+   "count": 2,
+   "mission": "蓝方-反舰打击",
+   "alias": "伯克级"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "蓝方 F-35C #3",
+   "dbid": 824,
+   "lat": 28.347046,
+   "lon": 126.713997,
+   "alt": 8000.0,
+   "heading": 225,
+   "count": 4,
+   "loadoutid": 3004,
+   "mission": "蓝方-反舰打击",
+   "alias": "F-35C"
+  }
+ ],
+ "missions": [
+  {
+   "side": "红方",
+   "name": "红方-反舰巡逻",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "zone": [
+    {
+     "lat": 28.965594,
+     "lon": 122.37467
+    },
+    {
+     "lat": 28.022785,
+     "lon": 122.37467
+    },
+    {
+     "lat": 28.022785,
+     "lon": 121.301914
+    },
+    {
+     "lat": 28.965594,
+     "lon": 121.301914
+    }
+   ],
+   "units": [
+    "红方 052D #1",
+    "红方 054A #2"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "蓝方",
+   "name": "蓝方-反舰打击",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "zone": [
+    {
+     "lat": 28.865368,
+     "lon": 127.067817
+    },
+    {
+     "lat": 28.04041,
+     "lon": 127.067817
+    },
+    {
+     "lat": 28.04041,
+     "lon": 126.129522
+    },
+    {
+     "lat": 28.865368,
+     "lon": 126.129522
+    }
+   ],
+   "units": [
+    "蓝方 福特级 #1",
+    "蓝方 伯克级 #2",
+    "蓝方 F-35C #3"
+   ],
+   "isactive": true
+  }
+ ],
+ "weather": {
+  "temp": 20,
+  "rainfall": 0,
+  "cloud": 0.6,
+  "seastate": 4
+ },
+ "provenance": {
+  "parser": "rule",
+  "source_text": "标题：东海反舰遭遇战\n\n设定 2026 年 3 月 1 日上午 8 时，东海中部。红方 2 艘 052D、1 艘 054A 从西侧 110 海里进入，\n执行反舰巡逻，巡逻半径 40 海里；蓝方 1 个航母打击群，1 艘福特级、2 艘伯克级在东侧 130 海里，\n4 架 F-35C 执行反舰打击。海况 4 级，云量 0.6。持续 3 小时。双方自由开火。\n"
+ }
+}

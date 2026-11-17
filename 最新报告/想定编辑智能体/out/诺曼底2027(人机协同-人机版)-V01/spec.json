@@ -1,0 +1,3716 @@
+{
+ "title": "诺曼底2027(人机协同-人机版)-V01",
+ "start_time": "2026-03-01 08:00:00",
+ "duration_s": 10800,
+ "complexity": 2,
+ "difficulty": 2,
+ "description": "由既有想定《诺曼底2027(人机协同-人机版)》结构复刻",
+ "center": {
+  "lat": 25.7206,
+  "lon": -0.4791
+ },
+ "seed": 55720,
+ "sides": [
+  {
+   "name": "红方",
+   "posture": {
+    "蓝方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "0",
+    "WCS_Surface": "0",
+    "WCS_Submarine": "0",
+    "WCS_Land": "0",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "0",
+    "WinchesterShotgunRTB": "0",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  },
+  {
+   "name": "蓝方",
+   "posture": {
+    "红方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": false
+  }
+ ],
+ "units": [
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "前哨-R 无人机#4",
+   "dbid": 50008,
+   "lat": 50.417461,
+   "lon": 0.854711,
+   "alt": 5638.8,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150003,
+   "mission": "无人侦察5号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "鹰狮NG战斗机 #2",
+   "dbid": 3367,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 17126,
+   "mission": "东部内部制空"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-57型战斗机 #2",
+   "dbid": 50001,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 1770,
+   "mission": "东部防空压制-远程支援"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-9B型  无人机 #4",
+   "dbid": 4536,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9891
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-9B型  无人机 #1",
+   "dbid": 4536,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9891
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-27SM/SM3型战斗机 #4",
+   "dbid": 4696,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 1403,
+   "mission": "东部防空压制-远程支援"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "阵风C型战斗机 #4",
+   "dbid": 3230,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 22993,
+   "mission": "东部反地面"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-35S型 战斗机 #3",
+   "dbid": 50003,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19950,
+   "mission": "西部防空守护巡逻"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-27SM/SM3型战斗机 #6",
+   "dbid": 4696,
+   "lat": 50.515279,
+   "lon": -1.022233,
+   "alt": 10972.8,
+   "heading": 167.5,
+   "count": 1,
+   "loadoutid": 1403,
+   "mission": "西部防空压制-远程支援"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "阵风M 战斗机 #6",
+   "dbid": 5273,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 21751,
+   "mission": "西南据止"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "阵风M 战斗机 #1",
+   "dbid": 5273,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 21751,
+   "mission": "西部据止"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#6",
+   "dbid": 4736,
+   "lat": 50.502803,
+   "lon": 0.897921,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打3号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "阵风M 战斗机 #2",
+   "dbid": 5273,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 21751,
+   "mission": "西部据止"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-2A型战斗机  #2",
+   "dbid": 5321,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 7539
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "鹰狮NG战斗机 #1",
+   "dbid": 3367,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 17126,
+   "mission": "东部内部制空"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-1C  无人机 #4",
+   "dbid": 4794,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26120
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-2A型战斗机  #4",
+   "dbid": 5321,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 7539
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-1C  无人机 #8",
+   "dbid": 4794,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26120
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-15E型 战斗机 #2",
+   "dbid": 4973,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 805
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "阵风C型战斗机 #2",
+   "dbid": 3230,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 22993,
+   "mission": "东部反地面"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-1C  无人机 #5",
+   "dbid": 4794,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26120
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "“神经元”无人机 #7",
+   "dbid": 3900,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19558,
+   "mission": "无人察打1号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MH-60R 反潜直升机 #2",
+   "dbid": 5037,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 2788
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机 #17",
+   "dbid": 4736,
+   "lat": 50.625388,
+   "lon": 0.644295,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打3号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-35S型 战斗机 #4",
+   "dbid": 50003,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19950,
+   "mission": "西部防空守护巡逻"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机 #18",
+   "dbid": 4736,
+   "lat": 50.657789,
+   "lon": 0.918463,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打3号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-15J型“鹰”战斗机  #2",
+   "dbid": 345,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9609
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-34 轰炸机 #1",
+   "dbid": 4960,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 27104,
+   "mission": "西部防空压制"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-75 战斗机 #2",
+   "dbid": 5327,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 29570,
+   "mission": "西部据止"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "伊尔-96-400TZ型加油机 #1",
+   "dbid": 4440,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 22482
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-2A型战斗机  #1",
+   "dbid": 5321,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 7539
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F/A-18F型 战斗机 #6",
+   "dbid": 965,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19385
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-35S型 战斗机 #2",
+   "dbid": 50003,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19950,
+   "mission": "西部据止"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-35S型 战斗机 #1",
+   "dbid": 50003,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19950,
+   "mission": "西部据止"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-15J型“鹰”战斗机  #1",
+   "dbid": 345,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9609
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "KC-135R型 加油机 #1",
+   "dbid": 1984,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19801
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "前哨-R 无人机#6",
+   "dbid": 50008,
+   "lat": 51.496977,
+   "lon": 2.009228,
+   "alt": 5638.8,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150003,
+   "mission": "无人侦察6号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "“神经元”无人机 #4",
+   "dbid": 3900,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19558,
+   "mission": "无人察打1号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "前哨-R 无人机 #8",
+   "dbid": 50008,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150003,
+   "mission": "西部无人侦察1号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-27SM/SM3型战斗机 #1",
+   "dbid": 4696,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 1403,
+   "mission": "西部防空守护巡逻"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "伊尔-22PP型“伐木人”侦察机 #1",
+   "dbid": 4607,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 25089
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "A.330-200 加油机 #1",
+   "dbid": 5583,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 30311
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F/A-18F型 战斗机 #4",
+   "dbid": 965,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19385
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-1C  无人机 #6",
+   "dbid": 4794,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26120
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-35C 型“闪电II” 战斗机 #1",
+   "dbid": 4874,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26475
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "阵风C型战斗机 #3",
+   "dbid": 3230,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 22993,
+   "mission": "东部反地面"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "S-70无人攻击机 #3",
+   "dbid": 4906,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150005,
+   "mission": "东部防空压制"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-16V型 BLK 70/72 “战隼”战斗机 #1",
+   "dbid": 4912,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9481
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-34 轰炸机 #2",
+   "dbid": 4960,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 27104,
+   "mission": "东部防空压制"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-2B型战斗机 #2",
+   "dbid": 3378,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26667
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "A330-200 MRTT型空中加油机 #2",
+   "dbid": 4513,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 30311
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-35S型 战斗机 #6",
+   "dbid": 50003,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19950,
+   "mission": "拦截北蓝方支援"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-16V型 BLK 70/72 “战隼”战斗机 #2",
+   "dbid": 4912,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9481
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-35C 型“闪电II” 战斗机 #2",
+   "dbid": 4874,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26475
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#5",
+   "dbid": 4736,
+   "lat": 50.47391,
+   "lon": 0.684082,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打3号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "RQ-4B型”全球鹰“无人机 #1",
+   "dbid": 2848,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 13988
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#1",
+   "dbid": 4736,
+   "lat": 50.031888,
+   "lon": -1.096052,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打2号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-30SM“侧卫G”战斗机 #2",
+   "dbid": 4959,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19292,
+   "mission": "东部防空压制-远程支援"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "前哨-R 无人机#3",
+   "dbid": 50008,
+   "lat": 50.350179,
+   "lon": 0.618057,
+   "alt": 5638.8,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150003,
+   "mission": "无人侦察4号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "RQ-180型隐身无人侦察机",
+   "dbid": 4328,
+   "lat": 48.505603,
+   "lon": 5.518095,
+   "alt": 10972.8,
+   "heading": 272.2,
+   "count": 1,
+   "loadoutid": 22066
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#4",
+   "dbid": 4736,
+   "lat": 50.054609,
+   "lon": -0.227989,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打3号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MH-60R 反潜直升机 #1",
+   "dbid": 5037,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 2788
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-1C  无人机 #1",
+   "dbid": 4794,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26120
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F/A-18F型 战斗机 #1",
+   "dbid": 965,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19385
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "幻影-2000-5EI战斗机 #3",
+   "dbid": 175,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 5732
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-1C  无人机 #7",
+   "dbid": 4794,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26120
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-35S型 战斗机 #5",
+   "dbid": 50003,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19950,
+   "mission": "拦截北蓝方支援"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "“神经元”无人机 #8",
+   "dbid": 3900,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19558,
+   "mission": "无人察打1号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2  无人机 #12",
+   "dbid": 4736,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打1号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "C-5M型 运输机#1",
+   "dbid": 1931,
+   "lat": 46.754966,
+   "lon": -17.109876,
+   "alt": 10972.8,
+   "heading": 22.2,
+   "count": 1,
+   "loadoutid": 20350
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "前哨-R 无人机#5",
+   "dbid": 50008,
+   "lat": 51.427093,
+   "lon": 1.724486,
+   "alt": 5638.8,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150003,
+   "mission": "无人侦察6号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "前哨-R 无人机#1",
+   "dbid": 50008,
+   "lat": 49.90435,
+   "lon": -1.193002,
+   "alt": 5638.8,
+   "heading": 183.9,
+   "count": 1,
+   "loadoutid": 150003,
+   "mission": "西部无人侦察2号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机 #10",
+   "dbid": 4736,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打1号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-75 战斗机 #4",
+   "dbid": 5327,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 29570,
+   "mission": "拦截北蓝方支援"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "EA-18G “咆哮者”电子战飞机 #1",
+   "dbid": 4879,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 27345
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "阵风M 战斗机 #5",
+   "dbid": 5273,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 21751,
+   "mission": "西南据止"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "“神经元”无人机 #3",
+   "dbid": 3900,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19558,
+   "mission": "无人察打1号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-25A型 无人加油机 #1",
+   "dbid": 4917,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 23125
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F/A-18F型 战斗机 #2",
+   "dbid": 965,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19385
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "“神经元”无人机 #2",
+   "dbid": 3900,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19558,
+   "mission": "无人察打1号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#8",
+   "dbid": 4736,
+   "lat": 51.557291,
+   "lon": 2.159281,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打4号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "幻影-2000-5EI战斗机 #4",
+   "dbid": 175,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 5732
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "EA-18G “咆哮者”电子战飞机 #2",
+   "dbid": 4879,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 27345
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "S-70无人攻击机 #2",
+   "dbid": 4906,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150005,
+   "mission": "西部防空压制"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "“神经元”无人机 #5",
+   "dbid": 3900,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19558,
+   "mission": "无人察打2号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "阵风C型战斗机 #1",
+   "dbid": 3230,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 22993,
+   "mission": "东部反地面"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "E-2D型“先进鹰眼”舰载预警机 #1",
+   "dbid": 4293,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 14629
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F/A-18F型 战斗机 #3",
+   "dbid": 965,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19385
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "S-70无人攻击机 #1",
+   "dbid": 4906,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150005,
+   "mission": "西部防空压制"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-24MP型“击剑手F”电子情报侦察机 #1",
+   "dbid": 476,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 2261
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-1C  无人机 #3",
+   "dbid": 4794,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26120
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "“神经元”无人机 #1",
+   "dbid": 3900,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19558,
+   "mission": "无人察打1号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "A-100 预警机#2",
+   "dbid": 4728,
+   "lat": 52.069707,
+   "lon": -0.086972,
+   "alt": 5000.0,
+   "heading": 180.5,
+   "count": 1,
+   "loadoutid": 25726
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "卡-27M型反潜直升机 #2",
+   "dbid": 4327,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 22064,
+   "mission": "红反潜巡逻"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "B-2A 轰炸机 #1",
+   "dbid": 4881,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 27353
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-75 战斗机 #3",
+   "dbid": 5327,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 29570,
+   "mission": "拦截北蓝方支援"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#20",
+   "dbid": 4736,
+   "lat": 50.287786,
+   "lon": 0.162666,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打3号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "幻影-2000-5EI战斗机 #2",
+   "dbid": 175,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 5732
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "鹰狮NG战斗机 #3",
+   "dbid": 3367,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 17126,
+   "mission": "东部内部制空"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-9B型  无人机 #5",
+   "dbid": 4536,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9891
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "前哨-R 无人机 #7",
+   "dbid": 50008,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150003,
+   "mission": "西部无人侦察1号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#19",
+   "dbid": 4736,
+   "lat": 50.125145,
+   "lon": 0.178115,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打3号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "伊尔-96-400TZ型加油机 #2",
+   "dbid": 4440,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 22482
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-16B 战隼20 战斗机 #1",
+   "dbid": 3421,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 1867
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#14",
+   "dbid": 4736,
+   "lat": 50.146198,
+   "lon": -1.090976,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打2号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "B-2A 轰炸机 #2",
+   "dbid": 4881,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 27353
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-30SM“侧卫G”战斗机 #1",
+   "dbid": 4959,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19292,
+   "mission": "西部防空压制-远程支援"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "图-160M 轰炸机 #1",
+   "dbid": 5554,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 30165,
+   "mission": "图160对地打击"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-2B型战斗机 #1",
+   "dbid": 3378,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26667
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机 #11",
+   "dbid": 4736,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打1号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机 #15",
+   "dbid": 4736,
+   "lat": 50.202138,
+   "lon": -0.402324,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打2号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#3",
+   "dbid": 4736,
+   "lat": 50.039083,
+   "lon": -0.393649,
+   "alt": 3657.6,
+   "heading": 179.0,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打2号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-35B型“闪电II” 战斗机 #2",
+   "dbid": 5134,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 28485
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-2A型战斗机  #3",
+   "dbid": 5321,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 7539
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-16V型 BLK 70/72 “战隼”战斗机 #3",
+   "dbid": 4912,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9481
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-30SM“侧卫G”战斗机 #4",
+   "dbid": 4959,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19292,
+   "mission": "东部内部制空"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#7",
+   "dbid": 4736,
+   "lat": 51.494356,
+   "lon": 1.856906,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打4号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F/A-18F型 战斗机 #5",
+   "dbid": 965,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19385
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-30SM“侧卫G”战斗机 #3",
+   "dbid": 4959,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19292,
+   "mission": "东部内部制空"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "阵风M 战斗机 #3",
+   "dbid": 5273,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 21751,
+   "mission": "西南据止"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-16B 战隼20 战斗机 #2",
+   "dbid": 3421,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 1867
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "A-100 预警机#1",
+   "dbid": 4728,
+   "lat": 50.450485,
+   "lon": -4.655445,
+   "alt": 8000.0,
+   "heading": 219.2,
+   "count": 1,
+   "loadoutid": 25726
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-34 轰炸机 #4",
+   "dbid": 4960,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 27104,
+   "mission": "东部防空压制"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-16V型 BLK 70/72 “战隼”战斗机 #4",
+   "dbid": 4912,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9481
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "“神经元”无人机 #6",
+   "dbid": 3900,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 19558,
+   "mission": "无人察打2号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-57型战斗机 #1",
+   "dbid": 50001,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 1770,
+   "mission": "西部防空压制-远程支援"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "卡-29RLD 型“蜗牛”预警直升机 #1",
+   "dbid": 52,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 8032
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "鹰狮NG战斗机 #4",
+   "dbid": 3367,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 17126,
+   "mission": "东部内部制空"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "S-70无人攻击机 #4",
+   "dbid": 4906,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150005,
+   "mission": "东部防空压制"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-27SM/SM3型战斗机 #2",
+   "dbid": 4696,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 1403,
+   "mission": "西部防空守护巡逻"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-1C  无人机 #2",
+   "dbid": 4794,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 26120
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-15E型 战斗机 #1",
+   "dbid": 4973,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 805
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#2",
+   "dbid": 4736,
+   "lat": 50.17924,
+   "lon": -0.940342,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打2号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "卡-27M型反潜直升机 #1",
+   "dbid": 4327,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 22064,
+   "mission": "红反潜巡逻"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机#13",
+   "dbid": 4736,
+   "lat": 50.041176,
+   "lon": -0.921225,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打2号"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机 #9",
+   "dbid": 4736,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打1号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-35B型“闪电II” 战斗机 #1",
+   "dbid": 5134,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 28485
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-27SM/SM3型战斗机 #3",
+   "dbid": 4696,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 1403,
+   "mission": "东部防空压制-远程支援"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-9B型  无人机 #6",
+   "dbid": 4536,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9891
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "F-35A型“闪电II” 战斗机 #1",
+   "dbid": 4876,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 150007
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "前哨-R 无人机#2",
+   "dbid": 50008,
+   "lat": 49.922359,
+   "lon": -0.56177,
+   "alt": 5638.8,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150003,
+   "mission": "无人侦察3号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "幻影-2000-5EI战斗机 #1",
+   "dbid": 175,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 5732
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-34 轰炸机 #3",
+   "dbid": 4960,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 27104,
+   "mission": "西部防空压制"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-27SM/SM3型战斗机 #5",
+   "dbid": 4696,
+   "lat": 50.511808,
+   "lon": -1.06656,
+   "alt": 10972.8,
+   "heading": 167.5,
+   "count": 1,
+   "loadoutid": 1403,
+   "mission": "西部防空压制-远程支援"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "苏-75 战斗机 #1",
+   "dbid": 5327,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 29570,
+   "mission": "西部据止"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-25A型 无人加油机 #2",
+   "dbid": 4917,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 23125
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-9B型  无人机 #2",
+   "dbid": 4536,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9891
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "TB2 无人机 #16",
+   "dbid": 4736,
+   "lat": 50.243313,
+   "lon": -0.195797,
+   "alt": 3657.6,
+   "heading": 176.1,
+   "count": 1,
+   "loadoutid": 150004,
+   "mission": "无人察打3号"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "C-5M型 运输机#2",
+   "dbid": 1931,
+   "lat": 46.285333,
+   "lon": -16.920113,
+   "alt": 10972.8,
+   "heading": 22.2,
+   "count": 1,
+   "loadoutid": 20350
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "MQ-9B型  无人机 #3",
+   "dbid": 4536,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 9891
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "阵风M 战斗机 #4",
+   "dbid": 5273,
+   "lat": 0.0,
+   "lon": 0.0,
+   "alt": 6.1,
+   "heading": 0.0,
+   "count": 1,
+   "loadoutid": 21751,
+   "mission": "西南据止"
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“雷鸣”号护卫舰#5",
+   "dbid": 2812,
+   "lat": 50.021858,
+   "lon": -0.464998,
+   "heading": 173.5,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "PR.2235.0 级护卫舰#1",
+   "dbid": 2816,
+   "lat": 53.444249,
+   "lon": 1.643925,
+   "heading": 70.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“雷鸣”号护卫舰#3",
+   "dbid": 2812,
+   "lat": 50.018119,
+   "lon": -0.49795,
+   "heading": 173.5,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "PR.2235.0 级护卫舰#2",
+   "dbid": 2816,
+   "lat": 47.213954,
+   "lon": -6.243262,
+   "heading": 265.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“雷鸣”号护卫舰#4",
+   "dbid": 2812,
+   "lat": 50.03041,
+   "lon": -1.417528,
+   "heading": 144.4,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "“阿利伯克”级导弹驱逐舰",
+   "dbid": 2867,
+   "lat": 46.88936,
+   "lon": -14.103295,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "DDH 183 IZUMO直升驱逐舰 [22DDH CLASS]",
+   "dbid": 3619,
+   "lat": 54.161331,
+   "lon": 7.144642,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "23900型船坞登陆舰#1",
+   "dbid": 3238,
+   "lat": 50.020275,
+   "lon": -0.477889,
+   "heading": 160.5,
+   "count": 1,
+   "mission": "登陆宝剑"
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“雷鸣”号护卫舰#2",
+   "dbid": 2812,
+   "lat": 49.085461,
+   "lon": -3.230962,
+   "heading": 79.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“雷鸣”号护卫舰#1",
+   "dbid": 2812,
+   "lat": 47.063692,
+   "lon": -5.888067,
+   "heading": 240.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“蟾蜍”I级坦克登陆舰 #5",
+   "dbid": 15,
+   "lat": 50.546138,
+   "lon": 0.421538,
+   "heading": 164.5,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“雷鸣”号护卫舰#8",
+   "dbid": 2812,
+   "lat": 50.552379,
+   "lon": 0.431815,
+   "heading": 147.3,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“蟾蜍”I级坦克登陆舰 #4",
+   "dbid": 15,
+   "lat": 50.546651,
+   "lon": 0.429409,
+   "heading": 164.5,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“蟾蜍”I级坦克登陆舰 #7",
+   "dbid": 15,
+   "lat": 51.693996,
+   "lon": 1.586534,
+   "heading": 147.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "CVN 80 “企业号”福特级航空母舰",
+   "dbid": 2370,
+   "lat": 47.1695,
+   "lon": -14.702577,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“蟾蜍”I级坦克登陆舰 #2",
+   "dbid": 15,
+   "lat": 50.020898,
+   "lon": -1.451462,
+   "heading": 143.5,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“蟾蜍”I级坦克登陆舰 #3",
+   "dbid": 15,
+   "lat": 50.018282,
+   "lon": -0.487168,
+   "heading": 173.5,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "CG-52 “邦克山”提康德罗加级号巡洋舰",
+   "dbid": 2859,
+   "lat": 47.3588,
+   "lon": -13.978899,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "DDG 179 摩耶级驱逐舰",
+   "dbid": 3211,
+   "lat": 54.068853,
+   "lon": 6.737862,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“雷鸣”号护卫舰#10",
+   "dbid": 2812,
+   "lat": 51.696236,
+   "lon": 1.602495,
+   "heading": 147.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“蟾蜍”I级坦克登陆舰 #1",
+   "dbid": 15,
+   "lat": 49.079795,
+   "lon": -3.223308,
+   "heading": 79.1,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "726型气垫登录艇 #1",
+   "dbid": 2149,
+   "lat": 50.020275,
+   "lon": -0.477889,
+   "heading": 0.0,
+   "count": 1,
+   "mission": "卸船"
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "R 91“戴高乐”号航空母舰#1",
+   "dbid": 2754,
+   "lat": 47.299139,
+   "lon": -5.866304,
+   "heading": 270.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "“蟾蜍”I级坦克登陆舰 #6",
+   "dbid": 15,
+   "lat": 51.706126,
+   "lon": 1.609927,
+   "heading": 145.3,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Submarine",
+   "name": "SSN 23“吉米.卡特”号海狼级攻击核潜艇",
+   "dbid": 567,
+   "lat": 47.201757,
+   "lon": -13.563185,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Submarine",
+   "name": "SSN 792“佛蒙特”号弗吉尼亚级核动力隐形潜艇",
+   "dbid": 553,
+   "lat": 48.343709,
+   "lon": -7.244521,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Submarine",
+   "name": "S 107“特拉法尔加”号攻击型核潜艇",
+   "dbid": 586,
+   "lat": 47.297428,
+   "lon": -12.240307,
+   "heading": 346.1,
+   "count": 1,
+   "mission": "S107水下攻击"
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "野战机场",
+   "dbid": 1711,
+   "lat": 49.717689,
+   "lon": -2.193483,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "反舰导弹排#3",
+   "dbid": 415,
+   "lat": 50.790332,
+   "lon": 2.345634,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "CS机场",
+   "dbid": 1996,
+   "lat": 55.659189,
+   "lon": 8.165998,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "装甲车#2",
+   "dbid": 2983,
+   "lat": 48.788259,
+   "lon": 0.096721,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "装甲车#1",
+   "dbid": 2983,
+   "lat": 48.803481,
+   "lon": -1.330422,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "海马斯火箭炮#4",
+   "dbid": 3384,
+   "lat": 50.980267,
+   "lon": 2.887452,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "雷达 (59N6 PROTIVNIK-GE)",
+   "dbid": 2257,
+   "lat": 50.605874,
+   "lon": -1.191155,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "S-300V1地空导弹营（萨姆-12型防空导弹）#5",
+   "dbid": 38,
+   "lat": 51.821644,
+   "lon": 1.150561,
+   "heading": 180.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "BT机场",
+   "dbid": 430,
+   "lat": 52.849984,
+   "lon": 1.133746,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "装甲车#4",
+   "dbid": 2983,
+   "lat": 48.814628,
+   "lon": -0.153504,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "CT机场",
+   "dbid": 2414,
+   "lat": 51.671187,
+   "lon": -1.407061,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "反舰导弹排#1",
+   "dbid": 415,
+   "lat": 48.97721,
+   "lon": -0.414655,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "铠甲-S2E地空导弹排#3",
+   "dbid": 3432,
+   "lat": 51.849095,
+   "lon": 1.262277,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "阿斯图机场",
+   "dbid": 1996,
+   "lat": 43.574759,
+   "lon": -5.929415,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "铠甲-S2E地空导弹排#4",
+   "dbid": 3432,
+   "lat": 51.986225,
+   "lon": -1.223091,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "毒刺便携式防空导弹#3",
+   "dbid": 1264,
+   "lat": 48.54602,
+   "lon": 1.506503,
+   "heading": 76.9,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "毒刺便携式防空导弹#6",
+   "dbid": 1264,
+   "lat": 48.277995,
+   "lon": 0.149594,
+   "heading": 76.9,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "捷羚地空导弹排#1",
+   "dbid": 2892,
+   "lat": 49.476851,
+   "lon": -2.516892,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "海马斯火箭炮#2",
+   "dbid": 3384,
+   "lat": 49.569311,
+   "lon": 0.328309,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "海马斯火箭炮#1",
+   "dbid": 3384,
+   "lat": 49.28418,
+   "lon": -0.804009,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "铠甲-S2E地空导弹排#1",
+   "dbid": 3432,
+   "lat": 50.592405,
+   "lon": -3.54109,
+   "heading": 180.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "BL机场",
+   "dbid": 430,
+   "lat": 50.630742,
+   "lon": -1.368139,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "地地导弹排#1",
+   "dbid": 2587,
+   "lat": 49.433837,
+   "lon": 2.3859,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "地空导弹连 (MAMBA防空导弹[SAMP/T])",
+   "dbid": 230,
+   "lat": 52.762768,
+   "lon": 1.012664,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "BM机场",
+   "dbid": 430,
+   "lat": 52.4539,
+   "lon": -1.748,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "雷达 (AN/FPS-115型“铺路爪”预警雷达系统)",
+   "dbid": 569,
+   "lat": 48.31298,
+   "lon": 1.022857,
+   "heading": 170.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "地地导弹排#2",
+   "dbid": 2587,
+   "lat": 48.649106,
+   "lon": -0.424705,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "装甲车#3",
+   "dbid": 2983,
+   "lat": 49.451819,
+   "lon": 1.846844,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "伪装防空车#2",
+   "dbid": 2085,
+   "lat": 48.848981,
+   "lon": 0.329778,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "S-300V1地空导弹营（萨姆-12型防空导弹）#4",
+   "dbid": 38,
+   "lat": 50.699951,
+   "lon": -1.363801,
+   "heading": 180.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "LUCAS 无人机发射车#3",
+   "dbid": 50001,
+   "lat": 49.398826,
+   "lon": -1.418815,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "霍克地空导弹连#1",
+   "dbid": 802,
+   "lat": 49.209286,
+   "lon": -2.164699,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "毒刺便携式防空导弹#1",
+   "dbid": 1264,
+   "lat": 49.478452,
+   "lon": 3.046097,
+   "heading": 76.9,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "S-400地空导弹营#1",
+   "dbid": 2029,
+   "lat": 52.296486,
+   "lon": -1.624402,
+   "heading": 180.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "铠甲-S2E地空导弹排#2",
+   "dbid": 3432,
+   "lat": 50.667727,
+   "lon": -1.334821,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "TF机场",
+   "dbid": 430,
+   "lat": 51.839009,
+   "lon": 1.204129,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "9S36雷达#3",
+   "dbid": 1655,
+   "lat": 51.863463,
+   "lon": 1.194761,
+   "heading": 213.5,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "装甲车#5",
+   "dbid": 2983,
+   "lat": 48.701809,
+   "lon": -0.68796,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "卡皮凯机场",
+   "dbid": 1593,
+   "lat": 49.693074,
+   "lon": 0.907523,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "沙赫德无人机发射车#2",
+   "dbid": 3665,
+   "lat": 50.940457,
+   "lon": 0.925167,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "伊斯坎德尔地地导弹营#2",
+   "dbid": 2556,
+   "lat": 51.986462,
+   "lon": -1.088081,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "毒刺便携式防空导弹#2",
+   "dbid": 1264,
+   "lat": 49.498955,
+   "lon": 3.092162,
+   "heading": 76.9,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "TPS-63型空中监视雷达#2",
+   "dbid": 1037,
+   "lat": 49.488063,
+   "lon": 1.387095,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "霍克地空导弹连#3",
+   "dbid": 802,
+   "lat": 50.085424,
+   "lon": 1.78309,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "RT-2000 火箭炮#1",
+   "dbid": 2251,
+   "lat": 49.428949,
+   "lon": -2.553275,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "毒刺便携式防空导弹#4",
+   "dbid": 1264,
+   "lat": 48.558985,
+   "lon": 1.537715,
+   "heading": 76.9,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "反舰导弹排#2",
+   "dbid": 415,
+   "lat": 49.686385,
+   "lon": 1.247093,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "霍克地空导弹连#4",
+   "dbid": 802,
+   "lat": 50.823255,
+   "lon": 2.484103,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "海马斯火箭炮#3",
+   "dbid": 3384,
+   "lat": 49.963072,
+   "lon": 1.649789,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "LUCAS 无人机发射车#1",
+   "dbid": 50001,
+   "lat": 50.172516,
+   "lon": 1.723695,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "EL/M-2226型海岸侦察雷达#3",
+   "dbid": 1601,
+   "lat": 51.224247,
+   "lon": 2.971228,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "毒刺便携式防空导弹#5",
+   "dbid": 1264,
+   "lat": 48.28008,
+   "lon": 0.168947,
+   "heading": 76.9,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "TPS-63型空中监视雷达#1",
+   "dbid": 1037,
+   "lat": 48.677612,
+   "lon": -1.05895,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "爱国者地空导弹连#1",
+   "dbid": 2227,
+   "lat": 48.952437,
+   "lon": 0.147181,
+   "heading": 145.6,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "反舰导弹排#5",
+   "dbid": 415,
+   "lat": 48.974007,
+   "lon": 0.674878,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "沙赫德无人机发射车#1",
+   "dbid": 3665,
+   "lat": 49.710133,
+   "lon": -2.217577,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "RT-2000 火箭炮#2",
+   "dbid": 2251,
+   "lat": 49.171024,
+   "lon": -2.077338,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "雷达 (“鸡窝”相控阵雷达[“德涅斯特河”雷达])",
+   "dbid": 1439,
+   "lat": 52.558936,
+   "lon": -1.827326,
+   "heading": 50.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "NK机场",
+   "dbid": 430,
+   "lat": 50.572223,
+   "lon": -3.642392,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "伪装防空车#1",
+   "dbid": 2085,
+   "lat": 48.768354,
+   "lon": -0.855605,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "霍克地空导弹连#2",
+   "dbid": 802,
+   "lat": 49.646054,
+   "lon": 0.86806,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "伊斯坎德尔地地导弹营#1",
+   "dbid": 2556,
+   "lat": 51.478738,
+   "lon": -1.355596,
+   "heading": 103.5,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "EL/M-2226型海岸侦察雷达#1",
+   "dbid": 1601,
+   "lat": 49.441013,
+   "lon": -1.384378,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "反舰导弹排#4",
+   "dbid": 415,
+   "lat": 49.210113,
+   "lon": -2.106765,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "S-300V1地空导弹营（萨姆-12型防空导弹）#2",
+   "dbid": 38,
+   "lat": 51.500808,
+   "lon": -1.287442,
+   "heading": 180.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "奥尔良机场",
+   "dbid": 430,
+   "lat": 48.696102,
+   "lon": 1.759836,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "地空导弹连#2",
+   "dbid": 391,
+   "lat": 48.863863,
+   "lon": 1.865389,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "地空导弹连#1",
+   "dbid": 391,
+   "lat": 48.64895,
+   "lon": -1.280911,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "蓝方",
+   "kind": "Facility",
+   "name": "EL/M-2226型海岸侦察雷达#2",
+   "dbid": 1601,
+   "lat": 49.50677,
+   "lon": 0.424212,
+   "heading": 0.0,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "9S36雷达#1",
+   "dbid": 1655,
+   "lat": 50.536457,
+   "lon": -3.558205,
+   "heading": 38.7,
+   "count": 1
+  },
+  {
+   "side": "红方",
+   "kind": "Facility",
+   "name": "S-300V1地空导弹营（萨姆-12型防空导弹）#1",
+   "dbid": 38,
+   "lat": 52.501913,
+   "lon": -1.561961,
+   "heading": 180.0,
+   "count": 1
+  }
+ ],
+ "missions": [
+  {
+   "side": "红方",
+   "name": "西部防空守护巡逻",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 50.175431,
+     "lon": -1.628225
+    },
+    {
+     "lat": 50.0889,
+     "lon": -1.263582
+    },
+    {
+     "lat": 50.002362,
+     "lon": -2.053528
+    },
+    {
+     "lat": 50.057029,
+     "lon": -2.162125
+    }
+   ],
+   "units": [
+    "苏-27SM/SM3型战斗机 #1",
+    "苏-27SM/SM3型战斗机 #2",
+    "苏-35S型 战斗机 #3",
+    "苏-35S型 战斗机 #4"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "图160对地打击",
+   "mtype": "Patrol",
+   "subtype": "LAND",
+   "zone": [
+    {
+     "lat": 51.139107,
+     "lon": -1.29124
+    },
+    {
+     "lat": 51.1516,
+     "lon": -1.163366
+    },
+    {
+     "lat": 50.932487,
+     "lon": -1.080266
+    },
+    {
+     "lat": 50.916942,
+     "lon": -1.218834
+    }
+   ],
+   "units": [
+    "图-160M 轰炸机 #1"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "拦截北蓝方支援",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 51.96453,
+     "lon": 2.426887
+    },
+    {
+     "lat": 51.842966,
+     "lon": 2.638384
+    },
+    {
+     "lat": 51.746624,
+     "lon": 2.394317
+    },
+    {
+     "lat": 51.887303,
+     "lon": 2.167538
+    }
+   ],
+   "units": [
+    "苏-35S型 战斗机 #6",
+    "苏-35S型 战斗机 #5",
+    "苏-75 战斗机 #3",
+    "苏-75 战斗机 #4"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "东部防空压制",
+   "mtype": "Patrol",
+   "subtype": "LAND",
+   "zone": [
+    {
+     "lat": 50.329949,
+     "lon": 0.459023
+    },
+    {
+     "lat": 50.248911,
+     "lon": 0.537806
+    },
+    {
+     "lat": 50.079191,
+     "lon": 0.112165
+    },
+    {
+     "lat": 50.147648,
+     "lon": 0.064119
+    }
+   ],
+   "units": [
+    "S-70无人攻击机 #3",
+    "S-70无人攻击机 #4",
+    "苏-34 轰炸机 #2",
+    "苏-34 轰炸机 #4"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "西部防空压制",
+   "mtype": "Patrol",
+   "subtype": "LAND",
+   "zone": [
+    {
+     "lat": 50.072717,
+     "lon": -0.862769
+    },
+    {
+     "lat": 50.122205,
+     "lon": -0.325097
+    },
+    {
+     "lat": 50.052234,
+     "lon": -0.284928
+    },
+    {
+     "lat": 50.019917,
+     "lon": -0.860732
+    }
+   ],
+   "units": [
+    "S-70无人攻击机 #2",
+    "S-70无人攻击机 #1",
+    "苏-34 轰炸机 #3",
+    "苏-34 轰炸机 #1"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "无人察打1号",
+   "mtype": "Patrol",
+   "subtype": "LAND",
+   "zone": [
+    {
+     "lat": 49.855816,
+     "lon": -1.94057
+    },
+    {
+     "lat": 49.348455,
+     "lon": -0.473238
+    },
+    {
+     "lat": 48.330233,
+     "lon": -1.088012
+    },
+    {
+     "lat": 49.304974,
+     "lon": -3.099724
+    }
+   ],
+   "units": [
+    "TB2  无人机 #12",
+    "TB2 无人机 #10",
+    "TB2 无人机 #11",
+    "“神经元”无人机 #8",
+    "“神经元”无人机 #3",
+    "TB2 无人机 #9",
+    "“神经元”无人机 #4",
+    "“神经元”无人机 #7",
+    "“神经元”无人机 #1",
+    "“神经元”无人机 #2"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "西部防空压制-远程支援",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 50.16247,
+     "lon": -0.374988
+    },
+    {
+     "lat": 50.158872,
+     "lon": -0.406983
+    },
+    {
+     "lat": 50.147146,
+     "lon": -0.402142
+    },
+    {
+     "lat": 50.151112,
+     "lon": -0.370164
+    }
+   ],
+   "units": [
+    "苏-30SM“侧卫G”战斗机 #1",
+    "苏-57型战斗机 #1",
+    "苏-27SM/SM3型战斗机 #5",
+    "苏-27SM/SM3型战斗机 #6"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "东部防空压制-远程支援",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 50.3508,
+     "lon": 0.260719
+    },
+    {
+     "lat": 50.3508,
+     "lon": 0.304713
+    },
+    {
+     "lat": 50.3244,
+     "lon": 0.304713
+    },
+    {
+     "lat": 50.3244,
+     "lon": 0.260719
+    }
+   ],
+   "units": [
+    "苏-30SM“侧卫G”战斗机 #2",
+    "苏-27SM/SM3型战斗机 #3",
+    "苏-57型战斗机 #2",
+    "苏-27SM/SM3型战斗机 #4"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "登陆宝剑",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 49.5998,
+     "lon": -0.260742
+    },
+    {
+     "lat": 49.6524,
+     "lon": -0.086053
+    },
+    {
+     "lat": 49.5807,
+     "lon": -0.023149
+    },
+    {
+     "lat": 49.5263,
+     "lon": -0.226867
+    }
+   ],
+   "units": [
+    "23900型船坞登陆舰#1"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "卸船",
+   "mtype": "Patrol",
+   "subtype": "SEACONTROL",
+   "zone": [
+    {
+     "lat": 49.5998,
+     "lon": -0.260742
+    },
+    {
+     "lat": 49.6524,
+     "lon": -0.086053
+    },
+    {
+     "lat": 49.5807,
+     "lon": -0.023149
+    },
+    {
+     "lat": 49.5263,
+     "lon": -0.226867
+    }
+   ],
+   "units": [
+    "726型气垫登录艇 #1"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "S107水下攻击",
+   "mtype": "Patrol",
+   "subtype": "SEACONTROL",
+   "zone": [
+    {
+     "lat": 47.853872,
+     "lon": -11.04208
+    },
+    {
+     "lat": 47.740816,
+     "lon": -12.17732
+    },
+    {
+     "lat": 46.779029,
+     "lon": -12.07132
+    },
+    {
+     "lat": 46.91973,
+     "lon": -10.904606
+    }
+   ],
+   "units": [
+    "S 107“特拉法尔加”号攻击型核潜艇"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "西部据止",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 49.244192,
+     "lon": -8.171353
+    },
+    {
+     "lat": 49.308596,
+     "lon": -7.98924
+    },
+    {
+     "lat": 48.364656,
+     "lon": -7.33258
+    },
+    {
+     "lat": 48.26926,
+     "lon": -7.529587
+    }
+   ],
+   "units": [
+    "苏-35S型 战斗机 #1",
+    "苏-35S型 战斗机 #2",
+    "苏-75 战斗机 #2",
+    "阵风M 战斗机 #2",
+    "苏-75 战斗机 #1",
+    "阵风M 战斗机 #1"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "西部无人侦察1号",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 49.426962,
+     "lon": -2.113809
+    },
+    {
+     "lat": 49.473232,
+     "lon": -2.112857
+    },
+    {
+     "lat": 49.477857,
+     "lon": -2.19332
+    },
+    {
+     "lat": 49.426457,
+     "lon": -2.193858
+    }
+   ],
+   "units": [
+    "前哨-R 无人机 #8",
+    "前哨-R 无人机 #7"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "西部无人侦察2号",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 49.080491,
+     "lon": -1.449699
+    },
+    {
+     "lat": 49.380954,
+     "lon": -1.530943
+    },
+    {
+     "lat": 49.205466,
+     "lon": -0.567671
+    },
+    {
+     "lat": 49.012555,
+     "lon": -0.627015
+    }
+   ],
+   "units": [
+    "前哨-R 无人机#1"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "无人察打2号",
+   "mtype": "Patrol",
+   "subtype": "LAND",
+   "zone": [
+    {
+     "lat": 48.330233,
+     "lon": -1.088012
+    },
+    {
+     "lat": 49.348455,
+     "lon": -0.473238
+    },
+    {
+     "lat": 49.806271,
+     "lon": 0.500418
+    },
+    {
+     "lat": 48.465737,
+     "lon": 1.248692
+    }
+   ],
+   "units": [
+    "TB2 无人机#14",
+    "TB2 无人机#2",
+    "TB2 无人机 #15",
+    "TB2 无人机#3",
+    "TB2 无人机#13",
+    "“神经元”无人机 #5",
+    "“神经元”无人机 #6",
+    "TB2 无人机#1"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "无人察打3号",
+   "mtype": "Patrol",
+   "subtype": "LAND",
+   "zone": [
+    {
+     "lat": 49.403768,
+     "lon": 3.317116
+    },
+    {
+     "lat": 50.479988,
+     "lon": 1.692926
+    },
+    {
+     "lat": 49.806271,
+     "lon": 0.500418
+    },
+    {
+     "lat": 48.465737,
+     "lon": 1.248692
+    }
+   ],
+   "units": [
+    "TB2 无人机#19",
+    "TB2 无人机 #18",
+    "TB2 无人机#6",
+    "TB2 无人机 #16",
+    "TB2 无人机#4",
+    "TB2 无人机#20",
+    "TB2 无人机 #17",
+    "TB2 无人机#5"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "东部内部制空",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 51.979804,
+     "lon": 1.074005
+    },
+    {
+     "lat": 52.22396,
+     "lon": 0.745129
+    },
+    {
+     "lat": 52.179764,
+     "lon": 0.639664
+    },
+    {
+     "lat": 51.945477,
+     "lon": 0.947695
+    }
+   ],
+   "units": [
+    "鹰狮NG战斗机 #3",
+    "苏-30SM“侧卫G”战斗机 #4",
+    "鹰狮NG战斗机 #1",
+    "鹰狮NG战斗机 #4",
+    "苏-30SM“侧卫G”战斗机 #3",
+    "鹰狮NG战斗机 #2"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "无人侦察3号",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 49.187736,
+     "lon": -0.438247
+    },
+    {
+     "lat": 49.188618,
+     "lon": 0.194244
+    },
+    {
+     "lat": 49.024603,
+     "lon": 0.380042
+    },
+    {
+     "lat": 48.923259,
+     "lon": -0.481224
+    }
+   ],
+   "units": [
+    "前哨-R 无人机#2"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "无人侦察4号",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 49.6049,
+     "lon": 0.220579
+    },
+    {
+     "lat": 49.29872,
+     "lon": 0.399384
+    },
+    {
+     "lat": 49.437759,
+     "lon": 1.135293
+    },
+    {
+     "lat": 49.818595,
+     "lon": 0.935013
+    }
+   ],
+   "units": [
+    "前哨-R 无人机#3"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "无人侦察5号",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 49.825303,
+     "lon": 1.064519
+    },
+    {
+     "lat": 50.315244,
+     "lon": 1.698045
+    },
+    {
+     "lat": 49.933125,
+     "lon": 2.333229
+    },
+    {
+     "lat": 49.364596,
+     "lon": 1.394357
+    }
+   ],
+   "units": [
+    "前哨-R 无人机#4"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "无人侦察6号",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 50.910779,
+     "lon": 2.022459
+    },
+    {
+     "lat": 51.299123,
+     "lon": 3.014343
+    },
+    {
+     "lat": 51.030499,
+     "lon": 3.345463
+    },
+    {
+     "lat": 50.578483,
+     "lon": 2.426254
+    }
+   ],
+   "units": [
+    "前哨-R 无人机#5",
+    "前哨-R 无人机#6"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "无人察打4号",
+   "mtype": "Patrol",
+   "subtype": "LAND",
+   "zone": [
+    {
+     "lat": 51.299123,
+     "lon": 3.014343
+    },
+    {
+     "lat": 50.910779,
+     "lon": 2.022459
+    },
+    {
+     "lat": 50.578483,
+     "lon": 2.426254
+    },
+    {
+     "lat": 51.030499,
+     "lon": 3.345463
+    }
+   ],
+   "units": [
+    "TB2 无人机#7",
+    "TB2 无人机#8"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "东部反地面",
+   "mtype": "Patrol",
+   "subtype": "LAND",
+   "zone": [
+    {
+     "lat": 50.052234,
+     "lon": -0.284928
+    },
+    {
+     "lat": 51.18164,
+     "lon": 2.109723
+    },
+    {
+     "lat": 51.280676,
+     "lon": 2.3384
+    },
+    {
+     "lat": 51.233464,
+     "lon": 2.393489
+    },
+    {
+     "lat": 51.134224,
+     "lon": 2.164264
+    }
+   ],
+   "units": [
+    "阵风C型战斗机 #3",
+    "阵风C型战斗机 #1",
+    "阵风C型战斗机 #4",
+    "阵风C型战斗机 #2"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "西南据止",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 46.257003,
+     "lon": -6.045185
+    },
+    {
+     "lat": 46.256658,
+     "lon": -4.651263
+    },
+    {
+     "lat": 46.066451,
+     "lon": -4.650717
+    },
+    {
+     "lat": 46.083121,
+     "lon": -6.056065
+    }
+   ],
+   "units": [
+    "阵风M 战斗机 #6",
+    "阵风M 战斗机 #3",
+    "阵风M 战斗机 #5",
+    "阵风M 战斗机 #4"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "红方",
+   "name": "红反潜巡逻",
+   "mtype": "Patrol",
+   "subtype": "SUB",
+   "zone": [
+    {
+     "lat": 48.734839,
+     "lon": -7.914198
+    },
+    {
+     "lat": 48.731649,
+     "lon": -6.508124
+    },
+    {
+     "lat": 47.93737,
+     "lon": -6.622314
+    },
+    {
+     "lat": 47.973604,
+     "lon": -7.947266
+    }
+   ],
+   "units": [
+    "卡-27M型反潜直升机 #1",
+    "卡-27M型反潜直升机 #2"
+   ],
+   "isactive": true
+  }
+ ],
+ "weather": {
+  "temp": 15,
+  "rainfall": 0,
+  "cloud": 0.0,
+  "seastate": 0
+ },
+ "provenance": {
+  "source": "digest",
+  "source_title": "诺曼底2027(人机协同-人机版)",
+  "family": {
+   "force_scale": 0.5
+  },
+  "variant_index": 1
+ }
+}

@@ -69,15 +69,23 @@ function cls(h) {
   return 't3';
 }
 function msChip(h) {
-  // 只显示当前弹速（km/h）；距离 / 最近接近 / 预计命中放悬停里
+  // 显示：弹型 | 当前弹速 | 当前距离→最近接近点(CPA) | 到最近接近点的时间
+  // ⚠ tgo 是“到**最近接近点**的时间”，不是“命中时间”。一枚 562 km 外横向掠过的弹，
+  //   CPA≈562 km、tgo 可能只有 16 s —— 单纯显示 “562km 16s” 会严重误导。
+  //   所以：① 一定把 CPA 显示出来；② 擦边（CPA 明显小于距离）的把时间灰掉并标注。
   const spd = h.spd || 0;
-  return `<span class="mc ${cls(h)}" title="当前弹速 ${kmh(spd)} km/h（${(spd / 1.852).toFixed(0)} 节）`
-    + `\n当前距离 ${(h.d || 0).toFixed(1)} km　最近接近 ${(h.cpa || 0).toFixed(1)} km`
-    + `\n预计到最近接近点 ${h.tgo == null ? '未知' : Math.round(h.tgo) + ' s'}">`
+  const d = h.d || 0, cpa = h.cpa || 0;
+  const graze = d > 1 && cpa > d * 0.5;          // 只是“朝我这一片飞”，不是“瞄着我”
+  const cl = cls(h) + (graze ? ' graze' : '');
+  const tgo = h.tgo == null ? '--' : Math.round(h.tgo) + 's';
+  return `<span class="mc ${cl}" title="当前弹速 ${kmh(spd)} km/h（${(spd / 1.852).toFixed(0)} 节）`
+    + `\n当前距离 ${d.toFixed(1)} km　最近接近点 CPA ${cpa.toFixed(1)} km`
+    + `\n到最近接近点 ${h.tgo == null ? '未知' : Math.round(h.tgo) + ' s'}` +
+      (graze ? `\n⚠ 擦边掠过（CPA ${cpa.toFixed(0)} km），不是冲这个单元来的` : '') + `">`
     + `<span class="mn">${esc(wname(h.n) || ('弹' + (h.db || '')))}</span>`
     + `<span class="sp">${kmh(spd)} km/h</span>`
-    + `<span class="dd">${(h.d || 0).toFixed(0)}km</span>`
-    + `<span class="tg">${h.tgo == null ? '--' : Math.round(h.tgo) + 's'}</span></span>`;
+    + `<span class="dd">${d.toFixed(0)}→${cpa.toFixed(0)}km</span>`
+    + `<span class="tg">${tgo}</span></span>`;
 }
 function unitRow(r) {
   const ms = (r.ms || []).slice();
@@ -108,8 +116,11 @@ function render() {
   const top = $('list').scrollTop;
   $('list').innerHTML = html;
   $('list').scrollTop = top;
+  // 标题**必须**以 '监控小窗' 开头：launcher.py 靠它找自己的窗口并按 z 序置顶。
+  // （老 bug：标题一变成「监控 1/0/0」就找不到窗口，launcher 4 秒后自杀 -> 灰屏）
   const air = groups.air || [0, 0], sea = groups.sea || [0, 0], land = groups.land || [0, 0];
-  document.title = (air[0] + sea[0] + land[0]) ? `监控 ${air[0]}/${sea[0]}/${land[0]}` : '监控小窗';
+  const nHit = air[0] + sea[0] + land[0];
+  document.title = `监控小窗 ${nHit}/${snap.own || 0}` + (snap.ms ? ` 弹${snap.ms}` : '');
 }
 
 // ---------------------------------------------------------------- 交互

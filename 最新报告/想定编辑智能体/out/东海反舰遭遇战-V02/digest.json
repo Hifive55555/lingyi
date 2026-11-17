@@ -1,0 +1,364 @@
+{
+ "title": "东海反舰遭遇战-V02",
+ "description": "<BODY scroll=auto><P style=\"MARGIN: 12px 0px\" align=center><SPAN style=\"FONT-SIZE: 18pt; FONT-FAMILY: '黑体'\">东海反舰遭遇战-V02</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">标题：东海反舰遭遇战</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">设定 2026 年 3 月 1 日上午 8 时，东海中部。红方 2 艘 052D、1 艘 054A 从西侧 110 海里进入，</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">执行反舰巡逻，巡逻半径 40 海里；蓝方 1 个航母打击群，1 艘福特级、2 艘伯克级在东侧 130 海里，</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">4 架 F-35C 执行反舰打击。海况 4 级，云量 0.6。持续 3 小时。双方自由开火。</SPAN></P></BODY>",
+ "start_time_ticks": "-8584067165921635808",
+ "duration_s": 10800,
+ "complexity": 0,
+ "difficulty": 0,
+ "sides": [
+  {
+   "id": "GT-00001K7KO60DN",
+   "name": "红方",
+   "postures": {
+    "GT-00001K7KO60DO": "3"
+   },
+   "doctrine": {
+    "Nukes": "0",
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "IPCWA": "0",
+    "WinchesterShotgunRTB": "1",
+    "BingoJokerRTB": "2",
+    "JettisonOrdnance": "0",
+    "BVRLogic": "1",
+    "BTAT": "2",
+    "AE": "1",
+    "MS": "1",
+    "GS": "0",
+    "UR": "0",
+    "RS": "0",
+    "ST": "0",
+    "SAM_ASUW": "0",
+    "E_Radar": "0",
+    "E_Sonar": "0",
+    "E_OECM": "0",
+    "QuickTurnAround": "1",
+    "AirOpsTempo": "0",
+    "BingoJoker": "0",
+    "WinchesterShotgun": "0",
+    "WithdrawDamageThreshold": "0",
+    "WithdrawFuelThreshold": "1",
+    "WithdrawAttackThreshold": "0",
+    "WithdrawDefenceThreshold": "0",
+    "RedeployDamageThreshold": "1",
+    "RedeployFuelThreshold": "5",
+    "RedeployAttackThreshold": "5",
+    "RedeployDefenceThreshold": "5",
+    "IgnoreEMCONUnderAttack": "1",
+    "UseTorpedoesKinematicRange": "2",
+    "RefuelAllies": "0",
+    "BingoThreshold": "3",
+    "AvoidContact": "0",
+    "DiveWhenThreatsDetected": "0",
+    "RechargePercentagePatrol": "60",
+    "RechargePercentageAttack": "10",
+    "AIPUsage": "1",
+    "DippingSonar": "0",
+    "SurfNav": "0",
+    "SubNav": "0",
+    "LandNav": "0"
+   },
+   "is_ai_only": "false",
+   "reference_point_count": 4
+  },
+  {
+   "id": "GT-00001K7KO60DO",
+   "name": "蓝方",
+   "postures": {
+    "GT-00001K7KO60DN": "3"
+   },
+   "doctrine": {
+    "Nukes": "0",
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "IPCWA": "0",
+    "WinchesterShotgunRTB": "1",
+    "BingoJokerRTB": "2",
+    "JettisonOrdnance": "0",
+    "BVRLogic": "1",
+    "BTAT": "2",
+    "AE": "1",
+    "MS": "1",
+    "GS": "0",
+    "UR": "0",
+    "RS": "0",
+    "ST": "0",
+    "SAM_ASUW": "0",
+    "E_Radar": "50",
+    "E_Sonar": "0",
+    "E_OECM": "0",
+    "QuickTurnAround": "1",
+    "AirOpsTempo": "0",
+    "BingoJoker": "0",
+    "WinchesterShotgun": "0",
+    "WithdrawDamageThreshold": "0",
+    "WithdrawFuelThreshold": "1",
+    "WithdrawAttackThreshold": "0",
+    "WithdrawDefenceThreshold": "0",
+    "RedeployDamageThreshold": "1",
+    "RedeployFuelThreshold": "5",
+    "RedeployAttackThreshold": "5",
+    "RedeployDefenceThreshold": "5",
+    "IgnoreEMCONUnderAttack": "1",
+    "UseTorpedoesKinematicRange": "2",
+    "RefuelAllies": "0",
+    "BingoThreshold": "3",
+    "AvoidContact": "0",
+    "DiveWhenThreatsDetected": "0",
+    "RechargePercentagePatrol": "60",
+    "RechargePercentageAttack": "10",
+    "AIPUsage": "1",
+    "DippingSonar": "0",
+    "SurfNav": "0",
+    "SubNav": "0",
+    "LandNav": "0"
+   },
+   "is_ai_only": "false",
+   "reference_point_count": 4
+  }
+ ],
+ "units": [
+  {
+   "id": "GT-00001K7KO6235",
+   "name": "蓝方 F-35C #3",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 824,
+   "lat": 28.347046,
+   "lon": 121.286003,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "GT-00001K7KO626B"
+  },
+  {
+   "id": "GT-00001K7KO621C",
+   "name": "蓝方 F-35C #3",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 824,
+   "lat": 28.347046,
+   "lon": 121.286003,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "GT-00001K7KO626B"
+  },
+  {
+   "id": "GT-00001K7KO60DR",
+   "name": "红方 052D #1",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 2296,
+   "lat": 28.5,
+   "lon": 126.086137,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "GT-00001K7KO6263"
+  },
+  {
+   "id": "GT-00001K7KO61LA",
+   "name": "蓝方 伯克级 #2",
+   "kind": "Ship",
+   "side": "蓝方",
+   "dbid": 112,
+   "lat": 28.569024,
+   "lon": 121.541132,
+   "heading": 225.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "GT-00001K7KO626B"
+  },
+  {
+   "id": "GT-00001K7KO60R2",
+   "name": "蓝方 福特级 #1",
+   "kind": "Ship",
+   "side": "蓝方",
+   "dbid": 506,
+   "lat": 28.55,
+   "lon": 121.534565,
+   "heading": 225.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "GT-00001K7KO626B"
+  },
+  {
+   "id": "GT-00001K7KO60KQ",
+   "name": "红方 054A #2",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 1965,
+   "lat": 28.488379,
+   "lon": 126.237279,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "GT-00001K7KO6263"
+  }
+ ],
+ "missions": [
+  {
+   "id": "GT-00001K7KO6263",
+   "name": "红方-反舰巡逻",
+   "side": "红方",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "type_code": "1",
+   "assigned": [
+    "GT-00001K7KO60KQ",
+    "GT-00001K7KO60DR"
+   ],
+   "zone_ids": [
+    "42599a3b-c29f-5f6e-8640-f23734f4463e",
+    "20b4be22-a847-5727-851e-5c9909fed57b",
+    "2bb08398-b49c-5921-bd6f-79f095f355e6",
+    "6d48f6cb-5ff7-50df-8913-721e7c736dd4"
+   ],
+   "zone": [
+    {
+     "lat": 28.965594,
+     "lon": 125.62533
+    },
+    {
+     "lat": 28.022785,
+     "lon": 125.62533
+    },
+    {
+     "lat": 28.022785,
+     "lon": 126.698086
+    },
+    {
+     "lat": 28.965594,
+     "lon": 126.698086
+    }
+   ]
+  },
+  {
+   "id": "GT-00001K7KO626B",
+   "name": "蓝方-反舰打击",
+   "side": "蓝方",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "type_code": "1",
+   "assigned": [
+    "GT-00001K7KO621C",
+    "GT-00001K7KO60R2",
+    "GT-00001K7KO6235",
+    "GT-00001K7KO61LA"
+   ],
+   "zone_ids": [
+    "0b44462a-2cb7-5b80-aee6-0ebd5acd5c89",
+    "f3ebb857-689c-59eb-a85d-c9aaff5927c5",
+    "b0ec3e29-5b94-52c8-8480-e9a3fff8728e",
+    "8589ccc0-880d-5288-b48e-499995d1cd3f"
+   ],
+   "zone": [
+    {
+     "lat": 28.865368,
+     "lon": 120.932183
+    },
+    {
+     "lat": 28.04041,
+     "lon": 120.932183
+    },
+    {
+     "lat": 28.04041,
+     "lon": 121.870478
+    },
+    {
+     "lat": 28.865368,
+     "lon": 121.870478
+    }
+   ]
+  }
+ ],
+ "reference_points": [
+  {
+   "id": "42599a3b-c29f-5f6e-8640-f23734f4463e",
+   "name": "红方-反舰巡逻-WP1",
+   "lat": 28.965594,
+   "lon": 125.62533,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "20b4be22-a847-5727-851e-5c9909fed57b",
+   "name": "红方-反舰巡逻-WP2",
+   "lat": 28.022785,
+   "lon": 125.62533,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "2bb08398-b49c-5921-bd6f-79f095f355e6",
+   "name": "红方-反舰巡逻-WP3",
+   "lat": 28.022785,
+   "lon": 126.698086,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "6d48f6cb-5ff7-50df-8913-721e7c736dd4",
+   "name": "红方-反舰巡逻-WP4",
+   "lat": 28.965594,
+   "lon": 126.698086,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "0b44462a-2cb7-5b80-aee6-0ebd5acd5c89",
+   "name": "蓝方-反舰打击-WP1",
+   "lat": 28.865368,
+   "lon": 120.932183,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "f3ebb857-689c-59eb-a85d-c9aaff5927c5",
+   "name": "蓝方-反舰打击-WP2",
+   "lat": 28.04041,
+   "lon": 120.932183,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "b0ec3e29-5b94-52c8-8480-e9a3fff8728e",
+   "name": "蓝方-反舰打击-WP3",
+   "lat": 28.04041,
+   "lon": 121.870478,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "8589ccc0-880d-5288-b48e-499995d1cd3f",
+   "name": "蓝方-反舰打击-WP4",
+   "lat": 28.865368,
+   "lon": 121.870478,
+   "side": "蓝方",
+   "highlighted": "True"
+  }
+ ],
+ "weather": {
+  "temp": 20,
+  "rainfall": 0,
+  "cloud": 0.6,
+  "seastate": 5
+ },
+ "counts": {
+  "蓝方": {
+   "Aircraft": 2,
+   "Ship": 2
+  },
+  "红方": {
+   "Ship": 2
+  }
+ },
+ "raw_sizes": {
+  "xml_bytes": 167692
+ }
+}

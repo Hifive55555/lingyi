@@ -1,0 +1,567 @@
+{
+ "_comment": [
+  "自然语言平台词表：中文/英文别名 -> 引擎 DB 的 (kind, dbid)。",
+  "dbid 来自本机引擎 DB3K_480 全量扫描（sce_agent/data/db_catalog.json，见 cli.py catalog scan），",
+  "并由 catalog.py 在每次构建时用 gRPC queryDatabase 在线复核；换引擎/换 DB 版本后跑",
+  "  python cli.py catalog verify --all",
+  "即可发现失效条目。kind 取值：Ship/Aircraft/Submarine/Facility/Satellite。"
+ ],
+ "templates": {
+  "红方": "红方",
+  "蓝方": "蓝方",
+  "红军": "红方",
+  "蓝军": "蓝方",
+  "我方": "红方",
+  "敌方": "蓝方",
+  "友军": "红方",
+  "友方": "友方",
+  "第三方": "友方"
+ },
+ "platforms": {
+  "052D": {
+   "kind": "Ship",
+   "dbid": 2296,
+   "class": "DDG173 长沙号052D型导弹驱逐舰"
+  },
+  "052DL": {
+   "kind": "Ship",
+   "dbid": 3586,
+   "class": "Type 052DL Luyang III 导弹驱逐舰"
+  },
+  "052C": {
+   "kind": "Ship",
+   "dbid": 696,
+   "class": "DDG171 海口号052C型导弹驱逐舰"
+  },
+  "055": {
+   "kind": "Ship",
+   "dbid": 2834,
+   "class": "DDG 郑和号055型导弹驱逐舰"
+  },
+  "054A": {
+   "kind": "Ship",
+   "dbid": 1965,
+   "class": "FFG530 徐州号054A型导弹护卫舰"
+  },
+  "054": {
+   "kind": "Ship",
+   "dbid": 1682,
+   "class": "FFG525 马鞍山号054型导弹护卫舰"
+  },
+  "056A": {
+   "kind": "Ship",
+   "dbid": 2703,
+   "class": "593三门峡号056A型轻型护卫舰"
+  },
+  "056": {
+   "kind": "Ship",
+   "dbid": 2295,
+   "class": "582蚌埠号056型轻型护卫舰"
+  },
+  "辽宁舰": {
+   "kind": "Ship",
+   "dbid": 2007,
+   "class": "CV16 辽宁号001型航空母舰"
+  },
+  "山东舰": {
+   "kind": "Ship",
+   "dbid": 3187,
+   "class": "02型航空母舰山东舰"
+  },
+  "尼米兹": {
+   "kind": "Ship",
+   "dbid": 341,
+   "class": "CVN 76 里根号尼米兹级航空母舰"
+  },
+  "福特级": {
+   "kind": "Ship",
+   "dbid": 506,
+   "class": "CVN-78 福特级航空母舰"
+  },
+  "伯克级": {
+   "kind": "Ship",
+   "dbid": 112,
+   "class": "阿利伯克级导弹驱逐舰"
+  },
+  "提康德罗加": {
+   "kind": "Ship",
+   "dbid": 110,
+   "class": "CG-52 邦克山提康德罗加级巡洋舰"
+  },
+  "基洛夫": {
+   "kind": "Ship",
+   "dbid": 3017,
+   "class": "Pr1144基洛夫级核动力导弹巡洋舰"
+  },
+  "登陆舰": {
+   "kind": "Ship",
+   "dbid": 135,
+   "class": "BDK蟾蜍级II坦克登陆舰"
+  },
+  "补给舰": {
+   "kind": "Ship",
+   "dbid": 2980,
+   "class": "965呼伦湖号901型综合补给舰"
+  },
+  "歼-20": {
+   "kind": "Aircraft",
+   "dbid": 2463,
+   "class": "歼-20型战斗机"
+  },
+  "J-20": {
+   "kind": "Aircraft",
+   "dbid": 2463,
+   "class": "歼-20型战斗机"
+  },
+  "J-20B": {
+   "kind": "Aircraft",
+   "dbid": 5013,
+   "class": "J-20B Mighty Dragon 战斗机"
+  },
+  "歼-16": {
+   "kind": "Aircraft",
+   "dbid": 2853,
+   "class": "歼-16战斗机"
+  },
+  "歼-16D": {
+   "kind": "Aircraft",
+   "dbid": 4632,
+   "class": "歼-16D电子战飞机"
+  },
+  "歼-11": {
+   "kind": "Aircraft",
+   "dbid": 708,
+   "class": "歼-11型战斗机"
+  },
+  "歼-11B": {
+   "kind": "Aircraft",
+   "dbid": 1993,
+   "class": "歼-11B重型战斗机"
+  },
+  "歼-10C": {
+   "kind": "Aircraft",
+   "dbid": 2057,
+   "class": "歼-10C型战斗机"
+  },
+  "歼-10A": {
+   "kind": "Aircraft",
+   "dbid": 715,
+   "class": "歼-10A型战斗机"
+  },
+  "苏-35": {
+   "kind": "Aircraft",
+   "dbid": 4741,
+   "class": "苏-35S型侧卫E战斗机"
+  },
+  "苏-30": {
+   "kind": "Aircraft",
+   "dbid": 436,
+   "class": "苏-30型战斗机"
+  },
+  "苏-34": {
+   "kind": "Aircraft",
+   "dbid": 4960,
+   "class": "苏-34鸭嘴兽轰炸机"
+  },
+  "轰-6K": {
+   "kind": "Aircraft",
+   "dbid": 1731,
+   "class": "轰-6K型轰炸机"
+  },
+  "空警-500": {
+   "kind": "Aircraft",
+   "dbid": 3683,
+   "class": "空警-500型预警机"
+  },
+  "空警-2000": {
+   "kind": "Aircraft",
+   "dbid": 1960,
+   "class": "空警-2000型预警机"
+  },
+  "运-8": {
+   "kind": "Aircraft",
+   "dbid": 354,
+   "class": "运-8X型海上巡逻机"
+  },
+  "运-20": {
+   "kind": "Aircraft",
+   "dbid": 4609,
+   "class": "运-20鲲鹏运输机"
+  },
+  "F-22": {
+   "kind": "Aircraft",
+   "dbid": 333,
+   "class": "F-22A型猛禽战斗机"
+  },
+  "F-35A": {
+   "kind": "Aircraft",
+   "dbid": 278,
+   "class": "F-35A型闪电II战斗机"
+  },
+  "F-35C": {
+   "kind": "Aircraft",
+   "dbid": 824,
+   "class": "F-35C型闪电II战斗机"
+  },
+  "F-16": {
+   "kind": "Aircraft",
+   "dbid": 4912,
+   "class": "F-16V型Blk70/72战隼战斗机"
+  },
+  "F-15E": {
+   "kind": "Aircraft",
+   "dbid": 4973,
+   "class": "F-15E型攻击鹰战斗机"
+  },
+  "F/A-18E": {
+   "kind": "Aircraft",
+   "dbid": 753,
+   "class": "F/A-18E型超级大黄蜂战斗机"
+  },
+  "MQ-9": {
+   "kind": "Aircraft",
+   "dbid": 4536,
+   "class": "MQ-9B型掠食者无人机"
+  },
+  "全球鹰": {
+   "kind": "Aircraft",
+   "dbid": 2848,
+   "class": "RQ-4B型全球鹰无人机"
+  },
+  "TB2": {
+   "kind": "Aircraft",
+   "dbid": 4736,
+   "class": "Bayraktar TB2 UCAV 作战无人机"
+  },
+  "093": {
+   "kind": "Submarine",
+   "dbid": 164,
+   "class": "SSN 093型核动力攻击型潜艇"
+  },
+  "093B": {
+   "kind": "Submarine",
+   "dbid": 590,
+   "class": "SSN 093B型核动力攻击型潜艇"
+  },
+  "094": {
+   "kind": "Submarine",
+   "dbid": 248,
+   "class": "SSBN 094型核动力弹道导弹潜艇"
+  },
+  "039G": {
+   "kind": "Submarine",
+   "dbid": 252,
+   "class": "SS 039G常规动力攻击型潜艇"
+  },
+  "基洛": {
+   "kind": "Submarine",
+   "dbid": 143,
+   "class": "SS364 基洛级常规动力潜艇"
+  },
+  "苍龙": {
+   "kind": "Submarine",
+   "dbid": 509,
+   "class": "苍龙级潜艇"
+  },
+  "弗吉尼亚": {
+   "kind": "Submarine",
+   "dbid": 553,
+   "class": "SSN 792 佛蒙特号弗吉尼亚级核潜艇"
+  },
+  "洛杉矶": {
+   "kind": "Submarine",
+   "dbid": 22,
+   "class": "SSN 688洛杉矶级攻击型核潜艇"
+  },
+  "S-400": {
+   "kind": "Facility",
+   "dbid": 2029,
+   "class": "地空导弹营 萨姆-21A/B S-400"
+  },
+  "S-300": {
+   "kind": "Facility",
+   "dbid": 38,
+   "class": "地空导弹营 萨姆-12 S-300V1"
+  },
+  "爱国者": {
+   "kind": "Facility",
+   "dbid": 88,
+   "class": "地空导弹连 爱国者 PAC-2"
+  },
+  "萨德": {
+   "kind": "Facility",
+   "dbid": 150,
+   "class": "地空导弹连 萨德反导系统"
+  },
+  "铠甲": {
+   "kind": "Facility",
+   "dbid": 3432,
+   "class": "地空导弹排 铠甲-S2E"
+  },
+  "铺路爪": {
+   "kind": "Facility",
+   "dbid": 569,
+   "class": "雷达 AN/FPS-115型铺路爪预警雷达系统"
+  },
+  "机场": {
+   "kind": "Facility",
+   "dbid": 430,
+   "class": "单实体机场 2x 3201-4000m 跑道"
+  },
+  "野战机场": {
+   "kind": "Facility",
+   "dbid": 1711,
+   "class": "单实体机场 2x 901-1400m 跑道"
+  },
+  "海马斯": {
+   "kind": "Facility",
+   "dbid": 3384,
+   "class": "炮兵排 HIMARS"
+  },
+  "坦克排": {
+   "kind": "Facility",
+   "dbid": 629,
+   "class": "坦克排 96式主战坦克x4"
+  },
+  "侦察卫星": {
+   "kind": "Satellite",
+   "dbid": 90,
+   "class": "黄玉型卫星(FIA)雷达"
+  },
+  "P-3C": {
+   "kind": "Aircraft",
+   "dbid": 350,
+   "class": "P-3C型猎户座反潜巡逻机"
+  },
+  "伊尔-38": {
+   "kind": "Aircraft",
+   "dbid": 1335,
+   "class": "伊尔-38SD型反潜巡逻机"
+  },
+  "KC-135": {
+   "kind": "Aircraft",
+   "dbid": 1692,
+   "class": "KC-135R型同温层加油机"
+  },
+  "KC-46": {
+   "kind": "Aircraft",
+   "dbid": 4517,
+   "class": "KC-46A型飞马加油机"
+  },
+  "伊尔-78": {
+   "kind": "Aircraft",
+   "dbid": 3727,
+   "class": "伊尔-78M型加油机"
+  },
+  "E-2D": {
+   "kind": "Aircraft",
+   "dbid": 690,
+   "class": "E-2D型先进鹰眼舰载预警机"
+  },
+  "E-3": {
+   "kind": "Aircraft",
+   "dbid": 209,
+   "class": "E-3C型哨兵预警机"
+  },
+  "EA-18G": {
+   "kind": "Aircraft",
+   "dbid": 343,
+   "class": "EA-18G型咆哮者电子攻击机"
+  },
+  "MH-60R": {
+   "kind": "Aircraft",
+   "dbid": 3202,
+   "class": "MH-60R海鹰反潜直升机"
+  },
+  "卡-28": {
+   "kind": "Aircraft",
+   "dbid": 637,
+   "class": "卡-28型反潜直升机"
+  },
+  "直-9C": {
+   "kind": "Aircraft",
+   "dbid": 60,
+   "class": "直-9C型反潜作战机"
+  },
+  "022导弹艇": {
+   "kind": "Ship",
+   "dbid": 2002,
+   "class": "PCFG2211 022型导弹快艇"
+  },
+  "071两栖舰": {
+   "kind": "Ship",
+   "dbid": 2006,
+   "class": "071型玉昭两栖船坞运输舰"
+  },
+  "黄蜂级": {
+   "kind": "Ship",
+   "dbid": 170,
+   "class": "LHD 1型黄蜂级两栖攻击舰"
+  },
+  "基辅级": {
+   "kind": "Ship",
+   "dbid": 1533,
+   "class": "基辅级航母 Pr.1143"
+  },
+  "鹰击-12岸舰": {
+   "kind": "Facility",
+   "dbid": 3177,
+   "class": "地地导弹营 鹰击-12反舰导弹"
+  },
+  "鹰击-62岸舰": {
+   "kind": "Facility",
+   "dbid": 2035,
+   "class": "地地导弹营 鹰击-62反舰巡航导弹营"
+  },
+  "903A补给舰": {
+   "kind": "Ship",
+   "dbid": 2927,
+   "class": "889太湖号903A型快速战斗支援舰"
+  },
+  "歼-15": {
+   "kind": "Aircraft",
+   "dbid": 2496,
+   "class": "歼-15型战斗机"
+  },
+  "直-18FQ": {
+   "kind": "Aircraft",
+   "dbid": 3707,
+   "class": "直-18FQ型反潜作战机"
+  },
+  "S-400营": {
+   "kind": "Facility",
+   "dbid": 2029,
+   "class": "地空导弹营 萨姆-21A/B S-400"
+  },
+  "岸舰导弹营": {
+   "kind": "Facility",
+   "dbid": 3177,
+   "class": "地地导弹营 鹰击-12反舰导弹"
+  },
+  "岸基反舰导弹": {
+   "kind": "Facility",
+   "dbid": 2035,
+   "class": "地地导弹营 鹰击-62反舰巡航导弹营"
+  }
+ },
+ "mission_types": {
+  "防空巡逻": {
+   "mtype": "Patrol",
+   "subtype": "AAW"
+  },
+  "空中巡逻": {
+   "mtype": "Patrol",
+   "subtype": "AAW"
+  },
+  "警戒巡逻": {
+   "mtype": "Patrol",
+   "subtype": "AAW"
+  },
+  "反舰巡逻": {
+   "mtype": "Patrol",
+   "subtype": "NAVAL"
+  },
+  "海上巡逻": {
+   "mtype": "Patrol",
+   "subtype": "NAVAL"
+  },
+  "反潜巡逻": {
+   "mtype": "Patrol",
+   "subtype": "SUB"
+  },
+  "对地巡逻": {
+   "mtype": "Patrol",
+   "subtype": "LAND"
+  },
+  "制海巡逻": {
+   "mtype": "Patrol",
+   "subtype": "SEACONTROL"
+  },
+  "压制巡逻": {
+   "mtype": "Patrol",
+   "subtype": "SEAD"
+  },
+  "反辐射巡逻": {
+   "mtype": "Patrol",
+   "subtype": "SEAD"
+  },
+  "空中截击": {
+   "mtype": "Strike",
+   "subtype": "AIR_INTERCEPT"
+  },
+  "对地打击": {
+   "mtype": "Strike",
+   "subtype": "LAND"
+  },
+  "反舰打击": {
+   "mtype": "Strike",
+   "subtype": "NAVAL"
+  },
+  "反潜打击": {
+   "mtype": "Strike",
+   "subtype": "SUB_STRIKE"
+  }
+ },
+ "places": {
+  "东海": {
+   "lat": 28.5,
+   "lon": 124.0
+  },
+  "台湾海峡": {
+   "lat": 24.6,
+   "lon": 119.5
+  },
+  "巴士海峡": {
+   "lat": 21.5,
+   "lon": 121.0
+  },
+  "宫古海峡": {
+   "lat": 24.8,
+   "lon": 125.5
+  },
+  "南海": {
+   "lat": 16.0,
+   "lon": 114.5
+  },
+  "黄海": {
+   "lat": 35.0,
+   "lon": 123.0
+  },
+  "日本海": {
+   "lat": 39.0,
+   "lon": 132.0
+  },
+  "菲律宾海": {
+   "lat": 18.0,
+   "lon": 129.0
+  },
+  "地中海": {
+   "lat": 34.5,
+   "lon": 20.0
+  },
+  "黑海": {
+   "lat": 43.5,
+   "lon": 34.0
+  },
+  "波斯湾": {
+   "lat": 26.5,
+   "lon": 52.0
+  },
+  "红海": {
+   "lat": 18.0,
+   "lon": 39.0
+  },
+  "阿拉伯海": {
+   "lat": 18.0,
+   "lon": 63.0
+  },
+  "英吉利海峡": {
+   "lat": 49.8,
+   "lon": 0.5
+  },
+  "尤卡坦": {
+   "lat": 21.5,
+   "lon": -88.0
+  }
+ }
+}

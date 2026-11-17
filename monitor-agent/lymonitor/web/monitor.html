@@ -60,6 +60,9 @@ input:focus { outline: none; border-color: #3fd0e6; }
 .mc.t2 { border-left-color: #e8833a; } .mc.t2 .tg { color: #e8833a; }
 .mc.t3 { border-left-color: #e0c040; }
 .mc.t0 { border-left-color: #6b7683; } .mc.t0 .tg { color: #6b7683; }
+/* 擦边掠过：CPA 明显小于当前距离，只是“朝我这一片飞”，把时间压暗防误读 */
+.mc.graze { opacity: .62; }
+.mc.graze .tg { text-decoration: line-through; }
 #msg { flex: 0 0 auto; height: 26px; overflow: hidden; padding: 2px 6px; background: #111418;
        border-top: 1px solid #2c333b; font-size: 11px; color: #8b97a5; }
 </style>
@@ -77,7 +80,7 @@ input:focus { outline: none; border-color: #3fd0e6; }
   <input id="q" placeholder="搜单元（苏35 / #1）" autocomplete="off">
 </div>
 <div id="list"></div>
-<div id="msg">本智能体只做监控，不下发任何指令。判定：弹在朝我飞就算（不设距离 / 时间门限）</div>
+<div id="msg">本智能体只做监控，不下发任何指令。判定：弹在朝我飞就算（不设门限）。格式：弹型 弹速 距离→最近接近点 到最近接近点的时间</div>
 <script src="/web/monitor.js"></script>
 </body>
 </html>

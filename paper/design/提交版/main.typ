@@ -135,6 +135,7 @@
 #show outline.entry.where(level: 2): set text(size: 10.5pt)
 #show outline.entry.where(level: 3): set text(size: 10pt)
 #show outline.entry: set par(leading: 0.9em)
+#set outline.entry(fill: repeat("·", gap: 0.2em))
 #pagebreak(weak: true)
 #align(center)[#text(size: 18pt, weight: 700)[目　录]]
 #v(1.2em)

@@ -1,0 +1,3181 @@
+{
+ "ok": true,
+ "title": "诺曼底2027(人机协同-人机版)-V02",
+ "name": "诺曼底2027(人机协同-人机版)-V02",
+ "scen_path": "D:/LingYi/Data/Scenarios/诺曼底2027(人机协同-人机版)-V02.scen",
+ "size": 376733,
+ "elapsed": 18.76,
+ "error": "",
+ "steps": [
+  {
+   "block": "info",
+   "code": "NewScenario('','')",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGOUD"
+  },
+  {
+   "block": "info",
+   "code": "SetScenarioInfo({TITLE='诺曼底2027(人机协同-人机版)-V02', DURATION=10800, COMPLEXITY=2, DIFFICULTY=2, SEED=55720, DESCRIPTION='PEJPRFkgc2Nyb2xsPWF1dG8+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiIGFsaWduPWNlbnRlcj48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxOHB0OyBGT05ULUZBTUlMWTogJ+m7keS9kyciPuivuuabvOW6lTIwMjco5Lq65py65Y2P5ZCMLeS6uuacuueJiCktVjAyPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj7nlLHml6LmnInmg7PlrprjgIror7rmm7zlupUyMDI3KOS6uuacuuWNj+WQjC3kurrmnLrniYgp44CL57uT5p6E5aSN5Yi7PC9TUEFOPjwvUD48L0JPRFk+'})",
+   "ok": true,
+   "ret": 0,
+   "out": "设置成功"
+  },
+  {
+   "block": "sides",
+   "code": "S_1 = AddSide({side='红方'})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRC5"
+  },
+  {
+   "block": "sides",
+   "code": "S_2 = AddSide({side='蓝方'})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRC6"
+  },
+  {
+   "block": "setup",
+   "code": "SetSidePosture('GT-00001K7KOGRC5', 'GT-00001K7KOGRC6', 'H')",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSidePosture('GT-00001K7KOGRC6', 'GT-00001K7KOGRC5', 'H')",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSideOptions({side='GT-00001K7KOGRC5', CAMERALON=-4.4719, CAMERALAT=27.8296, CAMERAALT=15445425.0})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSideOptions({side='GT-00001K7KOGRC6', CAMERALON=-4.4719, CAMERALAT=27.8296, CAMERAALT=15445425.0})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetDoctrine({side='GT-00001K7KOGRC5'}, {WCS_Air='0', WCS_Surface='0', WCS_Submarine='0', WCS_Land='0', Nukes='0', BTAT='2', BingoJokerRTB='0', WinchesterShotgunRTB='0', AE='1', MS='1'})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetDoctrine({side='GT-00001K7KOGRC6'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "weather",
+   "code": "SetWeather(15, 0, 0.0, 0)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "units",
+   "code": "U_1 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='前哨-R 无人机#4', dbid=50008.0, latitude='50.417461', longitude='0.854711', alt=5638.8, heading=176.1, loadoutid=150003.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRC9"
+  },
+  {
+   "block": "units",
+   "code": "U_2 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='鹰狮NG战斗机 #2', dbid=3367.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=17126.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRCS"
+  },
+  {
+   "block": "units",
+   "code": "U_3 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-57型战斗机 #2', dbid=50001.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=1770.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRF4"
+  },
+  {
+   "block": "units",
+   "code": "U_4 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-9B型  无人机 #4', dbid=4536.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9891.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRGN"
+  },
+  {
+   "block": "units",
+   "code": "U_5 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-9B型  无人机 #1', dbid=4536.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9891.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRHI"
+  },
+  {
+   "block": "units",
+   "code": "U_6 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-27SM/SM3型战斗机 #4', dbid=4696.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=1403.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRID"
+  },
+  {
+   "block": "units",
+   "code": "U_7 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='阵风C型战斗机 #4', dbid=3230.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=22993.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRKV"
+  },
+  {
+   "block": "units",
+   "code": "U_8 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-35S型 战斗机 #3', dbid=50003.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19950.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRND"
+  },
+  {
+   "block": "units",
+   "code": "U_9 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-27SM/SM3型战斗机 #6', dbid=4696.0, latitude='50.515279', longitude='-1.022233', alt=10972.8, heading=167.5, loadoutid=1403.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRP7"
+  },
+  {
+   "block": "units",
+   "code": "U_10 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='阵风M 战斗机 #6', dbid=5273.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=21751.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRQH"
+  },
+  {
+   "block": "units",
+   "code": "U_11 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='阵风M 战斗机 #1', dbid=5273.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=21751.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRSG"
+  },
+  {
+   "block": "units",
+   "code": "U_12 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#6', dbid=4736.0, latitude='50.502803', longitude='0.897921', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRUF"
+  },
+  {
+   "block": "units",
+   "code": "U_13 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='阵风M 战斗机 #2', dbid=5273.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=21751.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGRVF"
+  },
+  {
+   "block": "units",
+   "code": "U_14 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-2A型战斗机  #2', dbid=5321.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=7539.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGS48"
+  },
+  {
+   "block": "units",
+   "code": "U_15 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='鹰狮NG战斗机 #1', dbid=3367.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=17126.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGS5S"
+  },
+  {
+   "block": "units",
+   "code": "U_16 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-1C  无人机 #4', dbid=4794.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26120.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGS7C"
+  },
+  {
+   "block": "units",
+   "code": "U_17 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-2A型战斗机  #4', dbid=5321.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=7539.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGS81"
+  },
+  {
+   "block": "units",
+   "code": "U_18 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-1C  无人机 #8', dbid=4794.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26120.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGS9L"
+  },
+  {
+   "block": "units",
+   "code": "U_19 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-15E型 战斗机 #2', dbid=4973.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=805.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSAA"
+  },
+  {
+   "block": "units",
+   "code": "U_20 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='阵风C型战斗机 #2', dbid=3230.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=22993.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSEN"
+  },
+  {
+   "block": "units",
+   "code": "U_21 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-1C  无人机 #5', dbid=4794.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26120.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSH5"
+  },
+  {
+   "block": "units",
+   "code": "U_22 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='“神经元”无人机 #7', dbid=3900.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19558.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSHQ"
+  },
+  {
+   "block": "units",
+   "code": "U_23 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MH-60R 反潜直升机 #2', dbid=5037.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=2788.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSJ5"
+  },
+  {
+   "block": "units",
+   "code": "U_24 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机 #17', dbid=4736.0, latitude='50.625388', longitude='0.644295', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSKV"
+  },
+  {
+   "block": "units",
+   "code": "U_25 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-35S型 战斗机 #4', dbid=50003.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19950.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSLV"
+  },
+  {
+   "block": "units",
+   "code": "U_26 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机 #18', dbid=4736.0, latitude='50.657789', longitude='0.918463', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSNP"
+  },
+  {
+   "block": "units",
+   "code": "U_27 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-15J型“鹰”战斗机  #2', dbid=345.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9609.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSOP"
+  },
+  {
+   "block": "units",
+   "code": "U_28 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-34 轰炸机 #1', dbid=4960.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=27104.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSRU"
+  },
+  {
+   "block": "units",
+   "code": "U_29 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-75 战斗机 #2', dbid=5327.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=29570.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSTO"
+  },
+  {
+   "block": "units",
+   "code": "U_30 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='伊尔-96-400TZ型加油机 #1', dbid=4440.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=22482.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSV2"
+  },
+  {
+   "block": "units",
+   "code": "U_31 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-2A型战斗机  #1', dbid=5321.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=7539.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGSVF"
+  },
+  {
+   "block": "units",
+   "code": "U_32 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F/A-18F型 战斗机 #6', dbid=965.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19385.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGT13"
+  },
+  {
+   "block": "units",
+   "code": "U_33 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-35S型 战斗机 #2', dbid=50003.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19950.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGT4U"
+  },
+  {
+   "block": "units",
+   "code": "U_34 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-35S型 战斗机 #1', dbid=50003.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19950.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGT6O"
+  },
+  {
+   "block": "units",
+   "code": "U_35 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-15J型“鹰”战斗机  #1', dbid=345.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9609.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGT8I"
+  },
+  {
+   "block": "units",
+   "code": "U_36 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='KC-135R型 加油机 #1', dbid=1984.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19801.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTA3"
+  },
+  {
+   "block": "units",
+   "code": "U_37 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='前哨-R 无人机#6', dbid=50008.0, latitude='51.496977', longitude='2.009228', alt=5638.8, heading=176.1, loadoutid=150003.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTAG"
+  },
+  {
+   "block": "units",
+   "code": "U_38 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='“神经元”无人机 #4', dbid=3900.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19558.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTB3"
+  },
+  {
+   "block": "units",
+   "code": "U_39 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='前哨-R 无人机 #8', dbid=50008.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150003.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTDC"
+  },
+  {
+   "block": "units",
+   "code": "U_40 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-27SM/SM3型战斗机 #1', dbid=4696.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=1403.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTDV"
+  },
+  {
+   "block": "units",
+   "code": "U_41 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='伊尔-22PP型“伐木人”侦察机 #1', dbid=4607.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=25089.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTF9"
+  },
+  {
+   "block": "units",
+   "code": "U_42 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='A.330-200 加油机 #1', dbid=5583.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=30311.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTFO"
+  },
+  {
+   "block": "units",
+   "code": "U_43 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F/A-18F型 战斗机 #4', dbid=965.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19385.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTG4"
+  },
+  {
+   "block": "units",
+   "code": "U_44 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-1C  无人机 #6', dbid=4794.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26120.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTJF"
+  },
+  {
+   "block": "units",
+   "code": "U_45 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-35C 型“闪电II” 战斗机 #1', dbid=4874.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26475.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTKA"
+  },
+  {
+   "block": "units",
+   "code": "U_46 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='阵风C型战斗机 #3', dbid=3230.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=22993.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTM3"
+  },
+  {
+   "block": "units",
+   "code": "U_47 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='S-70无人攻击机 #3', dbid=4906.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150005.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTOH"
+  },
+  {
+   "block": "units",
+   "code": "U_48 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-16V型 BLK 70/72 “战隼”战斗机 #1', dbid=4912.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9481.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTPD"
+  },
+  {
+   "block": "units",
+   "code": "U_49 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-34 轰炸机 #2', dbid=4960.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=27104.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTSG"
+  },
+  {
+   "block": "units",
+   "code": "U_50 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-2B型战斗机 #2', dbid=3378.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26667.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTUA"
+  },
+  {
+   "block": "units",
+   "code": "U_51 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='A330-200 MRTT型空中加油机 #2', dbid=4513.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=30311.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGTVV"
+  },
+  {
+   "block": "units",
+   "code": "U_52 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-35S型 战斗机 #6', dbid=50003.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19950.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGU09"
+  },
+  {
+   "block": "units",
+   "code": "U_53 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-16V型 BLK 70/72 “战隼”战斗机 #2', dbid=4912.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9481.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGU3D"
+  },
+  {
+   "block": "units",
+   "code": "U_54 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-35C 型“闪电II” 战斗机 #2', dbid=4874.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26475.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGU5I"
+  },
+  {
+   "block": "units",
+   "code": "U_55 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#5', dbid=4736.0, latitude='50.473910', longitude='0.684082', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGU6N"
+  },
+  {
+   "block": "units",
+   "code": "U_56 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='RQ-4B型”全球鹰“无人机 #1', dbid=2848.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=13988.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGU7N"
+  },
+  {
+   "block": "units",
+   "code": "U_57 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#1', dbid=4736.0, latitude='50.031888', longitude='-1.096052', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGU9M"
+  },
+  {
+   "block": "units",
+   "code": "U_58 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-30SM“侧卫G”战斗机 #2', dbid=4959.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19292.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUAM"
+  },
+  {
+   "block": "units",
+   "code": "U_59 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='前哨-R 无人机#3', dbid=50008.0, latitude='50.350179', longitude='0.618057', alt=5638.8, heading=176.1, loadoutid=150003.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUC0"
+  },
+  {
+   "block": "units",
+   "code": "U_60 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='RQ-180型隐身无人侦察机', dbid=4328.0, latitude='48.505603', longitude='5.518095', alt=10972.8, heading=272.2, loadoutid=22066.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUCJ"
+  },
+  {
+   "block": "units",
+   "code": "U_61 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#4', dbid=4736.0, latitude='50.054609', longitude='-0.227989', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUD7"
+  },
+  {
+   "block": "units",
+   "code": "U_62 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MH-60R 反潜直升机 #1', dbid=5037.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=2788.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUE7"
+  },
+  {
+   "block": "units",
+   "code": "U_63 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-1C  无人机 #1', dbid=4794.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26120.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUHN"
+  },
+  {
+   "block": "units",
+   "code": "U_64 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F/A-18F型 战斗机 #1', dbid=965.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19385.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUIC"
+  },
+  {
+   "block": "units",
+   "code": "U_65 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='幻影-2000-5EI战斗机 #3', dbid=175.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=5732.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUKA"
+  },
+  {
+   "block": "units",
+   "code": "U_66 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-1C  无人机 #7', dbid=4794.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26120.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGULR"
+  },
+  {
+   "block": "units",
+   "code": "U_67 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-35S型 战斗机 #5', dbid=50003.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19950.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUMG"
+  },
+  {
+   "block": "units",
+   "code": "U_68 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='“神经元”无人机 #8', dbid=3900.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19558.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUOA"
+  },
+  {
+   "block": "units",
+   "code": "U_69 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2  无人机 #12', dbid=4736.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUQQ"
+  },
+  {
+   "block": "units",
+   "code": "U_70 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='C-5M型 运输机#1', dbid=1931.0, latitude='46.754966', longitude='-17.109876', alt=10972.8, heading=22.2, loadoutid=20350.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGURQ"
+  },
+  {
+   "block": "units",
+   "code": "U_71 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='前哨-R 无人机#5', dbid=50008.0, latitude='51.427093', longitude='1.724486', alt=5638.8, heading=176.1, loadoutid=150003.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUSK"
+  },
+  {
+   "block": "units",
+   "code": "U_72 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='前哨-R 无人机#1', dbid=50008.0, latitude='49.904350', longitude='-1.193002', alt=5638.8, heading=183.9, loadoutid=150003.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUT7"
+  },
+  {
+   "block": "units",
+   "code": "U_73 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机 #10', dbid=4736.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUTQ"
+  },
+  {
+   "block": "units",
+   "code": "U_74 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-75 战斗机 #4', dbid=5327.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=29570.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGUUQ"
+  },
+  {
+   "block": "units",
+   "code": "U_75 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='EA-18G “咆哮者”电子战飞机 #1', dbid=4879.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=27345.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGV04"
+  },
+  {
+   "block": "units",
+   "code": "U_76 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='阵风M 战斗机 #5', dbid=5273.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=21751.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGV3Q"
+  },
+  {
+   "block": "units",
+   "code": "U_77 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='“神经元”无人机 #3', dbid=3900.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19558.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGV5P"
+  },
+  {
+   "block": "units",
+   "code": "U_78 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-25A型 无人加油机 #1', dbid=4917.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=23125.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGV6C"
+  },
+  {
+   "block": "units",
+   "code": "U_79 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F/A-18F型 战斗机 #2', dbid=965.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19385.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGV7L"
+  },
+  {
+   "block": "units",
+   "code": "U_80 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='“神经元”无人机 #2', dbid=3900.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19558.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGV9J"
+  },
+  {
+   "block": "units",
+   "code": "U_81 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#8', dbid=4736.0, latitude='51.557291', longitude='2.159281', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVA6"
+  },
+  {
+   "block": "units",
+   "code": "U_82 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='幻影-2000-5EI战斗机 #4', dbid=175.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=5732.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVB6"
+  },
+  {
+   "block": "units",
+   "code": "U_83 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='EA-18G “咆哮者”电子战飞机 #2', dbid=4879.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=27345.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVCN"
+  },
+  {
+   "block": "units",
+   "code": "U_84 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='S-70无人攻击机 #2', dbid=4906.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150005.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVG4"
+  },
+  {
+   "block": "units",
+   "code": "U_85 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='“神经元”无人机 #5', dbid=3900.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19558.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVH0"
+  },
+  {
+   "block": "units",
+   "code": "U_86 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='阵风C型战斗机 #1', dbid=3230.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=22993.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVHJ"
+  },
+  {
+   "block": "units",
+   "code": "U_87 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='E-2D型“先进鹰眼”舰载预警机 #1', dbid=4293.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=14629.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVK1"
+  },
+  {
+   "block": "units",
+   "code": "U_88 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F/A-18F型 战斗机 #3', dbid=965.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19385.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVKH"
+  },
+  {
+   "block": "units",
+   "code": "U_89 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='S-70无人攻击机 #1', dbid=4906.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150005.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVNS"
+  },
+  {
+   "block": "units",
+   "code": "U_90 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-24MP型“击剑手F”电子情报侦察机 #1', dbid=476.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=2261.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVOO"
+  },
+  {
+   "block": "units",
+   "code": "U_91 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-1C  无人机 #3', dbid=4794.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26120.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVPV"
+  },
+  {
+   "block": "units",
+   "code": "U_92 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='“神经元”无人机 #1', dbid=3900.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19558.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVQK"
+  },
+  {
+   "block": "units",
+   "code": "U_93 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='A-100 预警机#2', dbid=4728.0, latitude='52.069707', longitude='-0.086972', alt=5000.0, heading=180.5, loadoutid=25726.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVS9"
+  },
+  {
+   "block": "units",
+   "code": "U_94 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='卡-27M型反潜直升机 #2', dbid=4327.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=22064.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVSP"
+  },
+  {
+   "block": "units",
+   "code": "U_95 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='B-2A 轰炸机 #1', dbid=4881.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=27353.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVTO"
+  },
+  {
+   "block": "units",
+   "code": "U_96 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-75 战斗机 #3', dbid=5327.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=29570.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVUH"
+  },
+  {
+   "block": "units",
+   "code": "U_97 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#20', dbid=4736.0, latitude='50.287786', longitude='0.162666', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOGVVR"
+  },
+  {
+   "block": "units",
+   "code": "U_98 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='幻影-2000-5EI战斗机 #2', dbid=175.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=5732.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH00R"
+  },
+  {
+   "block": "units",
+   "code": "U_99 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='鹰狮NG战斗机 #3', dbid=3367.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=17126.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH02C"
+  },
+  {
+   "block": "units",
+   "code": "U_100 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-9B型  无人机 #5', dbid=4536.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9891.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH05U"
+  },
+  {
+   "block": "units",
+   "code": "U_101 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='前哨-R 无人机 #7', dbid=50008.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150003.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH06P"
+  },
+  {
+   "block": "units",
+   "code": "U_102 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#19', dbid=4736.0, latitude='50.125145', longitude='0.178115', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH07C"
+  },
+  {
+   "block": "units",
+   "code": "U_103 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='伊尔-96-400TZ型加油机 #2', dbid=4440.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=22482.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH08C"
+  },
+  {
+   "block": "units",
+   "code": "U_104 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-16B 战隼20 战斗机 #1', dbid=3421.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=1867.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH08P"
+  },
+  {
+   "block": "units",
+   "code": "U_105 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#14', dbid=4736.0, latitude='50.146198', longitude='-1.090976', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0B8"
+  },
+  {
+   "block": "units",
+   "code": "U_106 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='B-2A 轰炸机 #2', dbid=4881.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=27353.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0C8"
+  },
+  {
+   "block": "units",
+   "code": "U_107 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-30SM“侧卫G”战斗机 #1', dbid=4959.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19292.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0D1"
+  },
+  {
+   "block": "units",
+   "code": "U_108 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='图-160M 轰炸机 #1', dbid=5554.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=30165.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0EB"
+  },
+  {
+   "block": "units",
+   "code": "U_109 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-2B型战斗机 #1', dbid=3378.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26667.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0GE"
+  },
+  {
+   "block": "units",
+   "code": "U_110 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机 #11', dbid=4736.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0I3"
+  },
+  {
+   "block": "units",
+   "code": "U_111 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机 #15', dbid=4736.0, latitude='50.202138', longitude='-0.402324', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0J3"
+  },
+  {
+   "block": "units",
+   "code": "U_112 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#3', dbid=4736.0, latitude='50.039083', longitude='-0.393649', alt=3657.6, heading=179.0, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0K3"
+  },
+  {
+   "block": "units",
+   "code": "U_113 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-35B型“闪电II” 战斗机 #2', dbid=5134.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=28485.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0L3"
+  },
+  {
+   "block": "units",
+   "code": "U_114 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-2A型战斗机  #3', dbid=5321.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=7539.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0MD"
+  },
+  {
+   "block": "units",
+   "code": "U_115 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-16V型 BLK 70/72 “战隼”战斗机 #3', dbid=4912.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9481.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0PQ"
+  },
+  {
+   "block": "units",
+   "code": "U_116 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-30SM“侧卫G”战斗机 #4', dbid=4959.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19292.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0RV"
+  },
+  {
+   "block": "units",
+   "code": "U_117 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#7', dbid=4736.0, latitude='51.494356', longitude='1.856906', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0T9"
+  },
+  {
+   "block": "units",
+   "code": "U_118 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F/A-18F型 战斗机 #5', dbid=965.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19385.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH0U9"
+  },
+  {
+   "block": "units",
+   "code": "U_119 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-30SM“侧卫G”战斗机 #3', dbid=4959.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19292.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH107"
+  },
+  {
+   "block": "units",
+   "code": "U_120 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='阵风M 战斗机 #3', dbid=5273.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=21751.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH11H"
+  },
+  {
+   "block": "units",
+   "code": "U_121 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-16B 战隼20 战斗机 #2', dbid=3421.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=1867.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH15L"
+  },
+  {
+   "block": "units",
+   "code": "U_122 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='A-100 预警机#1', dbid=4728.0, latitude='50.450485', longitude='-4.655445', alt=8000.0, heading=219.2, loadoutid=25726.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH170"
+  },
+  {
+   "block": "units",
+   "code": "U_123 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-34 轰炸机 #4', dbid=4960.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=27104.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH17G"
+  },
+  {
+   "block": "units",
+   "code": "U_124 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-16V型 BLK 70/72 “战隼”战斗机 #4', dbid=4912.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9481.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH19A"
+  },
+  {
+   "block": "units",
+   "code": "U_125 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='“神经元”无人机 #6', dbid=3900.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=19558.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1BF"
+  },
+  {
+   "block": "units",
+   "code": "U_126 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-57型战斗机 #1', dbid=50001.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=1770.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1DI"
+  },
+  {
+   "block": "units",
+   "code": "U_127 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='卡-29RLD 型“蜗牛”预警直升机 #1', dbid=52.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=8032.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1F5"
+  },
+  {
+   "block": "units",
+   "code": "U_128 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='鹰狮NG战斗机 #4', dbid=3367.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=17126.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1FH"
+  },
+  {
+   "block": "units",
+   "code": "U_129 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='S-70无人攻击机 #4', dbid=4906.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150005.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1H1"
+  },
+  {
+   "block": "units",
+   "code": "U_130 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-27SM/SM3型战斗机 #2', dbid=4696.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=1403.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1J7"
+  },
+  {
+   "block": "units",
+   "code": "U_131 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-1C  无人机 #2', dbid=4794.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=26120.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1KH"
+  },
+  {
+   "block": "units",
+   "code": "U_132 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-15E型 战斗机 #1', dbid=4973.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=805.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1L6"
+  },
+  {
+   "block": "units",
+   "code": "U_133 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#2', dbid=4736.0, latitude='50.179240', longitude='-0.940342', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1N9"
+  },
+  {
+   "block": "units",
+   "code": "U_134 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='卡-27M型反潜直升机 #1', dbid=4327.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=22064.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1O9"
+  },
+  {
+   "block": "units",
+   "code": "U_135 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机#13', dbid=4736.0, latitude='50.041176', longitude='-0.921225', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1P4"
+  },
+  {
+   "block": "units",
+   "code": "U_136 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机 #9', dbid=4736.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1Q4"
+  },
+  {
+   "block": "units",
+   "code": "U_137 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-35B型“闪电II” 战斗机 #1', dbid=5134.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=28485.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1SQ"
+  },
+  {
+   "block": "units",
+   "code": "U_138 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-27SM/SM3型战斗机 #3', dbid=4696.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=1403.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1U4"
+  },
+  {
+   "block": "units",
+   "code": "U_139 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-9B型  无人机 #6', dbid=4536.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9891.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH1VE"
+  },
+  {
+   "block": "units",
+   "code": "U_140 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='F-35A型“闪电II” 战斗机 #1', dbid=4876.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=150007.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH209"
+  },
+  {
+   "block": "units",
+   "code": "U_141 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='前哨-R 无人机#2', dbid=50008.0, latitude='49.922359', longitude='-0.561770', alt=5638.8, heading=176.1, loadoutid=150003.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH21J"
+  },
+  {
+   "block": "units",
+   "code": "U_142 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='幻影-2000-5EI战斗机 #1', dbid=175.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=5732.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH226"
+  },
+  {
+   "block": "units",
+   "code": "U_143 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-34 轰炸机 #3', dbid=4960.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=27104.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH23N"
+  },
+  {
+   "block": "units",
+   "code": "U_144 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-27SM/SM3型战斗机 #5', dbid=4696.0, latitude='50.511808', longitude='-1.066560', alt=10972.8, heading=167.5, loadoutid=1403.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH28B"
+  },
+  {
+   "block": "units",
+   "code": "U_145 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='苏-75 战斗机 #1', dbid=5327.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=29570.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH29L"
+  },
+  {
+   "block": "units",
+   "code": "U_146 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-25A型 无人加油机 #2', dbid=4917.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=23125.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH2AV"
+  },
+  {
+   "block": "units",
+   "code": "U_147 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-9B型  无人机 #2', dbid=4536.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9891.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH2BG"
+  },
+  {
+   "block": "units",
+   "code": "U_148 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='TB2 无人机 #16', dbid=4736.0, latitude='50.243313', longitude='-0.195797', alt=3657.6, heading=176.1, loadoutid=150004.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH2CB"
+  },
+  {
+   "block": "units",
+   "code": "U_149 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='C-5M型 运输机#2', dbid=1931.0, latitude='46.285333', longitude='-16.920113', alt=10972.8, heading=22.2, loadoutid=20350.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH2DB"
+  },
+  {
+   "block": "units",
+   "code": "U_150 = AddUnit({side='GT-00001K7KOGRC6', type='Aircraft', DATASOURCE=0.0, name='MQ-9B型  无人机 #3', dbid=4536.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=9891.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH2E5"
+  },
+  {
+   "block": "units",
+   "code": "U_151 = AddUnit({side='GT-00001K7KOGRC5', type='Aircraft', DATASOURCE=0.0, name='阵风M 战斗机 #4', dbid=5273.0, latitude='0.000000', longitude='0.000000', alt=6.1, heading=0.0, loadoutid=21751.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH2F0"
+  },
+  {
+   "block": "units",
+   "code": "U_152 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“雷鸣”号护卫舰#5', dbid=2812.0, latitude='50.021858', longitude='-0.464998', heading=173.5})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH2J7"
+  },
+  {
+   "block": "units",
+   "code": "U_153 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='PR.2235.0 级护卫舰#1', dbid=2816.0, latitude='53.444249', longitude='1.643925', heading=70.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH2M9"
+  },
+  {
+   "block": "units",
+   "code": "U_154 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“雷鸣”号护卫舰#3', dbid=2812.0, latitude='50.018119', longitude='-0.497950', heading=173.5})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH2R3"
+  },
+  {
+   "block": "units",
+   "code": "U_155 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='PR.2235.0 级护卫舰#2', dbid=2816.0, latitude='47.213954', longitude='-6.243262', heading=265.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH2U5"
+  },
+  {
+   "block": "units",
+   "code": "U_156 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“雷鸣”号护卫舰#4', dbid=2812.0, latitude='50.030410', longitude='-1.417528', heading=144.4})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH32V"
+  },
+  {
+   "block": "units",
+   "code": "U_157 = AddUnit({side='GT-00001K7KOGRC6', type='Ship', DATASOURCE=0.0, name='“阿利伯克”级导弹驱逐舰', dbid=2867.0, latitude='46.889360', longitude='-14.103295', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH361"
+  },
+  {
+   "block": "units",
+   "code": "U_158 = AddUnit({side='GT-00001K7KOGRC6', type='Ship', DATASOURCE=0.0, name='DDH 183 IZUMO直升驱逐舰 [22DDH CLASS]', dbid=3619.0, latitude='54.161331', longitude='7.144642', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH3C7"
+  },
+  {
+   "block": "units",
+   "code": "U_159 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='23900型船坞登陆舰#1', dbid=3238.0, latitude='50.020275', longitude='-0.477889', heading=160.5})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH3F6"
+  },
+  {
+   "block": "units",
+   "code": "U_160 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“雷鸣”号护卫舰#2', dbid=2812.0, latitude='49.085461', longitude='-3.230962', heading=79.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH4UD"
+  },
+  {
+   "block": "units",
+   "code": "U_161 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“雷鸣”号护卫舰#1', dbid=2812.0, latitude='47.063692', longitude='-5.888067', heading=240.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH51F"
+  },
+  {
+   "block": "units",
+   "code": "U_162 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“蟾蜍”I级坦克登陆舰 #5', dbid=15.0, latitude='50.546138', longitude='0.421538', heading=164.5})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH54H"
+  },
+  {
+   "block": "units",
+   "code": "U_163 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“雷鸣”号护卫舰#8', dbid=2812.0, latitude='50.552379', longitude='0.431815', heading=147.3})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH55T"
+  },
+  {
+   "block": "units",
+   "code": "U_164 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“蟾蜍”I级坦克登陆舰 #4', dbid=15.0, latitude='50.546651', longitude='0.429409', heading=164.5})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH58V"
+  },
+  {
+   "block": "units",
+   "code": "U_165 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“蟾蜍”I级坦克登陆舰 #7', dbid=15.0, latitude='51.693996', longitude='1.586534', heading=147.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH5AB"
+  },
+  {
+   "block": "units",
+   "code": "U_166 = AddUnit({side='GT-00001K7KOGRC6', type='Ship', DATASOURCE=0.0, name='CVN 80 “企业号”福特级航空母舰', dbid=2370.0, latitude='47.169500', longitude='-14.702577', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH5BN"
+  },
+  {
+   "block": "units",
+   "code": "U_167 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“蟾蜍”I级坦克登陆舰 #2', dbid=15.0, latitude='50.020898', longitude='-1.451462', heading=143.5})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH5HM"
+  },
+  {
+   "block": "units",
+   "code": "U_168 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“蟾蜍”I级坦克登陆舰 #3', dbid=15.0, latitude='50.018282', longitude='-0.487168', heading=173.5})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH5J2"
+  },
+  {
+   "block": "units",
+   "code": "U_169 = AddUnit({side='GT-00001K7KOGRC6', type='Ship', DATASOURCE=0.0, name='CG-52 “邦克山”提康德罗加级号巡洋舰', dbid=2859.0, latitude='47.358800', longitude='-13.978899', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH5KE"
+  },
+  {
+   "block": "units",
+   "code": "U_170 = AddUnit({side='GT-00001K7KOGRC6', type='Ship', DATASOURCE=0.0, name='DDG 179 摩耶级驱逐舰', dbid=3211.0, latitude='54.068853', longitude='6.737862', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH5QE"
+  },
+  {
+   "block": "units",
+   "code": "U_171 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“雷鸣”号护卫舰#10', dbid=2812.0, latitude='51.696236', longitude='1.602495', heading=147.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH7L8"
+  },
+  {
+   "block": "units",
+   "code": "U_172 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“蟾蜍”I级坦克登陆舰 #1', dbid=15.0, latitude='49.079795', longitude='-3.223308', heading=79.1})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH7OA"
+  },
+  {
+   "block": "units",
+   "code": "U_173 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='726型气垫登录艇 #1', dbid=2149.0, latitude='50.020275', longitude='-0.477889', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH7PM"
+  },
+  {
+   "block": "units",
+   "code": "U_174 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='R 91“戴高乐”号航空母舰#1', dbid=2754.0, latitude='47.299139', longitude='-5.866304', heading=270.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH7QI"
+  },
+  {
+   "block": "units",
+   "code": "U_175 = AddUnit({side='GT-00001K7KOGRC5', type='Ship', DATASOURCE=0.0, name='“蟾蜍”I级坦克登陆舰 #6', dbid=15.0, latitude='51.706126', longitude='1.609927', heading=145.3})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH7UJ"
+  },
+  {
+   "block": "units",
+   "code": "U_176 = AddUnit({side='GT-00001K7KOGRC6', type='Submarine', DATASOURCE=0.0, name='SSN 23“吉米.卡特”号海狼级攻击核潜艇', dbid=567.0, latitude='47.201757', longitude='-13.563185', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH7VV"
+  },
+  {
+   "block": "units",
+   "code": "U_177 = AddUnit({side='GT-00001K7KOGRC6', type='Submarine', DATASOURCE=0.0, name='SSN 792“佛蒙特”号弗吉尼亚级核动力隐形潜艇', dbid=553.0, latitude='48.343709', longitude='-7.244521', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH83E"
+  },
+  {
+   "block": "units",
+   "code": "U_178 = AddUnit({side='GT-00001K7KOGRC5', type='Submarine', DATASOURCE=0.0, name='S 107“特拉法尔加”号攻击型核潜艇', dbid=586.0, latitude='47.297428', longitude='-12.240307', heading=346.1})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH863"
+  },
+  {
+   "block": "units",
+   "code": "U_179 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='野战机场', dbid=1711.0, latitude='49.717689', longitude='-2.193483', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH9J1"
+  },
+  {
+   "block": "units",
+   "code": "U_180 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='反舰导弹排#3', dbid=415.0, latitude='50.790332', longitude='2.345634', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH9JO"
+  },
+  {
+   "block": "units",
+   "code": "U_181 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='CS机场', dbid=1996.0, latitude='55.659189', longitude='8.165998', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH9K4"
+  },
+  {
+   "block": "units",
+   "code": "U_182 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='装甲车#2', dbid=2983.0, latitude='48.788259', longitude='0.096721', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH9MK"
+  },
+  {
+   "block": "units",
+   "code": "U_183 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='装甲车#1', dbid=2983.0, latitude='48.803481', longitude='-1.330422', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH9MU"
+  },
+  {
+   "block": "units",
+   "code": "U_184 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='海马斯火箭炮#4', dbid=3384.0, latitude='50.980267', longitude='2.887452', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH9N8"
+  },
+  {
+   "block": "units",
+   "code": "U_185 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='雷达 (59N6 PROTIVNIK-GE)', dbid=2257.0, latitude='50.605874', longitude='-1.191155', heading=0.0, count=2.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH9O0,GT-00001K7KOH9O7"
+  },
+  {
+   "block": "units",
+   "code": "U_186 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='S-300V1地空导弹营（萨姆-12型防空导弹）#5', dbid=38.0, latitude='51.821644', longitude='1.150561', heading=180.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH9OE"
+  },
+  {
+   "block": "units",
+   "code": "U_187 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='BT机场', dbid=430.0, latitude='52.849984', longitude='1.133746', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOH9PP"
+  },
+  {
+   "block": "units",
+   "code": "U_188 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='装甲车#4', dbid=2983.0, latitude='48.814628', longitude='-0.153504', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHA15"
+  },
+  {
+   "block": "units",
+   "code": "U_189 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='CT机场', dbid=2414.0, latitude='51.671187', longitude='-1.407061', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHA1F"
+  },
+  {
+   "block": "units",
+   "code": "U_190 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='反舰导弹排#1', dbid=415.0, latitude='48.977210', longitude='-0.414655', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHA2A"
+  },
+  {
+   "block": "units",
+   "code": "U_191 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='铠甲-S2E地空导弹排#3', dbid=3432.0, latitude='51.849095', longitude='1.262277', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHA2M"
+  },
+  {
+   "block": "units",
+   "code": "U_192 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='阿斯图机场', dbid=1996.0, latitude='43.574759', longitude='-5.929415', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHA3A"
+  },
+  {
+   "block": "units",
+   "code": "U_193 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='铠甲-S2E地空导弹排#4', dbid=3432.0, latitude='51.986225', longitude='-1.223091', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHA42"
+  },
+  {
+   "block": "units",
+   "code": "U_194 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='毒刺便携式防空导弹#3', dbid=1264.0, latitude='48.546020', longitude='1.506503', heading=76.9})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHA4M"
+  },
+  {
+   "block": "units",
+   "code": "U_195 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='毒刺便携式防空导弹#6', dbid=1264.0, latitude='48.277995', longitude='0.149594', heading=76.9})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAA7"
+  },
+  {
+   "block": "units",
+   "code": "U_196 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='捷羚地空导弹排#1', dbid=2892.0, latitude='49.476851', longitude='-2.516892', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAAU"
+  },
+  {
+   "block": "units",
+   "code": "U_197 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='海马斯火箭炮#2', dbid=3384.0, latitude='49.569311', longitude='0.328309', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAC9"
+  },
+  {
+   "block": "units",
+   "code": "U_198 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='海马斯火箭炮#1', dbid=3384.0, latitude='49.284180', longitude='-0.804009', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAD1"
+  },
+  {
+   "block": "units",
+   "code": "U_199 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='铠甲-S2E地空导弹排#1', dbid=3432.0, latitude='50.592405', longitude='-3.541090', heading=180.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHADP"
+  },
+  {
+   "block": "units",
+   "code": "U_200 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='BL机场', dbid=430.0, latitude='50.630742', longitude='-1.368139', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAED"
+  },
+  {
+   "block": "units",
+   "code": "U_201 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='地地导弹排#1', dbid=2587.0, latitude='49.433837', longitude='2.385900', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAF5"
+  },
+  {
+   "block": "units",
+   "code": "U_202 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='地空导弹连 (MAMBA防空导弹[SAMP/T])', dbid=230.0, latitude='52.762768', longitude='1.012664', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAP7"
+  },
+  {
+   "block": "units",
+   "code": "U_203 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='BM机场', dbid=430.0, latitude='52.453900', longitude='-1.748000', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAPV"
+  },
+  {
+   "block": "units",
+   "code": "U_204 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='雷达 (AN/FPS-115型“铺路爪”预警雷达系统)', dbid=569.0, latitude='48.312980', longitude='1.022857', heading=170.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAQN"
+  },
+  {
+   "block": "units",
+   "code": "U_205 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='地地导弹排#2', dbid=2587.0, latitude='48.649106', longitude='-0.424705', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAQT"
+  },
+  {
+   "block": "units",
+   "code": "U_206 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='装甲车#3', dbid=2983.0, latitude='49.451819', longitude='1.846844', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAR9"
+  },
+  {
+   "block": "units",
+   "code": "U_207 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='伪装防空车#2', dbid=2085.0, latitude='48.848981', longitude='0.329778', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHARJ"
+  },
+  {
+   "block": "units",
+   "code": "U_208 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='S-300V1地空导弹营（萨姆-12型防空导弹）#4', dbid=38.0, latitude='50.699951', longitude='-1.363801', heading=180.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHAVA"
+  },
+  {
+   "block": "units",
+   "code": "U_209 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='LUCAS 无人机发射车#3', dbid=50001.0, latitude='49.398826', longitude='-1.418815', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHB0L"
+  },
+  {
+   "block": "units",
+   "code": "U_210 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='霍克地空导弹连#1', dbid=802.0, latitude='49.209286', longitude='-2.164699', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHB17"
+  },
+  {
+   "block": "units",
+   "code": "U_211 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='毒刺便携式防空导弹#1', dbid=1264.0, latitude='49.478452', longitude='3.046097', heading=76.9})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHB83"
+  },
+  {
+   "block": "units",
+   "code": "U_212 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='S-400地空导弹营#1', dbid=2029.0, latitude='52.296486', longitude='-1.624402', heading=180.0, count=2.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHB8Q,GT-00001K7KOHBB3"
+  },
+  {
+   "block": "units",
+   "code": "U_213 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='铠甲-S2E地空导弹排#2', dbid=3432.0, latitude='50.667727', longitude='-1.334821', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHBDC"
+  },
+  {
+   "block": "units",
+   "code": "U_214 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='TF机场', dbid=430.0, latitude='51.839009', longitude='1.204129', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHBE0"
+  },
+  {
+   "block": "units",
+   "code": "U_215 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='9S36雷达#3', dbid=1655.0, latitude='51.863463', longitude='1.194761', heading=213.5})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHBEO"
+  },
+  {
+   "block": "units",
+   "code": "U_216 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='装甲车#5', dbid=2983.0, latitude='48.701809', longitude='-0.687960', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHBEV"
+  },
+  {
+   "block": "units",
+   "code": "U_217 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='卡皮凯机场', dbid=1593.0, latitude='49.693074', longitude='0.907523', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHBF9"
+  },
+  {
+   "block": "units",
+   "code": "U_218 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='沙赫德无人机发射车#2', dbid=3665.0, latitude='50.940457', longitude='0.925167', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHBG0"
+  },
+  {
+   "block": "units",
+   "code": "U_219 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='伊斯坎德尔地地导弹营#2', dbid=2556.0, latitude='51.986462', longitude='-1.088081', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHC2M"
+  },
+  {
+   "block": "units",
+   "code": "U_220 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='毒刺便携式防空导弹#2', dbid=1264.0, latitude='49.498955', longitude='3.092162', heading=76.9})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHC3G"
+  },
+  {
+   "block": "units",
+   "code": "U_221 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='TPS-63型空中监视雷达#2', dbid=1037.0, latitude='49.488063', longitude='1.387095', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHC47"
+  },
+  {
+   "block": "units",
+   "code": "U_222 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='霍克地空导弹连#3', dbid=802.0, latitude='50.085424', longitude='1.783090', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHC4E"
+  },
+  {
+   "block": "units",
+   "code": "U_223 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='RT-2000 火箭炮#1', dbid=2251.0, latitude='49.428949', longitude='-2.553275', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCCT"
+  },
+  {
+   "block": "units",
+   "code": "U_224 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='毒刺便携式防空导弹#4', dbid=1264.0, latitude='48.558985', longitude='1.537715', heading=76.9})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCE1"
+  },
+  {
+   "block": "units",
+   "code": "U_225 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='反舰导弹排#2', dbid=415.0, latitude='49.686385', longitude='1.247093', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCEO"
+  },
+  {
+   "block": "units",
+   "code": "U_226 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='霍克地空导弹连#4', dbid=802.0, latitude='50.823255', longitude='2.484103', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCF4"
+  },
+  {
+   "block": "units",
+   "code": "U_227 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='海马斯火箭炮#3', dbid=3384.0, latitude='49.963072', longitude='1.649789', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCGC"
+  },
+  {
+   "block": "units",
+   "code": "U_228 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='LUCAS 无人机发射车#1', dbid=50001.0, latitude='50.172516', longitude='1.723695', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCH4"
+  },
+  {
+   "block": "units",
+   "code": "U_229 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='EL/M-2226型海岸侦察雷达#3', dbid=1601.0, latitude='51.224247', longitude='2.971228', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCTA"
+  },
+  {
+   "block": "units",
+   "code": "U_230 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='毒刺便携式防空导弹#5', dbid=1264.0, latitude='48.280080', longitude='0.168947', heading=76.9})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCTH"
+  },
+  {
+   "block": "units",
+   "code": "U_231 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='TPS-63型空中监视雷达#1', dbid=1037.0, latitude='48.677612', longitude='-1.058950', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCU8"
+  },
+  {
+   "block": "units",
+   "code": "U_232 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='爱国者地空导弹连#1', dbid=2227.0, latitude='48.952437', longitude='0.147181', heading=145.6})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCUF"
+  },
+  {
+   "block": "units",
+   "code": "U_233 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='反舰导弹排#5', dbid=415.0, latitude='48.974007', longitude='0.674878', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHCVK"
+  },
+  {
+   "block": "units",
+   "code": "U_234 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='沙赫德无人机发射车#1', dbid=3665.0, latitude='49.710133', longitude='-2.217577', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHD00"
+  },
+  {
+   "block": "units",
+   "code": "U_235 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='RT-2000 火箭炮#2', dbid=2251.0, latitude='49.171024', longitude='-2.077338', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHD0I"
+  },
+  {
+   "block": "units",
+   "code": "U_236 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='雷达 (“鸡窝”相控阵雷达[“德涅斯特河”雷达])', dbid=1439.0, latitude='52.558936', longitude='-1.827326', heading=50.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDBN"
+  },
+  {
+   "block": "units",
+   "code": "U_237 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='NK机场', dbid=430.0, latitude='50.572223', longitude='-3.642392', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDBT"
+  },
+  {
+   "block": "units",
+   "code": "U_238 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='伪装防空车#1', dbid=2085.0, latitude='48.768354', longitude='-0.855605', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDCL"
+  },
+  {
+   "block": "units",
+   "code": "U_239 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='霍克地空导弹连#2', dbid=802.0, latitude='49.646054', longitude='0.868060', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDCU"
+  },
+  {
+   "block": "units",
+   "code": "U_240 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='伊斯坎德尔地地导弹营#1', dbid=2556.0, latitude='51.478738', longitude='-1.355596', heading=103.5})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDE6"
+  },
+  {
+   "block": "units",
+   "code": "U_241 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='EL/M-2226型海岸侦察雷达#1', dbid=1601.0, latitude='49.441013', longitude='-1.384378', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDF0"
+  },
+  {
+   "block": "units",
+   "code": "U_242 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='反舰导弹排#4', dbid=415.0, latitude='49.210113', longitude='-2.106765', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDF7"
+  },
+  {
+   "block": "units",
+   "code": "U_243 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='S-300V1地空导弹营（萨姆-12型防空导弹）#2', dbid=38.0, latitude='51.500808', longitude='-1.287442', heading=180.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDFJ"
+  },
+  {
+   "block": "units",
+   "code": "U_244 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='奥尔良机场', dbid=430.0, latitude='48.696102', longitude='1.759836', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDQ1"
+  },
+  {
+   "block": "units",
+   "code": "U_245 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='地空导弹连#2', dbid=391.0, latitude='48.863863', longitude='1.865389', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDQP"
+  },
+  {
+   "block": "units",
+   "code": "U_246 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='地空导弹连#1', dbid=391.0, latitude='48.648950', longitude='-1.280911', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDSA"
+  },
+  {
+   "block": "units",
+   "code": "U_247 = AddUnit({side='GT-00001K7KOGRC6', type='Facility', DATASOURCE=0.0, name='EL/M-2226型海岸侦察雷达#2', dbid=1601.0, latitude='49.506770', longitude='0.424212', heading=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDTR"
+  },
+  {
+   "block": "units",
+   "code": "U_248 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='9S36雷达#1', dbid=1655.0, latitude='50.536457', longitude='-3.558205', heading=38.7})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDU2"
+  },
+  {
+   "block": "units",
+   "code": "U_249 = AddUnit({side='GT-00001K7KOGRC5', type='Facility', DATASOURCE=0.0, name='S-300V1地空导弹营（萨姆-12型防空导弹）#1', dbid=38.0, latitude='52.501913', longitude='-1.561961', heading=180.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "GT-00001K7KOHDU9"
+  },
+  {
+   "block": "missions",
+   "code": "M_1 = AddMission('GT-00001K7KOGRC5', '西部防空守护巡逻', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHDVK',name = '西部防空守护巡逻'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_2 = AddMission('GT-00001K7KOGRC5', '图160对地打击', 'Patrol', {isactive=true, type='LAND', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE97',name = '图160对地打击'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_3 = AddMission('GT-00001K7KOGRC5', '拦截北蓝方支援', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE98',name = '拦截北蓝方支援'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_4 = AddMission('GT-00001K7KOGRC5', '东部防空压制', 'Patrol', {isactive=true, type='LAND', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE99',name = '东部防空压制'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_5 = AddMission('GT-00001K7KOGRC5', '西部防空压制', 'Patrol', {isactive=true, type='LAND', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE9A',name = '西部防空压制'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_6 = AddMission('GT-00001K7KOGRC5', '无人察打1号', 'Patrol', {isactive=true, type='LAND', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE9B',name = '无人察打1号'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_7 = AddMission('GT-00001K7KOGRC5', '西部防空压制-远程支援', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE9C',name = '西部防空压制-远程支援'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_8 = AddMission('GT-00001K7KOGRC5', '东部防空压制-远程支援', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA1',name = '东部防空压制-远程支援'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_9 = AddMission('GT-00001K7KOGRC5', '登陆宝剑', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA2',name = '登陆宝剑'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_10 = AddMission('GT-00001K7KOGRC5', '卸船', 'Patrol', {isactive=true, type='SEACONTROL', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA3',name = '卸船'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_11 = AddMission('GT-00001K7KOGRC5', 'S107水下攻击', 'Patrol', {isactive=true, type='SEACONTROL', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA4',name = 'S107水下攻击'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_12 = AddMission('GT-00001K7KOGRC5', '西部据止', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA5',name = '西部据止'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_13 = AddMission('GT-00001K7KOGRC5', '西部无人侦察1号', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA6',name = '西部无人侦察1号'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_14 = AddMission('GT-00001K7KOGRC5', '西部无人侦察2号', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA7',name = '西部无人侦察2号'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_15 = AddMission('GT-00001K7KOGRC5', '无人察打2号', 'Patrol', {isactive=true, type='LAND', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA8',name = '无人察打2号'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_16 = AddMission('GT-00001K7KOGRC5', '无人察打3号', 'Patrol', {isactive=true, type='LAND', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEAT',name = '无人察打3号'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_17 = AddMission('GT-00001K7KOGRC5', '东部内部制空', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEAU',name = '东部内部制空'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_18 = AddMission('GT-00001K7KOGRC5', '无人侦察3号', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEAV',name = '无人侦察3号'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_19 = AddMission('GT-00001K7KOGRC5', '无人侦察4号', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEB0',name = '无人侦察4号'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_20 = AddMission('GT-00001K7KOGRC5', '无人侦察5号', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEB1',name = '无人侦察5号'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_21 = AddMission('GT-00001K7KOGRC5', '无人侦察6号', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEB2',name = '无人侦察6号'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_22 = AddMission('GT-00001K7KOGRC5', '无人察打4号', 'Patrol', {isactive=true, type='LAND', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEBN',name = '无人察打4号'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_23 = AddMission('GT-00001K7KOGRC5', '东部反地面', 'Patrol', {isactive=true, type='LAND', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEBO',name = '东部反地面'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_24 = AddMission('GT-00001K7KOGRC5', '西南据止', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEBP',name = '西南据止'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_25 = AddMission('GT-00001K7KOGRC5', '红反潜巡逻', 'Patrol', {isactive=true, type='SUB', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEBQ',name = '红反潜巡逻'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='174207c5-6366-50f8-9075-14551c9f0304', name='西部防空守护巡逻-WP1', lat=50.175431, lon=-1.628225, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空守护巡逻-WP1', \r\n latitude = '50.175431', \r\n longitude = '-1.628225', \r\n guid = '174207c5-6366-50f8-9075-14551c9f0304', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='4c4aa61e-e8a7-552b-9d6d-208475c6368c', name='西部防空守护巡逻-WP2', lat=50.0889, lon=-1.263582, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空守护巡逻-WP2', \r\n latitude = '50.088900', \r\n longitude = '-1.263582', \r\n guid = '4c4aa61e-e8a7-552b-9d6d-208475c6368c', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='520f1df3-e2f2-5de5-b76d-24c9bae92782', name='西部防空守护巡逻-WP3', lat=50.002362, lon=-2.053528, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空守护巡逻-WP3', \r\n latitude = '50.002362', \r\n longitude = '-2.053528', \r\n guid = '520f1df3-e2f2-5de5-b76d-24c9bae92782', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='89af48b2-9045-563b-92ad-c513b418521d', name='西部防空守护巡逻-WP4', lat=50.057029, lon=-2.162125, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空守护巡逻-WP4', \r\n latitude = '50.057029', \r\n longitude = '-2.162125', \r\n guid = '89af48b2-9045-563b-92ad-c513b418521d', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHDVK', {patrolZone={'174207c5-6366-50f8-9075-14551c9f0304', '4c4aa61e-e8a7-552b-9d6d-208475c6368c', '520f1df3-e2f2-5de5-b76d-24c9bae92782', '89af48b2-9045-563b-92ad-c513b418521d'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHDVK',name = '西部防空守护巡逻'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='505745f5-96e8-5434-b734-5a94bf611dd0', name='图160对地打击-WP1', lat=51.139107, lon=-1.29124, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '图160对地打击-WP1', \r\n latitude = '51.139107', \r\n longitude = '-1.291240', \r\n guid = '505745f5-96e8-5434-b734-5a94bf611dd0', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='cdfa57c5-ba56-5b9e-bdc7-c7e7aae585d6', name='图160对地打击-WP2', lat=51.1516, lon=-1.163366, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '图160对地打击-WP2', \r\n latitude = '51.151600', \r\n longitude = '-1.163366', \r\n guid = 'cdfa57c5-ba56-5b9e-bdc7-c7e7aae585d6', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='d0686ae3-faf4-5db9-b97e-b57028910bfd', name='图160对地打击-WP3', lat=50.932487, lon=-1.080266, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '图160对地打击-WP3', \r\n latitude = '50.932487', \r\n longitude = '-1.080266', \r\n guid = 'd0686ae3-faf4-5db9-b97e-b57028910bfd', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='3b3a29ed-0c88-52fe-a412-5926182d819b', name='图160对地打击-WP4', lat=50.916942, lon=-1.218834, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '图160对地打击-WP4', \r\n latitude = '50.916942', \r\n longitude = '-1.218834', \r\n guid = '3b3a29ed-0c88-52fe-a412-5926182d819b', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHE97', {patrolZone={'505745f5-96e8-5434-b734-5a94bf611dd0', 'cdfa57c5-ba56-5b9e-bdc7-c7e7aae585d6', 'd0686ae3-faf4-5db9-b97e-b57028910bfd', '3b3a29ed-0c88-52fe-a412-5926182d819b'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE97',name = '图160对地打击'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='ffe80678-7915-5595-9d1a-f73561ae945d', name='拦截北蓝方支援-WP1', lat=51.96453, lon=2.426887, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '拦截北蓝方支援-WP1', \r\n latitude = '51.964530', \r\n longitude = '2.426887', \r\n guid = 'ffe80678-7915-5595-9d1a-f73561ae945d', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='04f4dafb-fe4e-55d4-ab67-e415a4eef282', name='拦截北蓝方支援-WP2', lat=51.842966, lon=2.638384, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '拦截北蓝方支援-WP2', \r\n latitude = '51.842966', \r\n longitude = '2.638384', \r\n guid = '04f4dafb-fe4e-55d4-ab67-e415a4eef282', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='58c85f84-599f-56f5-bf65-74c122cd8a1d', name='拦截北蓝方支援-WP3', lat=51.746624, lon=2.394317, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '拦截北蓝方支援-WP3', \r\n latitude = '51.746624', \r\n longitude = '2.394317', \r\n guid = '58c85f84-599f-56f5-bf65-74c122cd8a1d', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='41b1d52a-1af4-5e3d-b6e2-8c17862a7243', name='拦截北蓝方支援-WP4', lat=51.887303, lon=2.167538, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '拦截北蓝方支援-WP4', \r\n latitude = '51.887303', \r\n longitude = '2.167538', \r\n guid = '41b1d52a-1af4-5e3d-b6e2-8c17862a7243', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHE98', {patrolZone={'ffe80678-7915-5595-9d1a-f73561ae945d', '04f4dafb-fe4e-55d4-ab67-e415a4eef282', '58c85f84-599f-56f5-bf65-74c122cd8a1d', '41b1d52a-1af4-5e3d-b6e2-8c17862a7243'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE98',name = '拦截北蓝方支援'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='782c0717-f1bf-5954-8a63-c30cf7c6f7f7', name='东部防空压制-WP1', lat=50.329949, lon=0.459023, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部防空压制-WP1', \r\n latitude = '50.329949', \r\n longitude = '0.459023', \r\n guid = '782c0717-f1bf-5954-8a63-c30cf7c6f7f7', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='95ca0b6c-ed89-5bae-a4a0-082d63ea59ad', name='东部防空压制-WP2', lat=50.248911, lon=0.537806, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部防空压制-WP2', \r\n latitude = '50.248911', \r\n longitude = '0.537806', \r\n guid = '95ca0b6c-ed89-5bae-a4a0-082d63ea59ad', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='ce99ade6-ff05-5d58-8b6f-1789e2136577', name='东部防空压制-WP3', lat=50.079191, lon=0.112165, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部防空压制-WP3', \r\n latitude = '50.079191', \r\n longitude = '0.112165', \r\n guid = 'ce99ade6-ff05-5d58-8b6f-1789e2136577', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='f1168354-732d-53ad-9bda-bcdd11ab5dd8', name='东部防空压制-WP4', lat=50.147648, lon=0.064119, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部防空压制-WP4', \r\n latitude = '50.147648', \r\n longitude = '0.064119', \r\n guid = 'f1168354-732d-53ad-9bda-bcdd11ab5dd8', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHE99', {patrolZone={'782c0717-f1bf-5954-8a63-c30cf7c6f7f7', '95ca0b6c-ed89-5bae-a4a0-082d63ea59ad', 'ce99ade6-ff05-5d58-8b6f-1789e2136577', 'f1168354-732d-53ad-9bda-bcdd11ab5dd8'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE99',name = '东部防空压制'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='6c5b692d-1421-5c9f-a7d5-d1e9f59dfb62', name='西部防空压制-WP1', lat=50.072717, lon=-0.862769, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空压制-WP1', \r\n latitude = '50.072717', \r\n longitude = '-0.862769', \r\n guid = '6c5b692d-1421-5c9f-a7d5-d1e9f59dfb62', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='0ef845bd-f49e-5ee7-8e8d-64eab9354673', name='西部防空压制-WP2', lat=50.122205, lon=-0.325097, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空压制-WP2', \r\n latitude = '50.122205', \r\n longitude = '-0.325097', \r\n guid = '0ef845bd-f49e-5ee7-8e8d-64eab9354673', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='1ea9b640-bb09-5735-8157-3e61394938f7', name='西部防空压制-WP3', lat=50.052234, lon=-0.284928, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空压制-WP3', \r\n latitude = '50.052234', \r\n longitude = '-0.284928', \r\n guid = '1ea9b640-bb09-5735-8157-3e61394938f7', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='482f2c40-e42b-540d-aa6e-c5bbb294d617', name='西部防空压制-WP4', lat=50.019917, lon=-0.860732, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空压制-WP4', \r\n latitude = '50.019917', \r\n longitude = '-0.860732', \r\n guid = '482f2c40-e42b-540d-aa6e-c5bbb294d617', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHE9A', {patrolZone={'6c5b692d-1421-5c9f-a7d5-d1e9f59dfb62', '0ef845bd-f49e-5ee7-8e8d-64eab9354673', '1ea9b640-bb09-5735-8157-3e61394938f7', '482f2c40-e42b-540d-aa6e-c5bbb294d617'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE9A',name = '西部防空压制'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='94c001d0-cb6f-598e-b860-0d3c74142e61', name='无人察打1号-WP1', lat=49.855816, lon=-1.94057, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打1号-WP1', \r\n latitude = '49.855816', \r\n longitude = '-1.940570', \r\n guid = '94c001d0-cb6f-598e-b860-0d3c74142e61', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='725a71a3-4e73-5e57-aa9c-9c88ee0610aa', name='无人察打1号-WP2', lat=49.348455, lon=-0.473238, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打1号-WP2', \r\n latitude = '49.348455', \r\n longitude = '-0.473238', \r\n guid = '725a71a3-4e73-5e57-aa9c-9c88ee0610aa', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='a183ddd5-e8a1-5630-a865-af04741f4ed7', name='无人察打1号-WP3', lat=48.330233, lon=-1.088012, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打1号-WP3', \r\n latitude = '48.330233', \r\n longitude = '-1.088012', \r\n guid = 'a183ddd5-e8a1-5630-a865-af04741f4ed7', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='50b60857-6ebd-50e0-91c4-25f021bd2ad3', name='无人察打1号-WP4', lat=49.304974, lon=-3.099724, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打1号-WP4', \r\n latitude = '49.304974', \r\n longitude = '-3.099724', \r\n guid = '50b60857-6ebd-50e0-91c4-25f021bd2ad3', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHE9B', {patrolZone={'94c001d0-cb6f-598e-b860-0d3c74142e61', '725a71a3-4e73-5e57-aa9c-9c88ee0610aa', 'a183ddd5-e8a1-5630-a865-af04741f4ed7', '50b60857-6ebd-50e0-91c4-25f021bd2ad3'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE9B',name = '无人察打1号'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='22631269-cc75-5886-a37f-2c022009bbbf', name='西部防空压制-远程支援-WP1', lat=50.16247, lon=-0.374988, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空压制-远程支援-WP1', \r\n latitude = '50.162470', \r\n longitude = '-0.374988', \r\n guid = '22631269-cc75-5886-a37f-2c022009bbbf', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='e31e2882-828e-5c5a-a3ce-dfe8f086c2f6', name='西部防空压制-远程支援-WP2', lat=50.158872, lon=-0.406983, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空压制-远程支援-WP2', \r\n latitude = '50.158872', \r\n longitude = '-0.406983', \r\n guid = 'e31e2882-828e-5c5a-a3ce-dfe8f086c2f6', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='b09eb426-4fb1-5211-9e15-547b0fd2ceb0', name='西部防空压制-远程支援-WP3', lat=50.147146, lon=-0.402142, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空压制-远程支援-WP3', \r\n latitude = '50.147146', \r\n longitude = '-0.402142', \r\n guid = 'b09eb426-4fb1-5211-9e15-547b0fd2ceb0', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='10152cfa-7ac8-5202-a90d-3b5144812910', name='西部防空压制-远程支援-WP4', lat=50.151112, lon=-0.370164, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部防空压制-远程支援-WP4', \r\n latitude = '50.151112', \r\n longitude = '-0.370164', \r\n guid = '10152cfa-7ac8-5202-a90d-3b5144812910', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHE9C', {patrolZone={'22631269-cc75-5886-a37f-2c022009bbbf', 'e31e2882-828e-5c5a-a3ce-dfe8f086c2f6', 'b09eb426-4fb1-5211-9e15-547b0fd2ceb0', '10152cfa-7ac8-5202-a90d-3b5144812910'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHE9C',name = '西部防空压制-远程支援'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='f84c803c-fa4b-51fd-8216-d7669adb9651', name='东部防空压制-远程支援-WP1', lat=50.3508, lon=0.260719, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部防空压制-远程支援-WP1', \r\n latitude = '50.350800', \r\n longitude = '0.260719', \r\n guid = 'f84c803c-fa4b-51fd-8216-d7669adb9651', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='e599a4f5-af83-5769-a599-3826809cde81', name='东部防空压制-远程支援-WP2', lat=50.3508, lon=0.304713, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部防空压制-远程支援-WP2', \r\n latitude = '50.350800', \r\n longitude = '0.304713', \r\n guid = 'e599a4f5-af83-5769-a599-3826809cde81', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='b5343c4f-c85c-50e7-be5b-a145f30daae1', name='东部防空压制-远程支援-WP3', lat=50.3244, lon=0.304713, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部防空压制-远程支援-WP3', \r\n latitude = '50.324400', \r\n longitude = '0.304713', \r\n guid = 'b5343c4f-c85c-50e7-be5b-a145f30daae1', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='0fac95f2-d6dc-596d-a5d3-0d292ad1b45b', name='东部防空压制-远程支援-WP4', lat=50.3244, lon=0.260719, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部防空压制-远程支援-WP4', \r\n latitude = '50.324400', \r\n longitude = '0.260719', \r\n guid = '0fac95f2-d6dc-596d-a5d3-0d292ad1b45b', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEA1', {patrolZone={'f84c803c-fa4b-51fd-8216-d7669adb9651', 'e599a4f5-af83-5769-a599-3826809cde81', 'b5343c4f-c85c-50e7-be5b-a145f30daae1', '0fac95f2-d6dc-596d-a5d3-0d292ad1b45b'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA1',name = '东部防空压制-远程支援'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='86ec5876-0341-5cfc-bc1d-cefc67eeeaee', name='登陆宝剑-WP1', lat=49.5998, lon=-0.260742, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '登陆宝剑-WP1', \r\n latitude = '49.599800', \r\n longitude = '-0.260742', \r\n guid = '86ec5876-0341-5cfc-bc1d-cefc67eeeaee', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='39255dbb-0368-5131-9212-1a7560e4f1f7', name='登陆宝剑-WP2', lat=49.6524, lon=-0.086053, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '登陆宝剑-WP2', \r\n latitude = '49.652400', \r\n longitude = '-0.086053', \r\n guid = '39255dbb-0368-5131-9212-1a7560e4f1f7', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='cd5b0cd8-346d-5e8e-846a-e5e4fad463be', name='登陆宝剑-WP3', lat=49.5807, lon=-0.023149, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '登陆宝剑-WP3', \r\n latitude = '49.580700', \r\n longitude = '-0.023149', \r\n guid = 'cd5b0cd8-346d-5e8e-846a-e5e4fad463be', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='60fb2d19-21a1-5218-a6f0-9f8e4cd3c6bc', name='登陆宝剑-WP4', lat=49.5263, lon=-0.226867, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '登陆宝剑-WP4', \r\n latitude = '49.526300', \r\n longitude = '-0.226867', \r\n guid = '60fb2d19-21a1-5218-a6f0-9f8e4cd3c6bc', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEA2', {patrolZone={'86ec5876-0341-5cfc-bc1d-cefc67eeeaee', '39255dbb-0368-5131-9212-1a7560e4f1f7', 'cd5b0cd8-346d-5e8e-846a-e5e4fad463be', '60fb2d19-21a1-5218-a6f0-9f8e4cd3c6bc'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA2',name = '登陆宝剑'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='e2c91e42-9db9-5842-be7e-b6dde3eea308', name='卸船-WP1', lat=49.5998, lon=-0.260742, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '卸船-WP1', \r\n latitude = '49.599800', \r\n longitude = '-0.260742', \r\n guid = 'e2c91e42-9db9-5842-be7e-b6dde3eea308', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='6bc5bd38-3549-5bfe-bda6-a371d1223b46', name='卸船-WP2', lat=49.6524, lon=-0.086053, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '卸船-WP2', \r\n latitude = '49.652400', \r\n longitude = '-0.086053', \r\n guid = '6bc5bd38-3549-5bfe-bda6-a371d1223b46', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='fba4eb9c-f63e-518e-8997-a6d57f721d7a', name='卸船-WP3', lat=49.5807, lon=-0.023149, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '卸船-WP3', \r\n latitude = '49.580700', \r\n longitude = '-0.023149', \r\n guid = 'fba4eb9c-f63e-518e-8997-a6d57f721d7a', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='d7802a84-4a4b-5205-bd1b-f2b886948bef', name='卸船-WP4', lat=49.5263, lon=-0.226867, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '卸船-WP4', \r\n latitude = '49.526300', \r\n longitude = '-0.226867', \r\n guid = 'd7802a84-4a4b-5205-bd1b-f2b886948bef', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEA3', {patrolZone={'e2c91e42-9db9-5842-be7e-b6dde3eea308', '6bc5bd38-3549-5bfe-bda6-a371d1223b46', 'fba4eb9c-f63e-518e-8997-a6d57f721d7a', 'd7802a84-4a4b-5205-bd1b-f2b886948bef'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA3',name = '卸船'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='c9848111-33ff-5d69-8e56-18a58ea97ddc', name='S107水下攻击-WP1', lat=47.853872, lon=-11.04208, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = 'S107水下攻击-WP1', \r\n latitude = '47.853872', \r\n longitude = '-11.042080', \r\n guid = 'c9848111-33ff-5d69-8e56-18a58ea97ddc', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='30a2ef00-7472-5366-900c-f722c5322cdc', name='S107水下攻击-WP2', lat=47.740816, lon=-12.17732, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = 'S107水下攻击-WP2', \r\n latitude = '47.740816', \r\n longitude = '-12.177320', \r\n guid = '30a2ef00-7472-5366-900c-f722c5322cdc', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='d595672b-7de5-557e-9052-5e94f262c491', name='S107水下攻击-WP3', lat=46.779029, lon=-12.07132, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = 'S107水下攻击-WP3', \r\n latitude = '46.779029', \r\n longitude = '-12.071320', \r\n guid = 'd595672b-7de5-557e-9052-5e94f262c491', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='93326910-ef9c-56f2-9411-343619f13b62', name='S107水下攻击-WP4', lat=46.91973, lon=-10.904606, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = 'S107水下攻击-WP4', \r\n latitude = '46.919730', \r\n longitude = '-10.904606', \r\n guid = '93326910-ef9c-56f2-9411-343619f13b62', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEA4', {patrolZone={'c9848111-33ff-5d69-8e56-18a58ea97ddc', '30a2ef00-7472-5366-900c-f722c5322cdc', 'd595672b-7de5-557e-9052-5e94f262c491', '93326910-ef9c-56f2-9411-343619f13b62'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA4',name = 'S107水下攻击'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='7c5aac73-0fca-5bc5-ac42-fbcb47760e15', name='西部据止-WP1', lat=49.244192, lon=-8.171353, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部据止-WP1', \r\n latitude = '49.244192', \r\n longitude = '-8.171353', \r\n guid = '7c5aac73-0fca-5bc5-ac42-fbcb47760e15', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='d6b2f265-4929-5aec-8d6e-04746ebaad01', name='西部据止-WP2', lat=49.308596, lon=-7.98924, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部据止-WP2', \r\n latitude = '49.308596', \r\n longitude = '-7.989240', \r\n guid = 'd6b2f265-4929-5aec-8d6e-04746ebaad01', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='64a2095b-a636-5751-ac6b-2cf2a526021b', name='西部据止-WP3', lat=48.364656, lon=-7.33258, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部据止-WP3', \r\n latitude = '48.364656', \r\n longitude = '-7.332580', \r\n guid = '64a2095b-a636-5751-ac6b-2cf2a526021b', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='7a39dfa4-edb4-5ef6-a1fb-8381449a23e7', name='西部据止-WP4', lat=48.26926, lon=-7.529587, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部据止-WP4', \r\n latitude = '48.269260', \r\n longitude = '-7.529587', \r\n guid = '7a39dfa4-edb4-5ef6-a1fb-8381449a23e7', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEA5', {patrolZone={'7c5aac73-0fca-5bc5-ac42-fbcb47760e15', 'd6b2f265-4929-5aec-8d6e-04746ebaad01', '64a2095b-a636-5751-ac6b-2cf2a526021b', '7a39dfa4-edb4-5ef6-a1fb-8381449a23e7'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA5',name = '西部据止'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='c858157b-721c-5350-bd2c-316924be33b2', name='西部无人侦察1号-WP1', lat=49.426962, lon=-2.113809, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部无人侦察1号-WP1', \r\n latitude = '49.426962', \r\n longitude = '-2.113809', \r\n guid = 'c858157b-721c-5350-bd2c-316924be33b2', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='8e95d4cc-9682-551f-97db-dd0834f10783', name='西部无人侦察1号-WP2', lat=49.473232, lon=-2.112857, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部无人侦察1号-WP2', \r\n latitude = '49.473232', \r\n longitude = '-2.112857', \r\n guid = '8e95d4cc-9682-551f-97db-dd0834f10783', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='462682cc-1f81-5172-8b42-ca702733f64c', name='西部无人侦察1号-WP3', lat=49.477857, lon=-2.19332, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部无人侦察1号-WP3', \r\n latitude = '49.477857', \r\n longitude = '-2.193320', \r\n guid = '462682cc-1f81-5172-8b42-ca702733f64c', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='3d351083-18ac-5fca-bf5d-e7de71fb38fc', name='西部无人侦察1号-WP4', lat=49.426457, lon=-2.193858, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部无人侦察1号-WP4', \r\n latitude = '49.426457', \r\n longitude = '-2.193858', \r\n guid = '3d351083-18ac-5fca-bf5d-e7de71fb38fc', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEA6', {patrolZone={'c858157b-721c-5350-bd2c-316924be33b2', '8e95d4cc-9682-551f-97db-dd0834f10783', '462682cc-1f81-5172-8b42-ca702733f64c', '3d351083-18ac-5fca-bf5d-e7de71fb38fc'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA6',name = '西部无人侦察1号'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='1160d506-6f45-5b0a-871c-b0fad014e929', name='西部无人侦察2号-WP1', lat=49.080491, lon=-1.449699, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部无人侦察2号-WP1', \r\n latitude = '49.080491', \r\n longitude = '-1.449699', \r\n guid = '1160d506-6f45-5b0a-871c-b0fad014e929', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='ab7d9413-c2e6-529f-8549-8299923fd9a4', name='西部无人侦察2号-WP2', lat=49.380954, lon=-1.530943, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部无人侦察2号-WP2', \r\n latitude = '49.380954', \r\n longitude = '-1.530943', \r\n guid = 'ab7d9413-c2e6-529f-8549-8299923fd9a4', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='3c8dbf39-e8b6-5776-ba08-9346d06f12af', name='西部无人侦察2号-WP3', lat=49.205466, lon=-0.567671, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部无人侦察2号-WP3', \r\n latitude = '49.205466', \r\n longitude = '-0.567671', \r\n guid = '3c8dbf39-e8b6-5776-ba08-9346d06f12af', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='bfef0053-7954-53a8-9415-832e1a157990', name='西部无人侦察2号-WP4', lat=49.012555, lon=-0.627015, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西部无人侦察2号-WP4', \r\n latitude = '49.012555', \r\n longitude = '-0.627015', \r\n guid = 'bfef0053-7954-53a8-9415-832e1a157990', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEA7', {patrolZone={'1160d506-6f45-5b0a-871c-b0fad014e929', 'ab7d9413-c2e6-529f-8549-8299923fd9a4', '3c8dbf39-e8b6-5776-ba08-9346d06f12af', 'bfef0053-7954-53a8-9415-832e1a157990'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA7',name = '西部无人侦察2号'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='ae920e76-9310-563a-8e00-524569f388e1', name='无人察打2号-WP1', lat=48.330233, lon=-1.088012, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打2号-WP1', \r\n latitude = '48.330233', \r\n longitude = '-1.088012', \r\n guid = 'ae920e76-9310-563a-8e00-524569f388e1', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='1e08f153-6715-5542-888b-f62dfea5ad91', name='无人察打2号-WP2', lat=49.348455, lon=-0.473238, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打2号-WP2', \r\n latitude = '49.348455', \r\n longitude = '-0.473238', \r\n guid = '1e08f153-6715-5542-888b-f62dfea5ad91', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='26d4febe-84c9-5b2c-adfb-4de635ba0db3', name='无人察打2号-WP3', lat=49.806271, lon=0.500418, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打2号-WP3', \r\n latitude = '49.806271', \r\n longitude = '0.500418', \r\n guid = '26d4febe-84c9-5b2c-adfb-4de635ba0db3', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='0ece55bc-a606-59b7-ae56-279a40824153', name='无人察打2号-WP4', lat=48.465737, lon=1.248692, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打2号-WP4', \r\n latitude = '48.465737', \r\n longitude = '1.248692', \r\n guid = '0ece55bc-a606-59b7-ae56-279a40824153', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEA8', {patrolZone={'ae920e76-9310-563a-8e00-524569f388e1', '1e08f153-6715-5542-888b-f62dfea5ad91', '26d4febe-84c9-5b2c-adfb-4de635ba0db3', '0ece55bc-a606-59b7-ae56-279a40824153'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEA8',name = '无人察打2号'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='9881c6ab-8051-51c6-b1c3-8afbab5e44f7', name='无人察打3号-WP1', lat=49.403768, lon=3.317116, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打3号-WP1', \r\n latitude = '49.403768', \r\n longitude = '3.317116', \r\n guid = '9881c6ab-8051-51c6-b1c3-8afbab5e44f7', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='beec7744-602b-5147-88f9-638baf9bd413', name='无人察打3号-WP2', lat=50.479988, lon=1.692926, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打3号-WP2', \r\n latitude = '50.479988', \r\n longitude = '1.692926', \r\n guid = 'beec7744-602b-5147-88f9-638baf9bd413', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='9a5c537f-54dc-5f27-b6ba-af0d62fca5d5', name='无人察打3号-WP3', lat=49.806271, lon=0.500418, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打3号-WP3', \r\n latitude = '49.806271', \r\n longitude = '0.500418', \r\n guid = '9a5c537f-54dc-5f27-b6ba-af0d62fca5d5', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='66e3dbcd-45cf-5c31-9468-a72896cbfc9d', name='无人察打3号-WP4', lat=48.465737, lon=1.248692, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打3号-WP4', \r\n latitude = '48.465737', \r\n longitude = '1.248692', \r\n guid = '66e3dbcd-45cf-5c31-9468-a72896cbfc9d', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEAT', {patrolZone={'9881c6ab-8051-51c6-b1c3-8afbab5e44f7', 'beec7744-602b-5147-88f9-638baf9bd413', '9a5c537f-54dc-5f27-b6ba-af0d62fca5d5', '66e3dbcd-45cf-5c31-9468-a72896cbfc9d'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEAT',name = '无人察打3号'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='8b05cf70-0cd6-5b30-a853-0fc4ad338229', name='东部内部制空-WP1', lat=51.979804, lon=1.074005, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部内部制空-WP1', \r\n latitude = '51.979804', \r\n longitude = '1.074005', \r\n guid = '8b05cf70-0cd6-5b30-a853-0fc4ad338229', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='c213e638-bb29-5f89-9cda-ca98fe456cd8', name='东部内部制空-WP2', lat=52.22396, lon=0.745129, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部内部制空-WP2', \r\n latitude = '52.223960', \r\n longitude = '0.745129', \r\n guid = 'c213e638-bb29-5f89-9cda-ca98fe456cd8', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='00d59989-e4fa-5841-b5ce-2b1b0d54a740', name='东部内部制空-WP3', lat=52.179764, lon=0.639664, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部内部制空-WP3', \r\n latitude = '52.179764', \r\n longitude = '0.639664', \r\n guid = '00d59989-e4fa-5841-b5ce-2b1b0d54a740', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='f6946448-0cd2-5e49-8005-ed9cbb2f5815', name='东部内部制空-WP4', lat=51.945477, lon=0.947695, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部内部制空-WP4', \r\n latitude = '51.945477', \r\n longitude = '0.947695', \r\n guid = 'f6946448-0cd2-5e49-8005-ed9cbb2f5815', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEAU', {patrolZone={'8b05cf70-0cd6-5b30-a853-0fc4ad338229', 'c213e638-bb29-5f89-9cda-ca98fe456cd8', '00d59989-e4fa-5841-b5ce-2b1b0d54a740', 'f6946448-0cd2-5e49-8005-ed9cbb2f5815'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEAU',name = '东部内部制空'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='e3f29e89-fa90-52a8-ae5e-d6ad1d2e4707', name='无人侦察3号-WP1', lat=49.187736, lon=-0.438247, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察3号-WP1', \r\n latitude = '49.187736', \r\n longitude = '-0.438247', \r\n guid = 'e3f29e89-fa90-52a8-ae5e-d6ad1d2e4707', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='110e35fb-c248-59a3-a3ec-f2e0176dc79c', name='无人侦察3号-WP2', lat=49.188618, lon=0.194244, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察3号-WP2', \r\n latitude = '49.188618', \r\n longitude = '0.194244', \r\n guid = '110e35fb-c248-59a3-a3ec-f2e0176dc79c', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='8bb95d41-dcac-52d4-8627-37f31a76ecb7', name='无人侦察3号-WP3', lat=49.024603, lon=0.380042, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察3号-WP3', \r\n latitude = '49.024603', \r\n longitude = '0.380042', \r\n guid = '8bb95d41-dcac-52d4-8627-37f31a76ecb7', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='e1cce70e-dbb6-56f7-a2e3-392d7ad55898', name='无人侦察3号-WP4', lat=48.923259, lon=-0.481224, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察3号-WP4', \r\n latitude = '48.923259', \r\n longitude = '-0.481224', \r\n guid = 'e1cce70e-dbb6-56f7-a2e3-392d7ad55898', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEAV', {patrolZone={'e3f29e89-fa90-52a8-ae5e-d6ad1d2e4707', '110e35fb-c248-59a3-a3ec-f2e0176dc79c', '8bb95d41-dcac-52d4-8627-37f31a76ecb7', 'e1cce70e-dbb6-56f7-a2e3-392d7ad55898'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEAV',name = '无人侦察3号'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='47431658-2a64-5c0b-adc1-e87478e972fd', name='无人侦察4号-WP1', lat=49.6049, lon=0.220579, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察4号-WP1', \r\n latitude = '49.604900', \r\n longitude = '0.220579', \r\n guid = '47431658-2a64-5c0b-adc1-e87478e972fd', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='924f0efd-973c-5fbd-9e72-38b0894c4f72', name='无人侦察4号-WP2', lat=49.29872, lon=0.399384, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察4号-WP2', \r\n latitude = '49.298720', \r\n longitude = '0.399384', \r\n guid = '924f0efd-973c-5fbd-9e72-38b0894c4f72', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='977f9d30-6e71-5780-b20a-9e29ae94602a', name='无人侦察4号-WP3', lat=49.437759, lon=1.135293, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察4号-WP3', \r\n latitude = '49.437759', \r\n longitude = '1.135293', \r\n guid = '977f9d30-6e71-5780-b20a-9e29ae94602a', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='47439ade-8686-5115-ae17-bf9ce5c865fd', name='无人侦察4号-WP4', lat=49.818595, lon=0.935013, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察4号-WP4', \r\n latitude = '49.818595', \r\n longitude = '0.935013', \r\n guid = '47439ade-8686-5115-ae17-bf9ce5c865fd', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEB0', {patrolZone={'47431658-2a64-5c0b-adc1-e87478e972fd', '924f0efd-973c-5fbd-9e72-38b0894c4f72', '977f9d30-6e71-5780-b20a-9e29ae94602a', '47439ade-8686-5115-ae17-bf9ce5c865fd'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEB0',name = '无人侦察4号'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='08137ce2-2367-5e02-b27d-8835a3bcf6d1', name='无人侦察5号-WP1', lat=49.825303, lon=1.064519, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察5号-WP1', \r\n latitude = '49.825303', \r\n longitude = '1.064519', \r\n guid = '08137ce2-2367-5e02-b27d-8835a3bcf6d1', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='833c7ea1-923d-5d62-94a3-cc16b7dcba29', name='无人侦察5号-WP2', lat=50.315244, lon=1.698045, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察5号-WP2', \r\n latitude = '50.315244', \r\n longitude = '1.698045', \r\n guid = '833c7ea1-923d-5d62-94a3-cc16b7dcba29', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='920c3ce4-790b-5091-801f-cf38a0eb0c95', name='无人侦察5号-WP3', lat=49.933125, lon=2.333229, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察5号-WP3', \r\n latitude = '49.933125', \r\n longitude = '2.333229', \r\n guid = '920c3ce4-790b-5091-801f-cf38a0eb0c95', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='1857be08-5877-5ab3-9c18-d458b0d26bc3', name='无人侦察5号-WP4', lat=49.364596, lon=1.394357, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察5号-WP4', \r\n latitude = '49.364596', \r\n longitude = '1.394357', \r\n guid = '1857be08-5877-5ab3-9c18-d458b0d26bc3', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEB1', {patrolZone={'08137ce2-2367-5e02-b27d-8835a3bcf6d1', '833c7ea1-923d-5d62-94a3-cc16b7dcba29', '920c3ce4-790b-5091-801f-cf38a0eb0c95', '1857be08-5877-5ab3-9c18-d458b0d26bc3'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEB1',name = '无人侦察5号'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='a5a8fc7e-c812-541c-adf3-f1dc7caeaf81', name='无人侦察6号-WP1', lat=50.910779, lon=2.022459, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察6号-WP1', \r\n latitude = '50.910779', \r\n longitude = '2.022459', \r\n guid = 'a5a8fc7e-c812-541c-adf3-f1dc7caeaf81', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='8c8cc048-e393-5fdb-aeb3-2f2ff84f424e', name='无人侦察6号-WP2', lat=51.299123, lon=3.014343, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察6号-WP2', \r\n latitude = '51.299123', \r\n longitude = '3.014343', \r\n guid = '8c8cc048-e393-5fdb-aeb3-2f2ff84f424e', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='e313b7f0-1892-5508-8c80-1f416a287250', name='无人侦察6号-WP3', lat=51.030499, lon=3.345463, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察6号-WP3', \r\n latitude = '51.030499', \r\n longitude = '3.345463', \r\n guid = 'e313b7f0-1892-5508-8c80-1f416a287250', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='53485676-5401-5384-8f02-b67a3b4f4a09', name='无人侦察6号-WP4', lat=50.578483, lon=2.426254, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人侦察6号-WP4', \r\n latitude = '50.578483', \r\n longitude = '2.426254', \r\n guid = '53485676-5401-5384-8f02-b67a3b4f4a09', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEB2', {patrolZone={'a5a8fc7e-c812-541c-adf3-f1dc7caeaf81', '8c8cc048-e393-5fdb-aeb3-2f2ff84f424e', 'e313b7f0-1892-5508-8c80-1f416a287250', '53485676-5401-5384-8f02-b67a3b4f4a09'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEB2',name = '无人侦察6号'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='28c867ef-fa0e-5ea5-9605-23389b6ca192', name='无人察打4号-WP1', lat=51.299123, lon=3.014343, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打4号-WP1', \r\n latitude = '51.299123', \r\n longitude = '3.014343', \r\n guid = '28c867ef-fa0e-5ea5-9605-23389b6ca192', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='61ceae62-c8f9-5cd5-a7b5-a4a54c2220f4', name='无人察打4号-WP2', lat=50.910779, lon=2.022459, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打4号-WP2', \r\n latitude = '50.910779', \r\n longitude = '2.022459', \r\n guid = '61ceae62-c8f9-5cd5-a7b5-a4a54c2220f4', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='5789d8bd-ec3d-52d4-a724-695f436b0385', name='无人察打4号-WP3', lat=50.578483, lon=2.426254, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打4号-WP3', \r\n latitude = '50.578483', \r\n longitude = '2.426254', \r\n guid = '5789d8bd-ec3d-52d4-a724-695f436b0385', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='8c783ecb-1088-56db-bedb-9c29104bed75', name='无人察打4号-WP4', lat=51.030499, lon=3.345463, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '无人察打4号-WP4', \r\n latitude = '51.030499', \r\n longitude = '3.345463', \r\n guid = '8c783ecb-1088-56db-bedb-9c29104bed75', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEBN', {patrolZone={'28c867ef-fa0e-5ea5-9605-23389b6ca192', '61ceae62-c8f9-5cd5-a7b5-a4a54c2220f4', '5789d8bd-ec3d-52d4-a724-695f436b0385', '8c783ecb-1088-56db-bedb-9c29104bed75'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEBN',name = '无人察打4号'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='aeb482f4-3886-5cc6-bc16-114d98fa5b85', name='东部反地面-WP1', lat=50.052234, lon=-0.284928, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部反地面-WP1', \r\n latitude = '50.052234', \r\n longitude = '-0.284928', \r\n guid = 'aeb482f4-3886-5cc6-bc16-114d98fa5b85', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='7f1b0a05-d9eb-5499-adb1-ba76d0453a91', name='东部反地面-WP2', lat=51.18164, lon=2.109723, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部反地面-WP2', \r\n latitude = '51.181640', \r\n longitude = '2.109723', \r\n guid = '7f1b0a05-d9eb-5499-adb1-ba76d0453a91', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='835b0d4b-8379-5745-9d84-05aa90233ac2', name='东部反地面-WP3', lat=51.280676, lon=2.3384, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部反地面-WP3', \r\n latitude = '51.280676', \r\n longitude = '2.338400', \r\n guid = '835b0d4b-8379-5745-9d84-05aa90233ac2', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='a8fd2ef7-5cdb-5e51-b5a5-0a60f942cdfe', name='东部反地面-WP4', lat=51.233464, lon=2.393489, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部反地面-WP4', \r\n latitude = '51.233464', \r\n longitude = '2.393489', \r\n guid = 'a8fd2ef7-5cdb-5e51-b5a5-0a60f942cdfe', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='99df1e5f-cf9a-58ca-b1dd-734c0286e870', name='东部反地面-WP5', lat=51.134224, lon=2.164264, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '东部反地面-WP5', \r\n latitude = '51.134224', \r\n longitude = '2.164264', \r\n guid = '99df1e5f-cf9a-58ca-b1dd-734c0286e870', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEBO', {patrolZone={'aeb482f4-3886-5cc6-bc16-114d98fa5b85', '7f1b0a05-d9eb-5499-adb1-ba76d0453a91', '835b0d4b-8379-5745-9d84-05aa90233ac2', 'a8fd2ef7-5cdb-5e51-b5a5-0a60f942cdfe', '99df1e5f-cf9a-58ca-b1dd-734c0286e870'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEBO',name = '东部反地面'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='fc2b4e53-fa55-52a7-a829-e123b7f458cf', name='西南据止-WP1', lat=46.257003, lon=-6.045185, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西南据止-WP1', \r\n latitude = '46.257003', \r\n longitude = '-6.045185', \r\n guid = 'fc2b4e53-fa55-52a7-a829-e123b7f458cf', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='fda17c75-d8a5-5466-a1c3-d64c3b5179e6', name='西南据止-WP2', lat=46.256658, lon=-4.651263, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西南据止-WP2', \r\n latitude = '46.256658', \r\n longitude = '-4.651263', \r\n guid = 'fda17c75-d8a5-5466-a1c3-d64c3b5179e6', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='1bff420e-bce6-5950-97c3-7d7a2d50f6b6', name='西南据止-WP3', lat=46.066451, lon=-4.650717, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西南据止-WP3', \r\n latitude = '46.066451', \r\n longitude = '-4.650717', \r\n guid = '1bff420e-bce6-5950-97c3-7d7a2d50f6b6', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='786c97e3-9580-548c-a6af-9f70885e0d54', name='西南据止-WP4', lat=46.083121, lon=-6.056065, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '西南据止-WP4', \r\n latitude = '46.083121', \r\n longitude = '-6.056065', \r\n guid = '786c97e3-9580-548c-a6af-9f70885e0d54', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEBP', {patrolZone={'fc2b4e53-fa55-52a7-a829-e123b7f458cf', 'fda17c75-d8a5-5466-a1c3-d64c3b5179e6', '1bff420e-bce6-5950-97c3-7d7a2d50f6b6', '786c97e3-9580-548c-a6af-9f70885e0d54'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEBP',name = '西南据止'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='7a2a8dd3-64ae-556b-862d-8f92108717fb', name='红反潜巡逻-WP1', lat=48.734839, lon=-7.914198, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红反潜巡逻-WP1', \r\n latitude = '48.734839', \r\n longitude = '-7.914198', \r\n guid = '7a2a8dd3-64ae-556b-862d-8f92108717fb', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='78b7a8f9-6dbb-5750-bcf9-9cc68af2d4a1', name='红反潜巡逻-WP2', lat=48.731649, lon=-6.508124, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红反潜巡逻-WP2', \r\n latitude = '48.731649', \r\n longitude = '-6.508124', \r\n guid = '78b7a8f9-6dbb-5750-bcf9-9cc68af2d4a1', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='70fb7edf-7eba-5c1d-8c86-e87ff9185913', name='红反潜巡逻-WP3', lat=47.93737, lon=-6.622314, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红反潜巡逻-WP3', \r\n latitude = '47.937370', \r\n longitude = '-6.622314', \r\n guid = '70fb7edf-7eba-5c1d-8c86-e87ff9185913', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='GT-00001K7KOGRC5', guid='761f9c84-b2f7-5ab5-81a4-58751260b17f', name='红反潜巡逻-WP4', lat=47.973604, lon=-7.947266, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红反潜巡逻-WP4', \r\n latitude = '47.973604', \r\n longitude = '-7.947266', \r\n guid = '761f9c84-b2f7-5ab5-81a4-58751260b17f', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('GT-00001K7KOGRC5', 'GT-00001K7KOHEBQ', {patrolZone={'7a2a8dd3-64ae-556b-862d-8f92108717fb', '78b7a8f9-6dbb-5750-bcf9-9cc68af2d4a1', '70fb7edf-7eba-5c1d-8c86-e87ff9185913', '761f9c84-b2f7-5ab5-81a4-58751260b17f'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'GT-00001K7KOHEBQ',name = '红反潜巡逻'}"
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGTDV,GT-00001K7KOH1J7,GT-00001K7KOGRND,GT-00001K7KOGSLV', 'GT-00001K7KOHDVK', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH0EB', 'GT-00001K7KOHE97', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGU09,GT-00001K7KOGUMG,GT-00001K7KOGVUH,GT-00001K7KOGUUQ', 'GT-00001K7KOHE98', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGTOH,GT-00001K7KOH1H1,GT-00001K7KOGTSG,GT-00001K7KOH17G', 'GT-00001K7KOHE99', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGVG4,GT-00001K7KOGVNS,GT-00001K7KOH23N,GT-00001K7KOGSRU', 'GT-00001K7KOHE9A', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGUQQ,GT-00001K7KOGUTQ,GT-00001K7KOH0I3,GT-00001K7KOGUOA,GT-00001K7KOGV5P,GT-00001K7KOH1Q4,GT-00001K7KOGTB3,GT-00001K7KOGSHQ,GT-00001K7KOGVQK,GT-00001K7KOGV9J', 'GT-00001K7KOHE9B', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH0D1,GT-00001K7KOH1DI,GT-00001K7KOH28B,GT-00001K7KOGRP7', 'GT-00001K7KOHE9C', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGUAM,GT-00001K7KOH1U4,GT-00001K7KOGRF4,GT-00001K7KOGRID', 'GT-00001K7KOHEA1', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH3F6', 'GT-00001K7KOHEA2', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH7PM', 'GT-00001K7KOHEA3', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH863', 'GT-00001K7KOHEA4', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGT6O,GT-00001K7KOGT4U,GT-00001K7KOGSTO,GT-00001K7KOGRVF,GT-00001K7KOH29L,GT-00001K7KOGRSG', 'GT-00001K7KOHEA5', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGTDC,GT-00001K7KOH06P', 'GT-00001K7KOHEA6', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGUT7', 'GT-00001K7KOHEA7', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH0B8,GT-00001K7KOH1N9,GT-00001K7KOH0J3,GT-00001K7KOH0K3,GT-00001K7KOH1P4,GT-00001K7KOGVH0,GT-00001K7KOH1BF,GT-00001K7KOGU9M', 'GT-00001K7KOHEA8', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH07C,GT-00001K7KOGSNP,GT-00001K7KOGRUF,GT-00001K7KOH2CB,GT-00001K7KOGUD7,GT-00001K7KOGVVR,GT-00001K7KOGSKV,GT-00001K7KOGU6N', 'GT-00001K7KOHEAT', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH02C,GT-00001K7KOH0RV,GT-00001K7KOGS5S,GT-00001K7KOH1FH,GT-00001K7KOH107,GT-00001K7KOGRCS', 'GT-00001K7KOHEAU', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH21J', 'GT-00001K7KOHEAV', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGUC0', 'GT-00001K7KOHEB0', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGRC9', 'GT-00001K7KOHEB1', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGUSK,GT-00001K7KOGTAG', 'GT-00001K7KOHEB2', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH0T9,GT-00001K7KOGVA6', 'GT-00001K7KOHEBN', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGTM3,GT-00001K7KOGVHJ,GT-00001K7KOGRKV,GT-00001K7KOGSEN', 'GT-00001K7KOHEBO', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOGRQH,GT-00001K7KOH11H,GT-00001K7KOGV3Q,GT-00001K7KOH2F0', 'GT-00001K7KOHEBP', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('GT-00001K7KOH1O9,GT-00001K7KOGVSP', 'GT-00001K7KOHEBQ', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "save",
+   "code": "Command_SaveScen('D:/LingYi/Data/Scenarios/诺曼底2027(人机协同-人机版)-V02.scen')",
+   "ok": true,
+   "ret": 0,
+   "out": "Scenarios/诺曼底2027(人机协同-人机版)-V02.scen"
+  }
+ ],
+ "digest_summary": "《诺曼底2027(人机协同-人机版)-V02》 2 方 251 单元（红方[Aircraft:91 Ship:19 Submarine:1 Facility:27], 蓝方[Aircraft:60 Ship:5 Submarine:2 Facility:46]）；任务 25 个（西部防空守护巡逻:Patrol/AAW, 图160对地打击:Patrol/LAND, 拦截北蓝方支援:Patrol/AAW, 东部防空压制:Patrol/LAND, 西部防空压制:Patrol/LAND, 无人察打1号:Patrol/LAND, 西部防空压制-远程支援:Patrol/AAW, 东部防空压制-远程支援:Patrol/AAW, 登陆宝剑:Patrol/AAW, 卸船:Patrol/SEACONTROL, S107水下攻击:Patrol/SEACONTROL, 西部据止:Patrol/AAW, 西部无人侦察1号:Patrol/AAW, 西部无人侦察2号:Patrol/AAW, 无人察打2号:Patrol/LAND, 无人察打3号:Patrol/LAND, 东部内部制空:Patrol/AAW, 无人侦察3号:Patrol/AAW, 无人侦察4号:Patrol/AAW, 无人侦察5号:Patrol/AAW, 无人侦察6号:Patrol/AAW, 无人察打4号:Patrol/LAND, 东部反地面:Patrol/LAND, 西南据止:Patrol/AAW, 红反潜巡逻:Patrol/SUB）；参考点 101",
+ "verify": {
+  "ok": true,
+  "passed": 16,
+  "total": 17,
+  "failed": [],
+  "checks": [
+   {
+    "check": "文件已落盘且非空",
+    "ok": true,
+    "warn": false,
+    "detail": "376733 字节"
+   },
+   {
+    "check": "引擎可回读（GetScenarioContent）",
+    "ok": true,
+    "warn": false,
+    "detail": "回读 1882323 字节"
+   },
+   {
+    "check": "标题一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec='诺曼底2027(人机协同-人机版)-V02' engine='诺曼底2027(人机协同-人机版)-V02'"
+   },
+   {
+    "check": "推演时长一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec=10800s engine=10800s"
+   },
+   {
+    "check": "推演方集合一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec=['红方', '蓝方'] engine=['红方', '蓝方']"
+   },
+   {
+    "check": "两两对抗关系正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致（H=3 U=2 F=1 N=0）"
+   },
+   {
+    "check": "兵力数量分布一致",
+    "ok": true,
+    "warn": false,
+    "detail": "红方 Aircraft:91, Ship:19, Submarine:1, Facility:27, Satellite:0；蓝方 Aircraft:60, Ship:5, Submarine:2, Facility:46, Satellite:0"
+   },
+   {
+    "check": "单元齐全（按 推演方+名称）",
+    "ok": true,
+    "warn": false,
+    "detail": "249 型单元全部在册"
+   },
+   {
+    "check": "单元 DBID 正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "单元初始坐标正确（±0.002°）",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "任务齐全（推演方+名称）",
+    "ok": true,
+    "warn": false,
+    "detail": "25 个任务全部在册"
+   },
+   {
+    "check": "任务类型/子类型正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "巡逻区顶点数正确（Patrol）",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "单元-任务分配数正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "没有多余任务",
+    "ok": true,
+    "warn": true,
+    "detail": "OK"
+   },
+   {
+    "check": "条令关键字段一致",
+    "ok": false,
+    "warn": true,
+    "detail": "红方.WCS_Air 期望0 实际1；红方.WCS_Surface 期望0 实际1；红方.WCS_Submarine 期望0 实际1；红方.WCS_Land 期望0 实际1；红方.BingoJokerRTB 期望0 实际2；红方.WinchesterShotgunRTB 期望0 实际1（本版本引擎不持久化 SetDoctrine，已知行为）"
+   },
+   {
+    "check": "气象一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec={'temp': 15, 'rainfall': 0, 'cloud': 0.0, 'seastate': 0} engine={'temp': 15, 'rainfall': 0, 'cloud': 0.0, 'seastate': 0}"
+   }
+  ]
+ }
+}

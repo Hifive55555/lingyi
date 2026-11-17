@@ -1,0 +1,4 @@
+variant,ok,size,elapsed,units,missions,refpoints,passed,total,error,axis_force_scale
+诺曼底2027(人机协同-人机版)-V01,True,373233,23.2,249,25,101,16,17,,0.5
+诺曼底2027(人机协同-人机版)-V02,True,376733,18.8,251,25,101,16,17,,1
+诺曼底2027(人机协同-人机版)-V03,True,720861,18.2,502,25,101,16,17,,2
