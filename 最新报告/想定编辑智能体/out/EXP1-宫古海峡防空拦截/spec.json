@@ -1,0 +1,193 @@
+{
+ "title": "宫古海峡防空拦截",
+ "start_time": "2026-05-20 14:00:00",
+ "duration_s": 7200,
+ "complexity": 2,
+ "difficulty": 2,
+ "description": "标题：宫古海峡防空拦截\n\n设定 2026 年 5 月 20 日 14 时，宫古海峡。红方 4 架歼-20、2 架歼-16 从西北 120 海里起飞，\n高度 9000 米，执行防空巡逻，巡逻半径 45 海里，并配备 1 架空警-500 预警机；\n蓝方 4 架 F-35A、2 架 EA-18G 从东南 140 海里进入，高度 10000 米。持续 2 小时。谨慎开火。",
+ "center": {
+  "lat": 24.8,
+  "lon": 125.5
+ },
+ "seed": 30354,
+ "sides": [
+  {
+   "name": "红方",
+   "posture": {
+    "蓝方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  },
+  {
+   "name": "蓝方",
+   "posture": {
+    "红方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  }
+ ],
+ "units": [
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "红方 歼-20 #1",
+   "dbid": 2463,
+   "lat": 26.214214,
+   "lon": 123.942114,
+   "alt": 8000.0,
+   "heading": 45,
+   "count": 4,
+   "loadoutid": 3,
+   "mission": "红方-防空巡逻",
+   "alias": "歼-20"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "红方 歼-16 #2",
+   "dbid": 2853,
+   "lat": 26.202593,
+   "lon": 123.794061,
+   "alt": 8000.0,
+   "heading": 45,
+   "count": 2,
+   "loadoutid": 3,
+   "mission": "红方-防空巡逻",
+   "alias": "歼-16"
+  },
+  {
+   "side": "红方",
+   "kind": "Aircraft",
+   "name": "红方 空警-500 #3",
+   "dbid": 3683,
+   "lat": 26.367168,
+   "lon": 123.698631,
+   "alt": 9000.0,
+   "heading": 45,
+   "count": 1,
+   "loadoutid": 3,
+   "mission": "红方-防空巡逻",
+   "alias": "空警-500"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "蓝方 F-35A #1",
+   "dbid": 278,
+   "lat": 23.150084,
+   "lon": 127.317533,
+   "alt": 10000.0,
+   "heading": 225,
+   "count": 4,
+   "loadoutid": 11128,
+   "mission": "蓝方-防空巡逻",
+   "alias": "F-35A"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "蓝方 EA-18G #2",
+   "dbid": 343,
+   "lat": 23.161705,
+   "lon": 127.461991,
+   "alt": 10000.0,
+   "heading": 225,
+   "count": 2,
+   "loadoutid": 3091,
+   "mission": "蓝方-防空巡逻",
+   "alias": "EA-18G"
+  }
+ ],
+ "missions": [
+  {
+   "side": "红方",
+   "name": "红方-防空巡逻",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 26.791655,
+     "lon": 124.40297
+    },
+    {
+     "lat": 25.730995,
+     "lon": 124.40297
+    },
+    {
+     "lat": 25.730995,
+     "lon": 123.220234
+    },
+    {
+     "lat": 26.791655,
+     "lon": 123.220234
+    }
+   ],
+   "units": [
+    "红方 歼-20 #1",
+    "红方 歼-16 #2",
+    "红方 空警-500 #3"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "蓝方",
+   "name": "蓝方-防空巡逻",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 23.568373,
+     "lon": 127.838383
+    },
+    {
+     "lat": 22.743416,
+     "lon": 127.838383
+    },
+    {
+     "lat": 22.743416,
+     "lon": 126.941141
+    },
+    {
+     "lat": 23.568373,
+     "lon": 126.941141
+    }
+   ],
+   "units": [
+    "蓝方 F-35A #1",
+    "蓝方 EA-18G #2"
+   ],
+   "isactive": true
+  }
+ ],
+ "weather": null,
+ "provenance": {
+  "parser": "rule",
+  "source_text": "标题：宫古海峡防空拦截\n\n设定 2026 年 5 月 20 日 14 时，宫古海峡。红方 4 架歼-20、2 架歼-16 从西北 120 海里起飞，\n高度 9000 米，执行防空巡逻，巡逻半径 45 海里，并配备 1 架空警-500 预警机；\n蓝方 4 架 F-35A、2 架 EA-18G 从东南 140 海里进入，高度 10000 米。持续 2 小时。谨慎开火。\n"
+ }
+}

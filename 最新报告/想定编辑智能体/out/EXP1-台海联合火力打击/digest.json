@@ -1,0 +1,432 @@
+{
+ "title": "台海联合火力打击",
+ "description": "<BODY scroll=auto><P style=\"MARGIN: 12px 0px\" align=center><SPAN style=\"FONT-SIZE: 18pt; FONT-FAMILY: '黑体'\">台海联合火力打击</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">标题：台海联合火力打击</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">设定 2026 年 6 月 8 日 22 时，台湾海峡。红方 2 艘 052DL、1 艘 055 在海峡西侧 80 海里，</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">另有岸基 S-400 营位于北纬 24.48 度、东经 118.08 度，2 个岸舰导弹营位于北纬 23.90 度、东经 117.70 度；</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">蓝方 1 艘伯克级在北纬 24.60 度、东经 122.10 度，机场 1 座位于北纬 24.02 度、东经 121.62 度，</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">2 架 F-16 从该机场起飞。红方执行对地打击任务，巡逻半径 30 海里。海况 3 级。持续 2 小时。</SPAN></P></BODY>",
+ "start_time_ticks": "-8584067156937015808",
+ "duration_s": 7200,
+ "complexity": 0,
+ "difficulty": 0,
+ "sides": [
+  {
+   "id": "4K-00001K7KP2RH1",
+   "name": "红方",
+   "postures": {
+    "4K-00001K7KP2RH2": "3"
+   },
+   "doctrine": {
+    "Nukes": "0",
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "IPCWA": "0",
+    "WinchesterShotgunRTB": "1",
+    "BingoJokerRTB": "2",
+    "JettisonOrdnance": "0",
+    "BVRLogic": "1",
+    "BTAT": "2",
+    "AE": "1",
+    "MS": "1",
+    "GS": "0",
+    "UR": "0",
+    "RS": "0",
+    "ST": "0",
+    "SAM_ASUW": "0",
+    "E_Radar": "68",
+    "E_Sonar": "0",
+    "E_OECM": "0",
+    "QuickTurnAround": "1",
+    "AirOpsTempo": "0",
+    "BingoJoker": "0",
+    "WinchesterShotgun": "0",
+    "WithdrawDamageThreshold": "0",
+    "WithdrawFuelThreshold": "1",
+    "WithdrawAttackThreshold": "0",
+    "WithdrawDefenceThreshold": "0",
+    "RedeployDamageThreshold": "1",
+    "RedeployFuelThreshold": "5",
+    "RedeployAttackThreshold": "5",
+    "RedeployDefenceThreshold": "5",
+    "IgnoreEMCONUnderAttack": "1",
+    "UseTorpedoesKinematicRange": "2",
+    "RefuelAllies": "0",
+    "BingoThreshold": "3",
+    "AvoidContact": "0",
+    "DiveWhenThreatsDetected": "0",
+    "RechargePercentagePatrol": "60",
+    "RechargePercentageAttack": "10",
+    "AIPUsage": "1",
+    "DippingSonar": "0",
+    "SurfNav": "0",
+    "SubNav": "0",
+    "LandNav": "0"
+   },
+   "is_ai_only": "false",
+   "reference_point_count": 4
+  },
+  {
+   "id": "4K-00001K7KP2RH2",
+   "name": "蓝方",
+   "postures": {
+    "4K-00001K7KP2RH1": "3"
+   },
+   "doctrine": {
+    "Nukes": "0",
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "IPCWA": "0",
+    "WinchesterShotgunRTB": "1",
+    "BingoJokerRTB": "2",
+    "JettisonOrdnance": "0",
+    "BVRLogic": "1",
+    "BTAT": "2",
+    "AE": "1",
+    "MS": "1",
+    "GS": "0",
+    "UR": "0",
+    "RS": "0",
+    "ST": "0",
+    "SAM_ASUW": "0",
+    "E_Radar": "112",
+    "E_Sonar": "91",
+    "E_OECM": "81",
+    "QuickTurnAround": "1",
+    "AirOpsTempo": "0",
+    "BingoJoker": "0",
+    "WinchesterShotgun": "0",
+    "WithdrawDamageThreshold": "0",
+    "WithdrawFuelThreshold": "1",
+    "WithdrawAttackThreshold": "0",
+    "WithdrawDefenceThreshold": "0",
+    "RedeployDamageThreshold": "1",
+    "RedeployFuelThreshold": "5",
+    "RedeployAttackThreshold": "5",
+    "RedeployDefenceThreshold": "5",
+    "IgnoreEMCONUnderAttack": "1",
+    "UseTorpedoesKinematicRange": "2",
+    "RefuelAllies": "0",
+    "BingoThreshold": "3",
+    "AvoidContact": "0",
+    "DiveWhenThreatsDetected": "0",
+    "RechargePercentagePatrol": "60",
+    "RechargePercentageAttack": "10",
+    "AIPUsage": "1",
+    "DippingSonar": "0",
+    "SurfNav": "0",
+    "SubNav": "0",
+    "LandNav": "0"
+   },
+   "is_ai_only": "false",
+   "reference_point_count": 4
+  }
+ ],
+ "units": [
+  {
+   "id": "4K-00001K7KP2T19",
+   "name": "蓝方 F-16 #3",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 4912,
+   "lat": 24.447046,
+   "lon": 122.340246,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "4K-00001K7KP2T5K",
+   "mission_name": "蓝方-反舰巡逻"
+  },
+  {
+   "id": "4K-00001K7KP2T3E",
+   "name": "蓝方 F-16 #3",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 4912,
+   "lat": 24.447046,
+   "lon": 122.340246,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "4K-00001K7KP2T5K",
+   "mission_name": "蓝方-反舰巡逻"
+  },
+  {
+   "id": "4K-00001K7KP2RK3",
+   "name": "红方 052DL #1",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 3586,
+   "lat": 24.53,
+   "lon": 118.08,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4K-00001K7KP2T5J",
+   "mission_name": "红方-对地打击"
+  },
+  {
+   "id": "4K-00001K7KP2S6C",
+   "name": "蓝方 伯克级 #1",
+   "kind": "Ship",
+   "side": "蓝方",
+   "dbid": 112,
+   "lat": 24.6,
+   "lon": 122.1,
+   "heading": 225.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4K-00001K7KP2T5K",
+   "mission_name": "蓝方-反舰巡逻"
+  },
+  {
+   "id": "4K-00001K7KP2RUT",
+   "name": "红方 055 #2",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 2834,
+   "lat": 24.449245,
+   "lon": 117.984806,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4K-00001K7KP2T5J",
+   "mission_name": "红方-对地打击"
+  },
+  {
+   "id": "4K-00001K7KP2RH5",
+   "name": "红方 052DL #1",
+   "kind": "Ship",
+   "side": "红方",
+   "dbid": 3586,
+   "lat": 24.53,
+   "lon": 118.08,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4K-00001K7KP2T5J",
+   "mission_name": "红方-对地打击"
+  },
+  {
+   "id": "4K-00001K7KP2T0H",
+   "name": "蓝方 机场 #2",
+   "kind": "Facility",
+   "side": "蓝方",
+   "dbid": 430,
+   "lat": 24.02,
+   "lon": 121.62,
+   "heading": 225.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4K-00001K7KP2T5K",
+   "mission_name": "蓝方-反舰巡逻"
+  },
+  {
+   "id": "4K-00001K7KP2S5M",
+   "name": "红方 岸舰导弹营 #4",
+   "kind": "Facility",
+   "side": "红方",
+   "dbid": 3177,
+   "lat": 23.942426,
+   "lon": 117.746405,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4K-00001K7KP2T5J",
+   "mission_name": "红方-对地打击"
+  },
+  {
+   "id": "4K-00001K7KP2S2N",
+   "name": "红方 S-400 #3",
+   "kind": "Facility",
+   "side": "红方",
+   "dbid": 2029,
+   "lat": 24.48,
+   "lon": 118.08,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4K-00001K7KP2T5J",
+   "mission_name": "红方-对地打击"
+  },
+  {
+   "id": "4K-00001K7KP2S50",
+   "name": "红方 岸舰导弹营 #4",
+   "kind": "Facility",
+   "side": "红方",
+   "dbid": 3177,
+   "lat": 23.942426,
+   "lon": 117.746405,
+   "heading": 45.0,
+   "alt": 0.0,
+   "loadoutid": 0,
+   "mission": "4K-00001K7KP2T5J",
+   "mission_name": "红方-对地打击"
+  }
+ ],
+ "missions": [
+  {
+   "id": "4K-00001K7KP2T5J",
+   "name": "红方-对地打击",
+   "side": "红方",
+   "mtype": "Patrol",
+   "subtype": "LAND",
+   "type_code": "3",
+   "assigned": [
+    "4K-00001K7KP2RK3",
+    "4K-00001K7KP2RH5",
+    "4K-00001K7KP2S50",
+    "4K-00001K7KP2S5M",
+    "4K-00001K7KP2RUT",
+    "4K-00001K7KP2S2N"
+   ],
+   "zone_ids": [
+    "2c44fcd3-0e15-5398-b23e-85c3f691cf40",
+    "0bd3d79a-0cd4-5df8-8e97-c5e0b1cdbb6e",
+    "1591ba5a-e9f7-5330-8976-8692544c939a",
+    "fc663e2e-87e8-5026-b19e-5e09b9d14a4e"
+   ],
+   "zone": [
+    {
+     "lat": 24.685648,
+     "lon": 118.336534
+    },
+    {
+     "lat": 23.978541,
+     "lon": 118.336534
+    },
+    {
+     "lat": 23.978541,
+     "lon": 117.560493
+    },
+    {
+     "lat": 24.685648,
+     "lon": 117.560493
+    }
+   ]
+  },
+  {
+   "id": "4K-00001K7KP2T5K",
+   "name": "蓝方-反舰巡逻",
+   "side": "蓝方",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "type_code": "1",
+   "assigned": [
+    "4K-00001K7KP2T0H",
+    "4K-00001K7KP2T3E",
+    "4K-00001K7KP2T19",
+    "4K-00001K7KP2S6C"
+   ],
+   "zone_ids": [
+    "2cf77aff-f029-54d2-8616-5b1960f1b61c",
+    "1a2dff0c-1f81-5974-a474-7880a251ebe3",
+    "213a89f7-f924-57c0-8c68-ee2a584a9245",
+    "4175a1eb-ef69-5d18-8caf-18d299a2ed4b"
+   ],
+   "zone": [
+    {
+     "lat": 24.768161,
+     "lon": 122.472857
+    },
+    {
+     "lat": 23.943203,
+     "lon": 122.472857
+    },
+    {
+     "lat": 23.943203,
+     "lon": 121.567307
+    },
+    {
+     "lat": 24.768161,
+     "lon": 121.567307
+    }
+   ]
+  }
+ ],
+ "reference_points": [
+  {
+   "id": "2c44fcd3-0e15-5398-b23e-85c3f691cf40",
+   "name": "红方-对地打击-WP1",
+   "lat": 24.685648,
+   "lon": 118.336534,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "0bd3d79a-0cd4-5df8-8e97-c5e0b1cdbb6e",
+   "name": "红方-对地打击-WP2",
+   "lat": 23.978541,
+   "lon": 118.336534,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "1591ba5a-e9f7-5330-8976-8692544c939a",
+   "name": "红方-对地打击-WP3",
+   "lat": 23.978541,
+   "lon": 117.560493,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "fc663e2e-87e8-5026-b19e-5e09b9d14a4e",
+   "name": "红方-对地打击-WP4",
+   "lat": 24.685648,
+   "lon": 117.560493,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "2cf77aff-f029-54d2-8616-5b1960f1b61c",
+   "name": "蓝方-反舰巡逻-WP1",
+   "lat": 24.768161,
+   "lon": 122.472857,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "1a2dff0c-1f81-5974-a474-7880a251ebe3",
+   "name": "蓝方-反舰巡逻-WP2",
+   "lat": 23.943203,
+   "lon": 122.472857,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "213a89f7-f924-57c0-8c68-ee2a584a9245",
+   "name": "蓝方-反舰巡逻-WP3",
+   "lat": 23.943203,
+   "lon": 121.567307,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "4175a1eb-ef69-5d18-8caf-18d299a2ed4b",
+   "name": "蓝方-反舰巡逻-WP4",
+   "lat": 24.768161,
+   "lon": 121.567307,
+   "side": "蓝方",
+   "highlighted": "True"
+  }
+ ],
+ "weather": {
+  "temp": 20,
+  "rainfall": 0,
+  "cloud": 0.0,
+  "seastate": 3
+ },
+ "counts": {
+  "蓝方": {
+   "Aircraft": 2,
+   "Ship": 1,
+   "Facility": 1
+  },
+  "红方": {
+   "Ship": 3,
+   "Facility": 3
+  }
+ },
+ "raw_sizes": {
+  "xml_bytes": 242878
+ }
+}

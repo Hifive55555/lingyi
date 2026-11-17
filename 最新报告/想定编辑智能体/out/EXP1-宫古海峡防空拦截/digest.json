@@ -1,0 +1,474 @@
+{
+ "title": "宫古海峡防空拦截",
+ "description": "<BODY scroll=auto><P style=\"MARGIN: 12px 0px\" align=center><SPAN style=\"FONT-SIZE: 18pt; FONT-FAMILY: '黑体'\">宫古海峡防空拦截</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">标题：宫古海峡防空拦截</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">设定 2026 年 5 月 20 日 14 时，宫古海峡。红方 4 架歼-20、2 架歼-16 从西北 120 海里起飞，</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">高度 9000 米，执行防空巡逻，巡逻半径 45 海里，并配备 1 架空警-500 预警机；</SPAN></P><P style=\"MARGIN: 12px 0px\"><SPAN style=\"FONT-SIZE: 14pt; FONT-FAMILY: '宋体'\">蓝方 4 架 F-35A、2 架 EA-18G 从东南 140 海里进入，高度 10000 米。持续 2 小时。谨慎开火。</SPAN></P></BODY>",
+ "start_time_ticks": "-8584067157707355808",
+ "duration_s": 7200,
+ "complexity": 0,
+ "difficulty": 0,
+ "sides": [
+  {
+   "id": "81-00001K7KP0G2H",
+   "name": "红方",
+   "postures": {
+    "81-00001K7KP0G2I": "3"
+   },
+   "doctrine": {
+    "Nukes": "0",
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "IPCWA": "0",
+    "WinchesterShotgunRTB": "1",
+    "BingoJokerRTB": "2",
+    "JettisonOrdnance": "0",
+    "BVRLogic": "1",
+    "BTAT": "2",
+    "AE": "1",
+    "MS": "1",
+    "GS": "0",
+    "UR": "0",
+    "RS": "0",
+    "ST": "0",
+    "SAM_ASUW": "0",
+    "E_Radar": "37",
+    "E_Sonar": "0",
+    "E_OECM": "77",
+    "QuickTurnAround": "1",
+    "AirOpsTempo": "0",
+    "BingoJoker": "0",
+    "WinchesterShotgun": "0",
+    "WithdrawDamageThreshold": "0",
+    "WithdrawFuelThreshold": "1",
+    "WithdrawAttackThreshold": "0",
+    "WithdrawDefenceThreshold": "0",
+    "RedeployDamageThreshold": "1",
+    "RedeployFuelThreshold": "5",
+    "RedeployAttackThreshold": "5",
+    "RedeployDefenceThreshold": "5",
+    "IgnoreEMCONUnderAttack": "1",
+    "UseTorpedoesKinematicRange": "2",
+    "RefuelAllies": "0",
+    "BingoThreshold": "3",
+    "AvoidContact": "0",
+    "DiveWhenThreatsDetected": "0",
+    "RechargePercentagePatrol": "60",
+    "RechargePercentageAttack": "10",
+    "AIPUsage": "1",
+    "DippingSonar": "0",
+    "SurfNav": "0",
+    "SubNav": "0",
+    "LandNav": "0"
+   },
+   "is_ai_only": "false",
+   "reference_point_count": 4
+  },
+  {
+   "id": "81-00001K7KP0G2I",
+   "name": "蓝方",
+   "postures": {
+    "81-00001K7KP0G2H": "3"
+   },
+   "doctrine": {
+    "Nukes": "0",
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "IPCWA": "0",
+    "WinchesterShotgunRTB": "1",
+    "BingoJokerRTB": "2",
+    "JettisonOrdnance": "0",
+    "BVRLogic": "1",
+    "BTAT": "2",
+    "AE": "1",
+    "MS": "1",
+    "GS": "0",
+    "UR": "0",
+    "RS": "0",
+    "ST": "0",
+    "SAM_ASUW": "0",
+    "E_Radar": "0",
+    "E_Sonar": "0",
+    "E_OECM": "0",
+    "QuickTurnAround": "1",
+    "AirOpsTempo": "0",
+    "BingoJoker": "0",
+    "WinchesterShotgun": "0",
+    "WithdrawDamageThreshold": "0",
+    "WithdrawFuelThreshold": "1",
+    "WithdrawAttackThreshold": "0",
+    "WithdrawDefenceThreshold": "0",
+    "RedeployDamageThreshold": "1",
+    "RedeployFuelThreshold": "5",
+    "RedeployAttackThreshold": "5",
+    "RedeployDefenceThreshold": "5",
+    "IgnoreEMCONUnderAttack": "1",
+    "UseTorpedoesKinematicRange": "2",
+    "RefuelAllies": "0",
+    "BingoThreshold": "3",
+    "AvoidContact": "0",
+    "DiveWhenThreatsDetected": "0",
+    "RechargePercentagePatrol": "60",
+    "RechargePercentageAttack": "10",
+    "AIPUsage": "1",
+    "DippingSonar": "0",
+    "SurfNav": "0",
+    "SubNav": "0",
+    "LandNav": "0"
+   },
+   "is_ai_only": "false",
+   "reference_point_count": 4
+  }
+ ],
+ "units": [
+  {
+   "id": "81-00001K7KP0G5T",
+   "name": "红方 歼-16 #2",
+   "kind": "Aircraft",
+   "side": "红方",
+   "dbid": 2853,
+   "lat": 26.202593,
+   "lon": 123.794061,
+   "heading": 45.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNP",
+   "mission_name": "红方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0GD1",
+   "name": "蓝方 F-35A #1",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 278,
+   "lat": 23.150084,
+   "lon": 127.317533,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNQ",
+   "mission_name": "蓝方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0G2L",
+   "name": "红方 歼-20 #1",
+   "kind": "Aircraft",
+   "side": "红方",
+   "dbid": 2463,
+   "lat": 26.214214,
+   "lon": 123.942114,
+   "heading": 45.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNP",
+   "mission_name": "红方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0G7V",
+   "name": "蓝方 F-35A #1",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 278,
+   "lat": 23.150084,
+   "lon": 127.317533,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNQ",
+   "mission_name": "蓝方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0G6L",
+   "name": "红方 歼-16 #2",
+   "kind": "Aircraft",
+   "side": "红方",
+   "dbid": 2853,
+   "lat": 26.202593,
+   "lon": 123.794061,
+   "heading": 45.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNP",
+   "mission_name": "红方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0G49",
+   "name": "红方 歼-20 #1",
+   "kind": "Aircraft",
+   "side": "红方",
+   "dbid": 2463,
+   "lat": 26.214214,
+   "lon": 123.942114,
+   "heading": 45.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNP",
+   "mission_name": "红方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0G3F",
+   "name": "红方 歼-20 #1",
+   "kind": "Aircraft",
+   "side": "红方",
+   "dbid": 2463,
+   "lat": 26.214214,
+   "lon": 123.942114,
+   "heading": 45.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNP",
+   "mission_name": "红方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0G7D",
+   "name": "红方 空警-500 #3",
+   "kind": "Aircraft",
+   "side": "红方",
+   "dbid": 3683,
+   "lat": 26.367168,
+   "lon": 123.698631,
+   "heading": 45.0,
+   "alt": 10363.200195,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNP",
+   "mission_name": "红方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0GBB",
+   "name": "蓝方 F-35A #1",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 278,
+   "lat": 23.150084,
+   "lon": 127.317533,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNQ",
+   "mission_name": "蓝方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0GLG",
+   "name": "蓝方 EA-18G #2",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 343,
+   "lat": 23.161705,
+   "lon": 127.461991,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNQ",
+   "mission_name": "蓝方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0G53",
+   "name": "红方 歼-20 #1",
+   "kind": "Aircraft",
+   "side": "红方",
+   "dbid": 2463,
+   "lat": 26.214214,
+   "lon": 123.942114,
+   "heading": 45.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNP",
+   "mission_name": "红方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0G9L",
+   "name": "蓝方 F-35A #1",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 278,
+   "lat": 23.150084,
+   "lon": 127.317533,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNQ",
+   "mission_name": "蓝方-防空巡逻"
+  },
+  {
+   "id": "81-00001K7KP0GK5",
+   "name": "蓝方 EA-18G #2",
+   "kind": "Aircraft",
+   "side": "蓝方",
+   "dbid": 343,
+   "lat": 23.161705,
+   "lon": 127.461991,
+   "heading": 225.0,
+   "alt": 10972.799805,
+   "loadoutid": 0,
+   "mission": "81-00001K7KP0GNQ",
+   "mission_name": "蓝方-防空巡逻"
+  }
+ ],
+ "missions": [
+  {
+   "id": "81-00001K7KP0GNP",
+   "name": "红方-防空巡逻",
+   "side": "红方",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "type_code": "2",
+   "assigned": [
+    "81-00001K7KP0G6L",
+    "81-00001K7KP0G3F",
+    "81-00001K7KP0G5T",
+    "81-00001K7KP0G2L",
+    "81-00001K7KP0G53",
+    "81-00001K7KP0G49",
+    "81-00001K7KP0G7D"
+   ],
+   "zone_ids": [
+    "756d0d67-0a35-52af-ae56-737db98e44a0",
+    "526cc5ad-b29f-5daa-9afe-18057a6b5b06",
+    "0ee06974-abb3-5813-9bd3-0c2af2d916b3",
+    "85419b3c-ede2-5a9a-8638-3ce0ca5f4f82"
+   ],
+   "zone": [
+    {
+     "lat": 26.791655,
+     "lon": 124.40297
+    },
+    {
+     "lat": 25.730995,
+     "lon": 124.40297
+    },
+    {
+     "lat": 25.730995,
+     "lon": 123.220234
+    },
+    {
+     "lat": 26.791655,
+     "lon": 123.220234
+    }
+   ]
+  },
+  {
+   "id": "81-00001K7KP0GNQ",
+   "name": "蓝方-防空巡逻",
+   "side": "蓝方",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "type_code": "2",
+   "assigned": [
+    "81-00001K7KP0GK5",
+    "81-00001K7KP0G9L",
+    "81-00001K7KP0GLG",
+    "81-00001K7KP0GBB",
+    "81-00001K7KP0GD1",
+    "81-00001K7KP0G7V"
+   ],
+   "zone_ids": [
+    "b9f73d98-721c-5440-9b0b-cf28ba41d7f4",
+    "e7ec4e84-9200-5199-8f07-000db98b3dc6",
+    "816edcd7-f016-5b99-9f68-961db690cd79",
+    "3662a6d8-3e0b-593a-a0d8-ee03e71a1782"
+   ],
+   "zone": [
+    {
+     "lat": 23.568373,
+     "lon": 127.838383
+    },
+    {
+     "lat": 22.743416,
+     "lon": 127.838383
+    },
+    {
+     "lat": 22.743416,
+     "lon": 126.941141
+    },
+    {
+     "lat": 23.568373,
+     "lon": 126.941141
+    }
+   ]
+  }
+ ],
+ "reference_points": [
+  {
+   "id": "756d0d67-0a35-52af-ae56-737db98e44a0",
+   "name": "红方-防空巡逻-WP1",
+   "lat": 26.791655,
+   "lon": 124.40297,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "526cc5ad-b29f-5daa-9afe-18057a6b5b06",
+   "name": "红方-防空巡逻-WP2",
+   "lat": 25.730995,
+   "lon": 124.40297,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "0ee06974-abb3-5813-9bd3-0c2af2d916b3",
+   "name": "红方-防空巡逻-WP3",
+   "lat": 25.730995,
+   "lon": 123.220234,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "85419b3c-ede2-5a9a-8638-3ce0ca5f4f82",
+   "name": "红方-防空巡逻-WP4",
+   "lat": 26.791655,
+   "lon": 123.220234,
+   "side": "红方",
+   "highlighted": "True"
+  },
+  {
+   "id": "b9f73d98-721c-5440-9b0b-cf28ba41d7f4",
+   "name": "蓝方-防空巡逻-WP1",
+   "lat": 23.568373,
+   "lon": 127.838383,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "e7ec4e84-9200-5199-8f07-000db98b3dc6",
+   "name": "蓝方-防空巡逻-WP2",
+   "lat": 22.743416,
+   "lon": 127.838383,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "816edcd7-f016-5b99-9f68-961db690cd79",
+   "name": "蓝方-防空巡逻-WP3",
+   "lat": 22.743416,
+   "lon": 126.941141,
+   "side": "蓝方",
+   "highlighted": "True"
+  },
+  {
+   "id": "3662a6d8-3e0b-593a-a0d8-ee03e71a1782",
+   "name": "蓝方-防空巡逻-WP4",
+   "lat": 23.568373,
+   "lon": 126.941141,
+   "side": "蓝方",
+   "highlighted": "True"
+  }
+ ],
+ "weather": {
+  "temp": 15,
+  "rainfall": 0,
+  "cloud": 0.0,
+  "seastate": 0
+ },
+ "counts": {
+  "红方": {
+   "Aircraft": 7
+  },
+  "蓝方": {
+   "Aircraft": 6
+  }
+ },
+ "raw_sizes": {
+  "xml_bytes": 115605
+ }
+}

@@ -1,0 +1,177 @@
+{
+ "title": "巴士海峡反潜封锁",
+ "start_time": "2026-04-12 06:00:00",
+ "duration_s": 14400,
+ "complexity": 2,
+ "difficulty": 2,
+ "description": "标题：巴士海峡反潜封锁\n\n设定 2026 年 4 月 12 日 06 时，巴士海峡。蓝方核潜艇 2 艘弗吉尼亚级从东南 90 海里隐蔽接近，\n另有 1 架 P-3C 反潜巡逻机；红方 2 艘 054A、1 艘 052D 在西北 100 海里展开，执行反潜巡逻，\n巡逻半径 35 海里。海况 5 级，云量 0.8，降雨 20。持续 4 小时。",
+ "center": {
+  "lat": 21.5,
+  "lon": 121.0
+ },
+ "seed": 88097,
+ "sides": [
+  {
+   "name": "红方",
+   "posture": {
+    "蓝方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  },
+  {
+   "name": "蓝方",
+   "posture": {
+    "红方": "H"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  }
+ ],
+ "units": [
+  {
+   "side": "蓝方",
+   "kind": "Submarine",
+   "name": "蓝方 弗吉尼亚 #1",
+   "dbid": 553,
+   "lat": 20.43934,
+   "lon": 122.139983,
+   "heading": 225,
+   "count": 2,
+   "mission": "蓝方-防空巡逻",
+   "alias": "弗吉尼亚"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Aircraft",
+   "name": "蓝方 P-3C #2",
+   "dbid": 350,
+   "lat": 20.450961,
+   "lon": 122.281733,
+   "alt": 8000.0,
+   "heading": 225,
+   "count": 1,
+   "loadoutid": 3,
+   "mission": "蓝方-防空巡逻",
+   "alias": "P-3C"
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 054A #1",
+   "dbid": 1965,
+   "lat": 22.678511,
+   "lon": 119.733352,
+   "heading": 45,
+   "count": 2,
+   "mission": "红方-反潜巡逻",
+   "alias": "054A"
+  },
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 052D #2",
+   "dbid": 2296,
+   "lat": 22.66689,
+   "lon": 119.589396,
+   "heading": 45,
+   "count": 1,
+   "mission": "红方-反潜巡逻",
+   "alias": "052D"
+  }
+ ],
+ "missions": [
+  {
+   "side": "红方",
+   "name": "红方-反潜巡逻",
+   "mtype": "Patrol",
+   "subtype": "SUB",
+   "zone": [
+    {
+     "lat": 23.085179,
+     "lon": 120.108398
+    },
+    {
+     "lat": 22.260222,
+     "lon": 120.108398
+    },
+    {
+     "lat": 22.260222,
+     "lon": 119.21435
+    },
+    {
+     "lat": 23.085179,
+     "lon": 119.21435
+    }
+   ],
+   "units": [
+    "红方 054A #1",
+    "红方 052D #2"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "蓝方",
+   "name": "蓝方-防空巡逻",
+   "mtype": "Patrol",
+   "subtype": "AAW",
+   "zone": [
+    {
+     "lat": 20.857629,
+     "lon": 122.651067
+    },
+    {
+     "lat": 20.032672,
+     "lon": 122.651067
+    },
+    {
+     "lat": 20.032672,
+     "lon": 121.770649
+    },
+    {
+     "lat": 20.857629,
+     "lon": 121.770649
+    }
+   ],
+   "units": [
+    "蓝方 弗吉尼亚 #1",
+    "蓝方 P-3C #2"
+   ],
+   "isactive": true
+  }
+ ],
+ "weather": {
+  "temp": 20,
+  "rainfall": 20,
+  "cloud": 0.8,
+  "seastate": 5
+ },
+ "provenance": {
+  "parser": "rule",
+  "source_text": "标题：巴士海峡反潜封锁\n\n设定 2026 年 4 月 12 日 06 时，巴士海峡。蓝方核潜艇 2 艘弗吉尼亚级从东南 90 海里隐蔽接近，\n另有 1 架 P-3C 反潜巡逻机；红方 2 艘 054A、1 艘 052D 在西北 100 海里展开，执行反潜巡逻，\n巡逻半径 35 海里。海况 5 级，云量 0.8，降雨 20。持续 4 小时。\n"
+ }
+}

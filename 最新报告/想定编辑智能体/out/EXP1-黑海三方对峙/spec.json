@@ -1,0 +1,212 @@
+{
+ "title": "黑海三方对峙",
+ "start_time": "2026-07-03 09:00:00",
+ "duration_s": 10800,
+ "complexity": 2,
+ "difficulty": 2,
+ "description": "标题：黑海三方对峙\n\n设定 2026 年 7 月 3 日 09 时，黑海西部。红方 1 艘 052D 从北侧 90 海里南下，\n蓝方 1 艘伯克级从南侧 100 海里北上，友方 1 艘补给舰在东侧 120 海里。\n红蓝双方敌对，友方与红方友好、与蓝方中立。红方执行反舰巡逻，半径 30 海里。\n海况 4 级，云量 0.5。持续 3 小时。",
+ "center": {
+  "lat": 43.5,
+  "lon": 34.0
+ },
+ "seed": 60640,
+ "sides": [
+  {
+   "name": "红方",
+   "posture": {
+    "蓝方": "N",
+    "友方": "N"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  },
+  {
+   "name": "蓝方",
+   "posture": {
+    "红方": "N",
+    "友方": "N"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  },
+  {
+   "name": "友方",
+   "posture": {
+    "红方": "N",
+    "蓝方": "N"
+   },
+   "doctrine": {
+    "WCS_Air": "1",
+    "WCS_Surface": "1",
+    "WCS_Submarine": "1",
+    "WCS_Land": "1",
+    "Nukes": "0",
+    "BTAT": "2",
+    "BingoJokerRTB": "2",
+    "WinchesterShotgunRTB": "1",
+    "AE": "1",
+    "MS": "1"
+   },
+   "camera": null,
+   "is_ai_only": true
+  }
+ ],
+ "units": [
+  {
+   "side": "红方",
+   "kind": "Ship",
+   "name": "红方 052D #1",
+   "dbid": 2296,
+   "lat": 44.885195,
+   "lon": 33.608031,
+   "heading": 45,
+   "count": 1,
+   "mission": "红方-反舰巡逻",
+   "alias": "052D"
+  },
+  {
+   "side": "蓝方",
+   "kind": "Ship",
+   "name": "蓝方 伯克级 #1",
+   "dbid": 112,
+   "lat": 42.033333,
+   "lon": 34.0,
+   "heading": 225,
+   "count": 1,
+   "mission": "蓝方-反舰巡逻",
+   "alias": "伯克级"
+  },
+  {
+   "side": "友方",
+   "kind": "Ship",
+   "name": "友方 补给舰 #1",
+   "dbid": 2980,
+   "lat": 43.5,
+   "lon": 36.757197,
+   "heading": 45,
+   "count": 1,
+   "mission": "友方-反舰巡逻",
+   "alias": "补给舰"
+  }
+ ],
+ "missions": [
+  {
+   "side": "红方",
+   "name": "红方-反舰巡逻",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "zone": [
+    {
+     "lat": 45.353553,
+     "lon": 34.5
+    },
+    {
+     "lat": 44.646447,
+     "lon": 34.5
+    },
+    {
+     "lat": 44.646447,
+     "lon": 33.5
+    },
+    {
+     "lat": 45.353553,
+     "lon": 33.5
+    }
+   ],
+   "units": [
+    "红方 052D #1"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "蓝方",
+   "name": "蓝方-反舰巡逻",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "zone": [
+    {
+     "lat": 42.245812,
+     "lon": 34.553598
+    },
+    {
+     "lat": 41.420854,
+     "lon": 34.553598
+    },
+    {
+     "lat": 41.420854,
+     "lon": 33.446402
+    },
+    {
+     "lat": 42.245812,
+     "lon": 33.446402
+    }
+   ],
+   "units": [
+    "蓝方 伯克级 #1"
+   ],
+   "isactive": true
+  },
+  {
+   "side": "友方",
+   "name": "友方-反舰巡逻",
+   "mtype": "Patrol",
+   "subtype": "NAVAL",
+   "zone": [
+    {
+     "lat": 43.912479,
+     "lon": 37.32584
+    },
+    {
+     "lat": 43.087521,
+     "lon": 37.32584
+    },
+    {
+     "lat": 43.087521,
+     "lon": 36.188554
+    },
+    {
+     "lat": 43.912479,
+     "lon": 36.188554
+    }
+   ],
+   "units": [
+    "友方 补给舰 #1"
+   ],
+   "isactive": true
+  }
+ ],
+ "weather": {
+  "temp": 20,
+  "rainfall": 0,
+  "cloud": 0.5,
+  "seastate": 4
+ },
+ "provenance": {
+  "parser": "rule",
+  "source_text": "标题：黑海三方对峙\n\n设定 2026 年 7 月 3 日 09 时，黑海西部。红方 1 艘 052D 从北侧 90 海里南下，\n蓝方 1 艘伯克级从南侧 100 海里北上，友方 1 艘补给舰在东侧 120 海里。\n红蓝双方敌对，友方与红方友好、与蓝方中立。红方执行反舰巡逻，半径 30 海里。\n海况 4 级，云量 0.5。持续 3 小时。\n"
+ }
+}

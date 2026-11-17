@@ -1,0 +1,332 @@
+{
+ "ok": true,
+ "title": "巴士海峡反潜封锁",
+ "name": "EXP1-巴士海峡反潜封锁",
+ "scen_path": "D:/LingYi/Data/Scenarios/EXP1-巴士海峡反潜封锁.scen",
+ "size": 27017,
+ "elapsed": 3.68,
+ "error": "",
+ "steps": [
+  {
+   "block": "info",
+   "code": "NewScenario('','')",
+   "ok": true,
+   "ret": 0,
+   "out": "E6-00001K7KOU86D"
+  },
+  {
+   "block": "info",
+   "code": "SetScenarioInfo({TITLE='巴士海峡反潜封锁', DURATION=14400, COMPLEXITY=2, DIFFICULTY=2, SEED=88097, DESCRIPTION='PEJPRFkgc2Nyb2xsPWF1dG8+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiIGFsaWduPWNlbnRlcj48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxOHB0OyBGT05ULUZBTUlMWTogJ+m7keS9kyciPuW3tOWjq+a1t+WzoeWPjea9nOWwgemUgTwvU1BBTj48L1A+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiPjxTUEFOIHN0eWxlPSJGT05ULVNJWkU6IDE0cHQ7IEZPTlQtRkFNSUxZOiAn5a6L5L2TJyI+5qCH6aKY77ya5be05aOr5rW35bOh5Y+N5r2c5bCB6ZSBPC9TUEFOPjwvUD48UCBzdHlsZT0iTUFSR0lOOiAxMnB4IDBweCI+PFNQQU4gc3R5bGU9IkZPTlQtU0laRTogMTRwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnIj7orr7lrpogMjAyNiDlubQgNCDmnIggMTIg5pelIDA2IOaXtu+8jOW3tOWjq+a1t+WzoeOAguiTneaWueaguOa9nOiJhyAyIOiJmOW8l+WQieWwvOS6mue6p+S7juS4nOWNlyA5MCDmtbfph4zpmpDolL3mjqXov5HvvIw8L1NQQU4+PC9QPjxQIHN0eWxlPSJNQVJHSU46IDEycHggMHB4Ij48U1BBTiBzdHlsZT0iRk9OVC1TSVpFOiAxNHB0OyBGT05ULUZBTUlMWTogJ+Wui+S9kyciPuWPpuaciSAxIOaetiBQLTNDIOWPjea9nOW3oemAu+acuu+8m+e6ouaWuSAyIOiJmCAwNTRB44CBMSDoiZggMDUyRCDlnKjopb/ljJcgMTAwIOa1t+mHjOWxleW8gO+8jOaJp+ihjOWPjea9nOW3oemAu++8jDwvU1BBTj48L1A+PFAgc3R5bGU9Ik1BUkdJTjogMTJweCAwcHgiPjxTUEFOIHN0eWxlPSJGT05ULVNJWkU6IDE0cHQ7IEZPTlQtRkFNSUxZOiAn5a6L5L2TJyI+5beh6YC75Y2K5b6EIDM1IOa1t+mHjOOAgua1t+WGtSA1IOe6p++8jOS6kemHjyAwLjjvvIzpmY3pm6ggMjDjgILmjIHnu60gNCDlsI/ml7bjgII8L1NQQU4+PC9QPjwvQk9EWT4='})",
+   "ok": true,
+   "ret": 0,
+   "out": "设置成功"
+  },
+  {
+   "block": "sides",
+   "code": "S_1 = AddSide({side='红方'})",
+   "ok": true,
+   "ret": 0,
+   "out": "E6-00001K7KOU86E"
+  },
+  {
+   "block": "sides",
+   "code": "S_2 = AddSide({side='蓝方'})",
+   "ok": true,
+   "ret": 0,
+   "out": "E6-00001K7KOU86F"
+  },
+  {
+   "block": "setup",
+   "code": "SetSidePosture('E6-00001K7KOU86E', 'E6-00001K7KOU86F', 'H')",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSidePosture('E6-00001K7KOU86F', 'E6-00001K7KOU86E', 'H')",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSideOptions({side='E6-00001K7KOU86E', CAMERALON=120.9356, CAMERALAT=21.5589, CAMERAALT=747124.0})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetSideOptions({side='E6-00001K7KOU86F', CAMERALON=120.9356, CAMERALAT=21.5589, CAMERAALT=747124.0})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetDoctrine({side='E6-00001K7KOU86E'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "setup",
+   "code": "SetDoctrine({side='E6-00001K7KOU86F'}, {WCS_Air='1', WCS_Surface='1', WCS_Submarine='1', WCS_Land='1', Nukes='0', BTAT='2', BingoJokerRTB='2', WinchesterShotgunRTB='1', AE='1', MS='1'})",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "weather",
+   "code": "SetWeather(20, 20, 0.8, 5)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "units",
+   "code": "U_1 = AddUnit({side='E6-00001K7KOU86F', type='Submarine', DATASOURCE=0.0, name='蓝方 弗吉尼亚 #1', dbid=553.0, latitude='20.439340', longitude='122.139983', heading=225, count=2.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "E6-00001K7KOU86I,E6-00001K7KOU897"
+  },
+  {
+   "block": "units",
+   "code": "U_2 = AddUnit({side='E6-00001K7KOU86F', type='Aircraft', DATASOURCE=0.0, name='蓝方 P-3C #2', dbid=350.0, latitude='20.450961', longitude='122.281733', alt=8000.0, heading=225, loadoutid=3.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "E6-00001K7KOU8UQ"
+  },
+  {
+   "block": "units",
+   "code": "U_3 = AddUnit({side='E6-00001K7KOU86E', type='Ship', DATASOURCE=0.0, name='红方 054A #1', dbid=1965.0, latitude='22.678511', longitude='119.733352', heading=45, count=2.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "E6-00001K7KOU8VB,E6-00001K7KOU92C"
+  },
+  {
+   "block": "units",
+   "code": "U_4 = AddUnit({side='E6-00001K7KOU86E', type='Ship', DATASOURCE=0.0, name='红方 052D #2', dbid=2296.0, latitude='22.666890', longitude='119.589396', heading=45})",
+   "ok": true,
+   "ret": 0,
+   "out": "E6-00001K7KOU95D"
+  },
+  {
+   "block": "missions",
+   "code": "M_1 = AddMission('E6-00001K7KOU86E', '红方-反潜巡逻', 'Patrol', {isactive=true, type='SUB', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'E6-00001K7KOU98A',name = '红方-反潜巡逻'}"
+  },
+  {
+   "block": "missions",
+   "code": "M_2 = AddMission('E6-00001K7KOU86F', '蓝方-防空巡逻', 'Patrol', {isactive=true, type='AAW', unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'E6-00001K7KOU98B',name = '蓝方-防空巡逻'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='E6-00001K7KOU86E', guid='2e1932a0-4aaa-532a-8539-4c6691539103', name='红方-反潜巡逻-WP1', lat=23.085179, lon=120.108398, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红方-反潜巡逻-WP1', \r\n latitude = '23.085179', \r\n longitude = '120.108398', \r\n guid = '2e1932a0-4aaa-532a-8539-4c6691539103', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='E6-00001K7KOU86E', guid='be21457a-84de-5b50-88fe-5eac6cb90202', name='红方-反潜巡逻-WP2', lat=22.260222, lon=120.108398, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红方-反潜巡逻-WP2', \r\n latitude = '22.260222', \r\n longitude = '120.108398', \r\n guid = 'be21457a-84de-5b50-88fe-5eac6cb90202', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='E6-00001K7KOU86E', guid='7365f7a2-c4af-5846-83a3-767245d7f224', name='红方-反潜巡逻-WP3', lat=22.260222, lon=119.21435, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红方-反潜巡逻-WP3', \r\n latitude = '22.260222', \r\n longitude = '119.214350', \r\n guid = '7365f7a2-c4af-5846-83a3-767245d7f224', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='E6-00001K7KOU86E', guid='d1b0b665-9135-5276-9108-64c2d4779d4f', name='红方-反潜巡逻-WP4', lat=23.085179, lon=119.21435, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '红方-反潜巡逻-WP4', \r\n latitude = '23.085179', \r\n longitude = '119.214350', \r\n guid = 'd1b0b665-9135-5276-9108-64c2d4779d4f', \r\n side = '红方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('E6-00001K7KOU86E', 'E6-00001K7KOU98A', {patrolZone={'2e1932a0-4aaa-532a-8539-4c6691539103', 'be21457a-84de-5b50-88fe-5eac6cb90202', '7365f7a2-c4af-5846-83a3-767245d7f224', 'd1b0b665-9135-5276-9108-64c2d4779d4f'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'E6-00001K7KOU98A',name = '红方-反潜巡逻'}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='E6-00001K7KOU86F', guid='3d6a5b32-e7da-5cc2-8a6a-20c10e9d5166', name='蓝方-防空巡逻-WP1', lat=20.857629, lon=122.651067, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '蓝方-防空巡逻-WP1', \r\n latitude = '20.857629', \r\n longitude = '122.651067', \r\n guid = '3d6a5b32-e7da-5cc2-8a6a-20c10e9d5166', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='E6-00001K7KOU86F', guid='dbbc6ec2-b2be-5dda-b927-46191a2cd044', name='蓝方-防空巡逻-WP2', lat=20.032672, lon=122.651067, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '蓝方-防空巡逻-WP2', \r\n latitude = '20.032672', \r\n longitude = '122.651067', \r\n guid = 'dbbc6ec2-b2be-5dda-b927-46191a2cd044', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='E6-00001K7KOU86F', guid='0a24d629-3716-570b-bc65-6ac4c8971a3f', name='蓝方-防空巡逻-WP3', lat=20.032672, lon=121.770649, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '蓝方-防空巡逻-WP3', \r\n latitude = '20.032672', \r\n longitude = '121.770649', \r\n guid = '0a24d629-3716-570b-bc65-6ac4c8971a3f', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "AddReferencePoint({side='E6-00001K7KOU86F', guid='e858db92-d2d0-5e7e-9e75-0d2329a2f599', name='蓝方-防空巡逻-WP4', lat=20.857629, lon=121.770649, highlighted=true})",
+   "ok": true,
+   "ret": 0,
+   "out": "{\r\n name = '蓝方-防空巡逻-WP4', \r\n latitude = '20.857629', \r\n longitude = '121.770649', \r\n guid = 'e858db92-d2d0-5e7e-9e75-0d2329a2f599', \r\n side = '蓝方', \r\n highlighted = 'true', \r\n locked = 'false', \r\n}"
+  },
+  {
+   "block": "zones",
+   "code": "SetMission('E6-00001K7KOU86F', 'E6-00001K7KOU98B', {patrolZone={'3d6a5b32-e7da-5cc2-8a6a-20c10e9d5166', 'dbbc6ec2-b2be-5dda-b927-46191a2cd044', '0a24d629-3716-570b-bc65-6ac4c8971a3f', 'e858db92-d2d0-5e7e-9e75-0d2329a2f599'}, unloadMountDBID=0.0, unloadMountCount=0.0})",
+   "ok": true,
+   "ret": 0,
+   "out": "mission {guid = 'E6-00001K7KOU98B',name = '蓝方-防空巡逻'}"
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('E6-00001K7KOU8VB,E6-00001K7KOU92C,E6-00001K7KOU95D', 'E6-00001K7KOU98A', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "assign",
+   "code": "AssignUnitListToMission('E6-00001K7KOU86I,E6-00001K7KOU897,E6-00001K7KOU8UQ', 'E6-00001K7KOU98B', false)",
+   "ok": true,
+   "ret": 0,
+   "out": ""
+  },
+  {
+   "block": "save",
+   "code": "Command_SaveScen('D:/LingYi/Data/Scenarios/EXP1-巴士海峡反潜封锁.scen')",
+   "ok": true,
+   "ret": 0,
+   "out": "Scenarios/EXP1-巴士海峡反潜封锁.scen"
+  }
+ ],
+ "digest_summary": "《巴士海峡反潜封锁》 2 方 6 单元（红方[Ship:3], 蓝方[Aircraft:1 Submarine:2]）；任务 2 个（红方-反潜巡逻:Patrol/SUB, 蓝方-防空巡逻:Patrol/AAW）；参考点 8",
+ "verify": {
+  "ok": true,
+  "passed": 17,
+  "total": 17,
+  "failed": [],
+  "checks": [
+   {
+    "check": "文件已落盘且非空",
+    "ok": true,
+    "warn": false,
+    "detail": "27017 字节"
+   },
+   {
+    "check": "引擎可回读（GetScenarioContent）",
+    "ok": true,
+    "warn": false,
+    "detail": "回读 121501 字节"
+   },
+   {
+    "check": "标题一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec='巴士海峡反潜封锁' engine='巴士海峡反潜封锁'"
+   },
+   {
+    "check": "推演时长一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec=14400s engine=14400s"
+   },
+   {
+    "check": "推演方集合一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec=['红方', '蓝方'] engine=['红方', '蓝方']"
+   },
+   {
+    "check": "两两对抗关系正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致（H=3 U=2 F=1 N=0）"
+   },
+   {
+    "check": "兵力数量分布一致",
+    "ok": true,
+    "warn": false,
+    "detail": "红方 Aircraft:0, Ship:3, Submarine:0, Facility:0, Satellite:0；蓝方 Aircraft:1, Ship:0, Submarine:2, Facility:0, Satellite:0"
+   },
+   {
+    "check": "单元齐全（按 推演方+名称）",
+    "ok": true,
+    "warn": false,
+    "detail": "4 型单元全部在册"
+   },
+   {
+    "check": "单元 DBID 正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "单元初始坐标正确（±0.002°）",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "任务齐全（推演方+名称）",
+    "ok": true,
+    "warn": false,
+    "detail": "2 个任务全部在册"
+   },
+   {
+    "check": "任务类型/子类型正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "巡逻区顶点数正确（Patrol）",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "单元-任务分配数正确",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "没有多余任务",
+    "ok": true,
+    "warn": true,
+    "detail": "OK"
+   },
+   {
+    "check": "条令关键字段一致",
+    "ok": true,
+    "warn": false,
+    "detail": "全部一致"
+   },
+   {
+    "check": "气象一致",
+    "ok": true,
+    "warn": false,
+    "detail": "spec={'temp': 20, 'rainfall': 20, 'cloud': 0.8, 'seastate': 5} engine={'temp': 20, 'rainfall': 20, 'cloud': 0.8, 'seastate': 5}"
+   }
+  ]
+ }
+}
