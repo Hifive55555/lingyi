@@ -182,12 +182,19 @@ def analyse(own, missiles, prev=None, now=0.0, gate=None, max_per_unit=0):
                 if p is None:
                     continue                     # 第一次见到这枚弹，下一周期再判
                 pd, pt = p
-                closing = d < pd - 1e-6
+                dt = now - pt
+                if dt <= 0:
+                    # 同一个推演时刻被算了两次（或时间回退）：无速度可言，
+                    # 沿用上一周期的“在靠近”判断，但**不给 tgo**，避免算出垃圾值
+                    closing = d < pd - 1e-6
+                    cp, tgo = (0.0 if closing else d), None
+                else:
+                    closing = d < pd - 1e-6
+                    cp = 0.0 if closing else d
+                    rate = (pd - d) / dt
+                    tgo = (d / rate) if rate > 1e-6 else None
                 if not closing:
                     continue
-                cp = 0.0                         # 未知航向：按“正朝我来”处理
-                rate = (pd - d) / max(1e-9, (now - pt))
-                tgo = (d / rate) if rate > 1e-6 else None
             if not closing:
                 continue
             if g_cpa > 0 and cp > g_cpa:

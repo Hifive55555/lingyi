@@ -60,7 +60,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mon
 | 方法 | 返回 | 说明 | 每次开销 |
 | --- | --- | --- | --- |
 | `setup(situation)` | `dict` 自检摘要 | 开局调一次；登记本方单位并空跑一次 | 一次 `step` |
-| `ensure(situation, time_elapse=None)` | `bool` 是否真的重算 | **幂等**：同一份态势只算一次，多个下游共用一个实例时不会重复算 | 0（已算过时） |
+| `ensure(situation, time_elapse=None)` | `bool` 是否真的重算 | **幂等**：同一个推演时刻只算一次。判据是**时间**不是态势对象身份（平台会缓存复用同一个 tuple）；不传时间时读 `agent.time_elapse` | 0（已算过时） |
 | `step(situation, time_elapse=None)` | `dict` 统计 | 强制重算。一般不用直接调，`ensure` 内部会调 | O(单元×弹) |
 | `ready` (属性) | `bool` | 是否已成功跑过至少一次。**下游用前先判这个** | 0 |
 | `has_incoming(guid)` | `bool` | 该单元是否被任何一枚弹朝我飞 | 字典查表 |
@@ -68,7 +68,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mon
 | `incoming_list(guid)` | `[(弹型, 弹速km/h), …]` | 所有朝它飞的弹，按紧急度排序 | 字典查表 |
 | `threats_for(guid)` | `[dict, …]` | **要动作时用这个**：多带情报 guid 和几何量（见 §3） | 字典查表 |
 | `route(category)` | `[(guid, 单元名), …]` | 按作用对象取“当前确实被瞄准”的清单（报告的一进三出） | 遍历一次 |
-| `rows()` | `[dict, …]` | 本周期全量快照（空/海/陆三组，**含未被攻击的**），小窗/日志用 | 拷贝列表 |
+| `rows()` | `[dict, …]` | 本周期全量快照（空/海/陆三组，**含未被攻击的**），小窗/日志用 | 深一层副本 |
 | `missiles()` | `[dict, …]` | 本周期枚举到的敌方弹药（诊断） | 拷贝列表 |
 | `bare_contacts()` | `[dict, …]` | 看见了但没朝任何人飞的弹（诊断：看漏了什么） | 遍历一次 |
 | `status()` | `dict` | 周期数、本方/弹药/被瞄准计数、当前门限 | 0 |
@@ -210,11 +210,16 @@ for r in targets[:3]:                                  # 最危险的三艘优�
 4. **只读**。本组件不下发任何指令，也不占用指令配额，可以放心每周期调。
 5. **`id` 是情报 guid**，不是单元 guid。要发弹、要算方位都用它去 `self.Contacts` 里反查。
 6. 性能：`单元数 × 弹数` 次 CPA，单次约 10 µs；200 单元 × 60 枚 ≈ 2.2 ms。
-7. `rows()` / `threats_for()` 返回的是**列表副本**，改它不会影响内部状态。
-8. **平台的“告警”情报也算 Type=1**。实测会出现 `防空导弹#40`（真弹，db=890）和
+7. `rows()` / `threats_for()` / `incoming_list()` / `missiles()` 返回的都是**只读副本**，
+   你可以随便截断/改写（小窗就靠这个限宽），不会影响监控内部状态。
+8. `ensure()` 的判断依据是**推演时刻**，不是你传的 `situation` 对象身份——因为平台的
+   `Player.get_situation()` 会把同一个 tuple 缓存复用，靠身份判断会让监控永久停更。
+9. **平台的“告警”情报也算 Type=1**。实测会出现 `防空导弹#40`（真弹，db=890）和
    `警告来袭#70` 两族条目。若确认重复，设 `Monitor.IGNORE_NAME_KEYS = ('警告来袭',)` 剔除。
-9. **速度恒为 0 的情报不是弹**。`MIN_MISSILE_KMH = 50`（约 27 节）以下一律丢弃——
-   实测平台会混进速度 0 的杂项，若不挡会让 `tgo` 失真、把军舰当弹。
+10. **速度恒为 0 的情报不是弹**。`MIN_MISSILE_KMH = 50`（约 27 节）以下一律丢弃——
+    实测平台会混进速度 0 的杂项，若不挡会让 `tgo` 失真、把军舰当弹。
+11. **弹名可能缺失**：`incoming()` / `incoming_list()` 依次退 `Name → 弹<DBID> → 未知弹`，
+    所以下游不要假设名字一定可读。
 
 ---
 

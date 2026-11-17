@@ -64,7 +64,12 @@ class MonitorAgent(RuleAgentBase):
     MAX_PER_UNIT = 8           # 小窗里单个单元最多列几枚弹（只影响展示）
     MSG_ENABLE = True          # 往客户端“智能体输出”推汇总
     MSG_DEDUP_SEC = 30.0       # 同形态的汇总 30 秒内不重复
-    GATE = None                # None = 不设门限，朝我就算
+    # None = 不设门限（弹在朝我飞就算）。
+    # 客户端里挂载时想临时收紧、又不想改代码，可设环境变量：
+    #   LY_MONITOR_CPA_RATIO=0.2    CPA ≤ 当前距离×0.2
+    #   LY_MONITOR_CPA_KM=3         CPA ≤ 3 km
+    #   LY_MONITOR_MAX_KM=150       只用 150 km 内的弹
+    GATE = None
 
     def __init__(self, side_name="红方", *args, **kwargs):
         RuleAgentBase.__init__(self, side_name)
@@ -75,17 +80,38 @@ class MonitorAgent(RuleAgentBase):
         self.cycle = 0
         self.lock = threading.RLock()
         self.server = None
-        self.monitor = Monitor(self, gate=self.GATE)
+        self.monitor = Monitor(self, gate=self._gate_from_env() or self.GATE)
         self._last_msg = {}
         self.snapshot = {"t": 0, "side": side_name, "started": False,
                          "groups": {}, "rows": [], "ms": 0, "own": 0}
 
+    @staticmethod
+    def _gate_from_env():
+        g = {}
+        for key, env in (('cpa_ratio', 'LY_MONITOR_CPA_RATIO'),
+                         ('cpa_km', 'LY_MONITOR_CPA_KM'),
+                         ('max_km', 'LY_MONITOR_MAX_KM'),
+                         ('tgo_s', 'LY_MONITOR_TGO_S')):
+            v = os.environ.get(env)
+            if v:
+                try:
+                    g[key] = float(v)
+                except ValueError:
+                    pass
+        return g or None
+
     # ---------------------------------------------------------------- 生命周期
     def initial(self, situation):
-        log.info("[监控] 战前，监控%s，小窗 127.0.0.1:%d", self.side_cn, PORT)
         with self.lock:
-            self.monitor.setup(situation)
+            rep = self.monitor.setup(situation)
             self._build(0.0)
+        g = self.snapshot.get('groups', {})
+        log.info("[监控] 就绪：监控%s｜我方 %d 个单元（空%d/海%d/陆%d）｜弹药 %d｜"
+                 "小窗 ws://127.0.0.1:%d/ws｜判定=%s",
+                 self.side_cn, rep.get('本方单位', 0) or 0,
+                 g.get('air', [0, 0])[1], g.get('sea', [0, 0])[1], g.get('land', [0, 0])[1],
+                 rep.get('敌方弹药', 0), PORT, self.monitor.gate or '朝我就算（无门限）')
+        self._notify_init()
         if SnapServer.instance is None:
             self.server = SnapServer(self, PORT)
             self.server.start()
@@ -105,6 +131,12 @@ class MonitorAgent(RuleAgentBase):
                 self._build(self.now)
         except Exception as e:
             log.error("[监控] 快照异常 %s", e, exc_info=True)
+        if self.cycle % 20 == 0:
+            g = self.snapshot.get('groups', {})
+            log.info("[监控] 周期%d t=%ds 我方%d 弹药%d 被攻击 空%d/海%d/陆%d",
+                     self.cycle, self.snapshot.get('t', 0), self.snapshot.get('own', 0),
+                     self.snapshot.get('ms', 0), g.get('air', [0, 0])[0],
+                     g.get('sea', [0, 0])[0], g.get('land', [0, 0])[0])
         try:
             self._notify()
         except Exception as e:
@@ -116,6 +148,19 @@ class MonitorAgent(RuleAgentBase):
             log.warning("[监控] 推送异常 %s", e)
         return None
 
+    def _notify_init(self):
+        """往客户端消息栏打一行“我起来了”，便于验证接入成功（否则整局可能一句都没有）。"""
+        fn = getattr(self, 'agent_message_text', None)
+        if not callable(fn):
+            return
+        g = self.snapshot.get('groups', {})
+        try:
+            fn('【监控】就绪：我方 %d 个单元（空%d/海%d/陆%d），发现来袭弹即播报'
+               % (self.snapshot.get('own', 0), g.get('air', [0, 0])[1],
+                  g.get('sea', [0, 0])[1], g.get('land', [0, 0])[1]))
+        except Exception as e:
+            log.warning("[监控] 就绪消息推送失败 %s", e)
+
     def deduction_end(self):
         s = self.snapshot.get('groups', {}).get('all', [0, 0])
         log.info("[监控] 推演结束：周期 %d，最后一步被攻击 %d / %d 个单元",
@@ -123,7 +168,7 @@ class MonitorAgent(RuleAgentBase):
 
     # ---------------------------------------------------------------- 快照
     def _build(self, t):
-        rows = self.monitor.rows()
+        rows = self.monitor.rows()          # 已经是副本，改它不影响 monitor 内部
         if self.MAX_PER_UNIT > 0:
             for r in rows:
                 if len(r['ms']) > self.MAX_PER_UNIT:

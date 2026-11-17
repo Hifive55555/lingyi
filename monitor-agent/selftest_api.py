@@ -248,6 +248,65 @@ m_f2.setup(sit_f)
 ok(len(m_f2.missiles()) == 1, "设了 IGNORE_NAME_KEYS 后只剩真弹（1 枚）：%s"
    % ([x['n'] for x in m_f2.missiles()],))
 
+print("─" * 62)
+print("场景 G：只读副本（防止调用方改坏监控内部状态）")
+print("─" * 62)
+g = FakeAgent()
+g.aircrafts['air1'] = U('苏-35S #1', 45.00, 1.00)
+ms_g = {}
+for i in range(10):          # 同一个单元被 10 枚弹指着
+    cid = 'c%d' % i
+    ms_g[cid] = contact(cid, '导弹#%d' % i, 45.00, 0.90 - i * 0.005, hdg=90.0, knots=1600)
+sit_g = sit(ms_g)
+m_g = Monitor(g)
+m_g.setup(sit_g)
+ok(len(m_g.threats_for('air1')) == 10, "10 枚弹全部记录（%d）" % len(m_g.threats_for('air1')))
+rows_g = m_g.rows()
+rows_g[0]['ms'] = rows_g[0]['ms'][:3]          # 模拟小窗为了限宽而截断
+rows_g[0]['n'] = '被外部改掉了'
+ok(len(m_g.threats_for('air1')) == 10,
+   "★ 截断 rows() 的副本**不影响** threats_for（原始 bug：浅拷贝会砍掉 7 枚）")
+ok(len(m_g.incoming_list('air1')) == 10, "incoming_list 也还是 10 条")
+ok(m_g.rows()[0]['n'] == '苏-35S #1', "rows() 里被外部改掉的字段不会回写到内部")
+tf = m_g.threats_for('air1')
+tf[0]['spd'] = -1
+ok(m_g.threats_for('air1')[0]['spd'] > 0, "threats_for 返回的也是副本")
+
+print("─" * 62)
+print("场景 H：ensure() 的重算判据（不能靠态势对象身份）")
+print("─" * 62)
+h = FakeAgent()
+h.aircrafts['air1'] = U('苏-35S #1', 45.00, 1.00)
+sit_h = sit({'c1': contact('c1', 'AGM-88E', 45.00, 0.90, hdg=90.0, knots=1600)})
+m_h = Monitor(h)
+m_h.setup(sit_h)
+ok(m_h.ensure(sit_h, 100) is True, "第一次给 t=100 -> 重算")
+c1 = m_h.status()['cycle']
+ok(m_h.ensure(sit_h, 100) is False, "同一推演时刻重复 ensure -> 不重算")
+ok(m_h.status()['cycle'] == c1, "周期数不变")
+ok(m_h.ensure(sit_h, 105) is True, "★ 同一个 situation 对象、但时间推进 -> 必须重算")
+ok(m_h.status()['cycle'] == c1 + 1, "周期数 +1")
+# 不给 time_elapse 时，读主智能体的 time_elapse
+h.time_elapse = 200
+ok(m_h.ensure(sit_h) is True, "不给时间：靠 agent.time_elapse 变化也能重算")
+h.time_elapse = 200
+ok(m_h.ensure(sit_h) is False, "agent.time_elapse 没变 -> 不重算")
+
+print("─" * 62)
+print("场景 I：弹名兜底（情报没有 Name / DBID）")
+print("─" * 62)
+i2 = FakeAgent()
+i2.aircrafts['air1'] = U('苏-35S #1', 45.00, 1.00)
+c_nameless = {'ID': 'cx', 'Name': '', 'Type': 1, 'DBID': 2056, 'Lat': 45.0, 'Lon': 0.9,
+              'CurrentHeading': 90.0, 'CurrentSpeed': 1600}
+c_nodb = {'ID': 'cy', 'Name': '', 'Type': 1, 'Lat': 45.0, 'Lon': 0.85,
+          'CurrentHeading': 90.0, 'CurrentSpeed': 1600}
+m_i = Monitor(i2)
+m_i.setup(sit({'cx': c_nameless, 'cy': c_nodb}))
+names_i = sorted(n for n, _ in m_i.incoming_list('air1'))
+ok('弹2056' in names_i, "没 Name 用 DBID 兜底：%s" % (names_i,))
+ok('未知弹' in names_i, "Name/DBID 都没有 -> '未知弹'：%s" % (names_i,))
+
 print("\n%d 项断言，%d 项失败" % (N[0], len(FAIL)))
 for f in FAIL:
     print("  ! " + f)

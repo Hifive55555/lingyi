@@ -39,6 +39,16 @@ from . import core
 log = logging.getLogger("监控")
 
 
+def _name(h):
+    """弹名兜底：情报可能没有 Name，DBID 也可能没有。"""
+    n = (h.get('n') or '').strip()
+    if n:
+        return n
+    db = h.get('db')
+    return ('弹%s' % db) if db not in (None, '', 0) else '未知弹'
+
+
+
 class Monitor(object):
     """物理作战域三维监控（可嵌入组件）。"""
 
@@ -95,15 +105,25 @@ class Monitor(object):
         """
         保证本周期已经算过一次。多个下游共用同一份态势时只算一次。
 
+        ⚠ 不能只看 ``situation`` 的**对象身份**：平台/框架里 ``Player.get_situation()``
+        会把同一个 tuple 缓存复用，身份永远不变 —— 那样监控会**永久不再重算**。
+        所以判据是“推演时刻有没有变”，时间拿不到时才退回身份比较。
+
         :return: bool, 本次是否真的重算
         """
         if not self.ENABLE:
             return False
-        if situation is self._last_sit and time_elapse is None:
-            return False
-        if situation is self._last_sit and time_elapse == self._now:
-            return False
-        self.step(situation, time_elapse)
+        t = time_elapse
+        if t is None:
+            t = core.num(getattr(self.agent, 'time_elapse', None), None)
+        if t is not None:
+            if self._rows and core.num(t) == core.num(self._now):
+                return False                     # 同一推演时刻，已经算过
+            self.step(situation, t)
+            return True
+        if situation is self._last_sit and self._rows:
+            return False                         # 连时间都拿不到，才退回身份判断
+        self.step(situation, None)
         return True
 
     def step(self, situation, time_elapse=None):
@@ -221,16 +241,22 @@ class Monitor(object):
         if not rows:
             return None
         r = rows[0]
-        return (r['n'] or ('弹%s' % r['db']), r['spd'])
+        return (_name(r), r['spd'])
 
     def incoming_list(self, target_guid):
         """该目标当前所有朝它飞的弹：[(弹型, 当前弹速 km/h), ...]，按紧急度排序。"""
-        return [(r['n'] or ('弹%s' % r['db']), r['spd'])
-                for r in self._threats.get(target_guid, ())]
+        return [(_name(r), r['spd']) for r in self._threats.get(target_guid, ())]
 
     def has_incoming(self, target_guid):
         """该目标是否被任何一枚弹朝我飞（bool）。"""
         return bool(self._threats.get(target_guid))
+
+    @staticmethod
+    def _row_copy(r):
+        """给外部的东西一律是副本：外部改它（比如小窗截断列表）不能污染内部状态。"""
+        out = dict(r)
+        out['ms'] = [dict(h) for h in r.get('ms') or ()]
+        return out
 
     def threats_for(self, target_guid):
         """
@@ -244,7 +270,7 @@ class Monitor(object):
                  cpa : 最近接近距离 km
                  tgo : 预计到最近接近点的时间 s（None = 无航向且算不出）
         """
-        return list(self._threats.get(target_guid, ()))
+        return [dict(h) for h in self._threats.get(target_guid, ())]
 
     def route(self, category):
         """
@@ -262,12 +288,16 @@ class Monitor(object):
         return [(r['id'], r['n']) for r in self._rows if r['g'] == want and r['hit']]
 
     def rows(self):
-        """本周期全量快照（空/海/陆三组、含未被攻击的），给小窗 / 日志用。"""
-        return list(self._rows)
+        """本周期全量快照（空/海/陆三组、含未被攻击的），给小窗 / 日志用。
+
+        **返回副本**：调用方（比如小窗为了限宽截断 ``ms``）改它不会影响
+        ``threats_for()`` / ``incoming_list()`` 的结果。
+        """
+        return [self._row_copy(r) for r in self._rows]
 
     def missiles(self):
-        """本周期枚举到的敌方弹药（诊断用）。"""
-        return list(self._missiles)
+        """本周期枚举到的敌方弹药（诊断用）。返回副本。"""
+        return [dict(m) for m in self._missiles]
 
     def bare_contacts(self):
         """没被判成“朝我方任何单元飞来”的弹药（诊断用：看漏了什么）。"""

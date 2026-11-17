@@ -83,8 +83,9 @@ function unitRow(r) {
   const ms = (r.ms || []).slice();
   if (bySpeed) ms.sort((a, b) => (b.spd || 0) - (a.spd || 0));
   const alt = r.g === 'air' ? `<u>${Math.round(r.alt / 100) / 10}km</u>` : '';
+  const dmg = (r.dmg || 0) >= 1 ? `<u class="dmg" title="已受损 ${Math.round(r.dmg)}%">损${Math.round(r.dmg)}%</u>` : '';
   return `<div class="row ${r.hit ? 'hit' : 'safe'}">`
-    + `<span class="u" title="${esc(r.n)}">${esc(r.n)}${alt}</span>`
+    + `<span class="u" title="${esc(r.n)}">${esc(r.n)}${alt}${dmg}</span>`
     + `<span class="ms">${ms.length ? ms.map(msChip).join('') : '<span class="sub">—</span>'}</span></div>`;
 }
 function render() {

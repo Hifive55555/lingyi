@@ -181,12 +181,36 @@ tgo = t* × 3600           # 预计到最近接近点的时间（秒）
 | 3 | 把 `DDG 113“约翰.芬”阿利伯克级 Flight IIA **导弹**驱逐舰` 判成来袭弹 | 名字兜底里有裸 `'导弹'`，把军舰一起匹配了 | 加平台词黑名单（舰/船/艇/机/基地/雷达/营…），并改为只认具体弹型关键字 |
 | 4 | 速度恒为 0 的杂项情报被当成弹（`tgo` 乱掉） | 没有速度下限 | 加 `MIN_MISSILE_KMH = 50` |
 
+### 客户端挂载路径（`main.py` + `config/monitor_ai#1`）复查修掉的 5 处
+
+这条路是「智能体调度 → 启动」真正走的（客户端为每个智能体 spawn
+`python main.py config/<名>#1`），现场实测 `own=126 / groups 空80-海19-陆27` 数据正常，
+但代码审查 + 复查又发现 5 处：
+
+| # | 问题 | 后果 | 修法 |
+| --- | --- | --- | --- |
+| 5 | `Monitor.rows()` 是**浅拷贝**，`_build()` 为了限宽截断 `r['ms']` 会改到监控内部的同一批 dict | 一个单元被 **>8 枚弹**指着时，`threats_for()` / `incoming_list()` 会**凭空少掉几枚** | `rows()` / `threats_for()` / `missiles()` 一律返回深一层副本 |
+| 6 | `ensure()` 只看 `situation` 的**对象身份** | 平台的 `Player.get_situation()` 会缓存复用同一个 tuple → 监控**永久不再重算** | 改成按“推演时刻变没变”判断，时间拿不到才退回身份比较 |
+| 7 | 无航向兜底里 `dt = now - prev_time` 可能 ≤ 0 | 算出天文数字的 `tgo`，排序被顶到最前 | `dt <= 0` 时给 `tgo=None`（未知），不猜 |
+| 8 | 弹名兜底 `'弹%s' % db` | 情报没 `DBID` 时显示 `弹None` | 依次退 `Name → 弹<DBID> → 未知弹` |
+| 9 | 开局/运行中**没有任何健康输出** | 没法判断“智能体是不是活着、有没有算”（现场就吃过这个亏） | `initial()` 打一行自检 + 每 20 周期一行 `周期N 我方/弹药/被攻击` |
+
+另外两个顺手加的：
+
+- **门限可用环境变量覆盖**，客户端里不用改代码：`LY_MONITOR_CPA_RATIO=0.2` /
+  `LY_MONITOR_CPA_KM=3` / `LY_MONITOR_MAX_KM=150` / `LY_MONITOR_TGO_S=900`。
+- 小窗每行显示**已受损百分比**（`r.dmg` 早就在快照里，之前没用上）。
+
 ## 5. 自测（不需要平台、不需要 Windows）
 
 ```bash
 python selftest_core.py     # 31 项：几何 / 量纲 / 分组 / 排序 / 无航向兜底 / 可选门限 / 弹药识别
-python selftest_api.py      # 43 项：每个公开 API 的行为 + 三个下游用法 + ensure 幂等 + 忽略名单
+python selftest_api.py      # 57 项：公开 API + 三个下游用法 + 只读副本 + ensure 判据 + 弹名兜底
 ```
+
+**在目标机上用 `ray210\python.exe`（Python **3.9.19**）实测同样全过**（31 + 57 = 88 项），
+并验证了整包 `import monitor_ai` 的继承链：
+`Agent → MonitorAgent → RuleAgentBase → Player`。
 
 `selftest_api.py` 会假装自己是“下游智能体”（地空导弹营），只靠 `Monitor` 的公开接口做决策，
 可以直接当验收用例看。
