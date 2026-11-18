@@ -311,6 +311,11 @@ class Agent(RuleAgentBase):
         # RB107“流星”导弹（与“流星”空空导弹是两个型号，按用户要求一并设置）
         ('371', 'RB107“流星”导弹', '60'),
     )
+    # 实验臂开关：把所有空空导弹的“自动开火距离”统一改成该值（海里）。
+    #   None = 用上表的 50/60 海里（正文口径）
+    #   设成 1 表示“几乎不用平台自动开火”，交由 Mission_tactics_red 的 d0 判据决定何时开火。
+    #   —— 实测发现：平台 WRA 的自由开火会先于 0.8*d0 触发，导致 d0 判据被架空。
+    AIR_WRA_NM_OVERRIDE = None
     # 自动开火距离覆盖的 4 类目标
     AIR_WRA_RANGE_TARGETS = (
         WRA_WeaponTargetType.Air_Contact_Unknown_Type,    # 空中感知-未知类型 1999
@@ -997,12 +1002,14 @@ class Agent(RuleAgentBase):
             self.wra_qty_salvo(
                 wid, WRA_WeaponTargetType.Guided_Weapon_Unspecified, '0')
             n += 1
-            # 4 类空中目标的自动开火距离
+            # 4 类空中目标的自动开火距离（实验臂可覆盖）
+            _rng = (str(int(self.AIR_WRA_NM_OVERRIDE))
+                    if self.AIR_WRA_NM_OVERRIDE else rng)
             for t in self.AIR_WRA_RANGE_TARGETS:
-                self.wra_firing_range(wid, t, rng)
+                self.wra_firing_range(wid, t, _rng)
                 n += 1
             self._log('info', '总条令 WRA[%s(%s)]：4 类目标自动开火距离 %s 海里，'
-                              '制导武器-未指定 不使用武器' % (name, wid, rng))
+                              '制导武器-未指定 不使用武器' % (name, wid, _rng))
         self._log('info', '总条令空空导弹 WRA 共下发 %d 条' % n)
         return n
 

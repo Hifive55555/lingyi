@@ -26,7 +26,7 @@
     caption-font: ("New Computer Modern", "Zhuque Fangsong (technical preview)"),
     header-font: ("New Computer Modern", "Noto Serif CJK SC"),
     strong-font: ("New Computer Modern", "Noto Sans CJK SC"),
-    emph-font: ("New Computer Modern", "Zhuque Fangsong (technical preview)"),
+    emph-font: ("New Computer Modern", "AR PL UKai"),
     raw-font: ("DejaVu Sans Mono", "Noto Sans Mono CJK SC"),
   ),
 )
@@ -147,6 +147,7 @@
 #include "sections/03-basic.typ"
 #include "sections/04-core.typ"
 #include "sections/05-perf.typ"
+#include "sections/09-method.typ"
 #include "sections/06-effect.typ"
 #include "sections/07-concl.typ"
 #include "sections/08-appendix.typ"
