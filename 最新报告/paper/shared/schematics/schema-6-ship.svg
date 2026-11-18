@@ -81,7 +81,7 @@
   <text x="74" y="645" font-size="18" fill="#6b6b6b">海岸</text>
 
   <!-- 三层同心弧 -->
-  <circle cx="755" cy="430" r="250" fill="#ece9df" fill-opacity="0.55"
+  <circle cx="755" cy="430" r="236" fill="#ece9df" fill-opacity="0.55"
           stroke="#8a8a8a" stroke-width="2.2" stroke-dasharray="11 7"/>
   <circle cx="755" cy="430" r="150" fill="#e6eff6" fill-opacity="0.9"
           stroke="#2f6f9f" stroke-width="2.2" stroke-dasharray="9 6"/>
@@ -128,7 +128,7 @@
         marker-end="url(#ahr1)"/>
   <path d="M500,282 Q600,360 700,404" fill="none" stroke="#2f6f9f" stroke-width="3.2"
         marker-end="url(#ahb1)"/>
-  <path d="M650,265 Q750,315 800,360" fill="none" stroke="#b0720a" stroke-width="3.2"
+  <path d="M790,285 Q806,340 796,392" fill="none" stroke="#b0720a" stroke-width="3.2"
         marker-end="url(#aha1)"/>
 
   <text x="330" y="332" font-size="20" fill="#b3261e" font-weight="600" paint-order="stroke"
@@ -152,7 +152,7 @@
         stroke="#ffffff" stroke-width="6" stroke-linejoin="round">23900 舰</text>
 
   <!-- 弧上标注 -->
-  <text x="986" y="292" font-size="20" font-weight="600" paint-order="stroke"
+  <text x="968" y="292" font-size="20" font-weight="600" paint-order="stroke"
         stroke="#ffffff" stroke-width="7" stroke-linejoin="round">D<tspan dy="5" font-size="15">max</tspan><tspan dy="-5"> 最大拦截距离</tspan></text>
   <text x="896" y="362" font-size="20" fill="#2f6f9f" font-weight="600" paint-order="stroke"
         stroke="#ffffff" stroke-width="7" stroke-linejoin="round">½D<tspan dy="5" font-size="15">max</tspan></text>

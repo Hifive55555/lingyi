@@ -72,7 +72,8 @@
 
   <!-- ================= 阵地与静默虚影 ================= -->
   <use href="#sam7" xlink:href="#sam7" transform="translate(620,430)"/>
-  <text x="620" y="500" font-size="19" font-weight="600" text-anchor="middle">地导营</text>
+  <text x="620" y="504" font-size="19" font-weight="600" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">地导营</text>
 
   <g opacity="0.55">
     <rect x="588" y="153" width="64" height="34" rx="3" fill="#f7f7f7"
@@ -84,7 +85,8 @@
     <line x1="638" y1="153" x2="638" y2="123" stroke="#6b6b6b" stroke-width="2" stroke-dasharray="5 4"/>
     <rect x="630" y="116" width="17" height="7" rx="2" fill="#6b6b6b"/>
   </g>
-  <text x="660" y="172" font-size="19" fill="#6b6b6b">静默虚影（雷达关）</text>
+  <text x="660" y="172" font-size="19" fill="#6b6b6b" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">静默虚影（雷达关）</text>
 
   <!-- 单向机动箭头 + 锁 -->
   <line x1="620" y1="386" x2="620" y2="208" stroke="#b3261e" stroke-width="3.2"

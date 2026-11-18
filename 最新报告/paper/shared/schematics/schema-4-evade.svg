@@ -124,8 +124,8 @@
   <use href="#msl" transform="translate(1290,340)"/>
   <g font-size="18" text-anchor="middle">
     <text x="1100" y="392">本周期</text>
-    <text x="1190" y="392">下个周期</text>
-    <text x="1290" y="392">再过 13 km</text>
+    <text x="1186" y="392">下个周期</text>
+    <text x="1304" y="392">再过 13 km</text>
   </g>
 
   <!-- 实触发点 -->

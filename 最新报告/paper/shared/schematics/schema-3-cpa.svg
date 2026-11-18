@@ -70,7 +70,8 @@
   <text x="490" y="362" font-size="21" fill="#4a4a4a">r</text>
   <text x="604" y="322" font-size="19" fill="#d64545">v_m</text>
   <text x="341" y="530" font-size="19" fill="#4a90d9" text-anchor="middle">v_a</text>
-  <text x="455" y="288" font-size="18" fill="#4a4a4a" text-anchor="middle">未来航迹（相对）</text>
+  <text x="470" y="250" font-size="18" fill="#4a4a4a" text-anchor="middle">未来航迹（相对）</text>
+  <line x1="498" y1="257" x2="505" y2="272" stroke="#4a4a4a" stroke-width="1.2"/>
   <text x="250" y="392" font-size="20" font-weight="600" fill="#d64545" text-anchor="middle">CPA</text>
   <text x="44" y="566" font-size="18" fill="#6b6b6b">r：当前弹目距离　｜　虚线：本机静止后弹的相对航迹　｜　CPA 垂足即脱靶量　｜　示意，CPA 已放大</text>
 
