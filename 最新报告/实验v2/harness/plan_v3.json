@@ -1,0 +1,30 @@
+{
+ "scenario": "诺曼底2027(人机协同-人人版)_有红有蓝",
+ "decision_interval": 30, "compression": 10001, "max_steps": 0,
+ "budget_h": 4.0, "est_s_per_episode": 195, "episode_timeout_s": 600,
+ "out": "D:/LingYi/exp/v2/runs.jsonl",
+ "jobs_dir": "D:/LingYi/exp/jobs",
+ "logs": "D:/LingYi/exp/v2/logs",
+ "tap_dir": "D:/LingYi/exp/v2/tap",
+ "agents": {
+  "红方": {"redMain": {"module": "agent.Mission_all_red", "class": "Agent"},
+           "redTac": {"module": "agent.Mission_tactics_red", "class": "Agent"},
+           "tapR": {"module": "agent.pi_tap", "class": "Agent"}},
+  "蓝方": {"blueMain": {"module": "agent.Mission_all_blue_hh", "class": "Agent"},
+           "tapB": {"module": "agent.pi_tap", "class": "Agent"}}
+ },
+ "arms": [
+  {"name": "V2_A0_new",      "episodes": 12, "theta": {}},
+  {"name": "V2_A1_old",      "episodes": 12, "theta": {"use_d0": 0, "fire_fixed_km": 111.12, "fire_range_coef": 1.0}},
+  {"name": "V2_WA_f08",      "episodes": 6,  "theta": {"wra_nm": 1}},
+  {"name": "V2_WB_f06",      "episodes": 6,  "theta": {"wra_nm": 1, "fire_k": 0.6}},
+  {"name": "V2_WC_f10",      "episodes": 6,  "theta": {"wra_nm": 1, "fire_k": 1.0}},
+  {"name": "V2_WD_fix111",   "episodes": 6,  "theta": {"wra_nm": 1, "fire_fixed_km": 111.12, "fire_range_coef": 1.0}},
+  {"name": "V2_B1_evade50",  "episodes": 6,  "theta": {"use_d0": 0}},
+  {"name": "V2_C1_kturn08",  "episodes": 6,  "theta": {"k_turn": 0.8}},
+  {"name": "V2_C2_kturn16",  "episodes": 6,  "theta": {"k_turn": 1.6}},
+  {"name": "V2_E1_sam03",    "episodes": 6,  "theta": {"sam_ratio": 0.3}},
+  {"name": "V2_E2_sam10",    "episodes": 6,  "theta": {"sam_ratio": 1.0}},
+  {"name": "V2_F1_nolayer",  "episodes": 6,  "theta": {"ship_layered": 0}}
+ ]
+}
