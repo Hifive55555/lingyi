@@ -30,7 +30,7 @@ ROOT = os.path.dirname(HERE)
 DATA = os.path.join(ROOT, 'data')
 FIG = os.path.join(ROOT, 'fig')
 
-BASE = 'V2_A0_new'
+BASE = 'A0_new'   # 只用 v1 批次做单因子效应：v1 各臂与 v1 基线同版本，避免跨版本差分
 ARM_THETA = {
     'V2_A0_new': {},
     'V2_A1_old': {'legacy': 1},
