@@ -131,68 +131,27 @@
 // 表内文字左对齐（figure 默认居中会把折行单元格排成居中，长说明列尤显零散）
 #show table.cell: set align(left)
 #show table.cell.where(x: 0): set align(left)
-
-
-// ---------- 代码关键字高亮 ----------
-// 这里的伪代码不是任何一种现成语言（中文标识符与 if/for/return 混排），所以不套
-// Typst 内置的语法树，而是自己按关键字表染色：控制词用强调蓝加粗，其余保持正文色。
-// 用 \b 界定词边界，`set_mission_wra` 这类标识符里的 in/as 不会被误染。
-#let code-keyword = regex(
-  "\\b(if|elif|else|for|while|in|and|or|not|is|return|break|continue|pass|True|False|None)\\b",
-)
-#let highlight-keyword(line) = {
-  let out = ""
-  let i = 0
-  for m in line.matches(code-keyword) {
-    if m.start > i { out += line.slice(i, m.start) }
-    out += text(fill: rgb("#3370ff"), weight: 700, m.text)
-    i = m.end
-  }
-  out += line.slice(i)
-  out
+// ---------- 行内代码 ----------
+// easy-paper 用 `show raw: set text(font: 等宽, size: 正文五号)` 给 raw 定死了字号，
+// show 优先于外层 set，所以 `V2_A0_new` 这类字段名在 7.4pt 的表里仍按 10.5pt 渲染，
+// 比同行文字大一圈。这里用一个 state 记住“当前所在单元格的字号”，在 raw 重新绑回去，
+// 同时把字体换成真正存在的等宽（easy-paper 指定的 Consolas / SimHei 本机没有）。
+#let raw-size = state("raw-size", 10.5pt)
+#show raw: it => context {
+  set text(size: raw-size.get(), font: ("DejaVu Sans Mono", "Noto Sans Mono CJK SC"))
+  it
 }
-
-// 整行注释淡灰；行内 "  # …" 之后的部分也淡灰；剩下的代码段做关键字染色。
-// 这条规则写在代码块自己的作用域里（而不是顶层），因为行内 raw 也带一个 raw.line，
-// 放在顶层会把正文里的 `USE_DROPTARGET=False` 这种行内代码也染成两色。
-#let code-line-style(it) = {
-  let t = it.text
-  if t.trim().starts-with("#") {
-    text(fill: rgb("#8a93a0"), t)
-  } else {
-    let parts = t.split(regex("[ ]{2,}#"))
-    if parts.len() > 1 {
-      let code = parts.first()
-      let rest = parts.slice(1).join("  #")
-      highlight-keyword(code) + text(fill: rgb("#8a93a0"), "  #" + rest)
-    } else {
-      highlight-keyword(t)
-    }
-  }
-}
-
-// ---------- 代码块样式：浅底 + 左侧色条 + 等宽小字号 + 注释淡灰 + 关键字高亮 ----------
-#show raw.where(block: true): it => block(
-  width: 100%,
-  inset: (left: 1.1em, right: 1.0em, top: 0.65em, bottom: 0.65em),
-  stroke: (left: 2.5pt + rgb("#3370ff99")),
-  fill: rgb("#f7f8fa"),
-  radius: (right: 2pt),
-  above: 0.7em,
-  below: 0.7em,
+// 成对 update：进单元格时换上表内字号，出单元格时恢复，避免污染后面的正文。
+#show table.cell: it => context {
+  let prev = raw-size.get()
+  raw-size.update(text.size)
   {
-    // 高亮后的关键字与代码段是重建出来的普通文本（不再是 raw 元素），
-    // 若不关掉两端对齐，行内空格会被拉开，换行位置与原文不一致。
-    set par(leading: 0.62em, justify: false)
-    show raw.line: code-line-style
-    text(
-      font: ("DejaVu Sans Mono", "Noto Sans Mono CJK SC"),
-      size: 8.4pt,
-      fill: rgb("#1f2937"),
-      it,
-    )
-  },
-)
+    it
+    raw-size.update(prev)
+  }
+}
+
+
 // ---------- 目录（三级，与赛会样板报告一致） ----------
 #show outline.entry.where(level: 1): set text(weight: 700, size: 11pt)
 #show outline.entry.where(level: 2): set text(size: 10.5pt)
