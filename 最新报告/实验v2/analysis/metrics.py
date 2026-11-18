@@ -39,7 +39,7 @@ SUMMARY_METRICS = [
     "red_damaged_units_final", "red_mean_damage_final",
     "blue_loss_cts_approx", "blue_loss_cts_air_approx", "blue_loss_cts_sea_approx",
     "blue_loss_own_exact", "blue_loss_own_air", "blue_loss_own_sea", "blue_loss_own_land",
-    "score_final", "score_peak", "score_auc",
+    "score_final", "score_rate", "score_peak", "score_auc",
     "engage_peak_type1", "engage_mean_type1", "munition_models",
     "step_wall_mean", "step_wall_p95", "full_length",
 ]
@@ -226,6 +226,8 @@ def episode_metrics(run: dict, red_rows: list[dict], blue_rows: list[dict] | Non
         "sim_end_tap": round(sim_end, 2),
         "full_length": int(sim_end_ref >= FULL_LENGTH_S - FULL_LENGTH_TOL),
         "score_final": float(score[-1]),
+        # 得分速率（分/小时）：部分对局提前结束，跨局比较必须先按仿真时长归一
+        "score_rate": (float(score[-1]) / (sim_end / 3600.0)) if sim_end > 0 else float("nan"),
         "score_peak": float(np.nanmax(score)),
         "score_auc": auc,
         "red_units_initial": len(own_first),
