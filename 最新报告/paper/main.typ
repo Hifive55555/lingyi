@@ -55,6 +55,25 @@
   show regex("\p{Han}"): set text(weight: 600)
   it
 }
+// ---------- 四级标题：源文件保留层级，正文里显示为「（1）加粗小标题」 ----------
+// 目的：既有三级编号已经到 2.3.4，再往下编号会变成 2.3.4.1 这种四段数字，读起来费劲；
+// 按评委习惯改成“（1）xxx。正文接排”的样式。源文件仍用 ==== 分层，便于维护。
+#set heading(numbering: (..n) => {
+  let p = n.pos()
+  if p.len() == 1 { numbering("1", p.at(0)) }
+  else if p.len() == 2 { numbering("1.1", ..p) }
+  else if p.len() == 3 { numbering("1.1.1", ..p) }
+  else { numbering("（1）", p.at(3)) }
+})
+#show heading.where(level: 4): it => block(
+  above: 1.05em, below: 0.28em, sticky: true,
+)[
+  #context {
+    let n = counter(heading).get().last()
+    text(weight: 700, size: 10.5pt)[（#numbering("1", n)）#it.body]
+  }
+]
+
 // 题注：整块居中；若折行，折行部分两端对齐（避免末行只有几个字被居中而显得零散）
 #show figure.caption: it => layout(size => {
   let head = text(fill: rgb("#3370ff"), weight: 600)[#it.supplement #context it.counter.display(it.numbering)]
