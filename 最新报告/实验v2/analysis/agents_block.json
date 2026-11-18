@@ -1,0 +1,11 @@
+{
+ "红方": {
+  "redMain": {"module": "agent.Mission_all_red", "class": "Agent"},
+  "redTac": {"module": "agent.Mission_tactics_red", "class": "Agent"},
+  "tapR": {"module": "agent.pi_tap", "class": "Agent"}
+ },
+ "蓝方": {
+  "blueMain": {"module": "agent.Mission_all_blue_hh", "class": "Agent"},
+  "tapB": {"module": "agent.pi_tap", "class": "Agent"}
+ }
+}
