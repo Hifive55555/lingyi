@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1400" height="820"
+     viewBox="0 0 1400 820" version="1.1"
+     font-family="Noto Sans CJK SC, sans-serif" fill="#1a1a1a">
+  <defs>
+    <marker id="ah7" viewBox="0 0 10 10" refX="9.2" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0.4,0.8 L9.6,5 L0.4,9.2 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="ahr7" viewBox="0 0 10 10" refX="9.2" refY="5"
+            markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0.4,0.8 L9.6,5 L0.4,9.2 z" fill="#b3261e"/>
+    </marker>
+    <g id="sam7">
+      <rect x="-32" y="-12" width="64" height="34" rx="3"
+            fill="#ffffff" stroke="#1a1a1a" stroke-width="2.2"/>
+      <line x1="-24" y1="-12" x2="-24" y2="-34" stroke="#1a1a1a" stroke-width="3"/>
+      <line x1="-10" y1="-12" x2="-10" y2="-34" stroke="#1a1a1a" stroke-width="3"/>
+      <line x1="4" y1="-12" x2="4" y2="-34" stroke="#1a1a1a" stroke-width="3"/>
+      <rect x="-27" y="-39" width="38" height="7" rx="2" fill="#1a1a1a"/>
+      <line x1="18" y1="-12" x2="18" y2="-42" stroke="#1a1a1a" stroke-width="2.2"/>
+      <rect x="10" y="-48" width="17" height="7" rx="2" fill="#1a1a1a"/>
+      <circle cx="18" cy="-52" r="3.2" fill="#1a1a1a"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="820" fill="#ffffff"/>
+
+  <!-- ================= 标题 ================= -->
+  <text x="700" y="46" font-size="26" font-weight="600" text-anchor="middle">地导营的拦截几何与暴露控制</text>
+  <text x="700" y="78" font-size="19" fill="#6b6b6b" text-anchor="middle">以营为圆心的三层弧 · 发弹线 · 雷达开关与单向机动</text>
+
+  <!-- ================= 底图：海陆 ================= -->
+  <rect x="30" y="98" width="900" height="640" rx="14" fill="#f5f9fb" stroke="#dcdcdc" stroke-width="1.4"/>
+  <path d="M30,98 L170,98 L148,180 L196,262 L154,344 L202,426 L158,508 L206,590 L164,672 L212,738 L30,738 Z"
+        fill="#f1efe8" stroke="#9a958a" stroke-width="1.6"/>
+  <text x="82" y="700" font-size="18" fill="#6b6b6b">海岸</text>
+
+  <!-- ================= 同心弧 ================= -->
+  <circle cx="620" cy="430" r="300" fill="#ece9df" fill-opacity="0.55"
+          stroke="#8a8a8a" stroke-width="2" stroke-dasharray="11 7"/>
+  <circle cx="620" cy="430" r="180" fill="#f7e9e7" fill-opacity="0.85"
+          stroke="#b3261e" stroke-width="2.2" stroke-dasharray="9 6"/>
+  <circle cx="620" cy="430" r="58" fill="#e8f0f6" fill-opacity="0.95"
+          stroke="#2f6f9f" stroke-width="2.2" stroke-dasharray="7 5"/>
+
+  <!-- ================= 雷达波束（开） ================= -->
+  <path d="M620,430 L349.7,240.7 L328.6,275.1 L311.9,311.7 L299.8,350.2 L292.5,389.8 L290.0,430.0 L292.5,470.2 L299.8,509.8 L311.9,548.3 L328.6,584.9 L349.7,619.3 Z"
+        fill="#b3261e" fill-opacity="0.10" stroke="#b3261e" stroke-width="1.8" stroke-dasharray="7 5"/>
+  <text x="360" y="466" font-size="19" fill="#b3261e" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">雷达波束（开）</text>
+  <text x="360" y="492" font-size="18" fill="#6b6b6b" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">扇形即暴露方位</text>
+
+  <!-- ================= 来袭航迹 ================= -->
+  <line x1="220" y1="220" x2="620" y2="430" stroke="#1a1a1a" stroke-width="2.2"
+        marker-end="url(#ah7)"/>
+  <g transform="translate(250,219) rotate(27.7)" fill="#b3261e">
+    <rect x="-20" y="-5" width="38" height="10" rx="5"/>
+    <path d="M18,-5 L34,0 L18,5 Z"/>
+    <path d="M-20,-5 L-28,-11 L-14,-5 Z"/>
+    <path d="M-20,5 L-28,11 L-14,5 Z"/>
+  </g>
+  <text x="214" y="196" font-size="18" fill="#6b6b6b" text-anchor="middle">来袭目标</text>
+
+  <!-- 各层交点刻度 -->
+  <g stroke="#1a1a1a" stroke-width="2">
+    <line x1="347" y1="282" x2="362" y2="299"/>
+    <line x1="453" y1="338" x2="469" y2="355"/>
+    <line x1="562" y1="394" x2="576" y2="410"/>
+  </g>
+
+  <!-- ================= 阵地与静默虚影 ================= -->
+  <use href="#sam7" xlink:href="#sam7" transform="translate(620,430)"/>
+  <text x="620" y="500" font-size="19" font-weight="600" text-anchor="middle">地导营</text>
+
+  <g opacity="0.55">
+    <rect x="588" y="153" width="64" height="34" rx="3" fill="#f7f7f7"
+          stroke="#6b6b6b" stroke-width="2" stroke-dasharray="6 4"/>
+    <line x1="596" y1="153" x2="596" y2="131" stroke="#6b6b6b" stroke-width="2.4" stroke-dasharray="5 4"/>
+    <line x1="610" y1="153" x2="610" y2="131" stroke="#6b6b6b" stroke-width="2.4" stroke-dasharray="5 4"/>
+    <line x1="624" y1="153" x2="624" y2="131" stroke="#6b6b6b" stroke-width="2.4" stroke-dasharray="5 4"/>
+    <rect x="593" y="124" width="38" height="7" rx="2" fill="#6b6b6b"/>
+    <line x1="638" y1="153" x2="638" y2="123" stroke="#6b6b6b" stroke-width="2" stroke-dasharray="5 4"/>
+    <rect x="630" y="116" width="17" height="7" rx="2" fill="#6b6b6b"/>
+  </g>
+  <text x="660" y="172" font-size="19" fill="#6b6b6b">静默虚影（雷达关）</text>
+
+  <!-- 单向机动箭头 + 锁 -->
+  <line x1="620" y1="386" x2="620" y2="208" stroke="#b3261e" stroke-width="3.2"
+        stroke-dasharray="13 8" marker-end="url(#ahr7)"/>
+  <rect x="598" y="274" width="44" height="52" rx="6" fill="#f5f9fb"/>
+  <path d="M608,298 v-8 a12,12 0 0 1 24,0 v8" fill="none"
+        stroke="#b3261e" stroke-width="3"/>
+  <rect x="603" y="298" width="34" height="24" rx="4" fill="#b3261e"/>
+  <circle cx="620" cy="310" r="3.6" fill="#ffffff"/>
+  <path d="M614,322 L626,322 L620,336 z" fill="#b3261e"/>
+  <text x="660" y="300" font-size="20" fill="#b3261e" font-weight="600" paint-order="stroke"
+        stroke="#ffffff" stroke-width="7" stroke-linejoin="round">被瞄准 ⇒ 切回机动</text>
+  <text x="660" y="328" font-size="18" fill="#b3261e" paint-order="stroke"
+        stroke="#ffffff" stroke-width="7" stroke-linejoin="round">单向 · 带锁</text>
+
+  <!-- 被瞄准标记 -->
+  <circle cx="620" cy="430" r="44" fill="none" stroke="#b3261e"
+          stroke-width="1.8" stroke-dasharray="6 5"/>
+  <g stroke="#b3261e" stroke-width="2.4">
+    <line x1="620" y1="378" x2="620" y2="390"/>
+    <line x1="620" y1="470" x2="620" y2="482"/>
+    <line x1="568" y1="430" x2="580" y2="430"/>
+    <line x1="660" y1="430" x2="672" y2="430"/>
+  </g>
+  <text x="548" y="536" font-size="18" fill="#b3261e" text-anchor="middle">被瞄准</text>
+  <line x1="572" y1="522" x2="596" y2="472" stroke="#b3261e" stroke-width="1.4" stroke-dasharray="4 3"/>
+
+  <!-- ================= 弧上标注 ================= -->
+  <text x="760" y="664" font-size="20" font-weight="600" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">D<tspan dy="5" font-size="15">max</tspan><tspan dy="-5"> 最大拦截距离</tspan></text>
+  <text x="788" y="366" font-size="20" fill="#b3261e" font-weight="600" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">0.6D<tspan dy="5" font-size="15">max</tspan><tspan dy="-5"> 发弹线</tspan></text>
+  <text x="694" y="516" font-size="19" fill="#2f6f9f" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">5 km 最近开火</text>
+  <line x1="688" y1="504" x2="672" y2="478" stroke="#2f6f9f" stroke-width="1.4" stroke-dasharray="4 3"/>
+
+  <!-- ================= 右侧三条注记 ================= -->
+  <g>
+    <rect x="960" y="120" width="410" height="128" rx="12" fill="#fbfbfb" stroke="#dcdcdc" stroke-width="1.4"/>
+    <circle cx="990" cy="152" r="15" fill="#1a1a1a"/>
+    <text x="990" y="158" font-size="18" fill="#ffffff" text-anchor="middle">1</text>
+    <text x="1018" y="146" font-size="20" font-weight="600">发弹线比例</text>
+    <text x="980" y="184" font-size="19">0.6D<tspan dy="5" font-size="14">max</tspan><tspan dy="-5">&#160;为发弹线，越线才发弹</tspan></text>
+    <text x="980" y="214" font-size="19">D<tspan dy="5" font-size="14">max</tspan><tspan dy="-5">&#160;为最大拦截距离，留出余量</tspan></text>
+    <text x="980" y="240" font-size="18" fill="#6b6b6b">近界 5 km 内不再开火</text>
+  </g>
+  <g>
+    <rect x="960" y="292" width="410" height="128" rx="12" fill="#fbfbfb" stroke="#dcdcdc" stroke-width="1.4"/>
+    <circle cx="990" cy="324" r="15" fill="#b3261e"/>
+    <text x="990" y="330" font-size="18" fill="#ffffff" text-anchor="middle">2</text>
+    <text x="1018" y="318" font-size="20" font-weight="600">雷达开关与暴露</text>
+    <text x="980" y="356" font-size="19">开：波束扇形被对方侦收</text>
+    <text x="980" y="386" font-size="19">关：只剩静默虚影，不辐射</text>
+    <text x="980" y="412" font-size="18" fill="#6b6b6b">暴露与否只由这一位决定</text>
+  </g>
+  <g>
+    <rect x="960" y="464" width="410" height="128" rx="12" fill="#fbfbfb" stroke="#dcdcdc" stroke-width="1.4"/>
+    <circle cx="990" cy="496" r="15" fill="#1a1a1a"/>
+    <text x="990" y="502" font-size="18" fill="#ffffff" text-anchor="middle">3</text>
+    <text x="1018" y="490" font-size="20" font-weight="600">机动方向</text>
+    <text x="980" y="528" font-size="19">向北 100 km，首选落点</text>
+    <text x="980" y="558" font-size="19">落水则按档逐级回退</text>
+    <text x="980" y="584" font-size="18" fill="#6b6b6b">切回暴露态仍须人工按键</text>
+  </g>
+
+  <!-- ================= 图例 ================= -->
+  <g stroke-width="2.2" fill="none">
+    <circle cx="58" cy="774" r="12" stroke="#8a8a8a" stroke-dasharray="5 4"/>
+    <circle cx="388" cy="774" r="12" stroke="#b3261e" stroke-dasharray="5 4"/>
+    <circle cx="716" cy="774" r="12" stroke="#2f6f9f" stroke-dasharray="5 4"/>
+    <line x1="1010" y1="774" x2="1082" y2="774" stroke="#b3261e" stroke-width="3"
+          stroke-dasharray="11 7" marker-end="url(#ahr7)"/>
+  </g>
+  <text x="82" y="781" font-size="18">D<tspan dy="4" font-size="13">max</tspan><tspan dy="-4">：最大拦截距离</tspan></text>
+  <text x="412" y="781" font-size="18">0.6D<tspan dy="4" font-size="13">max</tspan><tspan dy="-4">：发弹线</tspan></text>
+  <text x="740" y="781" font-size="18">5 km：最近开火</text>
+  <text x="1108" y="781" font-size="18">被瞄准后单向切回机动（带锁）</text>
+
+  <text x="1368" y="806" font-size="18" fill="#6b6b6b" text-anchor="end">示意图，非等比例；各层半径只表达层级关系</text>
+</svg>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="620" viewBox="0 0 1400 620"
+     version="1.1" font-family="Noto Sans CJK SC, sans-serif" fill="#1a1a1a">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9.2" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0.4,0.8 L9.6,5 L0.4,9.2 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="ahr" viewBox="0 0 10 10" refX="9.2" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0.4,0.8 L9.6,5 L0.4,9.2 z" fill="#d64545"/>
+    </marker>
+    <!-- 来袭弹（红，细长胶囊） -->
+    <g id="msl">
+      <path d="M8,-4.5 A4.5,4.5 0 0 1 8,4.5 L-24,4.5 L-30,0 L-24,-4.5 Z" fill="#d64545"/>
+    </g>
+    <!-- 我方飞机（蓝，俯视轮廓） -->
+    <g id="ac">
+      <path d="M20,0 L4,-4 L-2,-14 L-8,-14 L-4,-4 L-14,-4 L-16,-7 L-18,-7
+               L-18,7 L-16,7 L-14,4 L-4,4 L-8,14 L-2,14 L4,4 Z" fill="#4a90d9"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="620" fill="#ffffff"/>
+
+  <!-- ============ 图内小标题（左上角） ============ -->
+  <text x="28" y="46" font-size="26" font-weight="600">空空作战：双重门限、系数不线性、齐射按距离配</text>
+  <text x="28" y="76" font-size="18" fill="#6b6b6b">门限 = min(c·d₀, 0.7R)；射程项一旦接管，抬系数几乎不再把开火点推远</text>
+
+  <line x1="472" y1="96" x2="472" y2="556" stroke="#d5d5d5" stroke-width="1.4" stroke-dasharray="7 7"/>
+  <line x1="940" y1="96" x2="940" y2="556" stroke="#d5d5d5" stroke-width="1.4" stroke-dasharray="7 7"/>
+
+  <!-- ==================================================================
+       (a) 双重门限几何
+       ================================================================== -->
+  <text x="44" y="122" font-size="19" font-weight="600">（a）双重门限：取较小者</text>
+  <text x="44" y="150" font-size="18" fill="#6b6b6b">门限 = min(c·d₀, 0.7R)，此例取内圈</text>
+
+  <circle cx="230" cy="360" r="112" fill="none" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="9 7"/>
+  <circle cx="230" cy="360" r="95" fill="none" stroke="#4a90d9" stroke-width="3.4"/>
+
+  <text x="230" y="232" font-size="19" fill="#6b6b6b" text-anchor="middle">c·d₀ ≈ 92 km</text>
+  <line x1="230" y1="496" x2="230" y2="462" stroke="#1a1a1a" stroke-width="1.4"/>
+  <text x="230" y="516" font-size="19" font-weight="600" fill="#4a90d9" text-anchor="middle">0.7R = 77.8 km → 门限（取较小者）</text>
+
+  <!-- 来袭弹 -->
+  <line x1="400" y1="250" x2="348" y2="286" stroke="#d64545" stroke-width="2.4"
+        marker-end="url(#ahr)"/>
+  <use href="#msl" transform="translate(400,250) rotate(147)"/>
+
+  <!-- ==================================================================
+       (b) 系数不线性生效
+       ================================================================== -->
+  <text x="500" y="122" font-size="19" font-weight="600">（b）系数不线性生效</text>
+  <text x="500" y="150" font-size="18" fill="#6b6b6b">三条曲线都在 c·d₀ 与 0.7R 中取小</text>
+
+  <!-- 坐标轴 -->
+  <line x1="590" y1="470" x2="590" y2="205" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#ah)"/>
+  <line x1="590" y1="470" x2="916" y2="470" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#ah)"/>
+  <text transform="rotate(-90 528 340)" x="528" y="340" font-size="18" text-anchor="middle">门限 / km</text>
+  <text x="750" y="512" font-size="18" text-anchor="middle">V_a / km·h⁻¹</text>
+  <text x="590" y="542" font-size="18" fill="#6b6b6b">拐点：c·d₀ = 0.7R 处</text>
+
+  <g font-size="18" fill="#4a4a4a" text-anchor="end">
+    <text x="582" y="476">30</text>
+    <text x="582" y="450">40</text>
+    <text x="582" y="398">60</text>
+    <text x="582" y="346">80</text>
+    <text x="582" y="294">100</text>
+    <text x="582" y="242">120</text>
+  </g>
+  <g stroke="#1a1a1a" stroke-width="1.4">
+    <line x1="585" y1="444" x2="595" y2="444"/>
+    <line x1="585" y1="392" x2="595" y2="392"/>
+    <line x1="585" y1="340" x2="595" y2="340"/>
+    <line x1="585" y1="288" x2="595" y2="288"/>
+    <line x1="585" y1="236" x2="595" y2="236"/>
+  </g>
+
+  <g font-size="18" fill="#4a4a4a" text-anchor="middle">
+    <text x="590" y="494">0</text>
+    <text x="704" y="494">500</text>
+    <text x="819" y="494">1000</text>
+    <text x="908" y="494">1400</text>
+  </g>
+
+  <!-- 射程项封顶（水平段） -->
+  <line x1="590" y1="345.7" x2="910" y2="345.7" stroke="#4a90d9" stroke-width="3.4"/>
+
+  <!-- 三条 min(c d0, 0.7R) 曲线：水平段全部重合成封顶线，只画出离开封顶后的下降段 -->
+  <line x1="851" y1="345.7" x2="910" y2="380.6" stroke="#1a1a1a" stroke-width="2.2"/>
+  <line x1="774" y1="345.7" x2="910" y2="414.1" stroke="#6b6b6b" stroke-width="2.2"/>
+  <line x1="661" y1="345.7" x2="910" y2="447.6" stroke="#9a9a9a" stroke-width="2.2" stroke-dasharray="8 5"/>
+
+  <!-- 拐点 -->
+  <g stroke="#9a9a9a" stroke-width="1.2" stroke-dasharray="4 4">
+    <line x1="851" y1="343" x2="851" y2="306"/>
+    <line x1="774" y1="343" x2="774" y2="306"/>
+    <line x1="661" y1="343" x2="661" y2="306"/>
+  </g>
+  <g fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6">
+    <circle cx="851" cy="345.7" r="4.2"/>
+    <circle cx="774" cy="345.7" r="4.2"/>
+    <circle cx="661" cy="345.7" r="4.2"/>
+  </g>
+  <g font-size="18" fill="#4a4a4a" text-anchor="middle">
+    <text x="851" y="300">1140</text>
+    <text x="774" y="300">805</text>
+    <text x="661" y="300">310</text>
+  </g>
+
+  <!-- 封顶与重合一节 -->
+  <text x="600" y="236" font-size="18" fill="#4a90d9" font-weight="600">0.7R = 77.8 km</text>
+  <text x="600" y="262" font-size="18" fill="#6b6b6b">三条水平段重合在此</text>
+
+  <!-- 图内图例 -->
+  <line x1="600" y1="190" x2="632" y2="190" stroke="#1a1a1a" stroke-width="2.2"/>
+  <text x="640" y="196" font-size="18">c = 1.0</text>
+  <line x1="712" y1="190" x2="744" y2="190" stroke="#6b6b6b" stroke-width="2.2"/>
+  <text x="752" y="196" font-size="18">c = 0.8</text>
+  <line x1="824" y1="190" x2="856" y2="190" stroke="#9a9a9a" stroke-width="2.2" stroke-dasharray="8 5"/>
+  <text x="864" y="196" font-size="18">c = 0.6</text>
+
+  <!-- ==================================================================
+       (c) 齐射规则
+       ================================================================== -->
+  <text x="970" y="122" font-size="19" font-weight="600">（c）齐射：按距离配 1 发或 2 发</text>
+  <text x="970" y="150" font-size="18" fill="#6b6b6b">距离 &gt; 0.6 × 门限 打 1 发，否则打 2 发</text>
+
+  <line x1="1050" y1="340" x2="1360" y2="340" stroke="#6b6b6b" stroke-width="1.8" marker-end="url(#ah)"/>
+  <circle cx="995" cy="340" r="15" fill="#ffffff"/>
+  <use href="#ac" transform="translate(995,340) scale(1.25)"/>
+
+  <line x1="1195" y1="255" x2="1195" y2="375" stroke="#4a90d9" stroke-width="1.8" stroke-dasharray="7 6"/>
+  <line x1="1330" y1="255" x2="1330" y2="375" stroke="#4a90d9" stroke-width="2.6" stroke-dasharray="9 7"/>
+
+  <use href="#msl" transform="translate(1105,322)"/>
+  <use href="#msl" transform="translate(1105,358)"/>
+  <use href="#msl" transform="translate(1260,340)"/>
+
+  <g font-size="18" text-anchor="middle">
+    <text x="1105" y="298">2 发</text>
+    <text x="1260" y="298">1 发</text>
+  </g>
+  <g font-size="18" fill="#4a90d9" text-anchor="middle">
+    <text x="1195" y="398">0.6 × 门限</text>
+    <text x="1330" y="398">门限</text>
+  </g>
+  <text x="970" y="462" font-size="18" fill="#6b6b6b">实测仅 8.4% 的开火是两发：一跨门限就打</text>
+
+  <!-- ============ 图例（右下角） ============ -->
+  <line x1="1020" y1="586" x2="1062" y2="586" stroke="#4a90d9" stroke-width="3.4"/>
+  <text x="1072" y="594" font-size="18">门限 / 封顶</text>
+  <use href="#msl" transform="translate(1214,588) scale(0.72)"/>
+  <text x="1244" y="594" font-size="18">来袭弹</text>
+  <use href="#ac" transform="translate(1320,588) scale(0.8)"/>
+  <text x="1344" y="594" font-size="18">本机</text>
+</svg>

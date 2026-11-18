@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1400" height="1190" viewBox="0 0 1400 1190" version="1.1"
+     font-family="Noto Sans CJK SC, sans-serif" fill="#1a1a1a">
+  <defs>
+    <marker id="ah1" viewBox="0 0 10 10" refX="9.2" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0.4,0.8 L9.6,5 L0.4,9.2 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="ahb1" viewBox="0 0 10 10" refX="9.2" refY="5"
+            markerWidth="7.5" markerHeight="7.5" orient="auto">
+      <path d="M0.4,0.8 L9.6,5 L0.4,9.2 z" fill="#2f6f9f"/>
+    </marker>
+    <marker id="ahr1" viewBox="0 0 10 10" refX="9.2" refY="5"
+            markerWidth="7.5" markerHeight="7.5" orient="auto">
+      <path d="M0.4,0.8 L9.6,5 L0.4,9.2 z" fill="#b3261e"/>
+    </marker>
+    <marker id="aha1" viewBox="0 0 10 10" refX="9.2" refY="5"
+            markerWidth="7.5" markerHeight="7.5" orient="auto">
+      <path d="M0.4,0.8 L9.6,5 L0.4,9.2 z" fill="#b0720a"/>
+    </marker>
+    <g id="frigate1">
+      <path d="M0,-56 L17,-24 L18,34 L0,52 L-18,34 L-17,-24 Z"
+            fill="#ffffff" stroke="#1a1a1a" stroke-width="2.2"/>
+      <rect x="-11" y="-16" width="22" height="34" rx="3"
+            fill="#dcdcdc" stroke="#1a1a1a" stroke-width="1.6"/>
+      <rect x="-15" y="-5" width="30" height="12" rx="2"
+            fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <line x1="0" y1="-6" x2="0" y2="-36" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="-10" y1="-34" x2="10" y2="-34" stroke="#1a1a1a" stroke-width="2.4"/>
+    </g>
+    <g id="lpd1">
+      <path d="M-32,-62 L32,-62 L38,44 L0,62 L-38,44 Z"
+            fill="#ffffff" stroke="#1a1a1a" stroke-width="2.4"/>
+      <rect x="-22" y="-46" width="44" height="30" rx="3"
+            fill="#dcdcdc" stroke="#1a1a1a" stroke-width="1.6"/>
+      <rect x="-14" y="-8" width="28" height="44" rx="3"
+            fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="0" y1="-46" x2="0" y2="-70" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="-12" y1="-68" x2="12" y2="-68" stroke="#1a1a1a" stroke-width="2.4"/>
+    </g>
+    <g id="air1">
+      <path d="M-22,-7 L2,-4 L24,0 L2,4 L-22,7 L-12,0 Z"
+            fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+      <path d="M-6,0 L-16,-18 L-6,-14 Z" fill="#1a1a1a"/>
+      <path d="M-6,0 L-16,18 L-6,14 Z" fill="#1a1a1a"/>
+      <path d="M-16,-2 L-26,-6 L-18,4 Z" fill="#1a1a1a"/>
+    </g>
+    <g id="uav1">
+      <path d="M-10,-5 L10,0 L-10,5 L-4,0 Z" fill="#2f6f9f"/>
+      <line x1="-4" y1="-12" x2="-4" y2="12" stroke="#2f6f9f" stroke-width="2.4"/>
+      <circle cx="-4" cy="0" r="2.6" fill="#ffffff"/>
+    </g>
+    <g id="missile1">
+      <rect x="-17" y="-5" width="32" height="10" rx="5" fill="#b3261e"/>
+      <path d="M15,-5 L29,0 L15,5 Z" fill="#b3261e"/>
+      <path d="M-17,-5 L-25,-11 L-12,-5 Z" fill="#b3261e"/>
+      <path d="M-17,5 L-25,11 L-12,5 Z" fill="#b3261e"/>
+      <line x1="-9" y1="0" x2="11" y2="0" stroke="#ffffff" stroke-width="1.5"/>
+    </g>
+    <g id="burst1">
+      <g stroke="#b3261e" stroke-width="2.4">
+        <line x1="-10" y1="0" x2="10" y2="0"/>
+        <line x1="0" y1="-10" x2="0" y2="10"/>
+        <line x1="-7" y1="-7" x2="7" y2="7"/>
+        <line x1="-7" y1="7" x2="7" y2="-7"/>
+      </g>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="1190" fill="#ffffff"/>
+
+  <!-- ============================================================ -->
+  <!-- 面板 a                                                        -->
+  <!-- ============================================================ -->
+  <text x="40" y="100" font-size="23" font-weight="600">a　三类威胁的来向与舰上三层拦截弧</text>
+  <rect x="20" y="60" width="1360" height="640" rx="14" fill="#ffffff" stroke="#dcdcdc" stroke-width="1.4"/>
+  <rect x="40" y="120" width="1320" height="560" rx="10" fill="#f4f8fb"/>
+  <path d="M40,120 L230,120 L206,190 L250,260 L204,330 L244,400 L196,470 L236,540 L192,610 L232,680 L40,680 Z"
+        fill="#f1efe8" stroke="#9a958a" stroke-width="1.8"/>
+  <text x="74" y="645" font-size="18" fill="#6b6b6b">海岸</text>
+
+  <!-- 三层同心弧 -->
+  <circle cx="755" cy="430" r="250" fill="#ece9df" fill-opacity="0.55"
+          stroke="#8a8a8a" stroke-width="2.2" stroke-dasharray="11 7"/>
+  <circle cx="755" cy="430" r="150" fill="#e6eff6" fill-opacity="0.9"
+          stroke="#2f6f9f" stroke-width="2.2" stroke-dasharray="9 6"/>
+  <circle cx="755" cy="430" r="62" fill="#f8e6e4" fill-opacity="0.95"
+          stroke="#b3261e" stroke-width="2.2" stroke-dasharray="7 5"/>
+
+  <!-- 岸上发射阵位 -->
+  <g>
+    <rect x="202" y="305" width="34" height="34" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+    <line x1="219" y1="305" x2="219" y2="289" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="219" cy="286" r="3.2" fill="#1a1a1a"/>
+    <g fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6">
+      <rect x="196" y="352" width="52" height="20" rx="3"/>
+      <rect x="258" y="352" width="52" height="20" rx="3"/>
+    </g>
+    <g stroke="#1a1a1a" stroke-width="2.2">
+      <line x1="202" y1="348" x2="212" y2="331"/>
+      <line x1="214" y1="348" x2="224" y2="331"/>
+      <line x1="226" y1="348" x2="236" y2="331"/>
+      <line x1="264" y1="348" x2="274" y2="331"/>
+      <line x1="276" y1="348" x2="286" y2="331"/>
+      <line x1="288" y1="348" x2="298" y2="331"/>
+    </g>
+  </g>
+  <text x="255" y="402" font-size="18" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">海马斯 / 反舰导弹排</text>
+
+  <!-- 空中威胁 -->
+  <g transform="translate(600,260) rotate(28)">
+    <use href="#air1" xlink:href="#air1"/>
+  </g>
+  <g transform="translate(705,220) rotate(28)">
+    <use href="#air1" xlink:href="#air1"/>
+  </g>
+  <g transform="translate(455,275) rotate(28)">
+    <use href="#uav1" xlink:href="#uav1"/>
+  </g>
+  <g transform="translate(510,242) rotate(28)">
+    <use href="#uav1" xlink:href="#uav1"/>
+  </g>
+
+  <!-- 三条来向箭头 -->
+  <path d="M315,365 Q470,432 610,424" fill="none" stroke="#b3261e" stroke-width="3.2"
+        marker-end="url(#ahr1)"/>
+  <path d="M500,282 Q600,360 700,404" fill="none" stroke="#2f6f9f" stroke-width="3.2"
+        marker-end="url(#ahb1)"/>
+  <path d="M650,265 Q750,315 800,360" fill="none" stroke="#b0720a" stroke-width="3.2"
+        marker-end="url(#aha1)"/>
+
+  <text x="330" y="332" font-size="20" fill="#b3261e" font-weight="600" paint-order="stroke"
+        stroke="#ffffff" stroke-width="7" stroke-linejoin="round">第二类 · 海马斯 / 反舰导弹排</text>
+  <text x="420" y="196" font-size="20" fill="#2f6f9f" font-weight="600" paint-order="stroke"
+        stroke="#ffffff" stroke-width="7" stroke-linejoin="round">第一类 · 卢卡斯无人机</text>
+  <text x="800" y="182" font-size="20" fill="#b0720a" font-weight="600" paint-order="stroke"
+        stroke="#ffffff" stroke-width="7" stroke-linejoin="round">第三类 · 158C / 154C</text>
+  <line x1="798" y1="196" x2="720" y2="222" stroke="#b0720a" stroke-width="1.3" stroke-dasharray="4 3"/>
+  <line x1="640" y1="206" x2="516" y2="250" stroke="#2f6f9f" stroke-width="1.3" stroke-dasharray="4 3"/>
+
+  <!-- 我方登陆编队 -->
+  <use href="#frigate1" xlink:href="#frigate1" transform="translate(730,330) scale(0.9)"/>
+  <use href="#frigate1" xlink:href="#frigate1" transform="translate(835,430) scale(0.9)"/>
+  <use href="#lpd1" xlink:href="#lpd1" transform="translate(665,480)"/>
+  <text x="730" y="272" font-size="18" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">雷鸣号 1</text>
+  <text x="876" y="410" font-size="18" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">雷鸣号 2</text>
+  <text x="665" y="570" font-size="18" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">23900 舰</text>
+
+  <!-- 弧上标注 -->
+  <text x="986" y="292" font-size="20" font-weight="600" paint-order="stroke"
+        stroke="#ffffff" stroke-width="7" stroke-linejoin="round">D<tspan dy="5" font-size="15">max</tspan><tspan dy="-5"> 最大拦截距离</tspan></text>
+  <text x="896" y="362" font-size="20" fill="#2f6f9f" font-weight="600" paint-order="stroke"
+        stroke="#ffffff" stroke-width="7" stroke-linejoin="round">½D<tspan dy="5" font-size="15">max</tspan></text>
+  <text x="826" y="486" font-size="19" fill="#b3261e" font-weight="600" paint-order="stroke"
+        stroke="#ffffff" stroke-width="7" stroke-linejoin="round">3 km 自卫线</text>
+
+  <!-- ============================================================ -->
+  <!-- 面板 b                                                        -->
+  <!-- ============================================================ -->
+  <rect x="20" y="740" width="670" height="380" rx="14" fill="#ffffff" stroke="#dcdcdc" stroke-width="1.4"/>
+  <text x="40" y="780" font-size="21" font-weight="600">b　分层补射：远界先拦 / 半程补拦</text>
+  <rect x="40" y="802" width="630" height="298" rx="10" fill="#f4f8fb"/>
+
+  <!-- 两舰与半圆包线 -->
+  <path d="M105,965 A150,150 0 0 1 405,965" fill="#ece9df" fill-opacity="0.55"
+        stroke="#8a8a8a" stroke-width="2" stroke-dasharray="10 6"/>
+  <path d="M415,965 A105,105 0 0 1 625,965" fill="#e6eff6" fill-opacity="0.8"
+        stroke="#2f6f9f" stroke-width="2" stroke-dasharray="8 5"/>
+  <use href="#frigate1" xlink:href="#frigate1" transform="translate(255,965) scale(0.72)"/>
+  <use href="#frigate1" xlink:href="#frigate1" transform="translate(520,965) scale(0.72)"/>
+  <text x="200" y="948" font-size="18" text-anchor="end">一号舰</text>
+  <text x="575" y="948" font-size="18">二号舰</text>
+  <text x="255" y="848" font-size="19" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">D<tspan dy="4" font-size="14">max</tspan></text>
+
+  <!-- 来袭弹与两个拦截点 -->
+  <line x1="55" y1="895" x2="640" y2="895" stroke="#6b6b6b" stroke-width="1.6" stroke-dasharray="7 5"/>
+  <use href="#missile1" xlink:href="#missile1" transform="translate(78,895)"/>
+  <text x="78" y="866" font-size="18" fill="#6b6b6b" text-anchor="middle">来袭弹</text>
+  <use href="#burst1" xlink:href="#burst1" transform="translate(122,895)"/>
+  <use href="#burst1" xlink:href="#burst1" transform="translate(442,895)"/>
+  <line x1="238" y1="940" x2="136" y2="903" stroke="#b3261e" stroke-width="2.4"
+        marker-end="url(#ahr1)"/>
+  <line x1="505" y1="940" x2="455" y2="903" stroke="#2f6f9f" stroke-width="2.4"
+        marker-end="url(#ahb1)"/>
+  <text x="160" y="878" font-size="18" fill="#b3261e" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">D<tspan dy="4" font-size="13">max</tspan><tspan dy="-4"> 开火</tspan></text>
+  <text x="462" y="850" font-size="18" fill="#2f6f9f" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">½D<tspan dy="4" font-size="13">max</tspan><tspan dy="-4"> 补射</tspan></text>
+
+  <!-- 两段拦截距离：只画段长差异 -->
+  <g stroke="#1a1a1a" stroke-width="2">
+    <line x1="110" y1="1035" x2="270" y2="1035"/>
+    <line x1="110" y1="1027" x2="110" y2="1043"/>
+    <line x1="270" y1="1027" x2="270" y2="1043"/>
+  </g>
+  <text x="286" y="1042" font-size="18">远界先拦 · 段长 D<tspan dy="4" font-size="13">max</tspan></text>
+  <g stroke="#2f6f9f" stroke-width="2">
+    <line x1="110" y1="1075" x2="220" y2="1075"/>
+    <line x1="110" y1="1067" x2="110" y2="1083"/>
+    <line x1="220" y1="1067" x2="220" y2="1083"/>
+  </g>
+  <text x="236" y="1082" font-size="18" fill="#2f6f9f">半程补拦 · 段长 ½D<tspan dy="4" font-size="13">max</tspan></text>
+
+  <!-- ============================================================ -->
+  <!-- 面板 c                                                        -->
+  <!-- ============================================================ -->
+  <rect x="710" y="740" width="670" height="380" rx="14" fill="#ffffff" stroke="#dcdcdc" stroke-width="1.4"/>
+  <text x="730" y="780" font-size="21" font-weight="600">c　第三类软杀伤：打断照射链</text>
+  <rect x="730" y="802" width="630" height="298" rx="10" fill="#f4f8fb"/>
+
+  <!-- 敌照射机与波束 -->
+  <path d="M1230,865 L1070.2,806.9 L1065.8,824.6 L1063.0,843.0 L1062.0,861.6 L1063.0,880.2 L1065.8,898.6 L1070.2,916.3 L1076.9,933.4 L1085.8,949.5 L1096.7,964.4 L1109.5,977.7 L1124.0,989.3 L1140.0,998.8 L1157.1,1006.2 L1175.0,1011.9 L1193.5,1015.5 L1212.4,1016.9 L1230,1015.8 Z"
+        fill="#b0720a" fill-opacity="0.10" stroke="#b0720a" stroke-width="1.6" stroke-dasharray="6 5"/>
+  <g transform="translate(1230,865) rotate(180)">
+    <use href="#air1" xlink:href="#air1" transform="scale(1.15)"/>
+  </g>
+  <text x="1230" y="824" font-size="18" fill="#6b6b6b" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">敌照射机</text>
+
+  <!-- 158C 与照射线 -->
+  <use href="#missile1" xlink:href="#missile1" transform="translate(1065,865) rotate(149.4) scale(1.05)"/>
+  <text x="1018" y="832" font-size="18" fill="#6b6b6b" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">158C</text>
+  <line x1="1034" y1="840" x2="1054" y2="858" stroke="#8a8a8a" stroke-width="1.3" stroke-dasharray="4 3"/>
+  <line x1="1196" y1="865" x2="1088" y2="865" stroke="#b0720a" stroke-width="2.6" stroke-dasharray="8 5"/>
+  <g stroke="#b3261e" stroke-width="4">
+    <line x1="1128" y1="851" x2="1152" y2="879"/>
+    <line x1="1152" y1="851" x2="1128" y2="879"/>
+  </g>
+  <text x="1140" y="912" font-size="19" fill="#b3261e" font-weight="600" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">照射中断</text>
+
+  <!-- 弹失效 -->
+  <path d="M1045,880 Q930,930 820,1008" fill="none" stroke="#8a8a8a" stroke-width="2"
+        stroke-dasharray="8 6"/>
+  <g opacity="0.5">
+    <use href="#missile1" xlink:href="#missile1" transform="translate(950,935) rotate(149.4) scale(0.95)"/>
+  </g>
+  <text x="900" y="900" font-size="18" fill="#6b6b6b" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">弹失效</text>
+  <line x1="918" y1="908" x2="942" y2="926" stroke="#8a8a8a" stroke-width="1.3" stroke-dasharray="4 3"/>
+
+  <!-- 我方舰与苏-57 -->
+  <use href="#lpd1" xlink:href="#lpd1" transform="translate(800,1022) scale(0.78) rotate(-18)"/>
+  <text x="800" y="1076" font-size="18" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">23900 舰</text>
+  <g transform="translate(1048,1026) rotate(-28)">
+    <use href="#air1" xlink:href="#air1" transform="scale(1.05)"/>
+  </g>
+  <path d="M1090,1008 Q1160,950 1204,898" fill="none" stroke="#1a1a1a" stroke-width="2.6"
+        marker-end="url(#ah1)"/>
+  <text x="1050" y="1080" font-size="18" text-anchor="middle" paint-order="stroke"
+        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">苏-57 驱离</text>
+
+  <!-- ============================================================ -->
+  <!-- 图例                                                          -->
+  <!-- ============================================================ -->
+  <g stroke-width="3" fill="none">
+    <line x1="54" y1="1146" x2="118" y2="1146" stroke="#2f6f9f" marker-end="url(#ahb1)"/>
+    <line x1="382" y1="1146" x2="446" y2="1146" stroke="#b3261e" marker-end="url(#ahr1)"/>
+    <line x1="760" y1="1146" x2="824" y2="1146" stroke="#b0720a" marker-end="url(#aha1)"/>
+  </g>
+  <text x="132" y="1153" font-size="18">第一类：卢卡斯无人机</text>
+  <text x="460" y="1153" font-size="18">第二类：海马斯 / 反舰导弹排</text>
+  <text x="838" y="1153" font-size="18">第三类：158C / 154C</text>
+  <g stroke="#b3261e" stroke-width="3.4">
+    <line x1="1136" y1="1136" x2="1158" y2="1158"/>
+    <line x1="1158" y1="1136" x2="1136" y2="1158"/>
+  </g>
+  <text x="1172" y="1153" font-size="18">照射中断 / 弹失效</text>
+
+  <text x="1368" y="1180" font-size="18" fill="#6b6b6b" text-anchor="end">示意图，非等比例；箭头只表达来向，不代表真实航路</text>
+</svg>
