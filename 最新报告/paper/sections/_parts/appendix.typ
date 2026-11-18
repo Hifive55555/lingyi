@@ -1,63 +1,76 @@
 #import "../_lib.typ": pseudocode
-#heading(level: 1, numbering: none, outlined: true)[附录 A　仿真参数总表]
+#heading(level: 1, numbering: none, outlined: true)[附录 A　推导、协议与产物]
 
-下表列出@sec:evade 至 @sec:sam 各节所有实验使用的参数。除了衰减时间常数 $T$ 之外，所有参数均由我们自行设定，没有使用外部信息。$T$ 对应的有效射程为 67–117 公里，与假设中的 60 海里（111 公里）和 90 海里（167 公里）处于同一数量级。$T$ 使用外部基准点校准，详见@sec:limits 节。
+本附录收三块：距离门限的解析推导、平台在环实验的协议与字段要点、代码与产物清单。三块都是“可复核的部分”，不是结论本身；结论在正文各节，且每一个平台数字都应能回指到本附录列出的某一份 CSV。
 
-#figure(
-  kind: table,
-  text(size: 8.5pt, table(
-    columns: (auto, auto, 2.2fr),
-    table.header([参数], [取值], [说明]),
-    [积分步长], [0.5 s], [运动学积分；命中判定用步内最近接近点的解析解，避免步长大于命中半径导致的漏判],
-    [衰减时间常数 $T$], [240 s], [线性衰减 $V_0 arrow.r 500$ km/h 的时间；MOD 衰减同用此值],
-    [终端速度 $V_"term"$], [500 km/h], [模型设定的能量耗尽判据],
-    [追踪方最大角速度], [25 °/s], [等价于可用过载约束；敏感性见 @fig:sens b],
-    [命中半径], [0.1 km], [战斗部等效杀伤半径的粗略替代],
-    [飞机巡航 / 加力], [900 / 1080 km/h], [加力系数 1.2],
-    [舰空导弹 $D_max$], [60 km], [登陆船只集群自卫实验的射程基准],
-    [单发拦截概率], [$D_max$ 处 0.35，零距离 0.90], [随距离线性递减，自设],
-    [每舰弹舱], [8 发], [影响规模效应（本报告未取得该轴样本，见 @sec:ship）],
-    [地空导弹 $D_max$], [100.8 km], [由模型二分求得，非外部给定],
-    [随机种子], [2026], [全部实验固定，可复现],
-  )),
-  caption: [仿真参数总表。],
-) <tab:params>
+#heading(level: 2, numbering: none, outlined: true)[A.1　$d_0$ 的解析推导]
 
-#heading(level: 1, numbering: none, outlined: true)[附录 B　重现方法]
+$d_0$ 是全文所有距离门限的共同标尺，它是一维尾追问题的一个闭式解，不含任何拟合参数。设目标以速度 $V_a$ 匀速远离，导弹在 $t = 0$ 从距离 $d$ 处以初速度 $V_0$ 发射，速度按
 
-所有实验结果和图表均由 `paper/shared/scripts/` 下的脚本生成，脚本需从项目根目录运行。
+$ V(t) = V_0 - (V_0 - V_"term") t / T , quad 0 <= t <= T $
 
-#pseudocode(caption: [重现全部实验与插图的命令序列])[
+线性衰减，其中 $V_"term"$ 是能量耗尽的终端速度，$T$ 是从 $V_0$ 衰减到 $V_"term"$ 所需的时间。导弹要追上目标，必须在某个时刻之前把初始距离补回来：
+
+$ integral_0^t (V(s) - V_a) dif s >= d $
+
+记左端为 $F(t)$。被积函数 $V(t) - V_a$ 随 $t$ 单调递减，因此 $F$ 在 $V(t) - V_a = 0$ 处取极大值，此时
+
+$ t^* = (T (V_0 - V_a)) / (V_0 - V_"term") $
+
+临界距离就是可补回的最大距离：
+
+$ d_0 = F(t^*) = integral_0^(t^*) (V(s) - V_a) dif s = (T (V_0 - V_a)^2) / (2 (V_0 - V_"term")) $
+
+当 $V_a <= V_"term"$ 时，$F$ 在整个 $[0, T]$ 上单调增，$t^* = T$，上式退化为
+
+$ d_0 = (T (V_0 + V_"term")) / 2 - T V_a $
+
+三条性质直接读自上面两式，正文反复用到。第一，$d_0$ 对 $V_0$ 超线性：速度越快的来袭弹，威胁范围比它的速度本身扩张得更快，因此“按弹速分档、每档取一个常数”必然在中间档落到包线内侧（2.3.2 节）。第二，$d_0$ 对 $V_a$ 是二次的：目标速度每降一档，临界距离塌得比线性更快，所以 $V_0$ 必须取本段交会里*观测到的最高速*，用当前弹速会把门限算到“已经来不及”。第三，衰减律的形式进入答案：把线性换成 MOD（$V(t) = V_0 r^(t slash T)$）后 $d_0$ 整体变小，两式的逐档对照与幅度见 @sec:limits。
+
+代入全文统一取值 $T = 240$ s、$V_"term" = 500$ km/h，并把 $V_a$ 取作脱离方（或目标）的速度，就得到正文三个门限的出生地：空战单元自卫取 $1.2 d_0$（@sec:evade），空空作战取 $0.8 d_0$（@sec:aircombat）。地空导弹营与船只自卫按 $D_max$ 的比例给线（@sec:sam、@sec:ship），那是能量裕度的另一种写法，不直接出自上式：$D_max$ 是弹型的最大可拦截距离，由平台挂载反查得到，不是弹道解。
+
+#heading(level: 2, numbering: none, outlined: true)[A.2　平台在环实验协议与字段]
+
+正文的结局级结论全部来自灵弈平台的受控对局。协议与字段的唯一权威文档是 `最新报告/实验v2/数据字典.md`，指标口径在 `最新报告/实验v2/实验设计.md`，两者的分工是：前者定义字段，后者定义由字段算出的指标。这里只摘要那些“读表时最容易读错”的约定。
+
+_协议四条。_ 第一，载体唯一，即《诺曼底 2027 人机协同（人人版，有红有蓝）》想定，决策间隔 30 s 仿真时间，`continuous=0` 让引擎等智能体算完再推进，因此单局内部的时序是确定的。第二，臂间只有 θ 不同：θ 经环境变量 `PI_THETA` 在实例化之前打到类属性上（映射表在 `harness/pi_v2_run.py` 的 `THETA_MAP`），不存在运行中切参，也就没有臂内漂移。第三，一局一进程，上一局的状态（拉黑列表、已毁单元、任务缓存）不跨局残留。第四，平台不暴露随机种子，`Deduction` 没有可设种子的参数，“重放同一局”这条路不存在；重复局是唯一的重采样手段，全部区间按局做 bootstrap（`n_boot=1000`，种子 `20261118`），且因为无种子，“同局号”不是同一随机实现，所以只报区间与效应量，不报 p 值、不做配对检验。
+
+_两份原始文件。_ `raw/runs.jsonl` 一行一局：`arm`、`theta`（JSON 文本）、`tap`（唯一键）、`steps`、`red_score`/`blue_score`、`winner`、`sim_end`、`ok`、`wall_s`、`step_avg_s`。`raw/tap/<arm>__<ts>__<side>.jsonl` 一行一个决策周期：`t`、`score`、`own`（本方存活单元，8 元位置数组）、`cts`（本方情报可见的接触，7 元位置数组）。派生表在 `data/`：`runs.csv`、`episode_metrics.csv`、`arm_summary.csv` 来自 `metrics.py`，`events.csv` 来自 `events.py`，`rule_metrics.csv` 来自 `rule_metrics.py`。
+
+_读表必须守住的六条。_ 其一，唯一键是 `runs.tap`（`arm__ts`）：`episode` 实测恒为 1，不能当键。其二，`own` 只含存活单元，被击毁的单元直接从列表消失，存活率只能按计数差算，不能按 `damage` 阈值筛。其三，`cts` 隔步采集，`null` 表示本步未采集而不是“没有敌人”；敌方的损失只能取对侧 `own` 的确数，本方 `cts` 的消失计数系统性偏高。其四，红方 `own` 的 `damage` 恒为 0，红方毁伤类指标不可引用，要算“敌方毁伤”必须取对侧 `own`。其五，两个文件都是追加写，重试会让 `i` 归零，必须按 `i == 1` 切段、只取最后一段。其六，`sim_end` 有两种分布（满时长 10 800 s 与早停），得分速率必须与“满时长子集”一起报，否则早赢的局被系统性奖励。
+
+_每条结论都要能落到列。_ 正文里任何平台数字都必须指到 `data/*.csv` 的某一列，指不到列的只能写成“设计判断”。数据字典明确列为不可派生的有四类：单发命中率、交战持续时间、单条指令的因果归因、用本方 `cts` 当敌方损失——这也是 2.3.3 与 2.3.5 只报开火点与弹药消耗、不报命中率的原因。
+
+#heading(level: 2, numbering: none, outlined: true)[A.3　代码与产物清单]
+
+_靶机与采样（`实验v2/harness/`）。_ `pi_v2_run.py` 在一局一进程里跑对局：注入 θ、调 `reset`/`step`/取结果，把结局写成 `runs.jsonl` 的一行；`pi_tap.py` 是只读采样器，每决策周期抓一份态势写 `tap/*.jsonl`，不下发任何指令；`pi_v2_drive.py` 按 `plan_*.json` 批量驱动，带断点续跑与时间预算，一局崩溃只损失一局。
+
+_数据管道（`实验v2/analysis/`）。_ `metrics.py` 把 `runs.jsonl` 与 `tap` 对齐成 `runs.csv`、`episode_metrics.csv`、`arm_summary.csv`（含按局 bootstrap 区间）；`events.py` 把智能体 stderr 日志抽成 `events.csv`，一行一个规则事件（威胁、规避、开火、地导、舰船自卫）；`rule_metrics.py` 把 `events.csv` 聚成 `rule_metrics.csv`，一行一个（臂, 指标），附均值、标准差与 P10/P50/P90；`figs.py` 与 `figs_v2.py` 把 `data/*.csv` 画成 `fig/*.png|svg`；`gen_arms_table.py` 生成正文实验臂表的行。
+
+_产物与正文的对应。_ `实验v2/data/` 是唯一数据源，`实验v2/fig/` 是图源；正文引用的副本放在 `最新报告/paper/shared/figures/`，与 `fig/` 下的同名 SVG 一一对应，正文的每一张数据图都能按文件名回到生成它的 CSV。
+
+#pseudocode(caption: [从原始日志到 PDF 的复现命令])[
 ```
-# 单规则验证（2.3 节 d0 的数值对比、高度差、地导开火）
-python scripts/sim_experiments.py all --out docs/实验 --seed 2026
+# 1 批量对局（靶机侧，一局一进程；plan.json 定义臂与局数）
+python harness/pi_v2_drive.py plan.json
 
-# 受控对比 / 消融 / 敏感性（2.3、2.4 节各组对比与 3 章的对抗效果）
-python paper/shared/scripts/comparative.py all --n 800 --seed 2026
+# 2 数据管道（本地，只读原始日志）
+python analysis/metrics.py --runs raw/runs.jsonl --tap raw/tap --out data
+python analysis/events.py
+python analysis/rule_metrics.py
 
-# 模型形式的稳健性扫描（2.4.6 节）
-python paper/shared/scripts/sensitivity.py
+# 3 图（正文副本由 fig/ 同步到 paper/shared/figures/）
+python analysis/figs.py
+python analysis/figs_v2.py
 
-# 多目标 / 多波次端到端（2.4.7 节）
-python paper/shared/scripts/multitarget.py
-
-# 数据图与示意图（SVG/PDF/PNG 三格式）
-python paper/shared/scripts/figures.py
-python paper/shared/scripts/fig_robust.py
-python paper/shared/scripts/fig_apply.py
-python paper/shared/scripts/fig_verify.py
-python paper/shared/scripts/fig_verify2.py
-
-# 文稿
-cd paper && ./build.sh          # 两篇一起，也可 design / verify
+# 4 文稿
+cd ../paper && ./build.sh
 ```
 ]
 
-单规则验证数据保存在 `docs/实验/*.csv`，受控对比数据保存在 `paper/shared/data/*.csv`，插图位于 `paper/shared/figures/` 和 `paper/shared/schematics/`。所有 CSV 文件均带 UTF-8 BOM，可直接用 Excel 打开。
+运行依赖：Python 3.12（numpy、matplotlib）、Typst 0.15 与模板 `@preview/easy-paper:0.2.2`。中文字体用系统自带的 `Noto Serif CJK SC` 与 `Noto Sans CJK SC`，两者均为可变字体，正文字重显式设为 400，以免 Typst 选到最细实例。
 
-运行依赖包括 Python 3.12、numpy、matplotlib 3.11、typst 0.15.1，以及 Typst 模板 `@preview/easy-paper:0.2.2`。字体使用系统自带的 `Noto Serif CJK SC` 和 `Noto Sans CJK SC`，两者均为可变字体；正文字重显式设为 400。
-
-#heading(level: 1, numbering: none, outlined: true)[附录 C　术语与型号对照表]
+#heading(level: 1, numbering: none, outlined: true)[附录 B　术语与型号对照表]
 
 下表列出文中专名，第三列给出来处。
 
