@@ -70,6 +70,17 @@ _顺带修正一条旧说法。_ 平台的 WRA（自由开火，50 / 60 海里�
 @tab:aircombat 把六个臂并排放置。四列读数取自 `events.csv` 的 `fire_aam` 事件：每局开火次数、开火时 `dist_km` 与 `gate_km` 之比、同一时刻 `dist_km` 与 `d0_km` 之比的中位数，以及开火距离 `dist_km` 的中位数。前两行（A0、A1）各 12 局，后四行（WA–WD）各 6 局（`rule_metrics.csv: episodes_stepped`）。前两行保留平台条令自动开火，后四行用 `wra_nm=1` 关掉它，两组的差别因此要分开读。
 
 #figure(
+  image("../../shared/figures/fig_fire_vs_speed.png", width: 15.2cm),
+  caption: [开火距离与目标速度（仅 111.1 km 射程档，`events.csv: fire_aam`）。三条灰曲线是理论门限 $min(c thin d_0(V_a), thin 0.7 R)$，$c$ 取 0.6 / 0.8 / 1.0，红虚线为射程项封顶 77.8 km。五个臂的点各自压在对应曲线上（逐点核对，门限吻合率 100%）：WA 与 A0 落在 $c=0.8$，WB 落在 $c=0.6$，WC 落在 $c=1.0$（在本场 $V_a <= 920$ km/h 范围内，$c=1.0$ 已经与封顶线重合）；WD 是固定 111 km 臂，点整体位于封顶线之上。这张图说明“系数不是线性生效的”：$c >= 0.8$ 时门限被射程项接管，只有更慢的目标才回到 $c thin d_0$。],
+) <fig:fire-vs-speed>
+
+#figure(
+  image("../../shared/figures/fig_gate_hist.png", width: 13.4cm),
+  caption: [按弹型射程档分面的门限分布（`events.csv: fire_aam` 的 `gate_km`）。四个档的射程分别是 27.8 / 59.3 / 111.1 / 138.9 km，对应 $0.7R$ 封顶 19.4 / 41.5 / 77.8 / 97.2 km；各档的实测门限众数恰好落在这些封顶值上（19.4、59.3、77.8、97.2）。59.3 km 档的众数高于封顶值，是因为该档样本少（58 次）且多为固定距离臂。],
+) <fig:gate-hist>
+
+
+#figure(
   kind: table,
   {
     set text(size: 8.2pt)

@@ -39,6 +39,12 @@ _地导发弹比例是真旋钮，舰船那条路是死的。_ 地空导弹营�
 把事件按仿真时刻分段，可以看到一局对抗的骨架。@tab:ch3-phases 把四类主要动作按每 30 分钟一档摊开，合计的是全部有决策步的对局（`events.csv` 的 `sim_t` 按左闭右开分段计数）。时刻精度是一个决策步，实测 20–40 s，因此这张表只用于看结构与量级，不适合算速率（@sec:inloop-validity）。
 
 #figure(
+  image("../shared/figures/fig_event_timeline.png", width: 15.2cm),
+  caption: [四类事件按 30 分钟分箱的密度（全部有决策步的对局合计，`events.csv: sim_t`）。规避与空战开火集中在前 60 分钟（合计 94%），地导发弹在 30–60 分钟达到峰值，之后长期维持在每 30 分钟 2 800–6 800 次——这一段对应登陆阶段的防空拦截。三条阶段底色分别是首波、高潮与登陆/防空。],
+) <fig:event-timeline>
+
+
+#figure(
   kind: table,
   text(size: 8pt, table(
     columns: (auto, auto, auto, auto, auto),
