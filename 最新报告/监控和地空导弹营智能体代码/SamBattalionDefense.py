@@ -387,9 +387,17 @@ class SamBattalionDefense(object):
         # 上一次留下的指令文件里的 seq 视为“旧的”，之后只认更大的 seq
         self._intent_seq = _to_int(_read_json(intent_path()).get('seq')) or 0
 
+        # 实验臂：用环境变量指定开局模式（模拟“操作手在开局就把它们切过去”）
+        #   PI_SAM_INITIAL = strike         → 地导开局就是打击模式（雷达开、停车、自由开火）
+        #   PI_SAM_INITIAL = radar_maneuver → 可机动雷达开局就是机动模式（不诱弹）
+        #   不设或为空 = 按正文默认（地导机动、雷达骗弹）
+        _init = (os.environ.get('PI_SAM_INITIAL') or '').strip().lower()
         for u in self._units:
-            self._mode[u['guid']] = (self.MODE_BAIT if u['role'] == 'radar'
-                                     else self.MODE_MANEUVER)
+            if u['role'] == 'radar':
+                _m = self.MODE_MANEUVER if _init == 'radar_maneuver' else self.MODE_BAIT
+            else:
+                _m = self.MODE_STRIKE if _init == 'strike' else self.MODE_MANEUVER
+            self._mode[u['guid']] = _m
             try:
                 if u['role'] == 'sam':
                     self._set_doctrines(u)
