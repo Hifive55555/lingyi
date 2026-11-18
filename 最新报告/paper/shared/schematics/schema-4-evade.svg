@@ -57,6 +57,7 @@
   <line x1="405" y1="218" x2="215" y2="350" stroke="#b9b9b9" stroke-width="1.2"
         stroke-dasharray="5 5"/>
   <text x="425" y="325" font-size="18" fill="#a33c3c" text-anchor="middle">威胁锥</text>
+  <line x1="412" y1="316" x2="396" y2="303" stroke="#a33c3c" stroke-width="1.2"/>
 
   <!-- 来袭弹与其速度矢量 -->
   <line x1="377" y1="248" x2="319" y2="288" stroke="#d64545" stroke-width="2.6"
@@ -90,6 +91,7 @@
   <line x1="567" y1="373" x2="600" y2="430" stroke="#d64545" stroke-width="2.6"/>
   <circle cx="567" cy="373" r="4.5" fill="#d64545"/>
   <text x="556" y="418" font-size="19" fill="#d64545" text-anchor="end">脱靶量</text>
+  <line x1="562" y1="413" x2="584" y2="404" stroke="#d64545" stroke-width="1.2"/>
 
   <!-- 本机与新航向 -->
   <circle cx="600" cy="430" r="15" fill="#ffffff"/>

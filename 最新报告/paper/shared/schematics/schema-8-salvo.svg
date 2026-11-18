@@ -1,176 +1,126 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     width="1400" height="860" viewBox="0 0 1400 860" version="1.1"
-     font-family="Noto Sans CJK SC, sans-serif" fill="#1a1a1a">
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760"
+     version="1.1" font-family="Noto Sans CJK SC, sans-serif" fill="#1a1a1a">
   <defs>
-    <marker id="ah8" viewBox="0 0 10 10" refX="9.2" refY="5"
-            markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0.4,0.8 L9.6,5 L0.4,9.2 z" fill="#1a1a1a"/>
+    <marker id="sal-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0.3,0.7 L9.7,5 L0.3,9.3 z" fill="#b3261e"/>
     </marker>
-    <marker id="ahr8" viewBox="0 0 10 10" refX="9.2" refY="5"
-            markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M0.4,0.8 L9.6,5 L0.4,9.2 z" fill="#b3261e"/>
+    <marker id="sal-ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0.3,0.7 L9.7,5 L0.3,9.3 z" fill="#2f6f9f"/>
     </marker>
-    <g id="ship8">
-      <path d="M-58,0 L-34,-15 L34,-13 L58,0 L34,13 L-34,15 Z"
-            fill="#ffffff" stroke="#1a1a1a" stroke-width="2.2"/>
-      <rect x="-26" y="-9" width="38" height="18" rx="3" fill="#dcdcdc" stroke="#1a1a1a" stroke-width="1.6"/>
-      <rect x="-8" y="-16" width="18" height="10" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
-      <line x1="-2" y1="-16" x2="-2" y2="-32" stroke="#1a1a1a" stroke-width="2"/>
-      <line x1="-10" y1="-30" x2="6" y2="-30" stroke="#1a1a1a" stroke-width="2.4"/>
-      <circle cx="40" cy="0" r="4" fill="#1a1a1a"/>
+    <g id="missile">
+      <rect x="-16" y="-4" width="28" height="8" rx="4" fill="#b3261e"/>
+      <path d="M12,-4 L23,0 L12,4 Z" fill="#b3261e"/>
+      <path d="M-16,-4 L-22,-8 L-10,-4 Z" fill="#b3261e"/>
+      <path d="M-16,4 L-22,8 L-10,4 Z" fill="#b3261e"/>
     </g>
-    <g id="plane8">
-      <path d="M-9,-7 L12,0 L-9,7 L-3,0 Z" fill="#1a1a1a"/>
-      <path d="M-2,-7 L2,-16 L5,-7 Z" fill="#1a1a1a"/>
-      <path d="M-2,7 L2,16 L5,7 Z" fill="#1a1a1a"/>
+    <g id="cvn">
+      <path d="M-92,24 L92,24 L70,-10 L-70,-10 Z" fill="#a8bfd0" stroke="#33556e" stroke-width="2"/>
+      <rect x="-20" y="-32" width="36" height="22" rx="3" fill="#ffffff" stroke="#33556e" stroke-width="2"/>
+      <g fill="#33556e">
+        <path d="M-52,8 l9,-5 l9,5 l-3,3 l-6,-2 l-6,2 z"/>
+        <path d="M-16,8 l9,-5 l9,5 l-3,3 l-6,-2 l-6,2 z"/>
+        <path d="M20,8 l9,-5 l9,5 l-3,3 l-6,-2 l-6,2 z"/>
+      </g>
     </g>
-    <g id="missile8">
-      <rect x="-18" y="-5" width="34" height="10" rx="5" fill="#b3261e"/>
-      <path d="M16,-5 L31,0 L16,5 Z" fill="#b3261e"/>
-      <path d="M-18,-5 L-26,-11 L-13,-5 Z" fill="#b3261e"/>
-      <path d="M-18,5 L-26,11 L-13,5 Z" fill="#b3261e"/>
-      <line x1="-10" y1="0" x2="12" y2="0" stroke="#ffffff" stroke-width="1.6"/>
+    <g id="ffg">
+      <path d="M-50,16 L50,16 L36,-8 L-36,-8 Z" fill="#a8bfd0" stroke="#33556e" stroke-width="2"/>
+      <rect x="-11" y="-24" width="22" height="16" rx="3" fill="#ffffff" stroke="#33556e" stroke-width="2"/>
     </g>
   </defs>
 
-  <rect x="0" y="0" width="1400" height="860" fill="#ffffff"/>
+  <rect width="1400" height="760" fill="#ffffff"/>
+  <rect x="26" y="66" width="1080" height="650" rx="14" fill="#f4f9fb" stroke="#dcdcdc" stroke-width="1.4"/>
+  <text x="46" y="44" font-size="24" font-weight="600">开局战术齐射：从下方绕后，打航母与甲板上的飞机</text>
+  <text x="46" y="690" font-size="16" fill="#6b6b6b">示意图，非等比例；只画几何关系，不含平台读数</text>
 
-  <!-- ================= 标题 ================= -->
-  <text x="700" y="46" font-size="26" font-weight="600" text-anchor="middle">开局战术齐射：绕后突防与数量饱和</text>
-  <text x="700" y="78" font-size="19" fill="#6b6b6b" text-anchor="middle">纯方位齐射 · 12 发高超音速弹 · 打的是尚未起飞的目标</text>
-
-  <!-- ================= 海图底 ================= -->
-  <rect x="30" y="95" width="1340" height="655" rx="14" fill="#f4f8fb" stroke="#dcdcdc" stroke-width="1.4"/>
-  <g stroke="#e3edf2" stroke-width="1.2">
-    <line x1="30" y1="220" x2="1370" y2="220"/>
-    <line x1="30" y1="360" x2="1370" y2="360"/>
-    <line x1="30" y1="500" x2="1370" y2="500"/>
-    <line x1="30" y1="640" x2="1370" y2="640"/>
-    <line x1="420" y1="95" x2="420" y2="750"/>
-    <line x1="820" y1="95" x2="820" y2="750"/>
-    <line x1="1180" y1="95" x2="1180" y2="750"/>
-  </g>
-  <g transform="translate(1318,132)">
-    <line x1="0" y1="30" x2="0" y2="-18" stroke="#6b6b6b" stroke-width="2.2" marker-end="url(#ah8)"/>
-    <text x="0" y="52" font-size="18" fill="#6b6b6b" text-anchor="middle">北</text>
+  <!-- 等边三角形辅助线 -->
+  <g stroke="#9db3c4" stroke-width="1.5" stroke-dasharray="7 5" fill="none">
+    <line x1="400" y1="350" x2="746" y2="150"/>
+    <line x1="400" y1="350" x2="746" y2="550"/>
+    <line x1="746" y1="150" x2="746" y2="550"/>
   </g>
 
-  <!-- ================= 护卫舰中段拦截弧 ================= -->
+  <!-- 拦截弧 -->
+  <circle cx="746" cy="150" r="150" fill="#d64545" fill-opacity="0.05" stroke="#d64545" stroke-width="2" stroke-dasharray="9 6"/>
+  <circle cx="746" cy="550" r="150" fill="#d64545" fill-opacity="0.05" stroke="#d64545" stroke-width="2" stroke-dasharray="9 6"/>
+  <text x="842" y="46" font-size="16" fill="#b3261e">中段拦截弧</text>
+  <text x="842" y="674" font-size="16" fill="#b3261e">中段拦截弧</text>
+
+  <!-- 编队 -->
+  <g transform="translate(400,350)"><use href="#cvn"/></g>
+  <text x="400" y="292" font-size="19" font-weight="600" text-anchor="middle">航母（甲板停 3 架）</text>
+  <g transform="translate(746,150)"><use href="#ffg"/></g>
+  <text x="752" y="194" font-size="18" text-anchor="middle">护卫舰 1</text>
+  <g transform="translate(746,550)"><use href="#ffg"/></g>
+  <text x="752" y="594" font-size="18" text-anchor="middle">护卫舰 2</text>
+  <text x="936" y="356" font-size="16" fill="#6b6b6b">等边三角形</text>
+
+  <!-- 发射阵位 -->
+  <g transform="translate(640,680)"><use href="#ffg"/></g>
+  <text x="640" y="724" font-size="18" font-weight="600" text-anchor="middle">2235 护卫舰（发射阵位）</text>
+
+  <!-- 航路 -->
+  <path d="M640,646 L300,630 L200,480 L360,376" fill="none" stroke="#b3261e" stroke-width="3" stroke-dasharray="12 7"/>
+  <circle cx="300" cy="630" r="6" fill="#ffffff" stroke="#b3261e" stroke-width="2.4"/>
+  <circle cx="150" cy="560" r="6" fill="#ffffff" stroke="#b3261e" stroke-width="2.4"/>
+  <text x="314" y="660" font-size="17" fill="#b3261e">折点 1</text>
+  <text x="136" y="594" font-size="17" fill="#b3261e" text-anchor="end">折点 2（绕到弧外）</text>
+
+  <!-- 齐射 -->
   <g>
-    <path d="M120,420 L80.1,616.5 L132.0,619.7 L183.4,611.1 L231.5,591.2 L273.9,560.9 L308.4,521.9 L333.3,476.2 L347.2,426.0 L349.4,374.0 L340.0,322.8 L319.2,275.0 Z"
-          fill="#b3261e" fill-opacity="0.09"/>
-    <path d="M80.1,616.5 A230,230 0 0 0 319.2,275.0" fill="none"
-          stroke="#b3261e" stroke-width="2.2" stroke-dasharray="9 6"/>
+    <use href="#missile" transform="translate(244,477) rotate(-41)"/>
+    <use href="#missile" transform="translate(254,469) rotate(-41)"/>
+    <use href="#missile" transform="translate(264,460) rotate(-41)"/>
+    <use href="#missile" transform="translate(274,451) rotate(-41)"/>
+    <use href="#missile" transform="translate(284,443) rotate(-41)"/>
+    <use href="#missile" transform="translate(294,434) rotate(-41)"/>
+    <use href="#missile" transform="translate(304,425) rotate(-41)"/>
+    <use href="#missile" transform="translate(314,417) rotate(-41)"/>
+    <use href="#missile" transform="translate(323,408) rotate(-41)"/>
+    <use href="#missile" transform="translate(333,399) rotate(-41)"/>
+    <use href="#missile" transform="translate(343,391) rotate(-41)"/>
+    <use href="#missile" transform="translate(353,382) rotate(-41)"/>
   </g>
+  <text x="240" y="424" font-size="19" font-weight="600" fill="#b3261e">12 发锆石 · 高超音速 · 数量饱和</text>
+
+  <!-- 末端拦截 -->
+  <g stroke="#2f6f9f" stroke-width="2.4" fill="none">
+    <path d="M706,180 L440,280" marker-end="url(#sal-ahb)"/>
+    <path d="M706,520 L440,414" marker-end="url(#sal-ahb)"/>
+  </g>
+  <text x="686" y="216" font-size="16" fill="#2f6f9f" text-anchor="end">末端才拦</text>
+  <text x="686" y="508" font-size="16" fill="#2f6f9f" text-anchor="end">末端才拦</text>
+
+  <!-- 漏过去 -->
   <g>
-    <path d="M440,460 L401.8,646.7 L451.5,649.7 L500.6,641.5 L546.7,622.4 L587.2,593.5 L620.2,556.2 L644.0,512.4 L657.3,464.4 L659.5,414.7 L650.4,365.7 L630.5,320.0 Z"
-          fill="#b3261e" fill-opacity="0.09"/>
-    <path d="M401.8,646.7 A220,220 0 0 0 630.5,320.0" fill="none"
-          stroke="#b3261e" stroke-width="2.2" stroke-dasharray="9 6"/>
+    <line x1="330" y1="328" x2="260" y2="298" stroke="#b3261e" stroke-width="3" marker-end="url(#sal-ah)"/>
+    <line x1="330" y1="350" x2="260" y2="320" stroke="#b3261e" stroke-width="3" marker-end="url(#sal-ah)"/>
+    <line x1="330" y1="372" x2="260" y2="342" stroke="#b3261e" stroke-width="3" marker-end="url(#sal-ah)"/>
   </g>
+  <text x="308" y="292" font-size="18" font-weight="600" fill="#b3261e" text-anchor="end">漏过去的几发</text>
 
-  <!-- ================= 敌方航母编队 ================= -->
-  <g transform="rotate(-8 320 270)">
-    <path d="M198,300 L236,244 L394,237 L446,268 L400,303 L236,309 Z"
-          fill="#e8e6e0" stroke="#1a1a1a" stroke-width="2.2"/>
-    <path d="M224,289 L242,258 L388,252 L420,269 L392,290 Z"
-          fill="none" stroke="#9a958a" stroke-width="1.4" stroke-dasharray="6 4"/>
-    <rect x="300" y="232" width="34" height="20" rx="3" fill="#6b6b6b" stroke="#1a1a1a" stroke-width="1.6"/>
-    <line x1="317" y1="232" x2="317" y2="214" stroke="#1a1a1a" stroke-width="2.2"/>
-    <line x1="307" y1="216" x2="327" y2="216" stroke="#1a1a1a" stroke-width="2.4"/>
-    <use href="#plane8" xlink:href="#plane8" transform="translate(264,278) scale(0.95)"/>
-    <use href="#plane8" xlink:href="#plane8" transform="translate(306,266) scale(0.95)"/>
-    <use href="#plane8" xlink:href="#plane8" transform="translate(350,284) scale(0.95)"/>
-  </g>
-  <text x="320" y="340" font-size="20" font-weight="600" text-anchor="middle">敌方航母编队</text>
-  <text x="318" y="150" font-size="19" fill="#b3261e" text-anchor="middle">开局未起飞，被一并击毁</text>
-  <line x1="308" y1="162" x2="300" y2="246" stroke="#b3261e" stroke-width="1.4" stroke-dasharray="4 3"/>
-  <!-- ================= 护卫舰 ================= -->
-  <use href="#ship8" xlink:href="#ship8" transform="translate(120,420) rotate(-18)"/>
-  <use href="#ship8" xlink:href="#ship8" transform="translate(440,460) rotate(-18)"/>
-  <text x="118" y="372" font-size="19" text-anchor="middle" paint-order="stroke"
-        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">护卫舰 1</text>
-  <text x="440" y="408" font-size="19" text-anchor="middle" paint-order="stroke"
-        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">护卫舰 2</text>
-  <text x="226" y="548" font-size="19" fill="#b3261e" text-anchor="middle">中段拦截弧</text>
-  <text x="544" y="574" font-size="19" fill="#b3261e" text-anchor="middle">中段拦截弧</text>
-
-  <!-- ================= 折线航线 ================= -->
-  <polyline points="1110,660 1200,420 900,180 560,210 330,240"
-            fill="none" stroke="#1a1a1a" stroke-width="2.6"
-            stroke-dasharray="12 7" marker-end="url(#ah8)"/>
-
-  <!-- 12 发导弹 -->
+  <!-- 右侧注记 -->
   <g>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(1136,592) rotate(-69.4)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(1169,503) rotate(-69.4)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(1195,416) rotate(-141.3)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(1121,357) rotate(-141.3)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(1047,298) rotate(-141.3)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(973,238) rotate(-141.3)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(898,180) rotate(175.0)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(804,188) rotate(175.0)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(709,197) rotate(175.0)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(615,205) rotate(175.0)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(520,215) rotate(172.6)"/>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(426,227) rotate(172.6)"/>
-  </g>
-
-  <!-- 绕后标注 -->
-  <text x="1012" y="128" font-size="20" font-weight="600" text-anchor="middle">绕后（折 3 段）</text>
-  <line x1="990" y1="140" x2="973" y2="226" stroke="#6b6b6b" stroke-width="1.4" stroke-dasharray="4 3"/>
-  <text x="760" y="316" font-size="20" font-weight="600">高超音速 + 数量饱和</text>
-  <text x="760" y="348" font-size="22" fill="#b3261e" font-weight="600">齐射 12 发</text>
-  <path d="M750,300 L708,232" fill="none" stroke="#6b6b6b" stroke-width="1.4" stroke-dasharray="4 3"/>
-
-  <!-- 中段无法拦截 -->
-  <g stroke="#b3261e" stroke-width="4">
-    <line x1="836" y1="172" x2="862" y2="206"/>
-    <line x1="862" y1="172" x2="836" y2="206"/>
-  </g>
-  <text x="848" y="156" font-size="20" fill="#b3261e" font-weight="600" text-anchor="middle">中段无法拦截</text>
-
-  <!-- ================= 末端拦截 ================= -->
-  <path d="M351,411 C486,376 486,166 351,129" fill="none"
-        stroke="#b3261e" stroke-width="2.2" stroke-dasharray="9 6"/>
-  <text x="500" y="330" font-size="19" fill="#b3261e" paint-order="stroke"
-        stroke="#ffffff" stroke-width="6" stroke-linejoin="round">末端拦截</text>
-  <line x1="497" y1="330" x2="454" y2="330" stroke="#b3261e" stroke-width="1.6" stroke-dasharray="4 3"/>
-  <text x="436" y="176" font-size="21" fill="#b3261e" font-weight="600" text-anchor="middle"
-        paint-order="stroke" stroke="#ffffff" stroke-width="6" stroke-linejoin="round">必漏</text>
-  <path d="M442,184 L426,216" fill="none" stroke="#b3261e" stroke-width="1.4" stroke-dasharray="4 3"/>
-
-  <!-- ================= 我方发射阵位 ================= -->
-  <g transform="translate(1140,665) rotate(-118) scale(0.78)">
-    <use href="#ship8" xlink:href="#ship8"/>
-  </g>
-  <text x="1140" y="735" font-size="19" font-weight="600" text-anchor="middle">2235 型护卫舰 · 发射阵位</text>
-  <g stroke="#b3261e" stroke-width="2" stroke-dasharray="5 4">
-    <line x1="1104" y1="640" x2="1128" y2="600"/>
-    <line x1="1128" y1="640" x2="1152" y2="520"/>
-  </g>
-
-  <!-- ================= 图例 ================= -->
-  <g>
-    <use href="#missile8" xlink:href="#missile8" transform="translate(82,800) scale(0.85)"/>
-    <text x="122" y="807" font-size="18">高超音速导弹 · 12 发</text>
+    <rect x="1140" y="86" width="228" height="146" rx="12" fill="#fbfbfb" stroke="#dcdcdc" stroke-width="1.4"/>
+    <text x="1160" y="116" font-size="19" font-weight="600">① 编队几何</text>
+    <text x="1160" y="146" font-size="17">航母与两舰成等边三角形</text>
+    <text x="1160" y="172" font-size="17">两舰拦截弧只覆盖东侧</text>
+    <text x="1160" y="198" font-size="17">西侧与后方是盲区</text>
   </g>
   <g>
-    <path d="M420,788 L470,788 L470,812 L420,812 Z" fill="#b3261e" fill-opacity="0.09"/>
-    <path d="M420,800 A28,28 0 0 0 468,776" fill="none" stroke="#b3261e"
-          stroke-width="2" stroke-dasharray="7 5"/>
-    <text x="486" y="807" font-size="18">护卫舰中段拦截弧</text>
+    <rect x="1140" y="252" width="228" height="146" rx="12" fill="#fbfbfb" stroke="#dcdcdc" stroke-width="1.4"/>
+    <text x="1160" y="282" font-size="19" font-weight="600">② 绕后航路</text>
+    <text x="1160" y="312" font-size="17">从下方出发，两次折向</text>
+    <text x="1160" y="338" font-size="17">中段始终在拦截弧外</text>
+    <text x="1160" y="364" font-size="17">从航母背后进入末端</text>
   </g>
-  <g stroke="#b3261e" stroke-width="3.4">
-    <line x1="790" y1="790" x2="810" y2="812"/>
-    <line x1="810" y1="790" x2="790" y2="812"/>
-  </g>
-  <text x="826" y="807" font-size="18">突防点：中段无法拦截</text>
   <g>
-    <use href="#plane8" xlink:href="#plane8" transform="translate(1110,800) scale(0.9)"/>
-    <text x="1140" y="807" font-size="18">停放飞机：开局未起飞</text>
+    <rect x="1140" y="418" width="228" height="176" rx="12" fill="#fbfbfb" stroke="#dcdcdc" stroke-width="1.4"/>
+    <text x="1160" y="448" font-size="19" font-weight="600">③ 为什么打得到</text>
+    <text x="1160" y="478" font-size="17">末端才拦，弹已进入高速段</text>
+    <text x="1160" y="504" font-size="17">12 发齐射，末端拦不完</text>
+    <text x="1160" y="530" font-size="17">甲板上停着的飞机</text>
+    <text x="1160" y="556" font-size="17">一并被摧毁</text>
   </g>
-
-  <text x="1368" y="846" font-size="18" fill="#6b6b6b" text-anchor="end">平台每 30 s 决策一次；示意图，非等比例，航线只表达绕后方向</text>
 </svg>
