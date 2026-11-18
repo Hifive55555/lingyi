@@ -1,0 +1,42 @@
+{
+ "scenario": "诺曼底2027(人机协同-人人版)_有红有蓝",
+ "decision_interval": 30,
+ "compression": 10001,
+ "max_steps": 0,
+ "budget_h": 0.7,
+ "est_s_per_episode": 190,
+ "episode_timeout_s": 600,
+ "out": "D:/LingYi/exp/v2/runs.jsonl",
+ "jobs_dir": "D:/LingYi/exp/jobs",
+ "logs": "D:/LingYi/exp/v2/logs",
+ "tap_dir": "D:/LingYi/exp/v2/tap",
+ "agents": {
+  "红方": {
+   "redShip": {
+    "module": "agent.pi_ship_only",
+    "class": "Agent"
+   },
+   "tapR": {
+    "module": "agent.pi_tap",
+    "class": "Agent"
+   }
+  },
+  "蓝方": {
+   "blueMain": {
+    "module": "agent.Mission_all_blue_hh",
+    "class": "Agent"
+   },
+   "tapB": {
+    "module": "agent.pi_tap",
+    "class": "Agent"
+   }
+  }
+ },
+ "arms": [
+  {
+   "name": "V4_SHIP_layered",
+   "episodes": 6,
+   "theta": {}
+  }
+ ]
+}
