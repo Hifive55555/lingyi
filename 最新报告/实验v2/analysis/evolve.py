@@ -94,8 +94,18 @@ def main():
         print('没有数据')
         return
 
-    # 基线：优先 v2
+    # 基线：v1 的 A0_new；v2 的臂只在 v2 块内与 V2_A0_new 比较，不跨版本差分
     base_arm = BASE if BASE in by else max(by, key=lambda a: len(by[a]))
+
+    def _ver(arm):
+        for p_ in ('V2_', 'V3_', 'V4_', 'V5_'):
+            if arm.startswith(p_):
+                return p_.rstrip('_').lower()
+        return 'v1'
+
+    base_ver = _ver(base_arm)
+    v2_base = 'V2_A0_new' if 'V2_A0_new' in by else None
+    v2_mu = st.mean(by[v2_base]) if v2_base else None
     base_mu = st.mean(by[base_arm])
     print('基线臂 %s：n=%d 得分速率=%.1f 分/小时' % (base_arm, len(by[base_arm]), base_mu))
 
@@ -107,13 +117,20 @@ def main():
         th = ARM_THETA.get(arm, {})
         mu = st.mean(xs)
         lo, hi = boot_ci(xs)
+        # 同版本基线：v2 臂对齐 V2_A0_new，其余对齐 v1 的 A0_new
+        if _ver(arm) == 'v2' and v2_mu is not None:
+            base_mu_ref = v2_mu
+        elif _ver(arm) == base_ver:
+            base_mu_ref = base_mu
+        else:
+            continue
         for k, v in th.items():
             if k in KNOBS:
                 eff_rows.append({'knob': k, 'value': v, 'arm': arm, 'n': len(xs),
                                  'rate_mean': round(mu, 1),
-                                 'delta': round(mu - base_mu, 1),
-                                 'ci_low': round(lo - base_mu, 1),
-                                 'ci_high': round(hi - base_mu, 1)})
+                                 'delta': round(mu - base_mu_ref, 1),
+                                 'ci_low': round(lo - base_mu_ref, 1),
+                                 'ci_high': round(hi - base_mu_ref, 1)})
     eff_rows.sort(key=lambda r: (r['knob'], r['value']))
     with open(os.path.join(DATA, 'knob_effects.csv'), 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=list(eff_rows[0].keys()))
@@ -150,11 +167,17 @@ def main():
                t['best_so_far'], t['theta']))
 
     # 坐标上升推荐的 θ*
+    # 每个旋钮只取“同一版本内最优”：有 v2 臂时只看 v2，否则看 v1
     best_by_knob = {}
     for r in eff_rows:
+        is_v2 = r['arm'].startswith('V2_')
         cur = best_by_knob.get(r['knob'])
-        if cur is None or r['delta'] > cur[1]:
-            best_by_knob[r['knob']] = (r['value'], r['delta'], r['ci_low'])
+        if cur is None:
+            best_by_knob[r['knob']] = (r['value'], r['delta'], r['ci_low'], is_v2)
+        elif is_v2 and not cur[3]:
+            best_by_knob[r['knob']] = (r['value'], r['delta'], r['ci_low'], is_v2)
+        elif is_v2 == cur[3] and r['delta'] > cur[1]:
+            best_by_knob[r['knob']] = (r['value'], r['delta'], r['ci_low'], is_v2)
     star = {k: v[0] for k, v in best_by_knob.items() if v[1] > 0}
     print('\n坐标上升推荐 θ* = %s' % json.dumps(star, ensure_ascii=False))
     print('  （仅采纳 delta>0 的取值；括号内为 delta 与 CI 下界）')

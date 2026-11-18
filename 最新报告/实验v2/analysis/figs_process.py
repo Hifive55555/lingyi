@@ -175,7 +175,10 @@ def game_points(path):
     skipped = 0
     with open(path, encoding='utf-8') as f:
         for line in f:
-            d = json.loads(line)
+            try:
+                d = json.loads(line)
+            except Exception:
+                continue
             cts = d.get('cts')
             if cts is not None:                       # 隔步采集 → 稀疏值覆盖，其余沿用前值
                 inflight = sum(1 for c in cts if c[1] == 1)

@@ -33,21 +33,21 @@ $ d_0 = (T (V_0 + V_"term")) / 2 - T V_a $
 
 正文的结局级结论全部来自灵弈平台的受控对局。协议与字段的唯一权威文档是 `最新报告/实验v2/数据字典.md`，指标口径在 `最新报告/实验v2/实验设计.md`，两者的分工是：前者定义字段，后者定义由字段算出的指标。这里只摘要那些“读表时最容易读错”的约定。
 
-_协议四条。_ 第一，载体唯一，即《诺曼底 2027 人机协同（人人版，有红有蓝）》想定，决策间隔 30 s 仿真时间，`continuous=0` 让引擎等智能体算完再推进，因此单局内部的时序是确定的。第二，臂间只有 θ 不同：θ 经环境变量 `PI_THETA` 在实例化之前打到类属性上（映射表在 `harness/pi_v2_run.py` 的 `THETA_MAP`），不存在运行中切参，也就没有臂内漂移。第三，一局一进程，上一局的状态（拉黑列表、已毁单元、任务缓存）不跨局残留。第四，平台不暴露随机种子，`Deduction` 没有可设种子的参数，“重放同一局”这条路不存在；重复局是唯一的重采样手段，全部区间按局做 bootstrap（`n_boot=1000`，种子 `20261118`），且因为无种子，“同局号”不是同一随机实现，所以只报区间与效应量，不报 p 值、不做配对检验。
+协议四条。 第一，载体唯一，即《诺曼底 2027 人机协同（人人版，有红有蓝）》想定，决策间隔 30 s 仿真时间，`continuous=0` 让引擎等智能体算完再推进，因此单局内部的时序是确定的。第二，臂间只有 θ 不同：θ 经环境变量 `PI_THETA` 在实例化之前打到类属性上（映射表在 `harness/pi_v2_run.py` 的 `THETA_MAP`），不存在运行中切参，也就没有臂内漂移。第三，一局一进程，上一局的状态（拉黑列表、已毁单元、任务缓存）不跨局残留。第四，平台不暴露随机种子，`Deduction` 没有可设种子的参数，“重放同一局”这条路不存在；重复局是唯一的重采样手段，全部区间按局做 bootstrap（`n_boot=1000`，种子 `20261118`），且因为无种子，“同局号”不是同一随机实现，所以只报区间与效应量，不报 p 值、不做配对检验。
 
-_两份原始文件。_ `raw/runs.jsonl` 一行一局：`arm`、`theta`（JSON 文本）、`tap`（唯一键）、`steps`、`red_score`/`blue_score`、`winner`、`sim_end`、`ok`、`wall_s`、`step_avg_s`。`raw/tap/<arm>__<ts>__<side>.jsonl` 一行一个决策周期：`t`、`score`、`own`（本方存活单元，8 元位置数组）、`cts`（本方情报可见的接触，7 元位置数组）。派生表在 `data/`：`runs.csv`、`episode_metrics.csv`、`arm_summary.csv` 来自 `metrics.py`，`events.csv` 来自 `events.py`，`rule_metrics.csv` 来自 `rule_metrics.py`。
+两份原始文件。 `raw/runs.jsonl` 一行一局：`arm`、`theta`（JSON 文本）、`tap`（唯一键）、`steps`、`red_score`/`blue_score`、`winner`、`sim_end`、`ok`、`wall_s`、`step_avg_s`。`raw/tap/<arm>_<ts>_<side>.jsonl` 一行一个决策周期：`t`、`score`、`own`（本方存活单元，8 元位置数组）、`cts`（本方情报可见的接触，7 元位置数组）。派生表在 `data/`：`runs.csv`、`episode_metrics.csv`、`arm_summary.csv` 来自 `metrics.py`，`events.csv` 来自 `events.py`，`rule_metrics.csv` 来自 `rule_metrics.py`。
 
-_读表必须守住的六条。_ 其一，唯一键是 `runs.tap`（`arm__ts`）：`episode` 实测恒为 1，不能当键。其二，`own` 只含存活单元，被击毁的单元直接从列表消失，存活率只能按计数差算，不能按 `damage` 阈值筛。其三，`cts` 隔步采集，`null` 表示本步未采集而不是“没有敌人”；敌方的损失只能取对侧 `own` 的确数，本方 `cts` 的消失计数系统性偏高。其四，红方 `own` 的 `damage` 恒为 0，红方毁伤类指标不可引用，要算“敌方毁伤”必须取对侧 `own`。其五，两个文件都是追加写，重试会让 `i` 归零，必须按 `i == 1` 切段、只取最后一段。其六，`sim_end` 有两种分布（满时长 10 800 s 与早停），得分速率必须与“满时长子集”一起报，否则早赢的局被系统性奖励。
+读表必须守住的六条。 其一，唯一键是 `runs.tap`（`arm__ts`）：`episode` 实测恒为 1，不能当键。其二，`own` 只含存活单元，被击毁的单元直接从列表消失，存活率只能按计数差算，不能按 `damage` 阈值筛。其三，`cts` 隔步采集，`null` 表示本步未采集而不是“没有敌人”；敌方的损失只能取对侧 `own` 的确数，本方 `cts` 的消失计数系统性偏高。其四，红方 `own` 的 `damage` 恒为 0，红方毁伤类指标不可引用，要算“敌方毁伤”必须取对侧 `own`。其五，两个文件都是追加写，重试会让 `i` 归零，必须按 `i == 1` 切段、只取最后一段。其六，`sim_end` 有两种分布（满时长 10 800 s 与早停），得分速率必须与“满时长子集”一起报，否则早赢的局被系统性奖励。
 
-_每条结论都要能落到列。_ 正文里任何平台数字都必须指到 `data/*.csv` 的某一列，指不到列的只能写成“设计判断”。数据字典明确列为不可派生的有四类：单发命中率、交战持续时间、单条指令的因果归因、用本方 `cts` 当敌方损失——这也是 2.3.3 与 2.3.5 只报开火点与弹药消耗、不报命中率的原因。
+每条结论都要能落到列。 正文里任何平台数字都必须指到 `data/*.csv` 的某一列，指不到列的只能写成“设计判断”。数据字典明确列为不可派生的有四类：单发命中率、交战持续时间、单条指令的因果归因、用本方 `cts` 当敌方损失——这也是 2.3.3 与 2.3.5 只报开火点与弹药消耗、不报命中率的原因。
 
 #heading(level: 2, numbering: none, outlined: true)[A.3　代码与产物清单]
 
-_靶机与采样（`实验v2/harness/`）。_ `pi_v2_run.py` 在一局一进程里跑对局：注入 θ、调 `reset`/`step`/取结果，把结局写成 `runs.jsonl` 的一行；`pi_tap.py` 是只读采样器，每决策周期抓一份态势写 `tap/*.jsonl`，不下发任何指令；`pi_v2_drive.py` 按 `plan_*.json` 批量驱动，带断点续跑与时间预算，一局崩溃只损失一局。
+靶机与采样（`实验v2/harness/`）。 `pi_v2_run.py` 在一局一进程里跑对局：注入 θ、调 `reset`/`step`/取结果，把结局写成 `runs.jsonl` 的一行；`pi_tap.py` 是只读采样器，每决策周期抓一份态势写 `tap/*.jsonl`，不下发任何指令；`pi_v2_drive.py` 按 `plan_*.json` 批量驱动，带断点续跑与时间预算，一局崩溃只损失一局。
 
-_数据管道（`实验v2/analysis/`）。_ `metrics.py` 把 `runs.jsonl` 与 `tap` 对齐成 `runs.csv`、`episode_metrics.csv`、`arm_summary.csv`（含按局 bootstrap 区间）；`events.py` 把智能体 stderr 日志抽成 `events.csv`，一行一个规则事件（威胁、规避、开火、地导、舰船自卫）；`rule_metrics.py` 把 `events.csv` 聚成 `rule_metrics.csv`，一行一个（臂, 指标），附均值、标准差与 P10/P50/P90；`figs.py` 与 `figs_v2.py` 把 `data/*.csv` 画成 `fig/*.png|svg`；`gen_arms_table.py` 生成正文实验臂表的行。
+数据管道（`实验v2/analysis/`）。 `metrics.py` 把 `runs.jsonl` 与 `tap` 对齐成 `runs.csv`、`episode_metrics.csv`、`arm_summary.csv`（含按局 bootstrap 区间）；`events.py` 把智能体 stderr 日志抽成 `events.csv`，一行一个规则事件（威胁、规避、开火、地导、舰船自卫）；`rule_metrics.py` 把 `events.csv` 聚成 `rule_metrics.csv`，一行一个（臂, 指标），附均值、标准差与 P10/P50/P90；`figs.py` 与 `figs_v2.py` 把 `data/*.csv` 画成 `fig/*.png|svg`；`gen_arms_table.py` 生成正文实验臂表的行。
 
-_产物与正文的对应。_ `实验v2/data/` 是唯一数据源，`实验v2/fig/` 是图源；正文引用的副本放在 `最新报告/paper/shared/figures/`，与 `fig/` 下的同名 SVG 一一对应，正文的每一张数据图都能按文件名回到生成它的 CSV。
+产物与正文的对应。 `实验v2/data/` 是唯一数据源，`实验v2/fig/` 是图源；正文引用的副本放在 `最新报告/paper/shared/figures/`，与 `fig/` 下的同名 SVG 一一对应，正文的每一张数据图都能按文件名回到生成它的 CSV。
 
 #pseudocode(caption: [从原始日志到 PDF 的复现命令])[
 ```
