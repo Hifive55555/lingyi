@@ -103,9 +103,9 @@ def marker(ax, x, y, num, color):
 
 # ----------------------------------------------------------------- 主图
 def fig_architecture():
-    fig, ax = plt.subplots(figsize=(7.4, 6.55))
+    fig, ax = plt.subplots(figsize=(7.4, 8.35))
     ax.set_xlim(-7, 105)
-    ax.set_ylim(0, 100)
+    ax.set_ylim(-25, 100)
     ax.axis("off")
 
     # ============ ② 设计协同：想定的来源 ============
@@ -194,13 +194,40 @@ def fig_architecture():
     tag(ax, 73, 6.9, "① 决策协同 —— 指令经专用端口回插内核", CTRL)
 
     # ============ 横向图例 ============
-    ax.plot([6, 11], [4.6, 4.6], color=A_EDGE, lw=0.85)
-    ax.text(11.9, 4.6, "信息流", fontsize=6.2, color=MUTE, va="center")
-    ax.plot([21, 26], [4.6, 4.6], color=CTRL, lw=0.85)
-    ax.text(26.9, 4.6, "控制流（旁路后端，直插内核）", fontsize=6.2,
+    ax.plot([6, 11], [-24.2, -24.2], color=A_EDGE, lw=0.85)
+    ax.text(11.9, -24.2, "信息流", fontsize=6.2, color=MUTE, va="center")
+    ax.plot([21, 26], [-24.2, -24.2], color=CTRL, lw=0.85)
+    ax.text(26.9, -24.2, "控制流（旁路后端，直插内核）", fontsize=6.2,
             color=MUTE, va="center")
-    ax.plot([6, 11], [1.6, 1.6], color=MUTE, lw=0.85, ls=(0, (4, 2)))
-    ax.text(11.9, 1.6, "想定加载", fontsize=6.2, color=MUTE, va="center")
+    ax.plot([6, 11], [-21.6, -21.6], color=MUTE, lw=0.85, ls=(0, (4, 2)))
+    ax.text(11.9, -21.6, "对局之外的批次回路", fontsize=6.2, color=MUTE, va="center")
+
+    # ============ ④ 参数演化环 / ⑤ 双轨评估环（对局之外） ============
+    tag(ax, 50, -2.4, "对局之外：一条批次回路", MUTE)
+
+    # 左：④ 参数演化环
+    box(ax, 4, -14.6, 48, -5.2,
+        "④ 参数演化环（平台批量对局）\n单因子扫描 → 坐标上升 → θ 候选\n一圈只筛出坏方向，不做寻优",
+        E_FILL if "E_FILL" in globals() else A_FILL,
+        A_EDGE, size=6.8, lw=1.0)
+    # 右：⑤ 双轨评估环
+    box(ax, 54, -14.6, 96, -5.2,
+        "⑤ 双轨评估环\n规则级读数 + 结局区间\n稳健性分级：可分辨 / 只报方向 / 不可分辨",
+        K_FILL, K_EDGE, size=6.8, lw=1.0)
+
+    # 智能体四域 → ④：把 θ 交出去
+    arrow(ax, 27, 8.4, 27, -5.2, A_EDGE, lw=0.85, ls=(0, (4, 2)))
+    ax.text(28.6, 1.2, "可调参数 θ", fontsize=6.2, color=MUTE,
+            ha="left", va="center", rotation=90)
+
+    # ④ → ⑤：候选与结局
+    arrow(ax, 48, -9.9, 54, -9.9, A_EDGE, lw=0.85)
+    ax.text(51, -8.4, "候选 · 结局", fontsize=6.1, color=MUTE,
+            ha="center", va="center")
+
+    # ⑤ → ①：结论与下一批取值回插
+    elbow(ax, [(96, -17.2), (101.6, -17.2), (101.6, 83.4), (80, 83.4)], MUTE,
+          lw=0.85, ls=(0, (4, 2)))
 
     ax.set_aspect("equal")
     return fig
