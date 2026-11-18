@@ -1,0 +1,1810 @@
+{
+ "scenario": "PI-SHIP-SAT.scen",
+ "base": "诺曼底2027(人机协同-人人版)_有红有蓝.scen",
+ "started": "2026-11-18 12:28:00",
+ "elapsed_s": 11.7,
+ "calls": [
+  {
+   "step": 1,
+   "phase": "load",
+   "script": "LoadScenario({PATH='诺曼底2027(人机协同-人人版)_有红有蓝.scen'})",
+   "code": 0,
+   "result": "OK",
+   "t": 1794976074.639
+  },
+  {
+   "step": 2,
+   "phase": "dump.save",
+   "script": "Command_SaveScen('D:/LingYi/Data/Scenarios/PI-SHIP-SAT-wip.scen')",
+   "code": 0,
+   "result": "Scenarios/PI-SHIP-SAT-wip.scen",
+   "t": 1794976074.7
+  },
+  {
+   "step": 3,
+   "phase": "dump",
+   "script": "GetScenarioContent('PI-SHIP-SAT-wip.scen')",
+   "code": 0,
+   "result": "\n<Scenario>\n\t<TimelineID>d1e31742-1ac0-4c31-aa51-2aac7d89fbfc</TimelineID>\n\t<ObjectID>f6b98860-1df7-4064-b3fc-05a64edb4c2a</ObjectID>\n\t<ContentTag></ContentTag>\n\t<CampaignID></CampaignID>\n\t<CampaignSessionID></CampaignSessionID>\n\t<CampaignScore>0</CampaignScore>\n\t<Title>诺曼底2027(人机协同-人人版)</Title>\n\t<Description>PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwL3N0cmljdC5kdGQiPgo8aHRtbD48aGVhZD48bWV0YSBuYW1lPSJxcmljaHRleHQiIGNvbnRlbnQ9IjEiIC8+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4KcCwgbGkgeyB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7IH0KPC9zdHlsZT48L2hlYWQ+PGJvZHkgc3R5bGU9IiBmb250LWZhbWlseTon5b6u6L2v6ZuF6buRJzsgZm9udC1zaXplOjE0cHg7IGZvbnQtd2VpZ2h0OjQwMDsgZm9udC1zdHlsZTpub3JtYWw7Ij4KPHAgc3R5bGU9IiBtYXJnaW4tdG9wOjEycHg7IG1hcmdpbi1ib3R0b206MTJweDsgbWFyZ2luLWxlZnQ6MHB4OyBtYXJnaW4tcmlnaHQ6MHB4OyAtcXQtYmxvY2staW5kZW50OjA7IHRleHQtaW5kZW50OjBweDsiPjxzcGFuIHN0eWxlPSIgZm9udC1mYW1pbHk6J+S7v+Wui19HQjIzMTInLCflrovkvZMnOyBmb250LXNpemU6MThwdDsgZm9udC13ZWlnaHQ6NjAwOyBjb2xvcjojMDAwMDAwOyI+MS7mg7Plrprog4zmma88L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5a6L5L2TJzsgZm9udC1zaXplOjE4cHQ7IGZvbnQtd2VpZ2h0OjYwMDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDmnKzmg7Plrprku6XkuozmiJjor7rmm7zlupXnmbvpmYbkuLrljoblj7Lok53mnKzvvIzlsIblhbblubPnp7voh7PlhavljYHlubTlkI7njrDku6PmiJjkuonog4zmma/vvIzlkYjnjrDkuIDlnLrmtrXnm5bpmYbmtbfnqbrnlLXlpJrnu7Tpoobln5/nmoTnmbvpmYbkuLvpopjlr7nmipfjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICAyMFhY5bm077yM5qyn5rSy5Zyw57yY5pS/5rK75Yay56qB6aKR5Y+R77yM6KW/5qyn5bGA5Yq/5oCl5Ymn5oG25YyW44CC6Iux5ZCJ5Yip5rW35bOh5Y2g5o2u552A5YWo55CDOCXnmoTpm4boo4XnrrHotKfov5Dph4/vvIzmmK/kuIDmnaHph43opoHnmoTmtbfkuIrpgJrpgZPvvIzpmrblsZ7kuo7lr7nnq4vlhpvkuovpmLXokKXnmoTnuqLmlrnvvIjlspvkuIrvvInkuI7ok53mlrnvvIjpmYbkuIrvvInmkanmk6bkuI3mlq3vvIzlr7nov5nkuIDmtbfls6HnmoTnrqHovpbpl67popjkuonmiafkuI3kuIvjgILmtbfls6HkuIDkvqfnmoTok53mlrnomb3nhLblhpvkuovlrp7lipvnm7jlr7novoPlvLHvvIzkvYblnKjlkI7mlrnnm5/lj4vpvJPliqjkuIvvvIznjoflhYjlsIHplIHmtbfls6HjgILlj4zmlrnlpJrova7mrKHosIjliKTlnYfml6Dov5vlsZXvvIzmtbfls6Hlr7nlsrjnmoTnuqLmlrnlt7Lnu4/lpLHljrvogJDlv4PvvIzlhrPlrprku6XmrablipvmiZPpgJrmtbfls6HjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDnuqLmlrnkuLvliqjlh7rlh7vvvIzlnKjnrKzkuIDpmLbmrrXooYzliqjkuK3vvIzlt7Lnu4/lj5HliqjlpJrova7mrKHogZTlkIjngavlipvmiZPlh7vvvIzlr7nok53mlrnmu6nlpLTlt6XkuovjgIHpmLLnqbrorr7mlr3jgIHliY3nur/mnLrlnLrnrYnov5vooYzkuobppbHlkozmiZPlh7vvvIzniaLniaLljaDmja7kuobmtbfnqbrkvJjlir/vvJvnuqLmlrnpq5jlsYLliKTmlq3vvIzlvZPliY3ok53mlrnmtbfnqbrliankvZnmirXmipflipvph4/pnZ7luLjmnInpmZDvvIzku4XlianpmYbkuIrpmpDolL3ljZXlhYPog73lr7nnuqLmlrnnmbvpmYbpgKDmiJDlqIHog4HvvIzlnKjok53mlrnph43mlrDliqDlm7rmu6nlpLTpmLXlnLDkuYvliY3nmoTpu4Tph5Hml7bpl7Tph4zvvIzlj6/ku6XmlqnpppbooYzliqjlkoznmbvpmYbooYzliqjpvZDlpLTlubbov5vvvIzmhI/lnKjmianlpKfmiJjmnpznlJroh7PpoqDopobok53mlrnmlL/mnYPjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDok53mlrnpga3ooq3lkI7vvIzntKfmgKXlkJHlkI7mlrnnm5/lj",
+   "t": 1794976075.358
+  },
+  {
+   "step": 4,
+   "phase": "del.probe",
+   "script": "DeleteUnit({guid='RD-00001JU1O2ODD'})",
+   "code": 0,
+   "result": "",
+   "t": 1794976075.521
+  },
+  {
+   "step": 5,
+   "phase": "del.probe.save",
+   "script": "Command_SaveScen('D:/LingYi/Data/Scenarios/PI-SHIP-SAT-wip.scen')",
+   "code": 0,
+   "result": "Scenarios/PI-SHIP-SAT-wip.scen",
+   "t": 1794976075.576
+  },
+  {
+   "step": 6,
+   "phase": "del.probe.readback",
+   "script": "GetScenarioContent('PI-SHIP-SAT-wip.scen')",
+   "code": 0,
+   "result": "\n<Scenario>\n\t<TimelineID>d1e31742-1ac0-4c31-aa51-2aac7d89fbfc</TimelineID>\n\t<ObjectID>f6b98860-1df7-4064-b3fc-05a64edb4c2a</ObjectID>\n\t<ContentTag></ContentTag>\n\t<CampaignID></CampaignID>\n\t<CampaignSessionID></CampaignSessionID>\n\t<CampaignScore>0</CampaignScore>\n\t<Title>诺曼底2027(人机协同-人人版)</Title>\n\t<Description>PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwL3N0cmljdC5kdGQiPgo8aHRtbD48aGVhZD48bWV0YSBuYW1lPSJxcmljaHRleHQiIGNvbnRlbnQ9IjEiIC8+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4KcCwgbGkgeyB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7IH0KPC9zdHlsZT48L2hlYWQ+PGJvZHkgc3R5bGU9IiBmb250LWZhbWlseTon5b6u6L2v6ZuF6buRJzsgZm9udC1zaXplOjE0cHg7IGZvbnQtd2VpZ2h0OjQwMDsgZm9udC1zdHlsZTpub3JtYWw7Ij4KPHAgc3R5bGU9IiBtYXJnaW4tdG9wOjEycHg7IG1hcmdpbi1ib3R0b206MTJweDsgbWFyZ2luLWxlZnQ6MHB4OyBtYXJnaW4tcmlnaHQ6MHB4OyAtcXQtYmxvY2staW5kZW50OjA7IHRleHQtaW5kZW50OjBweDsiPjxzcGFuIHN0eWxlPSIgZm9udC1mYW1pbHk6J+S7v+Wui19HQjIzMTInLCflrovkvZMnOyBmb250LXNpemU6MThwdDsgZm9udC13ZWlnaHQ6NjAwOyBjb2xvcjojMDAwMDAwOyI+MS7mg7Plrprog4zmma88L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5a6L5L2TJzsgZm9udC1zaXplOjE4cHQ7IGZvbnQtd2VpZ2h0OjYwMDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDmnKzmg7Plrprku6XkuozmiJjor7rmm7zlupXnmbvpmYbkuLrljoblj7Lok53mnKzvvIzlsIblhbblubPnp7voh7PlhavljYHlubTlkI7njrDku6PmiJjkuonog4zmma/vvIzlkYjnjrDkuIDlnLrmtrXnm5bpmYbmtbfnqbrnlLXlpJrnu7Tpoobln5/nmoTnmbvpmYbkuLvpopjlr7nmipfjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICAyMFhY5bm077yM5qyn5rSy5Zyw57yY5pS/5rK75Yay56qB6aKR5Y+R77yM6KW/5qyn5bGA5Yq/5oCl5Ymn5oG25YyW44CC6Iux5ZCJ5Yip5rW35bOh5Y2g5o2u552A5YWo55CDOCXnmoTpm4boo4XnrrHotKfov5Dph4/vvIzmmK/kuIDmnaHph43opoHnmoTmtbfkuIrpgJrpgZPvvIzpmrblsZ7kuo7lr7nnq4vlhpvkuovpmLXokKXnmoTnuqLmlrnvvIjlspvkuIrvvInkuI7ok53mlrnvvIjpmYbkuIrvvInmkanmk6bkuI3mlq3vvIzlr7nov5nkuIDmtbfls6HnmoTnrqHovpbpl67popjkuonmiafkuI3kuIvjgILmtbfls6HkuIDkvqfnmoTok53mlrnomb3nhLblhpvkuovlrp7lipvnm7jlr7novoPlvLHvvIzkvYblnKjlkI7mlrnnm5/lj4vpvJPliqjkuIvvvIznjoflhYjlsIHplIHmtbfls6HjgILlj4zmlrnlpJrova7mrKHosIjliKTlnYfml6Dov5vlsZXvvIzmtbfls6Hlr7nlsrjnmoTnuqLmlrnlt7Lnu4/lpLHljrvogJDlv4PvvIzlhrPlrprku6XmrablipvmiZPpgJrmtbfls6HjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDnuqLmlrnkuLvliqjlh7rlh7vvvIzlnKjnrKzkuIDpmLbmrrXooYzliqjkuK3vvIzlt7Lnu4/lj5HliqjlpJrova7mrKHogZTlkIjngavlipvmiZPlh7vvvIzlr7nok53mlrnmu6nlpLTlt6XkuovjgIHpmLLnqbrorr7mlr3jgIHliY3nur/mnLrlnLrnrYnov5vooYzkuobppbHlkozmiZPlh7vvvIzniaLniaLljaDmja7kuobmtbfnqbrkvJjlir/vvJvnuqLmlrnpq5jlsYLliKTmlq3vvIzlvZPliY3ok53mlrnmtbfnqbrliankvZnmirXmipflipvph4/pnZ7luLjmnInpmZDvvIzku4XlianpmYbkuIrpmpDolL3ljZXlhYPog73lr7nnuqLmlrnnmbvpmYbpgKDmiJDlqIHog4HvvIzlnKjok53mlrnph43mlrDliqDlm7rmu6nlpLTpmLXlnLDkuYvliY3nmoTpu4Tph5Hml7bpl7Tph4zvvIzlj6/ku6XmlqnpppbooYzliqjlkoznmbvpmYbooYzliqjpvZDlpLTlubbov5vvvIzmhI/lnKjmianlpKfmiJjmnpznlJroh7PpoqDopobok53mlrnmlL/mnYPjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDok53mlrnpga3ooq3lkI7vvIzntKfmgKXlkJHlkI7mlrnnm5/lj",
+   "t": 1794976076.092
+  },
+  {
+   "step": 7,
+   "phase": "del.probe.verify",
+   "script": "(count after 1 delete)",
+   "code": 0,
+   "result": "单元数 228（删除前 229），前哨-R 无人机#4 已消失"
+  },
+  {
+   "step": 8,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGB38C'})",
+   "code": 0,
+   "result": "",
+   "unit": "鹰狮NG战斗机 #2"
+  },
+  {
+   "step": 9,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKN5JU'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-57型战斗机 #2"
+  },
+  {
+   "step": 10,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGAV1E'})",
+   "code": 0,
+   "result": "",
+   "unit": "阵风C型战斗机 #4"
+  },
+  {
+   "step": 11,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKM6LN'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-27SM/SM3型战斗机 #6"
+  },
+  {
+   "step": 12,
+   "phase": "del",
+   "script": "DeleteUnit({guid='7A-00001JT37M0P6'})",
+   "code": 0,
+   "result": "",
+   "unit": "阵风M 战斗机 #6"
+  },
+  {
+   "step": 13,
+   "phase": "del",
+   "script": "DeleteUnit({guid='7A-00001JT37M0K6'})",
+   "code": 0,
+   "result": "",
+   "unit": "阵风M 战斗机 #1"
+  },
+  {
+   "step": 14,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CG-00001JU1BUF1S'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#6"
+  },
+  {
+   "step": 15,
+   "phase": "del",
+   "script": "DeleteUnit({guid='7A-00001JT37M0L6'})",
+   "code": 0,
+   "result": "",
+   "unit": "阵风M 战斗机 #2"
+  },
+  {
+   "step": 16,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGB37J'})",
+   "code": 0,
+   "result": "",
+   "unit": "鹰狮NG战斗机 #1"
+  },
+  {
+   "step": 17,
+   "phase": "del",
+   "script": "DeleteUnit({guid='57-00001JTGFFHF5'})",
+   "code": 0,
+   "result": "",
+   "unit": "MQ-1C  无人机 #4"
+  },
+  {
+   "step": 18,
+   "phase": "del",
+   "script": "DeleteUnit({guid='J9-00001JTUIS15U'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-2A型战斗机  #3"
+  },
+  {
+   "step": 19,
+   "phase": "del",
+   "script": "DeleteUnit({guid='4S-00001JUGLF6R9'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-15E型 战斗机 #2"
+  },
+  {
+   "step": 20,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGAUVI'})",
+   "code": 0,
+   "result": "",
+   "unit": "阵风C型战斗机 #2"
+  },
+  {
+   "step": 21,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKMCAC'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机 #17"
+  },
+  {
+   "step": 22,
+   "phase": "del",
+   "script": "DeleteUnit({guid='R6-00001JT78JKOT'})",
+   "code": 0,
+   "result": "",
+   "unit": "MH-60R 反潜直升机 #2"
+  },
+  {
+   "step": 23,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKMCPI'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机 #18"
+  },
+  {
+   "step": 24,
+   "phase": "del",
+   "script": "DeleteUnit({guid='08-00001JU10JO3G'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-34 轰炸机 #1"
+  },
+  {
+   "step": 25,
+   "phase": "del",
+   "script": "DeleteUnit({guid='08-00001JU10CVS9'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-75 战斗机 #2"
+  },
+  {
+   "step": 26,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RKP2S'})",
+   "code": 0,
+   "result": "",
+   "unit": "伊尔-96-400TZ型加油机 #1"
+  },
+  {
+   "step": 27,
+   "phase": "del",
+   "script": "DeleteUnit({guid='J9-00001JTUIS15B'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-2A型战斗机  #2"
+  },
+  {
+   "step": 28,
+   "phase": "del",
+   "script": "DeleteUnit({guid='R6-00001JT78IO7D'})",
+   "code": 0,
+   "result": "",
+   "unit": "F/A-18F型 战斗机 #6"
+  },
+  {
+   "step": 29,
+   "phase": "del",
+   "script": "DeleteUnit({guid='J9-00001JTUIOJF1'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-35S型 战斗机 #2"
+  },
+  {
+   "step": 30,
+   "phase": "del",
+   "script": "DeleteUnit({guid='J9-00001JTUIOJE7'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-35S型 战斗机 #1"
+  },
+  {
+   "step": 31,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RD-00001JU1O2KDA'})",
+   "code": 0,
+   "result": "",
+   "unit": "前哨-R 无人机#6"
+  },
+  {
+   "step": 32,
+   "phase": "del",
+   "script": "DeleteUnit({guid='R6-00001JT78J4IO'})",
+   "code": 0,
+   "result": "",
+   "unit": "“神经元”无人机 #4"
+  },
+  {
+   "step": 33,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RD-00001JU1NU71S'})",
+   "code": 0,
+   "result": "",
+   "unit": "前哨-R 无人机 #8"
+  },
+  {
+   "step": 34,
+   "phase": "del",
+   "script": "DeleteUnit({guid='21-00001JS5QFET6'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-27SM/SM3型战斗机 #1"
+  },
+  {
+   "step": 35,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RKR32'})",
+   "code": 0,
+   "result": "",
+   "unit": "伊尔-22PP型“伐木人”侦察机 #1"
+  },
+  {
+   "step": 36,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RL56J'})",
+   "code": 0,
+   "result": "",
+   "unit": "A.330-200 加油机 #1"
+  },
+  {
+   "step": 37,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2M-00001K5DTVG01'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-57型战斗机 #3"
+  },
+  {
+   "step": 38,
+   "phase": "del",
+   "script": "DeleteUnit({guid='J9-00001JTUIQFKO'})",
+   "code": 0,
+   "result": "",
+   "unit": "F/A-18F型 战斗机 #4"
+  },
+  {
+   "step": 39,
+   "phase": "del",
+   "script": "DeleteUnit({guid='BP-00001JSRUQGM1'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-35C 型“闪电II” 战斗机 #1"
+  },
+  {
+   "step": 40,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGAV0G'})",
+   "code": 0,
+   "result": "",
+   "unit": "阵风C型战斗机 #3"
+  },
+  {
+   "step": 41,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNQRQ'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-16V型 BLK 70/72 “战隼”战斗机 #1"
+  },
+  {
+   "step": 42,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV95A3P'})",
+   "code": 0,
+   "result": "",
+   "unit": "S-70无人攻击机 #3"
+  },
+  {
+   "step": 43,
+   "phase": "del",
+   "script": "DeleteUnit({guid='K8-00001JUP4U9UC'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-2B型战斗机 #2"
+  },
+  {
+   "step": 44,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGK6J6'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-34 轰炸机 #2"
+  },
+  {
+   "step": 45,
+   "phase": "del",
+   "script": "DeleteUnit({guid='J9-00001JTUIT2EK'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-35S型 战斗机 #6"
+  },
+  {
+   "step": 46,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNQSE'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-16V型 BLK 70/72 “战隼”战斗机 #2"
+  },
+  {
+   "step": 47,
+   "phase": "del",
+   "script": "DeleteUnit({guid='BP-00001JSRUQGN0'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-35C 型“闪电II” 战斗机 #2"
+  },
+  {
+   "step": 48,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV95JNF'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#5"
+  },
+  {
+   "step": 49,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGDH5F'})",
+   "code": 0,
+   "result": "",
+   "unit": "RQ-4B型”全球鹰“无人机 #1"
+  },
+  {
+   "step": 50,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV95DN7'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#1"
+  },
+  {
+   "step": 51,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RD-00001JU1O2T24'})",
+   "code": 0,
+   "result": "",
+   "unit": "前哨-R 无人机#3"
+  },
+  {
+   "step": 52,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TKLKR'})",
+   "code": 0,
+   "result": "",
+   "unit": "RQ-180型隐身无人侦察机"
+  },
+  {
+   "step": 53,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RKSC7'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-30SM“侧卫G”战斗机 #2"
+  },
+  {
+   "step": 54,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CG-00001JU1BU5P8'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#4"
+  },
+  {
+   "step": 55,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2A-00001JU652H8E'})",
+   "code": 0,
+   "result": "",
+   "unit": "MQ-1C  无人机 #1"
+  },
+  {
+   "step": 56,
+   "phase": "del",
+   "script": "DeleteUnit({guid='R6-00001JT78JLC8'})",
+   "code": 0,
+   "result": "",
+   "unit": "MH-60R 反潜直升机 #1"
+  },
+  {
+   "step": 57,
+   "phase": "del",
+   "script": "DeleteUnit({guid='BP-00001JSRUQF0G'})",
+   "code": 0,
+   "result": "",
+   "unit": "F/A-18F型 战斗机 #1"
+  },
+  {
+   "step": 58,
+   "phase": "del",
+   "script": "DeleteUnit({guid='6C-00001K5C4OHR1'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-2A型战斗机  #1"
+  },
+  {
+   "step": 59,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNQ53'})",
+   "code": 0,
+   "result": "",
+   "unit": "幻影-2000-5EI战斗机 #3"
+  },
+  {
+   "step": 60,
+   "phase": "del",
+   "script": "DeleteUnit({guid='J9-00001JTUIT2DQ'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-35S型 战斗机 #5"
+  },
+  {
+   "step": 61,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TRRGG'})",
+   "code": 0,
+   "result": "",
+   "unit": "C-5M型 运输机#1"
+  },
+  {
+   "step": 62,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RD-00001JU1O2I8K'})",
+   "code": 0,
+   "result": "",
+   "unit": "前哨-R 无人机#5"
+  },
+  {
+   "step": 63,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RD-00001JU1NR32T'})",
+   "code": 0,
+   "result": "",
+   "unit": "前哨-R 无人机#1"
+  },
+  {
+   "step": 64,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV95QOC'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机 #10"
+  },
+  {
+   "step": 65,
+   "phase": "del",
+   "script": "DeleteUnit({guid='BP-00001JSRUQFPD'})",
+   "code": 0,
+   "result": "",
+   "unit": "EA-18G “咆哮者”电子战飞机 #1"
+  },
+  {
+   "step": 66,
+   "phase": "del",
+   "script": "DeleteUnit({guid='7A-00001JT37M0O6'})",
+   "code": 0,
+   "result": "",
+   "unit": "阵风M 战斗机 #5"
+  },
+  {
+   "step": 67,
+   "phase": "del",
+   "script": "DeleteUnit({guid='57-00001JTGFFDOI'})",
+   "code": 0,
+   "result": "",
+   "unit": "“神经元”无人机 #3"
+  },
+  {
+   "step": 68,
+   "phase": "del",
+   "script": "DeleteUnit({guid='HU-00001JT14B77H'})",
+   "code": 0,
+   "result": "",
+   "unit": "MQ-25A型 无人加油机 #1"
+  },
+  {
+   "step": 69,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2M-00001K5DTE5DT'})",
+   "code": 0,
+   "result": "",
+   "unit": "KC-135R型 加油机#1"
+  },
+  {
+   "step": 70,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV95N8D'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#8"
+  },
+  {
+   "step": 71,
+   "phase": "del",
+   "script": "DeleteUnit({guid='BP-00001JSRUQF1C'})",
+   "code": 0,
+   "result": "",
+   "unit": "F/A-18F型 战斗机 #2"
+  },
+  {
+   "step": 72,
+   "phase": "del",
+   "script": "DeleteUnit({guid='57-00001JTGFFDO8'})",
+   "code": 0,
+   "result": "",
+   "unit": "“神经元”无人机 #2"
+  },
+  {
+   "step": 73,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNQ5O'})",
+   "code": 0,
+   "result": "",
+   "unit": "幻影-2000-5EI战斗机 #4"
+  },
+  {
+   "step": 74,
+   "phase": "del",
+   "script": "DeleteUnit({guid='BP-00001JSRUQFQA'})",
+   "code": 0,
+   "result": "",
+   "unit": "EA-18G “咆哮者”电子战飞机 #2"
+  },
+  {
+   "step": 75,
+   "phase": "del",
+   "script": "DeleteUnit({guid='08-00001JU10ORVD'})",
+   "code": 0,
+   "result": "",
+   "unit": "S-70无人攻击机 #2"
+  },
+  {
+   "step": 76,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGAUUK'})",
+   "code": 0,
+   "result": "",
+   "unit": "阵风C型战斗机 #1"
+  },
+  {
+   "step": 77,
+   "phase": "del",
+   "script": "DeleteUnit({guid='BP-00001JSRUQDFO'})",
+   "code": 0,
+   "result": "",
+   "unit": "E-2D型“先进鹰眼”舰载预警机 #1"
+  },
+  {
+   "step": 78,
+   "phase": "del",
+   "script": "DeleteUnit({guid='BP-00001JSRUQF28'})",
+   "code": 0,
+   "result": "",
+   "unit": "F/A-18F型 战斗机 #3"
+  },
+  {
+   "step": 79,
+   "phase": "del",
+   "script": "DeleteUnit({guid='08-00001JU10ORUQ'})",
+   "code": 0,
+   "result": "",
+   "unit": "S-70无人攻击机 #1"
+  },
+  {
+   "step": 80,
+   "phase": "del",
+   "script": "DeleteUnit({guid='21-00001JS5QFD5M'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-24MP型“击剑手F”电子情报侦察机 #1"
+  },
+  {
+   "step": 81,
+   "phase": "del",
+   "script": "DeleteUnit({guid='57-00001JTGFFHEQ'})",
+   "code": 0,
+   "result": "",
+   "unit": "MQ-1C  无人机 #3"
+  },
+  {
+   "step": 82,
+   "phase": "del",
+   "script": "DeleteUnit({guid='HY-00001JRQ0GNMS'})",
+   "code": 0,
+   "result": "",
+   "unit": "A-100 预警机#2"
+  },
+  {
+   "step": 83,
+   "phase": "del",
+   "script": "DeleteUnit({guid='57-00001JTGFFDNU'})",
+   "code": 0,
+   "result": "",
+   "unit": "“神经元”无人机 #1"
+  },
+  {
+   "step": 84,
+   "phase": "del",
+   "script": "DeleteUnit({guid='4S-00001JUGLEF07'})",
+   "code": 0,
+   "result": "",
+   "unit": "B-2A 轰炸机 #1"
+  },
+  {
+   "step": 85,
+   "phase": "del",
+   "script": "DeleteUnit({guid='4S-00001JUGMCMBJ'})",
+   "code": 0,
+   "result": "",
+   "unit": "卡-27M型反潜直升机 #2"
+  },
+  {
+   "step": 86,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGMHFA'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-75 战斗机 #3"
+  },
+  {
+   "step": 87,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2M-00001K5DTC1UQ'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-15E型 战斗机 #3"
+  },
+  {
+   "step": 88,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2A-00001JU65438K'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#20"
+  },
+  {
+   "step": 89,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNQ4E'})",
+   "code": 0,
+   "result": "",
+   "unit": "幻影-2000-5EI战斗机 #2"
+  },
+  {
+   "step": 90,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGB395'})",
+   "code": 0,
+   "result": "",
+   "unit": "鹰狮NG战斗机 #3"
+  },
+  {
+   "step": 91,
+   "phase": "del",
+   "script": "DeleteUnit({guid='L1-00001K5BFJCRF'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-35A型 战斗机 #2"
+  },
+  {
+   "step": 92,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RD-00001JU1NU71J'})",
+   "code": 0,
+   "result": "",
+   "unit": "前哨-R 无人机 #7"
+  },
+  {
+   "step": 93,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2A-00001JU653RJL'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#19"
+  },
+  {
+   "step": 94,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RKP38'})",
+   "code": 0,
+   "result": "",
+   "unit": "伊尔-96-400TZ型加油机 #2"
+  },
+  {
+   "step": 95,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKI36T'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-16B 战隼20 战斗机 #1"
+  },
+  {
+   "step": 96,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKLJBC'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#14"
+  },
+  {
+   "step": 97,
+   "phase": "del",
+   "script": "DeleteUnit({guid='7A-00001JT37MC4N'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-30SM“侧卫G”战斗机 #1"
+  },
+  {
+   "step": 98,
+   "phase": "del",
+   "script": "DeleteUnit({guid='4S-00001JUGLEF0N'})",
+   "code": 0,
+   "result": "",
+   "unit": "B-2A 轰炸机 #2"
+  },
+  {
+   "step": 99,
+   "phase": "del",
+   "script": "DeleteUnit({guid='K8-00001JUP4U9TP'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-2B型战斗机 #1"
+  },
+  {
+   "step": 100,
+   "phase": "del",
+   "script": "DeleteUnit({guid='NY-00001JRH9S83H'})",
+   "code": 0,
+   "result": "",
+   "unit": "图-160M 轰炸机 #1"
+  },
+  {
+   "step": 101,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV95HEP'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#3"
+  },
+  {
+   "step": 102,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKLN6H'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机 #15"
+  },
+  {
+   "step": 103,
+   "phase": "del",
+   "script": "DeleteUnit({guid='BP-00001JSRUQ9Q8'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-35B型“闪电II” 战斗机 #2"
+  },
+  {
+   "step": 104,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNQT2'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-16V型 BLK 70/72 “战隼”战斗机 #3"
+  },
+  {
+   "step": 105,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RKSDN'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-30SM“侧卫G”战斗机 #4"
+  },
+  {
+   "step": 106,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV95M7V'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#7"
+  },
+  {
+   "step": 107,
+   "phase": "del",
+   "script": "DeleteUnit({guid='J9-00001JTUIQFLK'})",
+   "code": 0,
+   "result": "",
+   "unit": "F/A-18F型 战斗机 #5"
+  },
+  {
+   "step": 108,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RKSCV'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-30SM“侧卫G”战斗机 #3"
+  },
+  {
+   "step": 109,
+   "phase": "del",
+   "script": "DeleteUnit({guid='7A-00001JT37M0M6'})",
+   "code": 0,
+   "result": "",
+   "unit": "阵风M 战斗机 #3"
+  },
+  {
+   "step": 110,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKI37D'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-16B 战隼20 战斗机 #2"
+  },
+  {
+   "step": 111,
+   "phase": "del",
+   "script": "DeleteUnit({guid='6C-00001K5C4P0IR'})",
+   "code": 0,
+   "result": "",
+   "unit": "KC-135R型 加油机#2"
+  },
+  {
+   "step": 112,
+   "phase": "del",
+   "script": "DeleteUnit({guid='QT-00001JTKANRKQ'})",
+   "code": 0,
+   "result": "",
+   "unit": "A-100 预警机#1"
+  },
+  {
+   "step": 113,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNQTM'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-16V型 BLK 70/72 “战隼”战斗机 #4"
+  },
+  {
+   "step": 114,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKN5IT'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-57型战斗机 #1"
+  },
+  {
+   "step": 115,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGB39U'})",
+   "code": 0,
+   "result": "",
+   "unit": "鹰狮NG战斗机 #4"
+  },
+  {
+   "step": 116,
+   "phase": "del",
+   "script": "DeleteUnit({guid='03-00001JTN0NMMP'})",
+   "code": 0,
+   "result": "",
+   "unit": "卡-29RLD 型“蜗牛”预警直升机 #1"
+  },
+  {
+   "step": 117,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV95A4C'})",
+   "code": 0,
+   "result": "",
+   "unit": "S-70无人攻击机 #4"
+  },
+  {
+   "step": 118,
+   "phase": "del",
+   "script": "DeleteUnit({guid='21-00001JS5QFETU'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-27SM/SM3型战斗机 #2"
+  },
+  {
+   "step": 119,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2A-00001JU652H8P'})",
+   "code": 0,
+   "result": "",
+   "unit": "MQ-1C  无人机 #2"
+  },
+  {
+   "step": 120,
+   "phase": "del",
+   "script": "DeleteUnit({guid='4S-00001JUGLF6QI'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-15E型 战斗机 #1"
+  },
+  {
+   "step": 121,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV95GEB'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#2"
+  },
+  {
+   "step": 122,
+   "phase": "del",
+   "script": "DeleteUnit({guid='4S-00001JUGMCMAV'})",
+   "code": 0,
+   "result": "",
+   "unit": "卡-27M型反潜直升机 #1"
+  },
+  {
+   "step": 123,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CG-00001JU1BSNJJ'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机#13"
+  },
+  {
+   "step": 124,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV95QNT'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机 #9"
+  },
+  {
+   "step": 125,
+   "phase": "del",
+   "script": "DeleteUnit({guid='BP-00001JSRUQ9PG'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-35B型“闪电II” 战斗机 #1"
+  },
+  {
+   "step": 126,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGMDTA'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-35A型 战斗机 #1"
+  },
+  {
+   "step": 127,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2M-00001K5DTC1VI'})",
+   "code": 0,
+   "result": "",
+   "unit": "F-15E型 战斗机 #4"
+  },
+  {
+   "step": 128,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RD-00001JU1NRB9K'})",
+   "code": 0,
+   "result": "",
+   "unit": "前哨-R 无人机#2"
+  },
+  {
+   "step": 129,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNQ3P'})",
+   "code": 0,
+   "result": "",
+   "unit": "幻影-2000-5EI战斗机 #1"
+  },
+  {
+   "step": 130,
+   "phase": "del",
+   "script": "DeleteUnit({guid='G6-00001JTNGK6K0'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-34 轰炸机 #3"
+  },
+  {
+   "step": 131,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKM3ND'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-27SM/SM3型战斗机 #5"
+  },
+  {
+   "step": 132,
+   "phase": "del",
+   "script": "DeleteUnit({guid='08-00001JU10CVRH'})",
+   "code": 0,
+   "result": "",
+   "unit": "苏-75 战斗机 #1"
+  },
+  {
+   "step": 133,
+   "phase": "del",
+   "script": "DeleteUnit({guid='R6-00001JT78IOVV'})",
+   "code": 0,
+   "result": "",
+   "unit": "MQ-25A型 无人加油机 #2"
+  },
+  {
+   "step": 134,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKLPSV'})",
+   "code": 0,
+   "result": "",
+   "unit": "TB2 无人机 #16"
+  },
+  {
+   "step": 135,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TRS0H'})",
+   "code": 0,
+   "result": "",
+   "unit": "C-5M型 运输机#2"
+  },
+  {
+   "step": 136,
+   "phase": "del",
+   "script": "DeleteUnit({guid='7A-00001JT37M0N6'})",
+   "code": 0,
+   "result": "",
+   "unit": "阵风M 战斗机 #4"
+  },
+  {
+   "step": 137,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TKGPQ'})",
+   "code": 0,
+   "result": "",
+   "unit": "SSN 23“吉米.卡特”号海狼级攻击核潜艇"
+  },
+  {
+   "step": 138,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TKJO6'})",
+   "code": 0,
+   "result": "",
+   "unit": "SSN 792“佛蒙特”号弗吉尼亚级核动力隐形潜艇"
+  },
+  {
+   "step": 139,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TR76M'})",
+   "code": 0,
+   "result": "",
+   "unit": "S 107“特拉法尔加”号攻击型核潜艇"
+  },
+  {
+   "step": 140,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TKES6'})",
+   "code": 0,
+   "result": "",
+   "unit": "“阿利伯克”级导弹驱逐舰"
+  },
+  {
+   "step": 141,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TLAG4'})",
+   "code": 0,
+   "result": "",
+   "unit": "DDH 183 IZUMO直升驱逐舰 [22DDH CLASS]"
+  },
+  {
+   "step": 142,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TKBNS'})",
+   "code": 0,
+   "result": "",
+   "unit": "CVN 80福特级航空母舰"
+  },
+  {
+   "step": 143,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TKDMB'})",
+   "code": 0,
+   "result": "",
+   "unit": "CG-52 “邦克山”提康德罗加级号巡洋舰"
+  },
+  {
+   "step": 144,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2E-00001JUODC5SQ'})",
+   "code": 0,
+   "result": "",
+   "unit": "DDG 179 摩耶级驱逐舰"
+  },
+  {
+   "step": 145,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RKFCB'})",
+   "code": 0,
+   "result": "",
+   "unit": "野战机场"
+  },
+  {
+   "step": 146,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TLFQV'})",
+   "code": 0,
+   "result": "",
+   "unit": "CS机场"
+  },
+  {
+   "step": 147,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RH-00001JN72C42L'})",
+   "code": 0,
+   "result": "",
+   "unit": "装甲车#2"
+  },
+  {
+   "step": 148,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RH-00001JN72C3NV'})",
+   "code": 0,
+   "result": "",
+   "unit": "装甲车#1"
+  },
+  {
+   "step": 149,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RH-00001JN72434L'})",
+   "code": 0,
+   "result": "",
+   "unit": "59N6雷达 #2"
+  },
+  {
+   "step": 150,
+   "phase": "del",
+   "script": "DeleteUnit({guid='k55efi-0hnk8luajlnj3'})",
+   "code": 0,
+   "result": "",
+   "unit": "S-300V1地空导弹营 #5"
+  },
+  {
+   "step": 151,
+   "phase": "del",
+   "script": "DeleteUnit({guid='D8-00001JRHF2A6F'})",
+   "code": 0,
+   "result": "",
+   "unit": "BT机场"
+  },
+  {
+   "step": 152,
+   "phase": "del",
+   "script": "DeleteUnit({guid='OM-00001JN781BIL'})",
+   "code": 0,
+   "result": "",
+   "unit": "装甲车#4"
+  },
+  {
+   "step": 153,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RKOCR'})",
+   "code": 0,
+   "result": "",
+   "unit": "CT机场"
+  },
+  {
+   "step": 154,
+   "phase": "del",
+   "script": "DeleteUnit({guid='HO-00001JQT93589'})",
+   "code": 0,
+   "result": "",
+   "unit": "铠甲-S2E地空导弹排#3"
+  },
+  {
+   "step": 155,
+   "phase": "del",
+   "script": "DeleteUnit({guid='4S-00001JUGLE9I9'})",
+   "code": 0,
+   "result": "",
+   "unit": "阿斯图机场"
+  },
+  {
+   "step": 156,
+   "phase": "del",
+   "script": "DeleteUnit({guid='4U-00001JR4UPGDV'})",
+   "code": 0,
+   "result": "",
+   "unit": "铠甲-S2E地空导弹排#4"
+  },
+  {
+   "step": 157,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2A-00001JU657JP0'})",
+   "code": 0,
+   "result": "",
+   "unit": "毒刺便携式防空导弹#3"
+  },
+  {
+   "step": 158,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2A-00001JU652B5H'})",
+   "code": 0,
+   "result": "",
+   "unit": "毒刺便携式防空导弹#6"
+  },
+  {
+   "step": 159,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNN34'})",
+   "code": 0,
+   "result": "",
+   "unit": "捷羚地空导弹排#1"
+  },
+  {
+   "step": 160,
+   "phase": "del",
+   "script": "DeleteUnit({guid='57-00001JQSP8FHK'})",
+   "code": 0,
+   "result": "",
+   "unit": "铠甲-S2E地空导弹排#1"
+  },
+  {
+   "step": 161,
+   "phase": "del",
+   "script": "DeleteUnit({guid='k55efi-0hnk8hnfe9gpe'})",
+   "code": 0,
+   "result": "",
+   "unit": "BL机场"
+  },
+  {
+   "step": 162,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV8CNSS'})",
+   "code": 0,
+   "result": "",
+   "unit": "地地导弹排#1"
+  },
+  {
+   "step": 163,
+   "phase": "del",
+   "script": "DeleteUnit({guid='k55efi-0hnk8hnfe9h0a'})",
+   "code": 0,
+   "result": "",
+   "unit": "BM机场"
+  },
+  {
+   "step": 164,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RLC6B'})",
+   "code": 0,
+   "result": "",
+   "unit": "紫菀地空导弹连"
+  },
+  {
+   "step": 165,
+   "phase": "del",
+   "script": "DeleteUnit({guid='F2-00001JNDU2OPJ'})",
+   "code": 0,
+   "result": "",
+   "unit": "雷达 (AN/FPS-115型“铺路爪”预警雷达系统)"
+  },
+  {
+   "step": 166,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2M-00001K5DTHBAJ'})",
+   "code": 0,
+   "result": "",
+   "unit": "爱国者地空导弹连#2"
+  },
+  {
+   "step": 167,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV9NMSK'})",
+   "code": 0,
+   "result": "",
+   "unit": "地地导弹排#2"
+  },
+  {
+   "step": 168,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RH-00001JN72C4NH'})",
+   "code": 0,
+   "result": "",
+   "unit": "装甲车#3"
+  },
+  {
+   "step": 169,
+   "phase": "del",
+   "script": "DeleteUnit({guid='J9-00001JTUITL8M'})",
+   "code": 0,
+   "result": "",
+   "unit": "59N6雷达 #1"
+  },
+  {
+   "step": 170,
+   "phase": "del",
+   "script": "DeleteUnit({guid='6Z-00001JNU3MPNN'})",
+   "code": 0,
+   "result": "",
+   "unit": "伪装防空车#2"
+  },
+  {
+   "step": 171,
+   "phase": "del",
+   "script": "DeleteUnit({guid='84-00001JML2NTT0'})",
+   "code": 0,
+   "result": "",
+   "unit": "S-300V1地空导弹营 #4"
+  },
+  {
+   "step": 172,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV8FO7J'})",
+   "code": 0,
+   "result": "",
+   "unit": "霍克地空导弹连#1"
+  },
+  {
+   "step": 173,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2A-00001JU658BIB'})",
+   "code": 0,
+   "result": "",
+   "unit": "毒刺便携式防空导弹#1"
+  },
+  {
+   "step": 174,
+   "phase": "del",
+   "script": "DeleteUnit({guid='k55efi-0hnk8luajle6l'})",
+   "code": 0,
+   "result": "",
+   "unit": "S-400地空导弹营#2"
+  },
+  {
+   "step": 175,
+   "phase": "del",
+   "script": "DeleteUnit({guid='57-00001JQSP8H66'})",
+   "code": 0,
+   "result": "",
+   "unit": "铠甲-S2E地空导弹排#2"
+  },
+  {
+   "step": 176,
+   "phase": "del",
+   "script": "DeleteUnit({guid='k55efi-0hnk8hnfe9goo'})",
+   "code": 0,
+   "result": "",
+   "unit": "TF机场"
+  },
+  {
+   "step": 177,
+   "phase": "del",
+   "script": "DeleteUnit({guid='HO-00001JQT93675'})",
+   "code": 0,
+   "result": "",
+   "unit": "9S36雷达#3"
+  },
+  {
+   "step": 178,
+   "phase": "del",
+   "script": "DeleteUnit({guid='6Z-00001JNU3MRJU'})",
+   "code": 0,
+   "result": "",
+   "unit": "装甲车#5"
+  },
+  {
+   "step": 179,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TRO73'})",
+   "code": 0,
+   "result": "",
+   "unit": "沙赫德无人机发射车#2"
+  },
+  {
+   "step": 180,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TLO6T'})",
+   "code": 0,
+   "result": "",
+   "unit": "卡皮凯机场"
+  },
+  {
+   "step": 181,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV978RA'})",
+   "code": 0,
+   "result": "",
+   "unit": "伊斯坎德尔地地导弹营#2"
+  },
+  {
+   "step": 182,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2A-00001JU658H5E'})",
+   "code": 0,
+   "result": "",
+   "unit": "毒刺便携式防空导弹#2"
+  },
+  {
+   "step": 183,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TN1GS'})",
+   "code": 0,
+   "result": "",
+   "unit": "TPS-63型空中监视雷达#2"
+  },
+  {
+   "step": 184,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TLV30'})",
+   "code": 0,
+   "result": "",
+   "unit": "霍克地空导弹连#3"
+  },
+  {
+   "step": 185,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNOMD'})",
+   "code": 0,
+   "result": "",
+   "unit": "RT-2000 火箭炮#1"
+  },
+  {
+   "step": 186,
+   "phase": "del",
+   "script": "DeleteUnit({guid='CV-00001JTVKHNTV'})",
+   "code": 0,
+   "result": "",
+   "unit": "毒刺便携式防空导弹#4"
+  },
+  {
+   "step": 187,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TN714'})",
+   "code": 0,
+   "result": "",
+   "unit": "EL/M-2226型海岸侦察雷达#3"
+  },
+  {
+   "step": 188,
+   "phase": "del",
+   "script": "DeleteUnit({guid='2A-00001JU6528HU'})",
+   "code": 0,
+   "result": "",
+   "unit": "毒刺便携式防空导弹#5"
+  },
+  {
+   "step": 189,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TN2D9'})",
+   "code": 0,
+   "result": "",
+   "unit": "TPS-63型空中监视雷达#1"
+  },
+  {
+   "step": 190,
+   "phase": "del",
+   "script": "DeleteUnit({guid='MB-00001JU3IOAQF'})",
+   "code": 0,
+   "result": "",
+   "unit": "爱国者地空导弹连#1"
+  },
+  {
+   "step": 191,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TRN6J'})",
+   "code": 0,
+   "result": "",
+   "unit": "沙赫德无人机发射车#1"
+  },
+  {
+   "step": 192,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TNO7S'})",
+   "code": 0,
+   "result": "",
+   "unit": "RT-2000 火箭炮#2"
+  },
+  {
+   "step": 193,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RL9LM'})",
+   "code": 0,
+   "result": "",
+   "unit": "鸡窝雷达"
+  },
+  {
+   "step": 194,
+   "phase": "del",
+   "script": "DeleteUnit({guid='k55efi-0hnk8hnfe9h2c'})",
+   "code": 0,
+   "result": "",
+   "unit": "NK机场"
+  },
+  {
+   "step": 195,
+   "phase": "del",
+   "script": "DeleteUnit({guid='6Z-00001JNU3MP2O'})",
+   "code": 0,
+   "result": "",
+   "unit": "伪装防空车#1"
+  },
+  {
+   "step": 196,
+   "phase": "del",
+   "script": "DeleteUnit({guid='AI-00001JRFH3UNC'})",
+   "code": 0,
+   "result": "",
+   "unit": "S-400地空导弹营#1"
+  },
+  {
+   "step": 197,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TMELF'})",
+   "code": 0,
+   "result": "",
+   "unit": "霍克地空导弹连#2"
+  },
+  {
+   "step": 198,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TN46C'})",
+   "code": 0,
+   "result": "",
+   "unit": "EL/M-2226型海岸侦察雷达#1"
+  },
+  {
+   "step": 199,
+   "phase": "del",
+   "script": "DeleteUnit({guid='DW-00001JS5RLIIO'})",
+   "code": 0,
+   "result": "",
+   "unit": "伊斯坎德尔地地导弹营#1"
+  },
+  {
+   "step": 200,
+   "phase": "del",
+   "script": "DeleteUnit({guid='k55efi-0hnk8luajlppg'})",
+   "code": 0,
+   "result": "",
+   "unit": "S-300V1地空导弹营 #2"
+  },
+  {
+   "step": 201,
+   "phase": "del",
+   "script": "DeleteUnit({guid='k55efi-0hnk8hnfe9gss'})",
+   "code": 0,
+   "result": "",
+   "unit": "奥尔良机场"
+  },
+  {
+   "step": 202,
+   "phase": "del",
+   "script": "DeleteUnit({guid='1D-00001JTV8EMFE'})",
+   "code": 0,
+   "result": "",
+   "unit": "地空导弹连#2"
+  },
+  {
+   "step": 203,
+   "phase": "del",
+   "script": "DeleteUnit({guid='J9-00001JTUIVL8E'})",
+   "code": 0,
+   "result": "",
+   "unit": "地空导弹连#1"
+  },
+  {
+   "step": 204,
+   "phase": "del",
+   "script": "DeleteUnit({guid='H5-00001JS5TN50C'})",
+   "code": 0,
+   "result": "",
+   "unit": "EL/M-2226型海岸侦察雷达#2"
+  },
+  {
+   "step": 205,
+   "phase": "del",
+   "script": "DeleteUnit({guid='HO-00001JQT92Q4K'})",
+   "code": 0,
+   "result": "",
+   "unit": "9S36雷达#1"
+  },
+  {
+   "step": 206,
+   "phase": "del",
+   "script": "DeleteUnit({guid='RH-00001JN725EQ8'})",
+   "code": 0,
+   "result": "",
+   "unit": "S-300V1地空导弹营 #1"
+  },
+  {
+   "step": 207,
+   "phase": "del.summary",
+   "script": "(summary)",
+   "code": 0,
+   "result": "deleted=199 failed=0 died="
+  },
+  {
+   "step": 208,
+   "phase": "move",
+   "script": "SetUnit({GUID='H5-00001JS5TMPVK', LATITUDE=50.586738, LONGITUDE=-1.269009})",
+   "code": 0,
+   "result": "unit {\r\n type = '4', \r\n subtype = '6001', \r\n name = '反舰导弹排#3', \r\n side = '蓝方', \r\n guid = 'H5-00001JS5TMPVK', \r\n class = '地地导弹排 (雄风II)', \r\n proficiency = 'Regular', \r\n latitude = '50.586738', \r\n longitude = '-1.269009', \r\n altitude = '112.000000', \r\n heading = '0.000000', \r\n speed = '0.000000', \r\n throttle = '66', \r\n autodetectable = 'false', \r\n mounts = '2', \r\n mountsDBID = '1646', \r\n mountsName = '“雄风”II号反舰导弹四联发射装置', \r\n mountsDBID = '1646', \r\n mountsName = '“雄风”II号反舰导弹四联发射装置', \r\n magazines = '2', \r\n unitstate = '0', \r\n fuelstate = '102', \r\n weaponstate = '56', \r\n desiredaltitude = '0.000000', \r\n}",
+   "t": 1794976079.112
+  },
+  {
+   "step": 209,
+   "phase": "move",
+   "script": "SetUnit({GUID='J9-00001JTUIU4AR', LATITUDE=50.595005, LONGITUDE=-1.258081})",
+   "code": 0,
+   "result": "unit {\r\n type = '4', \r\n subtype = '5001', \r\n name = '海马斯火箭炮#4', \r\n side = '蓝方', \r\n guid = 'J9-00001JTUIU4AR', \r\n class = '炮兵排 (HIMARS)', \r\n proficiency = 'Regular', \r\n latitude = '50.595005', \r\n longitude = '-1.258081', \r\n altitude = '120.000000', \r\n heading = '0.000000', \r\n speed = '0.000000', \r\n throttle = '232', \r\n autodetectable = 'false', \r\n mounts = '3', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n magazines = '3', \r\n unitstate = '0', \r\n fuelstate = '8', \r\n weaponstate = '111', \r\n desiredaltitude = '0.000000', \r\n}",
+   "t": 1794976079.118
+  },
+  {
+   "step": 210,
+   "phase": "move",
+   "script": "SetUnit({GUID='H5-00001JS5TMP4B', LATITUDE=50.588611, LONGITUDE=-1.252269})",
+   "code": 0,
+   "result": "unit {\r\n type = '4', \r\n subtype = '6001', \r\n name = '反舰导弹排#1', \r\n side = '蓝方', \r\n guid = 'H5-00001JS5TMP4B', \r\n class = '地地导弹排 (雄风II)', \r\n proficiency = 'Regular', \r\n latitude = '50.588611', \r\n longitude = '-1.252269', \r\n altitude = '100.000000', \r\n heading = '0.000000', \r\n speed = '0.000000', \r\n throttle = '65', \r\n autodetectable = 'false', \r\n mounts = '2', \r\n mountsDBID = '1646', \r\n mountsName = '“雄风”II号反舰导弹四联发射装置', \r\n mountsDBID = '1646', \r\n mountsName = '“雄风”II号反舰导弹四联发射装置', \r\n magazines = '2', \r\n unitstate = '0', \r\n fuelstate = '70', \r\n weaponstate = '121', \r\n desiredaltitude = '0.000000', \r\n}",
+   "t": 1794976079.124
+  },
+  {
+   "step": 211,
+   "phase": "move",
+   "script": "SetUnit({GUID='1D-00001JTV8C0D2', LATITUDE=50.581341, LONGITUDE=-1.254290})",
+   "code": 0,
+   "result": "unit {\r\n type = '4', \r\n subtype = '5001', \r\n name = '海马斯火箭炮#1', \r\n side = '蓝方', \r\n guid = '1D-00001JTV8C0D2', \r\n class = '炮兵排 (HIMARS)', \r\n proficiency = 'Regular', \r\n latitude = '50.581341', \r\n longitude = '-1.254290', \r\n altitude = '8.000000', \r\n heading = '0.000000', \r\n speed = '0.000000', \r\n throttle = '128', \r\n autodetectable = 'false', \r\n mounts = '3', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n magazines = '3', \r\n unitstate = '0', \r\n fuelstate = '114', \r\n weaponstate = '136', \r\n desiredaltitude = '0.000000', \r\n}",
+   "t": 1794976079.132
+  },
+  {
+   "step": 212,
+   "phase": "move",
+   "script": "SetUnit({GUID='H5-00001JS5TMLHV', LATITUDE=50.576597, LONGITUDE=-1.263197})",
+   "code": 0,
+   "result": "unit {\r\n type = '4', \r\n subtype = '5001', \r\n name = '海马斯火箭炮#2', \r\n side = '蓝方', \r\n guid = 'H5-00001JS5TMLHV', \r\n class = '炮兵排 (HIMARS)', \r\n proficiency = 'Regular', \r\n latitude = '50.576597', \r\n longitude = '-1.263197', \r\n altitude = '16.000000', \r\n heading = '0.000000', \r\n speed = '0.000000', \r\n throttle = '0', \r\n autodetectable = 'false', \r\n mounts = '3', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n magazines = '3', \r\n unitstate = '0', \r\n fuelstate = '8', \r\n weaponstate = '242', \r\n desiredaltitude = '0.000000', \r\n}",
+   "t": 1794976079.137
+  },
+  {
+   "step": 213,
+   "phase": "move",
+   "script": "SetUnit({GUID='H5-00001JS5TMPGJ', LATITUDE=50.576597, LONGITUDE=-1.274821})",
+   "code": 0,
+   "result": "unit {\r\n type = '4', \r\n subtype = '6001', \r\n name = '反舰导弹排#2', \r\n side = '蓝方', \r\n guid = 'H5-00001JS5TMPGJ', \r\n class = '地地导弹排 (雄风II)', \r\n proficiency = 'Regular', \r\n latitude = '50.576597', \r\n longitude = '-1.274821', \r\n altitude = '22.000000', \r\n heading = '0.000000', \r\n speed = '0.000000', \r\n throttle = '78', \r\n autodetectable = 'false', \r\n mounts = '2', \r\n mountsDBID = '1646', \r\n mountsName = '“雄风”II号反舰导弹四联发射装置', \r\n mountsDBID = '1646', \r\n mountsName = '“雄风”II号反舰导弹四联发射装置', \r\n magazines = '2', \r\n unitstate = '0', \r\n fuelstate = '112', \r\n weaponstate = '70', \r\n desiredaltitude = '0.000000', \r\n}",
+   "t": 1794976079.145
+  },
+  {
+   "step": 214,
+   "phase": "move",
+   "script": "SetUnit({GUID='1D-00001JTV8C7DG', LATITUDE=50.581341, LONGITUDE=-1.283728})",
+   "code": 0,
+   "result": "unit {\r\n type = '4', \r\n subtype = '5001', \r\n name = '海马斯火箭炮#3', \r\n side = '蓝方', \r\n guid = '1D-00001JTV8C7DG', \r\n class = '炮兵排 (HIMARS)', \r\n proficiency = 'Regular', \r\n latitude = '50.581341', \r\n longitude = '-1.283728', \r\n altitude = '57.000000', \r\n heading = '0.000000', \r\n speed = '0.000000', \r\n throttle = '105', \r\n autodetectable = 'false', \r\n mounts = '3', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n mountsDBID = '3453', \r\n mountsName = 'M142 HIMARS', \r\n magazines = '3', \r\n unitstate = '0', \r\n fuelstate = '102', \r\n weaponstate = '216', \r\n desiredaltitude = '0.000000', \r\n}",
+   "t": 1794976079.157
+  },
+  {
+   "step": 215,
+   "phase": "move",
+   "script": "SetUnit({GUID='1D-00001JTV9F55C', LATITUDE=50.588611, LONGITUDE=-1.285749})",
+   "code": 0,
+   "result": "unit {\r\n type = '4', \r\n subtype = '6001', \r\n name = '反舰导弹排#5', \r\n side = '蓝方', \r\n guid = '1D-00001JTV9F55C', \r\n class = '地地导弹排 (雄风II)', \r\n proficiency = 'Regular', \r\n latitude = '50.588611', \r\n longitude = '-1.285749', \r\n altitude = '119.000000', \r\n heading = '0.000000', \r\n speed = '0.000000', \r\n throttle = '128', \r\n autodetectable = 'false', \r\n mounts = '2', \r\n mountsDBID = '1646', \r\n mountsName = '“雄风”II号反舰导弹四联发射装置', \r\n mountsDBID = '1646', \r\n mountsName = '“雄风”II号反舰导弹四联发射装置', \r\n magazines = '2', \r\n unitstate = '0', \r\n fuelstate = '245', \r\n weaponstate = '134', \r\n desiredaltitude = '0.000000', \r\n}",
+   "t": 1794976079.165
+  },
+  {
+   "step": 216,
+   "phase": "move",
+   "script": "SetUnit({GUID='H5-00001JS5TNMHJ', LATITUDE=50.595005, LONGITUDE=-1.279937})",
+   "code": 0,
+   "result": "unit {\r\n type = '4', \r\n subtype = '6001', \r\n name = '反舰导弹排#4', \r\n side = '蓝方', \r\n guid = 'H5-00001JS5TNMHJ', \r\n class = '地地导弹排 (雄风II)', \r\n proficiency = 'Regular', \r\n latitude = '50.595005', \r\n longitude = '-1.279937', \r\n altitude = '103.000000', \r\n heading = '0.000000', \r\n speed = '0.000000', \r\n throttle = '0', \r\n autodetectable = 'false', \r\n mounts = '2', \r\n mountsDBID = '1646', \r\n mountsName = '“雄风”II号反舰导弹四联发射装置', \r\n mountsDBID = '1646', \r\n mountsName = '“雄风”II号反舰导弹四联发射装置', \r\n magazines = '2', \r\n unitstate = '0', \r\n fuelstate = '255', \r\n weaponstate = '255', \r\n desiredaltitude = '0.000000', \r\n}",
+   "t": 1794976079.171
+  },
+  {
+   "step": 217,
+   "phase": "doctrine.lua",
+   "script": "SetDoctrine({side='蓝方'}, {WCS_Surface='0'})",
+   "code": 0,
+   "result": "",
+   "t": 1794976079.176
+  },
+  {
+   "step": 218,
+   "phase": "doctrine.lua.save",
+   "script": "Command_SaveScen('D:/LingYi/Data/Scenarios/PI-SHIP-SAT-wip.scen')",
+   "code": 0,
+   "result": "Scenarios/PI-SHIP-SAT-wip.scen",
+   "t": 1794976079.203
+  },
+  {
+   "step": 219,
+   "phase": "doctrine.lua.readback",
+   "script": "GetScenarioContent('PI-SHIP-SAT-wip.scen')",
+   "code": 0,
+   "result": "\n<Scenario>\n\t<TimelineID>d1e31742-1ac0-4c31-aa51-2aac7d89fbfc</TimelineID>\n\t<ObjectID>f6b98860-1df7-4064-b3fc-05a64edb4c2a</ObjectID>\n\t<ContentTag></ContentTag>\n\t<CampaignID></CampaignID>\n\t<CampaignSessionID></CampaignSessionID>\n\t<CampaignScore>0</CampaignScore>\n\t<Title>诺曼底2027(人机协同-人人版)</Title>\n\t<Description>PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwL3N0cmljdC5kdGQiPgo8aHRtbD48aGVhZD48bWV0YSBuYW1lPSJxcmljaHRleHQiIGNvbnRlbnQ9IjEiIC8+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4KcCwgbGkgeyB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7IH0KPC9zdHlsZT48L2hlYWQ+PGJvZHkgc3R5bGU9IiBmb250LWZhbWlseTon5b6u6L2v6ZuF6buRJzsgZm9udC1zaXplOjE0cHg7IGZvbnQtd2VpZ2h0OjQwMDsgZm9udC1zdHlsZTpub3JtYWw7Ij4KPHAgc3R5bGU9IiBtYXJnaW4tdG9wOjEycHg7IG1hcmdpbi1ib3R0b206MTJweDsgbWFyZ2luLWxlZnQ6MHB4OyBtYXJnaW4tcmlnaHQ6MHB4OyAtcXQtYmxvY2staW5kZW50OjA7IHRleHQtaW5kZW50OjBweDsiPjxzcGFuIHN0eWxlPSIgZm9udC1mYW1pbHk6J+S7v+Wui19HQjIzMTInLCflrovkvZMnOyBmb250LXNpemU6MThwdDsgZm9udC13ZWlnaHQ6NjAwOyBjb2xvcjojMDAwMDAwOyI+MS7mg7Plrprog4zmma88L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5a6L5L2TJzsgZm9udC1zaXplOjE4cHQ7IGZvbnQtd2VpZ2h0OjYwMDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDmnKzmg7Plrprku6XkuozmiJjor7rmm7zlupXnmbvpmYbkuLrljoblj7Lok53mnKzvvIzlsIblhbblubPnp7voh7PlhavljYHlubTlkI7njrDku6PmiJjkuonog4zmma/vvIzlkYjnjrDkuIDlnLrmtrXnm5bpmYbmtbfnqbrnlLXlpJrnu7Tpoobln5/nmoTnmbvpmYbkuLvpopjlr7nmipfjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICAyMFhY5bm077yM5qyn5rSy5Zyw57yY5pS/5rK75Yay56qB6aKR5Y+R77yM6KW/5qyn5bGA5Yq/5oCl5Ymn5oG25YyW44CC6Iux5ZCJ5Yip5rW35bOh5Y2g5o2u552A5YWo55CDOCXnmoTpm4boo4XnrrHotKfov5Dph4/vvIzmmK/kuIDmnaHph43opoHnmoTmtbfkuIrpgJrpgZPvvIzpmrblsZ7kuo7lr7nnq4vlhpvkuovpmLXokKXnmoTnuqLmlrnvvIjlspvkuIrvvInkuI7ok53mlrnvvIjpmYbkuIrvvInmkanmk6bkuI3mlq3vvIzlr7nov5nkuIDmtbfls6HnmoTnrqHovpbpl67popjkuonmiafkuI3kuIvjgILmtbfls6HkuIDkvqfnmoTok53mlrnomb3nhLblhpvkuovlrp7lipvnm7jlr7novoPlvLHvvIzkvYblnKjlkI7mlrnnm5/lj4vpvJPliqjkuIvvvIznjoflhYjlsIHplIHmtbfls6HjgILlj4zmlrnlpJrova7mrKHosIjliKTlnYfml6Dov5vlsZXvvIzmtbfls6Hlr7nlsrjnmoTnuqLmlrnlt7Lnu4/lpLHljrvogJDlv4PvvIzlhrPlrprku6XmrablipvmiZPpgJrmtbfls6HjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDnuqLmlrnkuLvliqjlh7rlh7vvvIzlnKjnrKzkuIDpmLbmrrXooYzliqjkuK3vvIzlt7Lnu4/lj5HliqjlpJrova7mrKHogZTlkIjngavlipvmiZPlh7vvvIzlr7nok53mlrnmu6nlpLTlt6XkuovjgIHpmLLnqbrorr7mlr3jgIHliY3nur/mnLrlnLrnrYnov5vooYzkuobppbHlkozmiZPlh7vvvIzniaLniaLljaDmja7kuobmtbfnqbrkvJjlir/vvJvnuqLmlrnpq5jlsYLliKTmlq3vvIzlvZPliY3ok53mlrnmtbfnqbrliankvZnmirXmipflipvph4/pnZ7luLjmnInpmZDvvIzku4XlianpmYbkuIrpmpDolL3ljZXlhYPog73lr7nnuqLmlrnnmbvpmYbpgKDmiJDlqIHog4HvvIzlnKjok53mlrnph43mlrDliqDlm7rmu6nlpLTpmLXlnLDkuYvliY3nmoTpu4Tph5Hml7bpl7Tph4zvvIzlj6/ku6XmlqnpppbooYzliqjlkoznmbvpmYbooYzliqjpvZDlpLTlubbov5vvvIzmhI/lnKjmianlpKfmiJjmnpznlJroh7PpoqDopobok53mlrnmlL/mnYPjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDok53mlrnpga3ooq3lkI7vvIzntKfmgKXlkJHlkI7mlrnnm5/lj",
+   "t": 1794976079.456
+  },
+  {
+   "step": 220,
+   "phase": "doctrine.lua.verify",
+   "script": "(save+readback after Lua SetDoctrine)",
+   "code": 0,
+   "result": "存盘后回读蓝方 WCS_Surface=2（期望 0，仍为 2 ⇒ Lua 不落盘）"
+  },
+  {
+   "step": 221,
+   "phase": "doctrine.blue.rpc",
+   "script": "setDoctrine{targetType='side', targetId=k55efi-0hnk8hnfe9gip, rulesOfEngagementConfig.weaponControlSurface='0'}",
+   "code": 0,
+   "result": ""
+  },
+  {
+   "step": 222,
+   "phase": "doctrine.blue.rpc.verify",
+   "script": "getDoctrine{targetType='side', targetId=k55efi-0hnk8hnfe9gip}",
+   "code": 0,
+   "result": "{\"engaging_ambiguous_targets\":2,\"deploy_on_attack\":5,\"navigation_surface\":0,\"dipping_sonar\":0,\"weapon_state_rtb\":0,\"fuel_state_rtb\":0,\"air_operations_tempo\":0,\"use_aip\":1,\"weapon_control_status_land\":2,\"weapon_control_status_air\":0,\"ignore_plotted_course\":0,\"kinematic_range_for_torpedoes\":2,\"gun_strafing\":0,\"deploy_on_fuel\":5,\"bvr_logic\":1,\"recharge_on_attack\":10,\"jettison_ordnance\":0,\"quick_turnaround_for_aircraft\":1,\"withdraw_on_damage\":0,\"dive_on_threat\":0,\"use_nuclear_weapons\":0,\"fuel_state_planned\":0,\"deploy_on_damage\":1,\"refuel_unrep_allied\":0,\"rtb_when_winchester\":0,\"navigation_land\":0,\"deploy_on_defence\":5,\"weapon_state_planned\":2002,\"ignore_emcon_while_under_attack\":0,\"maintain_standoff\":1,\"use_sams_in_anti_surface_mode\":0,\"withdraw_on_defence\":0,\"withdraw_on_attack\":0,\"refuel_unrep_selection\":0,\"weapon_control_status_subsurface\":2,\"engage_opportunity_targets\":0,\"use_refuel_unrep\":0,\"recharge_on_patrol\":60,\"avoid_contact\":0,\"bingo_threshold\":3,\"withdraw_on_fuel\":1,\"weapon_control_status_surface\":0,\"automatic_evasion\":1}"
+  },
+  {
+   "step": 223,
+   "phase": "doctrine.red",
+   "script": "(skip) 红方 WCS_Surface 已是 2，保持限制不动",
+   "code": 0,
+   "result": "unchanged"
+  },
+  {
+   "step": 224,
+   "phase": "duration",
+   "script": "SetScenarioInfo({DURATION=2400})",
+   "code": 0,
+   "result": "设置成功",
+   "t": 1794976079.508
+  },
+  {
+   "step": 225,
+   "phase": "save",
+   "script": "Command_SaveScen('D:/LingYi/Data/Scenarios/PI-SHIP-SAT.scen')",
+   "code": 0,
+   "result": "Scenarios/PI-SHIP-SAT.scen",
+   "t": 1794976079.531
+  },
+  {
+   "step": 226,
+   "phase": "readback",
+   "script": "GetScenarioContent('PI-SHIP-SAT.scen')",
+   "code": 0,
+   "result": "\n<Scenario>\n\t<TimelineID>d1e31742-1ac0-4c31-aa51-2aac7d89fbfc</TimelineID>\n\t<ObjectID>f6b98860-1df7-4064-b3fc-05a64edb4c2a</ObjectID>\n\t<ContentTag></ContentTag>\n\t<CampaignID></CampaignID>\n\t<CampaignSessionID></CampaignSessionID>\n\t<CampaignScore>0</CampaignScore>\n\t<Title>诺曼底2027(人机协同-人人版)</Title>\n\t<Description>PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwL3N0cmljdC5kdGQiPgo8aHRtbD48aGVhZD48bWV0YSBuYW1lPSJxcmljaHRleHQiIGNvbnRlbnQ9IjEiIC8+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4KcCwgbGkgeyB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7IH0KPC9zdHlsZT48L2hlYWQ+PGJvZHkgc3R5bGU9IiBmb250LWZhbWlseTon5b6u6L2v6ZuF6buRJzsgZm9udC1zaXplOjE0cHg7IGZvbnQtd2VpZ2h0OjQwMDsgZm9udC1zdHlsZTpub3JtYWw7Ij4KPHAgc3R5bGU9IiBtYXJnaW4tdG9wOjEycHg7IG1hcmdpbi1ib3R0b206MTJweDsgbWFyZ2luLWxlZnQ6MHB4OyBtYXJnaW4tcmlnaHQ6MHB4OyAtcXQtYmxvY2staW5kZW50OjA7IHRleHQtaW5kZW50OjBweDsiPjxzcGFuIHN0eWxlPSIgZm9udC1mYW1pbHk6J+S7v+Wui19HQjIzMTInLCflrovkvZMnOyBmb250LXNpemU6MThwdDsgZm9udC13ZWlnaHQ6NjAwOyBjb2xvcjojMDAwMDAwOyI+MS7mg7Plrprog4zmma88L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5a6L5L2TJzsgZm9udC1zaXplOjE4cHQ7IGZvbnQtd2VpZ2h0OjYwMDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDmnKzmg7Plrprku6XkuozmiJjor7rmm7zlupXnmbvpmYbkuLrljoblj7Lok53mnKzvvIzlsIblhbblubPnp7voh7PlhavljYHlubTlkI7njrDku6PmiJjkuonog4zmma/vvIzlkYjnjrDkuIDlnLrmtrXnm5bpmYbmtbfnqbrnlLXlpJrnu7Tpoobln5/nmoTnmbvpmYbkuLvpopjlr7nmipfjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICAyMFhY5bm077yM5qyn5rSy5Zyw57yY5pS/5rK75Yay56qB6aKR5Y+R77yM6KW/5qyn5bGA5Yq/5oCl5Ymn5oG25YyW44CC6Iux5ZCJ5Yip5rW35bOh5Y2g5o2u552A5YWo55CDOCXnmoTpm4boo4XnrrHotKfov5Dph4/vvIzmmK/kuIDmnaHph43opoHnmoTmtbfkuIrpgJrpgZPvvIzpmrblsZ7kuo7lr7nnq4vlhpvkuovpmLXokKXnmoTnuqLmlrnvvIjlspvkuIrvvInkuI7ok53mlrnvvIjpmYbkuIrvvInmkanmk6bkuI3mlq3vvIzlr7nov5nkuIDmtbfls6HnmoTnrqHovpbpl67popjkuonmiafkuI3kuIvjgILmtbfls6HkuIDkvqfnmoTok53mlrnomb3nhLblhpvkuovlrp7lipvnm7jlr7novoPlvLHvvIzkvYblnKjlkI7mlrnnm5/lj4vpvJPliqjkuIvvvIznjoflhYjlsIHplIHmtbfls6HjgILlj4zmlrnlpJrova7mrKHosIjliKTlnYfml6Dov5vlsZXvvIzmtbfls6Hlr7nlsrjnmoTnuqLmlrnlt7Lnu4/lpLHljrvogJDlv4PvvIzlhrPlrprku6XmrablipvmiZPpgJrmtbfls6HjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDnuqLmlrnkuLvliqjlh7rlh7vvvIzlnKjnrKzkuIDpmLbmrrXooYzliqjkuK3vvIzlt7Lnu4/lj5HliqjlpJrova7mrKHogZTlkIjngavlipvmiZPlh7vvvIzlr7nok53mlrnmu6nlpLTlt6XkuovjgIHpmLLnqbrorr7mlr3jgIHliY3nur/mnLrlnLrnrYnov5vooYzkuobppbHlkozmiZPlh7vvvIzniaLniaLljaDmja7kuobmtbfnqbrkvJjlir/vvJvnuqLmlrnpq5jlsYLliKTmlq3vvIzlvZPliY3ok53mlrnmtbfnqbrliankvZnmirXmipflipvph4/pnZ7luLjmnInpmZDvvIzku4XlianpmYbkuIrpmpDolL3ljZXlhYPog73lr7nnuqLmlrnnmbvpmYbpgKDmiJDlqIHog4HvvIzlnKjok53mlrnph43mlrDliqDlm7rmu6nlpLTpmLXlnLDkuYvliY3nmoTpu4Tph5Hml7bpl7Tph4zvvIzlj6/ku6XmlqnpppbooYzliqjlkoznmbvpmYbooYzliqjpvZDlpLTlubbov5vvvIzmhI/lnKjmianlpKfmiJjmnpznlJroh7PpoqDopobok53mlrnmlL/mnYPjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDok53mlrnpga3ooq3lkI7vvIzntKfmgKXlkJHlkI7mlrnnm5/lj",
+   "t": 1794976080.266
+  }
+ ]
+}

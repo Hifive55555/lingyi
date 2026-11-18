@@ -1,0 +1,40 @@
+{
+ "scenario": "PI-SHIP-SAT.scen",
+ "base": "诺曼底2027(人机协同-人人版)_有红有蓝.scen",
+ "started": "2026-11-18 12:15:26",
+ "elapsed_s": 8.0,
+ "calls": [
+  {
+   "step": 1,
+   "phase": "load",
+   "script": "LoadScenario({PATH='诺曼底2027(人机协同-人人版)_有红有蓝.scen'})",
+   "code": 0,
+   "result": "OK",
+   "t": 1794975324.871
+  },
+  {
+   "step": 2,
+   "phase": "dump.save",
+   "script": "Command_SaveScen('D:/LingYi/Data/Scenarios/PI-SHIP-SAT-wip.scen')",
+   "code": 0,
+   "result": "Scenarios/PI-SHIP-SAT-wip.scen",
+   "t": 1794975324.941
+  },
+  {
+   "step": 3,
+   "phase": "dump",
+   "script": "GetScenarioContent('PI-SHIP-SAT-wip.scen')",
+   "code": 0,
+   "result": "\n<Scenario>\n\t<TimelineID>d1e31742-1ac0-4c31-aa51-2aac7d89fbfc</TimelineID>\n\t<ObjectID>f6b98860-1df7-4064-b3fc-05a64edb4c2a</ObjectID>\n\t<ContentTag></ContentTag>\n\t<CampaignID></CampaignID>\n\t<CampaignSessionID></CampaignSessionID>\n\t<CampaignScore>0</CampaignScore>\n\t<Title>诺曼底2027(人机协同-人人版)</Title>\n\t<Description>PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMC8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwL3N0cmljdC5kdGQiPgo8aHRtbD48aGVhZD48bWV0YSBuYW1lPSJxcmljaHRleHQiIGNvbnRlbnQ9IjEiIC8+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4KcCwgbGkgeyB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7IH0KPC9zdHlsZT48L2hlYWQ+PGJvZHkgc3R5bGU9IiBmb250LWZhbWlseTon5b6u6L2v6ZuF6buRJzsgZm9udC1zaXplOjE0cHg7IGZvbnQtd2VpZ2h0OjQwMDsgZm9udC1zdHlsZTpub3JtYWw7Ij4KPHAgc3R5bGU9IiBtYXJnaW4tdG9wOjEycHg7IG1hcmdpbi1ib3R0b206MTJweDsgbWFyZ2luLWxlZnQ6MHB4OyBtYXJnaW4tcmlnaHQ6MHB4OyAtcXQtYmxvY2staW5kZW50OjA7IHRleHQtaW5kZW50OjBweDsiPjxzcGFuIHN0eWxlPSIgZm9udC1mYW1pbHk6J+S7v+Wui19HQjIzMTInLCflrovkvZMnOyBmb250LXNpemU6MThwdDsgZm9udC13ZWlnaHQ6NjAwOyBjb2xvcjojMDAwMDAwOyI+MS7mg7Plrprog4zmma88L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5a6L5L2TJzsgZm9udC1zaXplOjE4cHQ7IGZvbnQtd2VpZ2h0OjYwMDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDmnKzmg7Plrprku6XkuozmiJjor7rmm7zlupXnmbvpmYbkuLrljoblj7Lok53mnKzvvIzlsIblhbblubPnp7voh7PlhavljYHlubTlkI7njrDku6PmiJjkuonog4zmma/vvIzlkYjnjrDkuIDlnLrmtrXnm5bpmYbmtbfnqbrnlLXlpJrnu7Tpoobln5/nmoTnmbvpmYbkuLvpopjlr7nmipfjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICAyMFhY5bm077yM5qyn5rSy5Zyw57yY5pS/5rK75Yay56qB6aKR5Y+R77yM6KW/5qyn5bGA5Yq/5oCl5Ymn5oG25YyW44CC6Iux5ZCJ5Yip5rW35bOh5Y2g5o2u552A5YWo55CDOCXnmoTpm4boo4XnrrHotKfov5Dph4/vvIzmmK/kuIDmnaHph43opoHnmoTmtbfkuIrpgJrpgZPvvIzpmrblsZ7kuo7lr7nnq4vlhpvkuovpmLXokKXnmoTnuqLmlrnvvIjlspvkuIrvvInkuI7ok53mlrnvvIjpmYbkuIrvvInmkanmk6bkuI3mlq3vvIzlr7nov5nkuIDmtbfls6HnmoTnrqHovpbpl67popjkuonmiafkuI3kuIvjgILmtbfls6HkuIDkvqfnmoTok53mlrnomb3nhLblhpvkuovlrp7lipvnm7jlr7novoPlvLHvvIzkvYblnKjlkI7mlrnnm5/lj4vpvJPliqjkuIvvvIznjoflhYjlsIHplIHmtbfls6HjgILlj4zmlrnlpJrova7mrKHosIjliKTlnYfml6Dov5vlsZXvvIzmtbfls6Hlr7nlsrjnmoTnuqLmlrnlt7Lnu4/lpLHljrvogJDlv4PvvIzlhrPlrprku6XmrablipvmiZPpgJrmtbfls6HjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDnuqLmlrnkuLvliqjlh7rlh7vvvIzlnKjnrKzkuIDpmLbmrrXooYzliqjkuK3vvIzlt7Lnu4/lj5HliqjlpJrova7mrKHogZTlkIjngavlipvmiZPlh7vvvIzlr7nok53mlrnmu6nlpLTlt6XkuovjgIHpmLLnqbrorr7mlr3jgIHliY3nur/mnLrlnLrnrYnov5vooYzkuobppbHlkozmiZPlh7vvvIzniaLniaLljaDmja7kuobmtbfnqbrkvJjlir/vvJvnuqLmlrnpq5jlsYLliKTmlq3vvIzlvZPliY3ok53mlrnmtbfnqbrliankvZnmirXmipflipvph4/pnZ7luLjmnInpmZDvvIzku4XlianpmYbkuIrpmpDolL3ljZXlhYPog73lr7nnuqLmlrnnmbvpmYbpgKDmiJDlqIHog4HvvIzlnKjok53mlrnph43mlrDliqDlm7rmu6nlpLTpmLXlnLDkuYvliY3nmoTpu4Tph5Hml7bpl7Tph4zvvIzlj6/ku6XmlqnpppbooYzliqjlkoznmbvpmYbooYzliqjpvZDlpLTlubbov5vvvIzmhI/lnKjmianlpKfmiJjmnpznlJroh7PpoqDopobok53mlrnmlL/mnYPjgII8L3NwYW4+PHNwYW4gc3R5bGU9IiBmb250LXNpemU6MTRwdDsiPiA8L3NwYW4+PC9wPgo8cCBzdHlsZT0iIG1hcmdpbi10b3A6MTJweDsgbWFyZ2luLWJvdHRvbToxMnB4OyBtYXJnaW4tbGVmdDowcHg7IG1hcmdpbi1yaWdodDowcHg7IC1xdC1ibG9jay1pbmRlbnQ6MDsgdGV4dC1pbmRlbnQ6MHB4OyI+PHNwYW4gc3R5bGU9IiBmb250LWZhbWlseTon5Lu/5a6LX0dCMjMxMic7IGZvbnQtc2l6ZToxNHB0OyBjb2xvcjojMDAwMDAwOyI+ICDok53mlrnpga3ooq3lkI7vvIzntKfmgKXlkJHlkI7mlrnnm5/lj",
+   "t": 1794975325.553
+  },
+  {
+   "step": 4,
+   "phase": "side.doctrine",
+   "script": "GetSides()",
+   "code": 0,
+   "result": "\"k55efi-0hnk8hnfe9gin\",\"红方\";\"k55efi-0hnk8hnfe9gip\",\"蓝方\"",
+   "t": 1794975325.711
+  }
+ ]
+}
