@@ -5,74 +5,110 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
-
-/// 无边框窗口：客户区四周留了 BAND 宽的边，鼠标落在边上时返回 HTLEFT/HTBOTTOM…
-/// 就能用系统原生的拖拽缩放（和无边框窗口唯一能做到“跟普通窗口一样”的办法）。
+/// 无边框窗口 + **自己实现的缩放**。
+///
+/// 为什么不用系统原生缩放：给无边框窗口补 WS_THICKFRAME 确实能“拖边框就缩放”，
+/// 但 Win11 会顺带画一圈系统边框（顶部/四周一条白色细框，DWM 画的，压不掉），
+/// 观感很差。这里改成自己处理：窗口有 BAND 宽的边留给鼠标，按下记录的起始
+/// 矩形 + 鼠标位移算新 Bounds，WebView2 那部分在松手后重排一次。
 class OverlayForm : Form
 {
-    internal bool Suspended;            // 拖边框过程中冻结布局，免得 WebView2 每帧重排（会闪）
-    internal EventHandler OnResizeDone;  // 松手后用这个补一次重排（Resize 在拖拽期间被跳过）
+    internal bool Suspended;             // 拖边框过程中冻结布局，免得 WebView2 每帧重排（会闪）
+    internal EventHandler OnResizeDone;  // 松手后补一次重排
 
-    protected override CreateParams CreateParams
+    internal const int MIN_W = 320, MIN_H = 420;
+
+    const int HTLEFT = 10, HTRIGHT = 11, HTTOP = 12, HTTOPLEFT = 13, HTTOPRIGHT = 14,
+              HTBOTTOM = 15, HTBOTTOMLEFT = 16, HTBOTTOMRIGHT = 17;
+
+    int edge;                 // 正在拖哪条边（0 = 没在拖）
+    Point grabScreen;
+    Rectangle grabBounds;
+
+    internal void BeginResize(int ht, Point screenPt)
     {
-        get
-        {
-            var cp = base.CreateParams;
-            // FormBorderStyle.None 的窗口**没有** WS_THICKFRAME，这时即便 WM_NCHITTEST
-            // 返回 HTLEFT/HTBOTTOM，DefWindowProc 也只是返回、不会开始缩放 —— 表现就是
-            // “鼠标变形状了但拖不动”，或者根本没反应。补上这两位才有原生缩放：
-            cp.Style |= 0x00040000;      // WS_THICKFRAME（可缩放）
-            cp.Style |= 0x00020000;      // WS_MINIMIZEBOX（任务栏/最小化按钮正常）
-            cp.Style &= ~0x00C00000;     // 去掉 WS_CAPTION（保留自绘标题栏）
-            return cp;
-        }
+        edge = ht;
+        grabScreen = screenPt;
+        grabBounds = Bounds;
+        Suspended = true;                  // 拖拽期间不动 WebView2
+        Capture = true;                    // 鼠标拖到窗口外面也要继续收消息
     }
 
-    [DllImport("dwmapi.dll")] internal static extern int DwmSetWindowAttribute(IntPtr h, int attr, ref int val, int size);
-
-    protected override void WndProc(ref Message m)
+    internal void UpdateResize(Point screenPt)
     {
-        const int WM_NCCALCSIZE = 0x0083;
-        if (m.Msg == WM_NCCALCSIZE && m.WParam != IntPtr.Zero)
+        if (edge == 0) return;
+        int dx = screenPt.X - grabScreen.X, dy = screenPt.Y - grabScreen.Y;
+        Rectangle b = grabBounds;
+        int x = b.X, y = b.Y, w = b.Width, h = b.Height;
+        bool left = edge == HTLEFT || edge == HTTOPLEFT || edge == HTBOTTOMLEFT;
+        bool right = edge == HTRIGHT || edge == HTTOPRIGHT || edge == HTBOTTOMRIGHT;
+        bool top = edge == HTTOP || edge == HTTOPLEFT || edge == HTTOPRIGHT;
+        bool bottom = edge == HTBOTTOM || edge == HTBOTTOMLEFT || edge == HTBOTTOMRIGHT;
+        if (left) { w = b.Width - dx; x = b.Right - w; if (w < MIN_W) { w = MIN_W; x = b.Right - MIN_W; } }
+        if (right) { w = b.Width + dx; if (w < MIN_W) w = MIN_W; }
+        if (top) { h = b.Height - dy; y = b.Bottom - h; if (h < MIN_H) { h = MIN_H; y = b.Bottom - MIN_H; } }
+        if (bottom) { h = b.Height + dy; if (h < MIN_H) h = MIN_H; }
+        Bounds = new Rectangle(x, y, w, h);
+    }
+
+    internal bool anyEdge { get { return edge != 0; } }
+
+    internal void EndResize()
+    {
+        if (edge == 0) return;
+        edge = 0;
+        Capture = false;
+        Suspended = false;
+        if (OnResizeDone != null) OnResizeDone(this, EventArgs.Empty);
+    }
+
+    internal static Cursor CursorFor(int ht)
+    {
+        switch (ht)
         {
-            // 客户区 = 整个窗口：WS_THICKFRAME 负责缩放，但不要它那圈系统边框
-            // （否则 Win11 会在窗口最上面画一条 3~4px 的白色/浅色框）
-            m.Result = IntPtr.Zero;
-            return;
-        }
-        base.WndProc(ref m);
-        const int WM_ENTERSIZEMOVE = 0x0231, WM_EXITSIZEMOVE = 0x0232;
-        if (m.Msg == WM_ENTERSIZEMOVE) Suspended = true;
-        if (m.Msg == WM_EXITSIZEMOVE)
-        {
-            Suspended = false;
-            if (OnResizeDone != null) OnResizeDone(this, EventArgs.Empty);
-        }
-        if (m.Msg == OverlayHost.WM_NCHITTEST)
-        {
-            long lp = m.LParam.ToInt64();
-            int ht = OverlayHost.BorderHit(ClientSize,
-                new Point((short)(lp & 0xFFFF), (short)((lp >> 16) & 0xFFFF)), false);
-            if (ht != OverlayHost.HTCLIENT) m.Result = (IntPtr)ht;
+            case HTLEFT: case HTRIGHT: return Cursors.SizeWE;
+            case HTTOP: case HTBOTTOM: return Cursors.SizeNS;
+            case HTTOPLEFT: case HTBOTTOMRIGHT: return Cursors.SizeNWSE;
+            case HTTOPRIGHT: case HTBOTTOMLEFT: return Cursors.SizeNESW;
+            default: return Cursors.Default;
         }
     }
 }
 
-/// 标题栏：自己也要能缩放（窗口最上面那条边在它身上），否则顶部拖不动。
+/// 标题栏：它压着窗口的上边缘和左右边缘那一截，所以自己也得能发起/维持缩放。
 class BarPanel : Panel
 {
-    protected override void WndProc(ref Message m)
+    internal OverlayForm Owner;
+
+    internal void Hook()
     {
-        base.WndProc(ref m);
-        if (m.Msg == OverlayHost.WM_NCHITTEST)
-        {
-            long lp = m.LParam.ToInt64();
-            int ht = OverlayHost.BorderHit(ClientSize,
-                new Point((short)(lp & 0xFFFF), (short)((lp >> 16) & 0xFFFF)), true);
-            if (ht != OverlayHost.HTCLIENT) m.Result = (IntPtr)ht;
-        }
+        MouseDown += OnDown; MouseMove += OnMove; MouseUp += OnUp; MouseCaptureChanged += (s, e) => { if (Owner != null) Owner.EndResize(); };
+    }
+
+    internal void OnDown(object s, MouseEventArgs e)
+    {
+        if (Owner == null || e.Button != MouseButtons.Left) return;
+        Point sp = PointToScreen(e.Location);
+        int ht = OverlayHost.BorderHit(Owner.ClientSize, Owner.PointToClient(sp), true);
+        if (ht != OverlayHost.HTCLIENT) { Owner.BeginResize(ht, sp); return; }
+        // 不在边缘：整窗拖动（原生移动循环，手感最好）
+        OverlayHost.DragWindow(Owner);
+    }
+
+    internal void OnMove(object s, MouseEventArgs e)
+    {
+        if (Owner == null) return;
+        if (Owner.Capture && Owner.anyEdge) { Owner.UpdateResize(Cursor.Position); return; }
+        int ht = OverlayHost.BorderHit(Owner.ClientSize, Owner.PointToClient(PointToScreen(e.Location)), true);
+        Cursor = OverlayForm.CursorFor(ht);
+    }
+
+    internal void OnUp(object s, MouseEventArgs e)
+    {
+        if (Owner != null) Owner.EndResize();
     }
 }
+
 
 class OverlayHost
 {
@@ -86,6 +122,13 @@ class OverlayHost
     [DllImport("user32.dll")] static extern IntPtr SendMessage(IntPtr h, int msg, IntPtr w, IntPtr l);
 
     const int WM_NCLBUTTONDOWN = 0xA1;
+
+    /// 整窗拖动：交给系统的移动循环（比手算位移顺滑，还能贴边吸附）。
+    internal static void DragWindow(Form f)
+    {
+        ReleaseCapture();
+        SendMessage(f.Handle, WM_NCLBUTTONDOWN, (IntPtr)HTCAPTION, IntPtr.Zero);
+    }
     internal const int WM_NCHITTEST = 0x84;
     const int HTCAPTION = 0x2;
     const int BAND = 6;                 // 可拖拽的边框宽度（页面四周留出的手感区）
@@ -217,16 +260,29 @@ class OverlayHost
         min.Click += (s, e) => f.WindowState = FormWindowState.Minimized;
         bar.Controls.Add(min);
 
-        MouseEventHandler dragStart = (s, e) =>
+        // 标题栏参与缩放（它压着窗口上边和左右边上那 26px），点空白处则整窗拖动
+        bar.Owner = f;
+        bar.Hook();
+        title.MouseDown += bar.OnDown;
+        title.MouseMove += bar.OnMove;
+        title.MouseUp += bar.OnUp;
+
+        // 窗口自己那几条边（左右/下，以及标题栏以下的部分）
+        f.MouseDown += (s, e) =>
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(f.Handle, WM_NCLBUTTONDOWN, (IntPtr)HTCAPTION, IntPtr.Zero);
-            }
+            if (e.Button != MouseButtons.Left) return;
+            Point sp = f.PointToScreen(e.Location);
+            int ht = BorderHit(f.ClientSize, e.Location, false);
+            if (ht != HTCLIENT) { f.BeginResize(ht, sp); return; }
+            f.EndResize();
         };
-        bar.MouseDown += dragStart;
-        title.MouseDown += dragStart;
+        f.MouseMove += (s, e) =>
+        {
+            if (f.anyEdge) { f.UpdateResize(Cursor.Position); return; }
+            f.Cursor = OverlayForm.CursorFor(BorderHit(f.ClientSize, e.Location, false));
+        };
+        f.MouseUp += (s, e) => f.EndResize();
+        f.MouseCaptureChanged += (s, e) => f.EndResize();
 
         // 布局：标题栏占顶部 26px，WebView2 放进一个**独立的容器面板**里再 Dock=Fill。
         //
@@ -252,15 +308,6 @@ class OverlayHost
         };
         f.Resize += layout;
         f.OnResizeDone = layout;
-        f.HandleCreated += (s2, e2) =>
-        {
-            try
-            {
-                int col = 0x1D1814;              // = Bg(20,24,29) 的 BGR
-                OverlayForm.DwmSetWindowAttribute(f.Handle, 34, ref col, 4);   // DWMWA_BORDER_COLOR
-            }
-            catch { }
-        };
 
         f.Shown += async (s, e) =>
         {
