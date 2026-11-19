@@ -1,49 +1,43 @@
 @echo off
 setlocal
 rem ============================================================================
-rem 灵弈小窗（跟网页版指挥台是两个项目，代码/端口都不共用）
-rem   双击本文件 -> 起 launcher.py（页面服务 127.0.0.1:8761）+ 一个置顶 Edge 窗口
-rem   客户端里「智能体调度 -> 智能体编辑 -> +」选 agent\overlay_ai.py（类名 Agent）
+rem LingYi overlay launcher (this is NOT the web console project)
+rem   double-click -> starts launcher.py (page server 127.0.0.1:8761) + a pinned Edge window
+rem   in the client: Agent Scheduling -> Agent Editor -> "+" -> pick agent\overlay_ai.py (class Agent)
 rem
-rem Python 用哪个：**直接用灵弈自带的 ray210**，不建 .venv。
-rem   实测 ray210 = Python 3.9.19 自带 aiohttp 3.9.5 / psutil 6.0.0，
-rem   launcher.py 只依赖 stdlib + aiohttp，因此不需要独立虚拟环境。
-rem   （agent.py 跑在引擎进程里，本来也只能是 ray210，别无选择。）
+rem Python: ONLY the one bundled with LingYi (ray210, Python 3.9.19 + aiohttp 3.9.5).
+rem   No .venv, no pip install -- the competition machine has no internet.
+rem   agent.py runs inside the engine process anyway, so ray210 is the only choice.
 rem
-rem 灵弈不装在默认位置时，二选一：
-rem   1) set LY_PYTHON=<你的 python.exe 全路径>   然后重开窗口
-rem   2) 在本文件里再加一条  call :try "全路径"
+rem Non-standard install path: set LY_PYTHON=<full path to python.exe> then double-click.
+rem If nothing is found we stop and ask for a report; we never try to install anything.
 rem ============================================================================
 set "HERE=%~dp0"
 set "PY="
 
-rem ① 手动指定优先
+rem (1) explicit override
 if defined LY_PYTHON call :try "%LY_PYTHON%"
 
-rem ② 灵弈自带环境（标准部署：<灵弈>\intelligent\ai\agent\overlay\ 时 ..\..\.. = <灵弈>\intelligent）
+rem (2) standard layout: <LingYi>\intelligent\ai\agent\overlay\  =>  ..\..\.. = <LingYi>\intelligent
 call :try "%HERE%..\..\..\new_env\ray210\python.exe"
 
-rem ③ 常见安装根目录兜底（灵弈换了盘符/目录名时）
+rem (3) common install roots
 for %%R in ("D:\LingYi" "C:\LingYi" "E:\LingYi" "F:\LingYi") do call :try "%%~R\intelligent\new_env\ray210\python.exe"
 
-rem ④ 系统 PATH 里的 python（自己装过 aiohttp 才能用）
-for /f "delims=" %%i in ('where python 2^>nul') do call :try "%%i"
-for /f "delims=" %%i in ('where python3 2^>nul') do call :try "%%i"
-
-if not defined PY goto nopython
+if not defined PY goto noenv
 "%PY%" -X utf8 "%HERE%launcher.py"
 if errorlevel 1 pause
 exit /b 0
 
-:nopython
+:noenv
 echo(
-echo 没找到带 aiohttp 的 Python。
-echo 灵弈自带的那个应该是：
-echo     ^<灵弈安装目录^>\intelligent\new_env\ray210\python.exe
-echo 如果灵弈不在 D:\LingYi，任选其一：
-echo   1^) 先  set LY_PYTHON=^<上面那个 python.exe 的全路径^>  再双击本文件
-echo   2^) 在本文件里加一条  call :try "全路径"
-echo   3^) 用  python tools\check_env.py  查环境（在 智能体代码\tools\ 下）
+echo [STOP] no bundled LingYi Python found (needs: import aiohttp)
+echo        expected: ^<LingYi^>\intelligent\new_env\ray210\python.exe
+echo        This tool does NOT create a venv and does NOT install packages.
+echo        Please report these two things to whoever deploys this:
+echo          1^) the LingYi install dir (the one containing APlatformLobby.exe)
+echo          2^) what is inside ^<LingYi^>\intelligent\new_env
+echo        Temporary override: set LY_PYTHON=^<full path to python.exe^>
 echo(
 pause
 exit /b 1

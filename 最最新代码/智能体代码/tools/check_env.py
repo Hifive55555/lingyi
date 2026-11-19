@@ -6,7 +6,8 @@
 `python -m venv --system-site-packages`，aiohttp 全部继承自灵弈自带的 ray210
 （pyvenv.cfg 里 home 指向 ray210）—— 等于只是一个启动壳，还额外带来
 「换机器必须重建 + pyvenv.cfg 写死旧路径 + 占 20 MB」三个麻烦。
-故改为直接使用 ray210，本脚本只做检查，不装任何东西、不改任何东西。
+故改为直接使用 ray210：本脚本只做检查，**不建虚拟环境、不装任何东西**。
+比赛机没有外网，装不了包也补不了依赖 —— 检查不过就终止并上报，别在现场折腾。
 
 检查项：
   ① ray210 存在，且是 Python 3.9（entitys 下的 .pyd 是 cp39 扩展，别无选择）
@@ -20,7 +21,7 @@
     python tools/check_env.py --lingyi "E:\\LingYi"      # 灵弈装在别处
     python tools/check_env.py --bat                       # 只输出 bat 该加的那行
 
-退出码：0 = 全过；1 = 有硬性项没过。
+退出码：0 = 全过；1 = 有硬性项没过（终止，现场不修）。
 """
 from __future__ import print_function
 
@@ -152,8 +153,8 @@ def main(argv=None):
         say(OK, '② aiohttp %s（小窗的唯一第三方依赖）' % out.splitlines()[-1])
     else:
         say(BAD, '② aiohttp 缺失 —— 小窗 agent.py / launcher.py 都起不来')
-        say(WARN, '   应急：把 aiohttp 装进 ray210，或临时建一个 '
-                  '--system-site-packages 的 .venv 并改 bat 指向它')
+        say(WARN, '   不建 .venv、不联网装包（比赛机无外网）：直接上报，'
+                  '换一台环境正常的机器')
         bad += 1
 
     # ③ psutil（可选）
@@ -212,7 +213,9 @@ def main(argv=None):
 
     print('')
     if bad:
-        say(BAD, '结论：%d 项硬性检查没过，先修这个' % bad)
+        say(BAD, '结论：%d 项硬性检查没过 —— 终止，不要上机跑' % bad)
+        say(WARN, '本工具只检查、不安装；比赛机无外网，请把上面 [FAIL] 行'
+                  '连同 <灵弈>\\intelligent\\new_env 的目录列表报上来')
     else:
         say(OK, '结论：可以直接用灵弈自带 Python 跑，不需要 .venv')
     say(WARN, '小窗 bat 里对应的一行：%s' % bat_line)
