@@ -51,12 +51,14 @@ def find_lingyi(explicit=None):
     env = os.environ.get('LINGYI_HOME') or os.environ.get('LY_HOME')
     if env:
         cands.append(env)
-    # 从本脚本位置反推：<灵弈>\intelligent\ai\engine\LingYi\tools\ -> 上溯 5 层
-    here = os.path.dirname(os.path.abspath(__file__))
-    up = here
-    for _ in range(5):
+    # 从本脚本位置反推：逐级上溯，哪级下面有 intelligent\new_env\ray210\python.exe
+    # 就算灵弈根（脚本放在 engine\LingYi\tools、ai\tools、intelligent\tools 都能对上）
+    up = os.path.dirname(os.path.abspath(__file__))
+    for _ in range(8):
         up = os.path.dirname(up)
-    cands.append(up)
+        if not up or up == os.path.dirname(up):
+            break
+        cands.append(up)
     cands.extend(COMMON_ROOTS)
     for c in cands:
         if not c:
