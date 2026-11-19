@@ -59,6 +59,15 @@ except BaseException:  # noqa: BLE001
     raise
 
 try:
+    from .monitor import Monitor          # noqa: E402  被攻击监控（合并自 monitor-agent）
+    from . import monitor_core            # noqa: E402
+    _boot("monitor 组件就绪")
+except BaseException:  # noqa: BLE001
+    _boot("import monitor 失败", "\n" + traceback.format_exc())
+    Monitor = None
+    monitor_core = None
+
+try:
     from . import zmqlock  # noqa: E402
     zmqlock.install()           # 小窗指令在工作线程里下，跟平台 step 线程共用一个 zmq 口，排队收发
     _boot("zmqlock 安装完成")
@@ -346,6 +355,8 @@ class OverlayAgent(Player):
         self.sam_seq = 0            # sam_intent.json 的序号（点一次 +1）
         self.sam_state_at = 0.0     # 上次读到任务智能体状态文件的时刻
         self.sam_owned = set()      # 这些 guid 由任务智能体在管（它写了状态文件）
+        # 被攻击监控：只算不动手（不下发任何指令），数据源就是本智能体自己的容器
+        self.monitor = Monitor(self) if Monitor is not None else None
 
     def _take(self, situation):
         try:
@@ -356,6 +367,11 @@ class OverlayAgent(Player):
     @_guard('initial')
     def initial(self, situation):
         self._take(situation)
+        if self.monitor is not None:
+            try:
+                self.monitor.setup(situation)
+            except Exception:
+                log.error("[灵弈小窗] 监控 setup 异常：\n%s", traceback.format_exc())
         _banner(self.side_cn, PORT)
         log.info(f"[灵弈小窗] 战前，指挥{self.side_cn}，小窗连 127.0.0.1:{PORT}")
         if OverlayServer.instance is None:
@@ -375,6 +391,11 @@ class OverlayAgent(Player):
             self._sam_sync()
         except Exception as e:
             log.debug(f"防空值班同步异常 {e}")
+        if self.monitor is not None:
+            try:
+                self.monitor.ensure(situation, self.now)
+            except Exception:
+                log.error("[灵弈小窗] 监控扫描异常：\n%s", traceback.format_exc())
         try:
             with self.lock:
                 self._build(self.now)
@@ -459,7 +480,37 @@ class OverlayAgent(Player):
             contacts.append({"id": cid, "n": _get(c, "Name", "") or "", "ty": ty, "lat": _f(p[0]), "lon": _f(p[1]),
                              "ms": ty == ContactType.Missile.value})
         self.snapshot = {"t": round(t), "side": self.side_cn, "started": t >= 1, "units": units, "contacts": contacts,
-                         "sam": self._sam_rows(units), "notes": self.notes[-6:]}
+                         "sam": self._sam_rows(units), "notes": self.notes[-6:],
+                         "mon": self._mon_block(t)}
+
+    MAX_MON_PER_UNIT = 8        # 监控小窗里单个单元最多列几枚弹
+
+    def _mon_block(self, t):
+        """监控小窗的快照：空/海/陆三组 + 每个被瞄准单元后面的每一枚弹。
+
+        只读，不改任何单元状态；monitor 为 None（组件没导进来）时给个空壳，
+        监控小窗会显示“等待智能体”，但不会让主小窗跟着挂。
+        """
+        empty = {"t": round(t), "side": self.side_cn, "started": t >= 1,
+                 "cycle": 0, "ms": 0, "own": 0,
+                 "groups": {}, "rows": [], "cfg": {"sec": DECISION_SEC}}
+        if self.monitor is None or monitor_core is None:
+            return empty
+        try:
+            rows = self.monitor.rows()
+            for r in rows:
+                if self.MAX_MON_PER_UNIT and len(r.get("ms") or []) > self.MAX_MON_PER_UNIT:
+                    r["ms"] = r["ms"][:self.MAX_MON_PER_UNIT]
+            groups = monitor_core.summarise(rows)
+            return {"t": round(t), "side": self.side_cn, "started": t >= 1,
+                    "cycle": getattr(self.monitor, "_cycle", 0),
+                    "ms": len(self.monitor.missiles()), "own": len(rows),
+                    "groups": {g: list(v) for g, v in groups.items()},
+                    "rows": rows,
+                    "cfg": {"gate": self.monitor.gate or None, "sec": DECISION_SEC}}
+        except Exception:
+            log.error("[灵弈小窗] 监控快照异常：\n%s", traceback.format_exc())
+            return empty
 
     # ------------------------------------------------------------------ 防空值班（地空导弹 / 雷达）
     def _sam_ext(self):

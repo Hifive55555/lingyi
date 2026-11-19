@@ -30,6 +30,10 @@ class OverlayHost
         int w = args.Length > 1 ? int.Parse(args[1]) : 480;
         int h = args.Length > 2 ? int.Parse(args[2]) : 860;
         string udf = (args.Length > 3 && args[3].Length > 0) ? args[3] : null;
+        string winTitle = (args.Length > 4 && args[4].Length > 0) ? args[4] : "灵弈小窗";
+        int px = -1, py = 60;                     // 传了就这么摆，没传就贴右边
+        if (args.Length > 5) int.TryParse(args[5], out px);
+        if (args.Length > 6) int.TryParse(args[6], out py);
 
         Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
         Application.ThreadException += (s, e) => { Log("THREAD: " + e.Exception); Environment.Exit(9); };
@@ -37,11 +41,12 @@ class OverlayHost
 
         Application.EnableVisualStyles();
         var f = new Form();
-        f.Text = "灵弈小窗";
+        f.Text = winTitle;
         f.FormBorderStyle = FormBorderStyle.None;      // 自绘标题栏：这样既能拖，也不吃 Edge 的窗口样式
         f.StartPosition = FormStartPosition.Manual;
         var scr = Screen.PrimaryScreen.WorkingArea;
-        f.Bounds = new Rectangle(scr.Right - w - 30, 60, w, h);
+        if (px < 0) px = scr.Right - w - 30;
+        f.Bounds = new Rectangle(px, py, w, h);
         f.TopMost = true;
         f.BackColor = Bg;
 
@@ -51,7 +56,7 @@ class OverlayHost
         bar.Height = 26;
         bar.BackColor = Bar;
         var title = new Label();
-        title.Text = "灵弈小窗";
+        title.Text = winTitle;
         title.AutoSize = false;
         title.Dock = DockStyle.Fill;
         title.TextAlign = ContentAlignment.MiddleLeft;

@@ -75,6 +75,10 @@ def setup_log():
 PID_FILE = LOGS / "launcher.pid"
 PAGE_PORT = int(os.environ.get("LY_OVERLAY_PAGE_PORT", "8761"))
 TITLE = "灵弈小窗"
+MON_TITLE = "监控小窗"          # 第二个窗口：被攻击监控（跟主小窗同一个智能体、同一个 ws）
+MON_W, MON_H = 520, 900
+MON_GAP = 12
+MON_ENABLE = os.environ.get("LY_OVERLAY_NO_MONITOR", "0") == "0"
 W, H = 480, 860
 DEFAULT_KEYS = {"weapon": "Alt+Q", "thralt": "Alt+W", "sam": "Alt+E"}
 KEY_CN = {"weapon": "武器分配", "thralt": "油门高度", "sam": "防空值班"}
@@ -327,7 +331,7 @@ def find_windows(pid=None):
             if p.value == pid:
                 found.append(hwnd)
                 return True
-        if TITLE in title_of(hwnd):
+        if TITLE in title_of(hwnd) or MON_TITLE in title_of(hwnd):
             found.append(hwnd)
         return True
     user32.EnumWindows(cb, 0)
@@ -450,15 +454,21 @@ def main():
     # 默认交给宿主用 exe 同级的 overlay_wv2.exe.WebView2（实测在普通权限下正常）。
     udf = os.environ.get("LY_OVERLAY_UDF", "")
 
-    def spawn(tag):
-        # 首选自带的 WebView2 宿主：它只是把同一份页面装进一个窗口，
-        # 不依赖 msedge.exe，也不会再出现“派生实例不导航”的灰屏。
+    def spawn(tag, page=None, w=W, h=H, title=TITLE, x=-1, y=60):
+        """开一个窗口。page 默认主小窗，第二个窗口用 web/monitor.html。
+
+        首选自带的 WebView2 宿主：它只是把同一份页面装进一个窗口，不依赖
+        msedge.exe，也不会再出现“派生实例不导航”的灰屏。args：
+            <url> <宽> <高> <UDF> <窗口标题> <x> <y>
+        """
+        page = page or url
         if host.exists():
             try:
                 if udf:
                     os.makedirs(udf, exist_ok=True)
-                pr = subprocess.Popen([str(host), url, str(W), str(H), udf])
-                print("小窗窗口已启动 pid=%s（WebView2, %s）" % (pr.pid, tag), flush=True)
+                pr = subprocess.Popen([str(host), page, str(w), str(h), udf,
+                                       title, str(int(x)), str(int(y))])
+                print("%s 窗口已启动 pid=%s（WebView2, %s）" % (title, pr.pid, tag), flush=True)
                 return pr
             except Exception as e:
                 print("启动 WebView2 宿主失败：%s，改用 Edge" % e, flush=True)
@@ -468,8 +478,12 @@ def main():
         （窗口标题停在 127.0.0.1_/、纯灰），第二个实例才正常 —— 所以外面
         会按“标题没变成灵弈小窗”重开，tag 只用于日志。"""
         try:
-            pr = subprocess.Popen([exe] + barg)
-            print("小窗浏览器已启动 pid=%s（%s）" % (pr.pid, tag), flush=True)
+            args2 = list(barg)
+            if page != url:
+                args2 = [a.replace("--app=" + url, "--app=" + page)
+                          .replace("--new-window=" + url, "--new-window=" + page) for a in args2]
+            pr = subprocess.Popen([exe] + args2)
+            print("%s 浏览器已启动 pid=%s（%s）" % (title, pr.pid, tag), flush=True)
             return pr
         except Exception as e:
             print("启动浏览器失败：%s" % e, flush=True)
@@ -482,7 +496,15 @@ def main():
             time.sleep(3600)
     if prof:
         kill_profile_browsers()
-    proc = spawn("默认 profile" if not prof else "独立 profile " + prof)
+    proc = spawn("默认 profile" if not prof else "独立 profile " + prof,
+                 x=int(max(0, sw - W - 30)), y=60)
+    proc_mon, mon_hwnd = None, None
+    if MON_ENABLE:
+        proc_mon = spawn("监控小窗", page=url + "web/monitor.html", w=MON_W, h=MON_H,
+                         title=MON_TITLE,
+                         x=int(max(0, sw - W - 30 - MON_W - MON_GAP)), y=60)
+    else:
+        print("LY_OVERLAY_NO_MONITOR=1：不开监控小窗", flush=True)
 
     ids = {}
     for i, (k, text) in enumerate(keys().items(), 1):
@@ -495,7 +517,7 @@ def main():
         "%s %s" % (v, KEY_CN.get(k, k)) for k, v in keys().items()), flush=True)
 
     hwnd, seen, gone = None, False, 0.0
-    last_find = last_pin = 0.0
+    last_find = last_pin = last_mon = 0.0
     msg = wt.MSG()
     bpid = proc.pid if proc is not None else None
     loaded_at = 0.0
@@ -547,6 +569,20 @@ def main():
                 print("小窗页面 40 秒未加载（标题=%r）；页面服务仍在 %s，"
                       "可在窗口里按 F5 或关掉重开本 bat"
                       % (title_of(h) if h else "", url), flush=True)
+
+        # 监控小窗：只负责按 pid 认窗口 + 置顶，不参与热键/隐藏逻辑
+        if proc_mon is not None and now - last_mon > 0.5:
+            last_mon = now
+            hm = find_window(proc_mon.pid)
+            if hm and hm != mon_hwnd:
+                mon_hwnd = hm
+            if mon_hwnd and user32.IsWindow(mon_hwnd):
+                try:
+                    pin(mon_hwnd)
+                except Exception:
+                    pass
+            elif proc_mon.poll() is not None:
+                proc_mon = None            # 用户把监控小窗关了，就不再管它
 
         if hwnd and now - last_pin > 0.25:
             last_pin = now
