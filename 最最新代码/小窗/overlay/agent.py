@@ -8,6 +8,7 @@
   （%LOCALAPPDATA%\\LingYiOverlay，可用 LY_SAM_STATE_DIR 改）
 客户端：添加智能体选 agent/overlay_ai.py，类名 Agent"""
 import asyncio
+import functools
 import json
 import logging
 import math
@@ -15,6 +16,7 @@ import os
 import sys
 import threading
 import time
+import traceback
 from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -33,6 +35,68 @@ zmqlock.install()           # 小窗指令在工作线程里下，跟平台 step
 log = logging.getLogger("灵弈小窗")
 log.setLevel(logging.INFO)
 HERE = Path(__file__).resolve().parent
+LOG_DIR = HERE / "logs"
+LOG_FILE = LOG_DIR / "agent.log"
+
+
+def _setup_file_log():
+    """把本模块的日志同时写进 overlay/logs/agent.log。
+
+    平台只收集它自己的 logger（command_delay.log 里全是 "Platform" 行），
+    我们这里的 logging.getLogger("灵弈小窗") 没挂 handler，消息会落到 stderr
+    被丢弃 —— 上一版「小窗异常但查不到任何日志」就是这么来的。
+    超过 2MB 轮转一份 agent.1.log（目标机 D: 空间紧张）。
+    """
+    if getattr(_setup_file_log, "done", False):
+        return str(LOG_FILE)
+    _setup_file_log.done = True
+    try:
+        LOG_DIR.mkdir(parents=True, exist_ok=True)
+        try:
+            if LOG_FILE.exists() and LOG_FILE.stat().st_size > 2 * 1024 * 1024:
+                os.replace(str(LOG_FILE), str(LOG_DIR / "agent.1.log"))
+        except Exception:
+            pass
+        h = logging.FileHandler(str(LOG_FILE), mode="a", encoding="utf-8")
+        h.setLevel(logging.INFO)
+        h.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
+        log.addHandler(h)
+        log.propagate = False
+    except Exception as e:                       # 日志本身不能把智能体拖死
+        log.warning("[灵弈小窗] 文件日志建不起来（%s），只输出到控制台", e)
+        return None
+    return str(LOG_FILE)
+
+
+_LOG_PATH = _setup_file_log()
+
+
+def _guard(label, default=None):
+    """异常不许把智能体进程打死：记满 traceback 到 agent.log，然后返回 default。"""
+    def deco(fn):
+        @functools.wraps(fn)
+        def call(self, *a, **k):
+            try:
+                return fn(self, *a, **k)
+            except Exception:
+                log.error("[灵弈小窗] %s 异常：\n%s", label, traceback.format_exc())
+                return default
+        return call
+    return deco
+
+
+def _banner(side, port):
+    """开局打一行环境信息，出问题时一眼看出是版本、路径还是端口的问题。"""
+    try:
+        import sys as _sys
+        log.info("[灵弈小窗] ==== 启动 ====")
+        log.info("[灵弈小窗] python %s | %s", _sys.version.split()[0], _sys.executable)
+        log.info("[灵弈小窗] cwd %s | log %s", os.getcwd(), _LOG_PATH)
+        for i, p in enumerate(_sys.path[:5]):
+            log.info("[灵弈小窗] sys.path[%d] %s", i, p)
+        log.info("[灵弈小窗] side=%s port=%s pid=%s", side, port, os.getpid())
+    except Exception:
+        pass
 PORT = int(os.environ.get("LY_OVERLAY_PORT", "8760"))
 DECISION_SEC = 5
 NET_RETRY = 3
@@ -256,8 +320,10 @@ class OverlayAgent(Player):
         except Exception:
             self.cts = getattr(self, "contacts", None) or self.cts
 
+    @_guard('initial')
     def initial(self, situation):
         self._take(situation)
+        _banner(self.side_cn, PORT)
         log.info(f"[灵弈小窗] 战前，指挥{self.side_cn}，小窗连 127.0.0.1:{PORT}")
         if OverlayServer.instance is None:
             self.server = OverlayServer(self, PORT)
@@ -268,6 +334,7 @@ class OverlayAgent(Player):
         self._build(0.0)
         return None
 
+    @_guard('step')
     def step(self, time_elapse, situation):
         self.now = float(time_elapse)
         self._take(situation)
@@ -288,7 +355,7 @@ class OverlayAgent(Player):
         return None
 
     def deduction_end(self):
-        log.info("[灵弈小窗] 推演结束")
+        log.info("[灵弈小窗] 推演结束（pid=%s）", os.getpid())
 
     # ------------------------------------------------------------------ 快照
     def _weapons(self, u):
@@ -396,6 +463,7 @@ class OverlayAgent(Player):
                          "mode": self.sam_modes.get(g) or info.get("mode") or _sam_default_mode(role)})
         return rows
 
+    @_guard('_sam_sync')
     def _sam_sync(self):
         """① 任务智能体在跑：采用它发布的模式（含它自动切回的机动）；
            ② 它不在：自己判有没有弹打过来，命中就切机动并直接下指令。"""
@@ -543,6 +611,7 @@ class OverlayAgent(Player):
             time.sleep(0.05 * (i + 1))
         return False, why
 
+    @_guard('execute', default={'ok': False, 'msg': '内部异常，见 overlay/logs/agent.log'})
     def execute(self, cmd):
         op = cmd.get("op")
         fn = getattr(self, f"op_{op}", None)
@@ -647,6 +716,7 @@ class OverlayAgent(Player):
             if not ok:
                 self._note(f"{getattr(u, 'Name', g)} 回任务 {st['mis']} 失败：{m}", False)
 
+    @_guard('_chase_tick')
     def _chase_tick(self):
         try:
             for g, st in list(self.chase.items()):
@@ -798,11 +868,22 @@ class OverlayServer:
         app.router.add_get("/", h_index)
         runner = web.AppRunner(app)
         self.loop.run_until_complete(runner.setup())
-        try:
-            self.loop.run_until_complete(web.TCPSite(runner, "127.0.0.1", self.port).start())
-        except OSError as e:
-            log.error(f"[灵弈小窗] 端口 {self.port} 打不开：{e}")
-            return
+        tries = 5
+        for attempt in range(1, tries + 1):
+            try:
+                self.loop.run_until_complete(
+                    web.TCPSite(runner, "127.0.0.1", self.port).start())
+                log.info("[灵弈小窗] WS 已监听 127.0.0.1:%d（第 %d 次尝试）", self.port, attempt)
+                break
+            except OSError as e:
+                log.error("[灵弈小窗] 端口 %d 打不开（第 %d/%d 次）：%s",
+                          self.port, attempt, tries, e)
+                if attempt >= tries:
+                    log.error("[灵弈小窗] 放弃监听：%d 被别的进程占着。"
+                              "查 netstat -ano ^| findstr :%d；换端口用 LY_OVERLAY_PORT，"
+                              "小窗页面要带 ?agent=127.0.0.1:^<新端口^>", self.port, self.port)
+                    return
+                time.sleep(2)
         self.loop.run_forever()
 
     def publish(self):

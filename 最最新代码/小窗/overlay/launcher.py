@@ -24,6 +24,54 @@ from aiohttp import web
 HERE = Path(__file__).resolve().parent
 WEB = HERE / "web"
 LOGS = HERE / "logs"
+LAUNCH_LOG = LOGS / "launcher.log"
+
+
+class _Tee:
+    """stdout/stderr 同时写进 overlay/logs/launcher.log。
+
+    双击 bat 起的窗口一关，控制台输出就没了 —— 上一版排查时这里什么都没有。
+    """
+    def __init__(self, *streams):
+        self.streams = streams
+
+    def write(self, s):
+        for st in self.streams:
+            try:
+                st.write(s)
+                st.flush()
+            except Exception:
+                pass
+        return len(s)
+
+    def flush(self):
+        for st in self.streams:
+            try:
+                st.flush()
+            except Exception:
+                pass
+
+    def isatty(self):
+        return False
+
+
+def setup_log():
+    """把 stdout/stderr 接一份到 logs/launcher.log（超过 2MB 覆盖重来）。"""
+    try:
+        LOGS.mkdir(parents=True, exist_ok=True)
+        try:
+            if LAUNCH_LOG.exists() and LAUNCH_LOG.stat().st_size > 2 * 1024 * 1024:
+                os.replace(str(LAUNCH_LOG), str(LOGS / "launcher.1.log"))
+        except Exception:
+            pass
+        f = open(str(LAUNCH_LOG), "a", encoding="utf-8", buffering=1)
+        f.write("\n==== %s launcher 启动 pid=%s ====\n"
+                % (time.strftime("%Y-%m-%d %H:%M:%S"), os.getpid()))
+        sys.stdout = _Tee(sys.__stdout__ or sys.stdout, f)
+        sys.stderr = _Tee(sys.__stderr__ or sys.stderr, f)
+        return f
+    except Exception:
+        return None
 PID_FILE = LOGS / "launcher.pid"
 PAGE_PORT = int(os.environ.get("LY_OVERLAY_PAGE_PORT", "8761"))
 TITLE = "灵弈小窗"
@@ -233,6 +281,8 @@ def bring_front(hwnd):
 
 
 def main():
+    setup_log()
+    print("launcher: HERE=%s PAGE_PORT=%s" % (HERE, PAGE_PORT))
     try:
         ctypes.windll.shcore.SetProcessDpiAwareness(2)
     except Exception:
@@ -312,4 +362,16 @@ def main():
 
 if __name__ == "__main__":
     if sys.platform == "win32":
-        main()
+        try:
+            main()
+            print("launcher: 正常退出（小窗关闭）")
+        except Exception:
+            import traceback
+            try:
+                LOGS.mkdir(parents=True, exist_ok=True)
+                with open(str(LAUNCH_LOG), "a", encoding="utf-8") as f:
+                    f.write("%s launcher 崩溃\n%s"
+                            % (time.strftime("%Y-%m-%d %H:%M:%S"), traceback.format_exc()))
+            except Exception:
+                pass
+            raise

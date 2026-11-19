@@ -122,11 +122,23 @@ AGENT_BUILD=2026-11-09-RED-21
 | `aiohttp 缺失` | ray210 不是这一版 | 换回标准安装，或从别的机器整包拷 `ray210` |
 | `entitys 导入失败` | `engine\LingYi\entitys` 不完整 | 用 `-WithEntitys` 覆盖，或检查该目录 |
 | 小窗打不开 / `[STOP] no bundled LingYi Python` | `灵弈小窗.bat` 找不到 ray210 | 设 `LY_PYTHON=<python.exe 全路径>` 再双击 |
-| 小窗开了但没数据 | `overlay_ai.py` 没导入 / 没启动 | 回到第 3 节第 5、7 步 |
+| 小窗开了但没数据 | `overlay_ai.py` 没导入 / 没启动 | 看 `overlay\logs\agent.log`；回到第 3 节第 5、7 步 |
+小窗窗口一闪就没了 / 页面拒绝连接 | launcher 挂了或 8761 没起来 | 看 `overlay\logs\launcher.log` |
+小窗连不上智能体（页面显示未连接） | 8760 没监听或被占用 | `overlay\logs\agent.log` 里搜“WS 已监听”/“放弃监听”；`netstat -ano \| findstr :8760` |
 | 防空值班按钮没反应 | 状态目录不可写 | `check_env.py` 第 ⑥ 项会报；用 `LY_SAM_STATE_DIR` 指到可写目录（两侧一致） |
 | 设了条令却没生效 | 10 秒窗口内指令超 500 条被丢 | 查日志里“指令条数超出数量限制” |
 
 回滚：覆盖过的文件旁边都有 `*.bak_<时间戳>`，改名回去即可。
+
+**小窗日志在哪**（上一版查不到问题就是因为没有日志，现已补上）：
+
+| 文件 | 谁写 | 看什么 |
+|---|---|---|
+| `<灵弈>\intelligent\ai\agent\overlay\logs\agent.log` | `overlay/agent.py`（跑在引擎进程里） | 启动横幅（python/路径/端口/side）、`initial`/`step`/`execute` 的异常 traceback、“WS 已监听”/“放弃监听” |
+| `...\overlay\logs\launcher.log` | `overlay/launcher.py` | 页面服务是否起来、找没找到 Edge、热键注册、崩溃 traceback |
+| `<灵弈>\intelligent\ai\config\overlay_ai#1\log\command_delay.log` | 平台 | 只有平台自己的行，**不含**小窗日志 |
+
+两个日志都超过 2 MB 会自动轮转成 `*.1.log`，不会把 D: 占满。
 
 ---
 
