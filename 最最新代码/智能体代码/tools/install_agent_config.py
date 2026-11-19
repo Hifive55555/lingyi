@@ -146,9 +146,13 @@ def main():
     ap = argparse.ArgumentParser(description="预置两套智能体配置（overlay+蓝 / overlay+红）")
     ap.add_argument("--root", default="", help="灵弈根目录（含 intelligent\\），默认自动找")
     ap.add_argument("--scenario", default="", help="只处理这一个想定 id（默认全部）")
-    ap.add_argument("--relative", action="store_true", help="filePath 写相对路径（默认绝对）")
+    ap.add_argument("--relative", action="store_true",
+                    help="filePath 写相对路径（不要用：客户端拿 dirname(filePath) 当 agent_path，"
+                         "相对路径会让它退回默认 ai/agent，import 会 ModuleNotFoundError）")
     ap.add_argument("--dry-run", action="store_true", help="只打印，不落盘")
     ap.add_argument("--check", action="store_true", help="只打印发现到的想定/阵营")
+    ap.add_argument("--export", default="",
+                    help="额外导出两份可直接「导入智能体配置文件」的 json 到该目录")
     args = ap.parse_args()
 
     if args.root:
@@ -186,6 +190,7 @@ def main():
         data[scen] = {}
 
     changed = 0
+    exported = {}
     for scenario in list(data.keys()):
         if args.scenario and scenario != args.scenario:
             continue
@@ -228,6 +233,7 @@ def main():
                   "可在客户端里给缺的那一方随便加一个智能体（会生成阵营键），再跑一次本脚本。")
             continue
 
+        exported[scenario] = {}
         for sid, modules, label in ((blue, [OVERLAY_MODULE, BLUE_MODULE], "蓝方"),
                                     (red, [OVERLAY_MODULE, RED_MODULE], "红方")):
             scfg = sides.setdefault(sid, {})
@@ -235,6 +241,7 @@ def main():
                 scfg = {}
                 sides[sid] = scfg
             added = ensure_agents(scfg, intelligent, modules, args.relative)
+            exported[scenario][label] = (sid, json.loads(json.dumps(scfg)))   # 合并后的快照
             if added:
                 changed += len(added)
                 print("  %s：新增 %s" % (label, ", ".join(added)))
@@ -243,6 +250,19 @@ def main():
 
     if args.check:
         return 0
+    if args.export:
+        outdir = args.export
+        if not os.path.isdir(outdir):
+            os.makedirs(outdir)
+        for scenario, sides in exported.items():
+            for label, (sid, scfg) in sides.items():
+                payload = {scenario: {sid: scfg}}
+                fn = os.path.join(outdir, "智能体配置-%s.json" % label)
+                with open(fn, "wb") as f:
+                    f.write(json.dumps(payload, ensure_ascii=False, indent=4).encode("utf-8"))
+                print("[导出] %s  ->  %s（%d 个智能体）" % (label, fn, len(scfg)))
+        print("        客户端里：智能体调度 → 智能体编辑 → 导入智能体配置文件，选这两个 json")
+
     if not changed:
         print("\n没有要改的（两套配置都已在）。")
         return 0

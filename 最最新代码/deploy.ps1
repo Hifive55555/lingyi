@@ -220,7 +220,12 @@ if ($SkipAgentConfig) {
     $cfgpy = Join-Path $Tools 'install_agent_config.py'
     Say 'INFO' '--- ⑧ 预置智能体配置（overlay+蓝 / overlay+红）---'
     if (Test-Path $cfgpy) {
-        & $py '-X' 'utf8' $cfgpy '--root' $LY
+        # ① 直接合并进 agentConfig.json（装完不用选就能用）
+        # ② 另存两份 json 到 config\，客户端里可用「导入智能体配置文件」手动导入
+        $cfgOut = Join-Path $LYInt 'config'
+        # 注意：绝对不要加 --relative —— 客户端用 dirname(filePath) 当 agent_path 写 sys.path，
+        # 相对路径会让它退回 ai\agent，import 时 ModuleNotFoundError。
+        & $py '-X' 'utf8' $cfgpy '--root' $LY '--export' $cfgOut
         if ($LASTEXITCODE -ne 0) {
             Say 'WARN' '配置预置没成功（不影响智能体本身）；按上面提示在客户端里手动加一次即可'
         }
