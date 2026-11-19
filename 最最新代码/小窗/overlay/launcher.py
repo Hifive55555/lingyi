@@ -340,9 +340,19 @@ def main():
                 "--disable-gpu", "--disable-gpu-compositing",
                 "--disable-features=CalculateNativeWinOcclusion,RendererCodeIntegrity",
                 "--disable-background-timer-throttling", "--disable-renderer-backgrounding",
-                "--disable-backgrounding-occluded-windows"]
-        proc = subprocess.Popen(args)
-        print("小窗浏览器已启动 pid=%s（--app, disable-gpu）" % proc.pid, flush=True)
+                "--disable-backgrounding-occluded-windows",
+                # 本机回环一律直连，绕开任何系统代理/加速器
+                "--no-proxy-server", "--proxy-bypass-list=<-loopback>",
+                # 把 Chromium 自己的日志接到 logs/browser.out，页面加载失败才看得见原因
+                "--enable-logging=stderr", "--v=0"]
+        try:
+            BROW_OUT = open(str(LOGS / "browser.out"), "w", encoding="utf-8", errors="replace")
+        except Exception:
+            BROW_OUT = subprocess.DEVNULL
+        print("小窗浏览器URL %s" % url, flush=True)
+        proc = subprocess.Popen(args, stdout=BROW_OUT, stderr=subprocess.STDOUT)
+        print("小窗浏览器已启动 pid=%s（--app, disable-gpu, no-proxy, 日志 logs/browser.out）"
+              % proc.pid, flush=True)
     else:
         import webbrowser
         webbrowser.open(url)
@@ -404,7 +414,7 @@ def main():
                     pass
                 try:
                     if exe:
-                        proc = subprocess.Popen(args)
+                        proc = subprocess.Popen(args, stdout=BROW_OUT, stderr=subprocess.STDOUT)
                         bpid = proc.pid
                         print("小窗浏览器已重启 pid=%s" % bpid, flush=True)
                 except Exception as e:
