@@ -77,6 +77,15 @@ PID_FILE = LOGS / "launcher.pid"
 PAGE_PORT = int(os.environ.get("LY_OVERLAY_PAGE_PORT", "8761"))
 TITLE = "灵弈小窗"
 W, H = 480, 860
+# 小窗专用浏览器 profile：默认放 %LOCALAPPDATA%\LingYiOverlay\browser
+#   - 放 C 盘：目标机 D 只剩几百 MB
+#   - 独立目录：不跟用户日常 Edge 抢单例，也便于出问题时整个删掉重来
+PROFILE = Path(os.environ.get("LY_OVERLAY_PROFILE")
+               or (Path(os.environ.get("LOCALAPPDATA") or str(LOGS))
+                   / "LingYiOverlay" / "browser"))
+# 开窗方式：1=Edge --app（无地址栏，但这台机器上 network service 会崩）；
+#           0=普通窗口（带地址栏，用户实测能正常显示）
+APP_MODE = (os.environ.get("LY_OVERLAY_APP") or "0") not in ("0", "", "no", "false")
 DEFAULT_KEYS = {"weapon": "Alt+Q", "thralt": "Alt+W", "sam": "Alt+E"}
 KEY_CN = {"weapon": "武器分配", "thralt": "油门高度", "sam": "防空值班"}
 KEY = {"n": 0, "k": ""}             # 热键按了几次 / 最后按的哪个（页面轮询 /key）
@@ -198,6 +207,30 @@ def kill_old():
         pass
     LOGS.mkdir(parents=True, exist_ok=True)
     PID_FILE.write_text(str(os.getpid()))
+
+
+def kill_profile_browsers():
+    """杀掉正用我们 profile 的 msedge。
+
+    Chromium 是单例：同 --user-data-dir 再启一次会“交接”给已有实例然后自己退出。
+    之前那个已经崩成灰屏的实例还活着，于是每次双击 bat 都是「等很久 + 还是灰」。
+    """
+    try:
+        import subprocess as _sp
+        ps = ("Get-CimInstance Win32_Process -Filter \"Name='msedge.exe'\" | "
+              "Where-Object { $_.CommandLine -like '*%s*' } | "
+              "ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }"
+              % str(PROFILE))
+        _sp.run(["powershell", "-NoProfile", "-Command", ps],
+                stdout=_sp.DEVNULL, stderr=_sp.DEVNULL, timeout=15)
+        time.sleep(0.6)
+    except Exception as e:
+        print("清理旧浏览器失败：%s" % e, flush=True)
+    for name in ("lockfile", "SingletonLock", "SingletonCookie", "SingletonSocket"):
+        try:
+            (PROFILE / name).unlink()
+        except Exception:
+            pass
 
 
 def find_browser():
@@ -334,9 +367,16 @@ def main():
         sw = user32.GetSystemMetrics(0) / scale
         # --disable-gpu：这台机器上 Edge 的 GPU/渲染进程崩过一次（Crashpad 有 7MB dmp），
         # 崩完窗口就是灰的。纯 2D 小窗用软件渲染足够，稳字优先。
-        args = [exe, f"--app={url}", f"--window-size={W},{H}",
+        window_arg = f"--app={url}" if APP_MODE else f"--new-window={url}"
+        try:
+            PROFILE.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
+        kill_profile_browsers()
+        ww, wh = (W, H) if APP_MODE else (W + 16, H + 40)
+        args = [exe, window_arg, f"--window-size={ww},{wh}",
                 f"--window-position={int(max(0, sw - W - 30))},60",
-                f"--user-data-dir={LOGS / 'browser'}", "--no-first-run", "--no-default-browser-check",
+                f"--user-data-dir={PROFILE}", "--no-first-run", "--no-default-browser-check",
                 "--disable-gpu", "--disable-gpu-compositing",
                 "--disable-features=CalculateNativeWinOcclusion,RendererCodeIntegrity",
                 "--disable-background-timer-throttling", "--disable-renderer-backgrounding",
@@ -351,8 +391,8 @@ def main():
             BROW_OUT = subprocess.DEVNULL
         print("小窗浏览器URL %s" % url, flush=True)
         proc = subprocess.Popen(args, stdout=BROW_OUT, stderr=subprocess.STDOUT)
-        print("小窗浏览器已启动 pid=%s（--app, disable-gpu, no-proxy, 日志 logs/browser.out）"
-              % proc.pid, flush=True)
+        print("小窗浏览器已启动 pid=%s（%s, profile=%s, 日志 logs/browser.out）"
+              % (proc.pid, "--app" if APP_MODE else "普通窗口", PROFILE), flush=True)
     else:
         import webbrowser
         webbrowser.open(url)
