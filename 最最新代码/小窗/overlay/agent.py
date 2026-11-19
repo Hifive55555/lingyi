@@ -21,21 +21,53 @@ from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+HERE = Path(__file__).resolve().parent
+LOG_DIR = HERE / "logs"
+
+
+def _boot(tag, extra=""):
+    """重依赖之前先用裸文件写一行：平台不捕获 import 异常，stdout 又被隐藏，
+    只有这样才能知道进程死在 aiohttp 还是 engine.LingYi 还是 zmqlock。"""
+    try:
+        LOG_DIR.mkdir(parents=True, exist_ok=True)
+        with open(str(LOG_DIR / "boot.log"), "a", encoding="utf-8") as f:
+            f.write("%s [%-30s] pid=%s %s\n" % (
+                time.strftime("%Y-%m-%d %H:%M:%S"), tag, os.getpid(), extra))
+    except Exception:
+        pass
+
+
+_boot("agent.py: import start")
 _AI_DIR = str(Path(__file__).resolve().parents[2])
 if _AI_DIR not in sys.path:
     sys.path.insert(0, _AI_DIR)
+_boot("ai_dir 就绪", _AI_DIR)
 
-from aiohttp import web, WSMsgType  # noqa: E402
-from engine.LingYi.entitys.player import Player  # noqa: E402
-from engine.LingYi.entitys.global_util import Throttle, AirValidStatus, ContactType, WeaponControlStatus  # noqa: E402
-from . import zmqlock  # noqa: E402
+try:
+    from aiohttp import web, WSMsgType  # noqa: E402
+    _boot("import aiohttp 成功")
+except BaseException:  # noqa: BLE001
+    _boot("import aiohttp 失败", "\n" + traceback.format_exc())
+    raise
 
-zmqlock.install()           # 小窗指令在工作线程里下，跟平台 step 线程共用一个 zmq 口，排队收发
+try:
+    from engine.LingYi.entitys.player import Player  # noqa: E402
+    from engine.LingYi.entitys.global_util import Throttle, AirValidStatus, ContactType, WeaponControlStatus  # noqa: E402
+    _boot("import engine.LingYi.entitys 成功")
+except BaseException:  # noqa: BLE001
+    _boot("import engine.LingYi.entitys 失败", "\n" + traceback.format_exc())
+    raise
+
+try:
+    from . import zmqlock  # noqa: E402
+    zmqlock.install()           # 小窗指令在工作线程里下，跟平台 step 线程共用一个 zmq 口，排队收发
+    _boot("zmqlock 安装完成")
+except BaseException:  # noqa: BLE001
+    _boot("zmqlock 安装失败", "\n" + traceback.format_exc())
+    raise
 
 log = logging.getLogger("灵弈小窗")
 log.setLevel(logging.INFO)
-HERE = Path(__file__).resolve().parent
-LOG_DIR = HERE / "logs"
 LOG_FILE = LOG_DIR / "agent.log"
 
 
@@ -62,6 +94,7 @@ def _setup_file_log():
         h.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
         log.addHandler(h)
         log.propagate = False
+        log.info("[灵弈小窗] 文件日志就绪 %s", LOG_FILE)
     except Exception as e:                       # 日志本身不能把智能体拖死
         log.warning("[灵弈小窗] 文件日志建不起来（%s），只输出到控制台", e)
         return None
