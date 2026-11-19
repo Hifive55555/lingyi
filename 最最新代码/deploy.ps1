@@ -153,8 +153,23 @@ if (Test-Path $web) {
     }
 }
 
+Say 'INFO' '--- ⑤ 小窗宿主 WebView2 -> ai\agent\overlay\wv2\ ---'
+$wv2src = Join-Path $OvPkg 'wv2'
+if (Test-Path $wv2src) {
+    foreach ($f in @('overlay_wv2.exe', 'host.cs', 'Microsoft.Web.WebView2.Core.dll',
+                     'Microsoft.Web.WebView2.WinForms.dll', 'WebView2Loader.dll', '构建说明.md')) {
+        $p = Join-Path $wv2src $f
+        if (Test-Path $p) { Copy-One $p (Join-Path $Agent 'overlay\wv2') 'wv2' }
+    }
+    if (-not (Test-Path (Join-Path $wv2src 'overlay_wv2.exe'))) {
+        Say 'WARN' 'wv2 里缺少 overlay_wv2.exe，小窗会退回 msedge --app（在这台机上会灰屏）'
+    }
+} else {
+    Say 'WARN' ('包里没有 wv2 目录：' + $wv2src + '（小窗将退回 msedge --app）')
+}
+
 if ($WithEntitys) {
-    Say 'INFO' '--- ⑤ 平台库 entitys ---'
+    Say 'INFO' '--- ⑥ 平台库 entitys ---'
     $srcEnt = Join-Path $AgentsDir 'entitys'
     $dstEnt = Join-Path $EngDir 'entitys'
     if (-not (Test-Path $srcEnt)) {
@@ -180,7 +195,7 @@ if ($DryRun) {
 # ---------------- 4. 环境自检 ----------------
 $py    = Join-Path $LY 'intelligent\new_env\ray210\python.exe'
 $check = Join-Path $Tools 'check_env.py'
-Say 'INFO' '--- ⑥ 环境自检 check_env.py ---'
+Say 'INFO' '--- ⑦ 环境自检 check_env.py ---'
 if ($SkipCheck) {
     Say 'SKIP' '按 -SkipCheck 跳过自检（正式部署不要跳过）'
 } elseif (Test-Path $check) {

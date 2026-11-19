@@ -151,7 +151,7 @@ AGENT_BUILD=2026-11-09-RED-21
 | `智能体代码\BattlefieldMonitor.py`<br>`SamBattalionDefense.py`<br>`ShipClusterDefense.py` | `<灵弈>\intelligent\ai\engine\LingYi\` | 三个战术模块（被 `Mission_all_blue_hh.py` 按 `engine.LingYi.X` 导入） |
 | `智能体代码\tools\` | `<灵弈>\intelligent\ai\engine\LingYi\tools\` | `check_env.py`（环境门禁）、两个 `selftest_*`、三个 `check_*`、`read_agent_log.py`，说明见其中 README |
 | `小窗\overlay_ai.py` | `<灵弈>\intelligent\ai\agent\` | 客户端「添加智能体」选它，类名 `Agent` |
-| `小窗\overlay\` | `<灵弈>\intelligent\ai\agent\overlay\` | `agent.py`、`launcher.py`、`web\`、`灵弈小窗.bat`、`weapons.json` |
+| `小窗\overlay\` | `<灵弈>\intelligent\ai\agent\overlay\` | `agent.py`、`launcher.py`、`web\`、`wv2\`、`灵弈小窗.bat`、`weapons.json` |
 | `智能体代码\entitys\` | 默认不部署 | 平台接口库（cp39 .pyd + `model.db`）；需要时 `-WithEntitys` |
 
 `tools` 里每个脚本什么时候跑，见 `智能体代码\tools\README.md`。
