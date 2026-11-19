@@ -10,9 +10,44 @@ using Microsoft.Web.WebView2.WinForms;
 /// 就能用系统原生的拖拽缩放（和无边框窗口唯一能做到“跟普通窗口一样”的办法）。
 class OverlayForm : Form
 {
+    internal bool Suspended;            // 拖边框过程中冻结布局，免得 WebView2 每帧重排（会闪）
+    internal EventHandler OnResizeDone;  // 松手后用这个补一次重排（Resize 在拖拽期间被跳过）
+
+    protected override CreateParams CreateParams
+    {
+        get
+        {
+            var cp = base.CreateParams;
+            // FormBorderStyle.None 的窗口**没有** WS_THICKFRAME，这时即便 WM_NCHITTEST
+            // 返回 HTLEFT/HTBOTTOM，DefWindowProc 也只是返回、不会开始缩放 —— 表现就是
+            // “鼠标变形状了但拖不动”，或者根本没反应。补上这两位才有原生缩放：
+            cp.Style |= 0x00040000;      // WS_THICKFRAME（可缩放）
+            cp.Style |= 0x00020000;      // WS_MINIMIZEBOX（任务栏/最小化按钮正常）
+            cp.Style &= ~0x00C00000;     // 去掉 WS_CAPTION（保留自绘标题栏）
+            return cp;
+        }
+    }
+
+    [DllImport("dwmapi.dll")] internal static extern int DwmSetWindowAttribute(IntPtr h, int attr, ref int val, int size);
+
     protected override void WndProc(ref Message m)
     {
+        const int WM_NCCALCSIZE = 0x0083;
+        if (m.Msg == WM_NCCALCSIZE && m.WParam != IntPtr.Zero)
+        {
+            // 客户区 = 整个窗口：WS_THICKFRAME 负责缩放，但不要它那圈系统边框
+            // （否则 Win11 会在窗口最上面画一条 3~4px 的白色/浅色框）
+            m.Result = IntPtr.Zero;
+            return;
+        }
         base.WndProc(ref m);
+        const int WM_ENTERSIZEMOVE = 0x0231, WM_EXITSIZEMOVE = 0x0232;
+        if (m.Msg == WM_ENTERSIZEMOVE) Suspended = true;
+        if (m.Msg == WM_EXITSIZEMOVE)
+        {
+            Suspended = false;
+            if (OnResizeDone != null) OnResizeDone(this, EventArgs.Empty);
+        }
         if (m.Msg == OverlayHost.WM_NCHITTEST)
         {
             long lp = m.LParam.ToInt64();
@@ -56,19 +91,24 @@ class OverlayHost
     const int BAND = 6;                 // 可拖拽的边框宽度（页面四周留出的手感区）
 
     // HT* 命中测试返回值
-    internal const int HTCLIENT = 1, HTLEFT = 10, HTRIGHT = 11, HTTOP = 12, HTBOTTOM = 13,
-              HTTOPLEFT = 13 + 3, HTTOPRIGHT = 14 + 3, HTBOTTOMLEFT = 16, HTBOTTOMRIGHT = 17;
+    // 严格按 winuser.h：HTLEFT 10 / HTRIGHT 11 / HTTOP 12 / HTTOPLEFT 13 /
+    // HTTOPRIGHT 14 / HTBOTTOM 15 / HTBOTTOMLEFT 16 / HTBOTTOMRIGHT 17
+    internal const int HTCLIENT = 1, HTLEFT = 10, HTRIGHT = 11, HTTOP = 12, HTBOTTOM = 15,
+              HTTOPLEFT = 13, HTTOPRIGHT = 14, HTBOTTOMLEFT = 16, HTBOTTOMRIGHT = 17;
 
     /// 根据“客户区内坐标”判断该点是不是可缩放边框，返回 HT* 或 HTCLIENT。
     internal static int BorderHit(Size client, Point p, bool topEdge)
     {
+        const int CORNER = 12;          // 角上给宽一点，不然右下角很难精准命中
         bool left = p.X < BAND, right = p.X >= client.Width - BAND,
              bottom = p.Y >= client.Height - BAND,
              top = topEdge && p.Y < BAND;
-        if (top && left) return 19;      // HTTOPLEFT
-        if (top && right) return 20;     // HTTOPRIGHT
-        if (bottom && left) return 16;   // HTBOTTOMLEFT
-        if (bottom && right) return 17;  // HTBOTTOMRIGHT
+        bool cLeft = p.X < CORNER, cRight = p.X >= client.Width - CORNER,
+             cBottom = p.Y >= client.Height - CORNER, cTop = topEdge && p.Y < CORNER;
+        if (cTop && cLeft) return HTTOPLEFT;
+        if (cTop && cRight) return HTTOPRIGHT;
+        if (cBottom && cLeft) return HTBOTTOMLEFT;
+        if (cBottom && cRight) return HTBOTTOMRIGHT;
         if (top) return HTTOP;
         if (bottom) return HTBOTTOM;
         if (left) return HTLEFT;
@@ -203,6 +243,7 @@ class OverlayHost
         f.Controls.Add(bar);
         EventHandler layout = (s2, e2) =>
         {
+            if (f.Suspended) return;        // 正拖边框：先不动，松手后统一重排
             int w2 = f.ClientSize.Width, h2 = f.ClientSize.Height;
             bar.SetBounds(0, 0, w2, BAR_H);
             // 左右下各留 BAND 宽的一条给窗体自己（鼠标落在上面才能拿到 WM_NCHITTEST，
@@ -210,6 +251,16 @@ class OverlayHost
             host.SetBounds(BAND, BAR_H, Math.Max(40, w2 - 2 * BAND), Math.Max(40, h2 - BAR_H - BAND));
         };
         f.Resize += layout;
+        f.OnResizeDone = layout;
+        f.HandleCreated += (s2, e2) =>
+        {
+            try
+            {
+                int col = 0x1D1814;              // = Bg(20,24,29) 的 BGR
+                OverlayForm.DwmSetWindowAttribute(f.Handle, 34, ref col, 4);   // DWMWA_BORDER_COLOR
+            }
+            catch { }
+        };
 
         f.Shown += async (s, e) =>
         {
