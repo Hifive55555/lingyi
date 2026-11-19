@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
+r"""
 往灵弈的「智能体编辑」配置里预置两套配置，省得在客户端里一个个点「＋」。
 
 配置文件：<灵弈>\\intelligent\\config\\agentConfig.json
@@ -112,8 +112,28 @@ def newest_scenario(intelligent):
 
 
 # ---------------------------------------------------------------- 配置读写
+def resolve_module(intelligent, module):
+    """模块名 -> 真实存在的绝对路径。
+
+    不同智能体装在不同目录，且客户端是拿 dirname(filePath) 当 agent_path 用的：
+        统一布局：Mission_all_red.py / Mission_all_blue_hh.py / overlay_ai.py
+              都在 <灵弈>\intelligent\ai\agent\
+    （老版本分别放在 intelligent\ 和 intelligent\ai\agent\，这里按实际存在兼容两种）
+    所以这里按“实际存在”来定，不能一律拼 intelligent\<module>。
+    """
+    cands = [
+        os.path.join(intelligent, module),                 # intelligent\xxx.py
+        os.path.join(intelligent, "ai", "agent", module),   # intelligent\ai\agent\xxx.py（overlay_ai 在这）
+        os.path.join(intelligent, "ai", module),
+    ]
+    for c in cands:
+        if os.path.isfile(c):
+            return c.replace("\\", "/")
+    return os.path.join(intelligent, module).replace("\\", "/")
+
+
 def agent_entry(intelligent, module, relative):
-    path = module if relative else os.path.join(intelligent, module).replace("\\", "/")
+    path = module if relative else resolve_module(intelligent, module)
     return {"Contact": {}, "RefPoint": {}, "filePath": path,
             "id": str(uuid.uuid4()), "unit": {}}
 
@@ -130,7 +150,16 @@ def ensure_agents(side_cfg, intelligent, modules, relative):
     """把 modules 里缺的智能体补进这一方；返回补了哪些（已存在的不动）"""
     added = []
     for module in modules:
-        if side_has(side_cfg, module):
+        exist = side_has(side_cfg, module)
+        if exist:
+            # 路径可能写错（例如 overlay_ai.py 被指到 intelligent\ 下，实际在 ai\agent\）：
+            # 只要文件不存在，就按真实位置修一遍。
+            fp = str((side_cfg.get(exist) or {}).get('filePath') or '')
+            real = os.path.isfile(fp.replace('/', os.sep))
+            if not real:
+                want = module if relative else resolve_module(intelligent, module)
+                side_cfg[exist]['filePath'] = want
+                added.append(exist + '(修路径)')
             continue
         base = os.path.splitext(module)[0]
         name, n = base + "#1", 1

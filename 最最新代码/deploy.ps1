@@ -118,9 +118,13 @@ function Copy-One($from, $toDir, $label) {
     Say 'CP' ('{0,-10} {1}' -f $label, $to)
 }
 
-Say 'INFO' '--- ① 主智能体 -> <灵弈>\intelligent\ ---'
+Say 'INFO' '--- ① 主智能体 -> <灵弈>\intelligent\ai\agent\ ---'
+# 统一布局：所有智能体入口（Mission_all_red.py / Mission_all_blue_hh.py / overlay_ai.py）
+# 都放 ai\agent\。平台跑智能体时本来就会把 intelligent\ai 和 intelligent\ai\agent
+# 都加进 sys.path（见 ai\config\<agent>\log 旁边的 boot 记录），所以
+# `from engine.LingYi.xxx import ...` 这条引用照旧成立，不需要改智能体代码。
 Get-ChildItem $AgentsDir -Filter 'Mission_all_*.py' -File | Sort-Object Name | ForEach-Object {
-    Copy-One $_.FullName $LYInt 'agent'
+    Copy-One $_.FullName $Agent 'agent'
 }
 
 Say 'INFO' '--- ② 战术模块 / 任务表 -> ai\engine\LingYi\ ---'

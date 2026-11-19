@@ -18,6 +18,27 @@
 `灵弈小窗` / `小窗截图`。卸载只删自己放进 `_pkg` 的副本，灵弈本体和日志不动。
 细节与常见报错见 `installer/README.md`。
 
+## 目录约定（统一布局）
+
+所有**智能体入口**都在 `<灵弈>\intelligent\ai\agent\`：
+
+```
+<灵弈>\intelligent\ai\agent\
+    Mission_all_red.py        红方主智能体
+    Mission_all_blue_hh.py    蓝方主智能体
+    overlay_ai.py             灵弈小窗（含被攻击监控）
+    overlay\                  小窗包（agent.py / launcher.py / monitor*.py / web\ / wv2\）
+<灵弈>\intelligent\ai\engine\LingYi\
+    BattlefieldMonitor.py  SamBattalionDefense.py  ShipClusterDefense.py  三个战术模块
+    红方/蓝方人人任务列表.xlsx、*总任务.txt、战术智能体说明.md
+    tools\                    自检与配置脚本（check_env.py、install_agent_config.py…）
+<灵弈>\intelligent\config\agentConfig.json   客户端「智能体编辑」配置（想定→阵营→智能体）
+```
+
+为什么入口必须放 `ai\agent\`：平台跑智能体时把 `intelligent\ai` 和 `intelligent\ai\agent`
+都加进 `sys.path`，而 `agent_path` 取的是 **`dirname(filePath)`**；入口模块放在别的层
+会导致 `ModuleNotFoundError`，或者导入不到 `engine.LingYi.*`。
+
 ## 打包（发到比赛机之前）
 
 在**本目录**下：

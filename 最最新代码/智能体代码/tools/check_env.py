@@ -187,6 +187,15 @@ def main(argv=None):
         print('     ' + out.replace('\n', '\n     '))
         bad += 1
 
+    # ⑤ 智能体入口是否就位（统一布局：三个入口都在 ai\agent\）
+    agentdir = os.path.join(ai, 'agent')
+    for f in ('Mission_all_red.py', 'Mission_all_blue_hh.py', 'overlay_ai.py'):
+        p2 = os.path.join(agentdir, f)
+        say(OK if os.path.exists(p2) else WARN,
+            '⑤ 智能体入口 %s %s' % ('在' if os.path.exists(p2) else '缺', p2))
+        if not os.path.exists(p2):
+            fails.append('智能体入口 %s 不在 ai\\agent\\（客户端 agent_path 就指这里）' % f)
+
     # ⑤ 小窗文件是否就位
     overlay = os.path.join(ai, 'agent', 'overlay')
     # wv2\overlay_wv2.exe 单独列一项：缺了 launcher 会退回 msedge --app，
