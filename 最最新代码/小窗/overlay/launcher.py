@@ -17,6 +17,7 @@ import subprocess
 import sys
 import threading
 import time
+import traceback
 from pathlib import Path
 
 from aiohttp import web
@@ -166,7 +167,23 @@ def serve():
     runner = web.AppRunner(app)
     loop.run_until_complete(runner.setup())
     loop.run_until_complete(web.TCPSite(runner, "127.0.0.1", PAGE_PORT).start())
-    loop.run_forever()
+    print("页面服务已监听 127.0.0.1:%s" % PAGE_PORT, flush=True)
+    try:
+        loop.run_forever()
+    except Exception:
+        print("页面服务异常退出：\n%s" % traceback.format_exc(), flush=True)
+        raise
+
+
+def serve_forever():
+    """页面服务挂了就重启 —— 一挂了 8761 没人应答，小窗窗口立刻变灰。"""
+    while True:
+        try:
+            serve()
+            return
+        except Exception:
+            print("页面服务重启中：\n%s" % traceback.format_exc(), flush=True)
+            time.sleep(1)
 
 
 # ---------------------------------------------------------------------- 窗口
@@ -198,20 +215,38 @@ def title_of(hwnd):
     return buf.value
 
 
-def find_windows():
+user32.GetWindowThreadProcessId.argtypes = [wt.HWND, ctypes.POINTER(wt.DWORD)]
+
+
+def find_windows(pid=None):
+    """找小窗窗口。
+
+    优先按**我们 spawn 的浏览器进程 PID**认（--app 窗口归属主进程），
+    标题只作兜底：页面没渲染出来时标题是 "127.0.0.1:8761" 而不是
+    "灵弈小窗"，只靠标题会一直找不到 —— 上一版就是这样：窗口明明开着，
+    launcher 干等 60 秒后自己退出，8761 一关，窗口就变成灰屏。
+    """
     found = []
 
     @ctypes.WINFUNCTYPE(wt.BOOL, wt.HWND, wt.LPARAM)
     def cb(hwnd, _):
-        if user32.IsWindowVisible(hwnd) and TITLE in title_of(hwnd):
+        if not user32.IsWindowVisible(hwnd):
+            return True
+        if pid:
+            p = wt.DWORD(0)
+            user32.GetWindowThreadProcessId(hwnd, ctypes.byref(p))
+            if p.value == pid:
+                found.append(hwnd)
+                return True
+        if TITLE in title_of(hwnd):
             found.append(hwnd)
         return True
     user32.EnumWindows(cb, 0)
     return found
 
 
-def find_window():
-    found = find_windows()
+def find_window(pid=None):
+    found = find_windows(pid)
     return found[0] if found else None
 
 
@@ -289,17 +324,25 @@ def main():
         pass
     kill_old()
     close_old()
-    threading.Thread(target=serve, daemon=True).start()
+    threading.Thread(target=serve_forever, daemon=True, name="page-server").start()
     time.sleep(0.5)
     url = f"http://127.0.0.1:{PAGE_PORT}/"
     exe = find_browser()
+    proc = None
     if exe:
         scale = user32.GetDpiForSystem() / 96 if hasattr(user32, "GetDpiForSystem") else 1.0
         sw = user32.GetSystemMetrics(0) / scale
-        subprocess.Popen([exe, f"--app={url}", f"--window-size={W},{H}", f"--window-position={int(max(0, sw - W - 30))},60",
-                          f"--user-data-dir={LOGS / 'browser'}", "--no-first-run", "--no-default-browser-check",
-                          "--disable-background-timer-throttling", "--disable-renderer-backgrounding",
-                          "--disable-backgrounding-occluded-windows"])
+        # --disable-gpu：这台机器上 Edge 的 GPU/渲染进程崩过一次（Crashpad 有 7MB dmp），
+        # 崩完窗口就是灰的。纯 2D 小窗用软件渲染足够，稳字优先。
+        args = [exe, f"--app={url}", f"--window-size={W},{H}",
+                f"--window-position={int(max(0, sw - W - 30))},60",
+                f"--user-data-dir={LOGS / 'browser'}", "--no-first-run", "--no-default-browser-check",
+                "--disable-gpu", "--disable-gpu-compositing",
+                "--disable-features=CalculateNativeWinOcclusion,RendererCodeIntegrity",
+                "--disable-background-timer-throttling", "--disable-renderer-backgrounding",
+                "--disable-backgrounding-occluded-windows"]
+        proc = subprocess.Popen(args)
+        print("小窗浏览器已启动 pid=%s（--app, disable-gpu）" % proc.pid, flush=True)
     else:
         import webbrowser
         webbrowser.open(url)
@@ -315,6 +358,8 @@ def main():
     hwnd, seen, gone, last_find, last_pin = None, False, 0.0, 0.0, 0.0
     msg = wt.MSG()
     t0 = time.time()
+    bpid = proc.pid if proc is not None else None
+    relaunch = 0
     while True:
         while user32.PeekMessageW(ctypes.byref(msg), None, 0, 0, 1):
             if msg.message == WM_HOTKEY and msg.wParam in ids:
@@ -335,7 +380,7 @@ def main():
             continue
         if now - last_find > 1.0:
             last_find = now
-            h = find_window()
+            h = find_window(bpid)           # 先按浏览器 PID 认，标题只兜底
             if h:
                 if h != hwnd:
                     pin(h)
@@ -344,10 +389,35 @@ def main():
             elif seen:
                 hwnd = STATE["hwnd"] = None
                 gone = gone or now
-                if now - gone > 4:          # 小窗关了
-                    break
-            elif now - t0 > 60:             # 一直没开出来
-                break
+                if now - gone > 4 and (proc is None or proc.poll() is not None):
+                    break                   # 窗口没了且浏览器也退了：真关了
+            elif bpid and proc is not None and proc.poll() is not None:
+                break                       # 浏览器进程都没了，收工
+            elif now - t0 > 25 and relaunch < 2:
+                # 窗口一直没出来（渲染崩了/页面没加载）：重开一次，别干等 60 秒然后自己退
+                relaunch += 1
+                print("小窗窗口 %ds 没找到，重开浏览器（第 %d 次）" % (int(now - t0), relaunch), flush=True)
+                try:
+                    if proc is not None:
+                        proc.kill()
+                except Exception:
+                    pass
+                try:
+                    if exe:
+                        proc = subprocess.Popen(args)
+                        bpid = proc.pid
+                        print("小窗浏览器已重启 pid=%s" % bpid, flush=True)
+                except Exception as e:
+                    print("重开失败：%s" % e, flush=True)
+                t0 = now
+            elif now - t0 > 60 and relaunch >= 2:
+                # 重开两次都没找到窗口：不再自己退出（一退出 8761 就没了，窗口必灰），
+                # 保持页面服务在跑，人可以在窗口里按 F5，或者关掉重开 bat。
+                if not STATE.get("warned"):
+                    STATE["warned"] = True
+                    print("小窗窗口两次都没找到（可能渲染崩过）；页面仍在 "
+                          "127.0.0.1:%s 上，可在窗口里按 F5，或关掉重开本 bat" % PAGE_PORT,
+                          flush=True)
         if hwnd and now - last_pin > 0.25:
             last_pin = now
             try:
