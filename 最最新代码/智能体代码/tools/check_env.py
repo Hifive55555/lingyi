@@ -189,10 +189,16 @@ def main(argv=None):
 
     # ⑤ 小窗文件是否就位
     overlay = os.path.join(ai, 'agent', 'overlay')
-    for f in ('agent.py', 'launcher.py', 'web\\overlay.html', 'weapons.json'):
+    # wv2\overlay_wv2.exe 单独列一项：缺了 launcher 会退回 msedge --app，
+    # 而这台机上由脚本派生的 Edge 实例会灰屏（0x80070005），等于小窗打不开。
+    for f in ('agent.py', 'launcher.py', 'monitor.py', 'monitor_core.py',
+              'web\\overlay.html', 'web\\monitor.html', 'weapons.json',
+              'wv2\\overlay_wv2.exe', 'wv2\\Microsoft.Web.WebView2.Core.dll'):
         p = os.path.join(overlay, f)
         say(OK if os.path.exists(p) else WARN,
             '⑤ 小窗文件 %s %s' % ('在' if os.path.exists(p) else '缺', p))
+        if f == 'wv2\\overlay_wv2.exe' and not os.path.exists(p):
+            fails.append('小窗宿主 wv2\\overlay_wv2.exe 缺失：会退回 msedge --app，这台机会灰屏')
 
     # ⑥ 小窗状态目录可写（防空值班按钮靠它传指令，写不进去会静默失效）
     state_dir = (os.environ.get('LY_SAM_STATE_DIR')
