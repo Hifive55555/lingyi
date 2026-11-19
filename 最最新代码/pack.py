@@ -45,6 +45,8 @@ REQUIRED = [
     "小窗/overlay/灵弈小窗.bat",
     "小窗/overlay/截图.bat",
     "小窗/overlay/截图.ps1",
+    "小窗/overlay/创建快捷方式.bat",
+    "小窗/overlay/创建快捷方式.ps1",
     "小窗/overlay/wv2/overlay_wv2.exe",
 ]
 

@@ -18,6 +18,17 @@
 `灵弈小窗` / `小窗截图`。卸载只删自己放进 `_pkg` 的副本，灵弈本体和日志不动。
 细节与常见报错见 `installer/README.md`。
 
+### 桌面快捷方式（不要随包发 .lnk）
+
+`.lnk` 里存的是**绝对路径**（例如 `D:\LingYi\intelligent\ai\agent\overlay\灵弈小窗.bat`），
+换台电脑、灵弈装到别的盘就失效了。所以：
+
+- 包里**不带** `.lnk`，只带 `ai\agent\overlay\创建快捷方式.bat` / `创建快捷方式.ps1`
+- `deploy.ps1` 第 ⑨ 段自动跑它（`-SkipShortcut` 可跳过）：按脚本自身所在目录推出
+  真实路径，在**桌面 + 开始菜单**建「灵弈小窗」「小窗截图」
+- 手动补：进 `ai\agent\overlay\` 双击 `创建快捷方式.bat`；不想要就
+  `powershell -File 创建快捷方式.ps1 -Remove`
+
 ## 目录约定（统一布局）
 
 所有**智能体入口**都在 `<灵弈>\intelligent\ai\agent\`：

@@ -26,7 +26,8 @@ param(
     [switch]$WithEntitys,
     [switch]$NoBackup,
     [switch]$SkipCheck,
-    [switch]$SkipAgentConfig
+    [switch]$SkipAgentConfig,
+    [switch]$SkipShortcut
 )
 
 $ErrorActionPreference = 'Stop'
@@ -235,6 +236,23 @@ if ($SkipAgentConfig) {
         }
     } else {
         Say 'WARN' ('没找到 ' + $cfgpy)
+    }
+}
+
+# ---------------- 4.5 桌面快捷方式（按本机真实路径生成）----------------
+# 不随包发 .lnk：.lnk 里是绝对路径，换台机器/换个安装盘就废了。
+# 这里用 overlay 里的 创建快捷方式.ps1 就地生成 —— 它按自己所在目录推路径。
+if ($SkipShortcut) {
+    Say 'SKIP' '按 -SkipShortcut 跳过创建快捷方式'
+} else {
+    Say 'INFO' '--- ⑨ 创建桌面快捷方式（灵弈小窗 / 小窗截图）---'
+    $mk = Join-Path $Agent 'overlay\创建快捷方式.ps1'
+    if (Test-Path $mk) {
+        & powershell -NoProfile -ExecutionPolicy Bypass -File $mk -Quiet
+        if ($LASTEXITCODE -eq 0) { Say 'OK' '快捷方式已按本机路径写好（可直接双击桌面「灵弈小窗」）' }
+        else { Say 'WARN' '快捷方式没建成；进 overlay 目录双击 创建快捷方式.bat 手动补一次' }
+    } else {
+        Say 'WARN' ('没找到 ' + $mk)
     }
 }
 
