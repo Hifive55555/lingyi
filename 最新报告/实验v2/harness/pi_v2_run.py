@@ -154,8 +154,28 @@ def main():
                 if n % 60 == 0:
                     log('  ep%s step %d wall %.0fs avg %.3fs' %
                         (ep, n, now - t1, sum(st[-60:]) / 60.0))
-            rec.update({'finished': True, 'steps': n, 'wall_s': round(time.time() - t1, 1),
+            # 性能读数：单步墙钟的均值与分位数、仿真时间与墙钟的比值。
+            # 决策间隔从 30 s 改到 5 s 之后，步数会变成 6 倍，靠这几个数才能说清
+            # "多花的时间是花在引擎推进上，还是花在规则判定上"。
+            def _pct(xs, q):
+                if not xs:
+                    return 0.0
+                ys = sorted(xs)
+                k = max(0, min(len(ys) - 1, int(round(q * (len(ys) - 1)))))
+                return round(ys[k], 4)
+            sim_end = 0.0
+            try:
+                sim_end = float(getattr(env, 'sim_time', 0) or 0)
+            except Exception:
+                pass
+            wall = round(time.time() - t1, 1)
+            rec.update({'finished': True, 'steps': n, 'wall_s': wall,
                         'step_avg_s': round(sum(st) / max(1, len(st)), 4),
+                        'step_p50_s': _pct(st, 0.5), 'step_p95_s': _pct(st, 0.95),
+                        'step_max_s': round(max(st), 4) if st else 0.0,
+                        'step_min_s': round(min(st), 4) if st else 0.0,
+                        'sim_end': sim_end,
+                        'speedup': round(sim_end / wall, 2) if wall else 0.0,
                         'ok': (not err) or n >= 355})
             if err:
                 rec['step_err'] = err

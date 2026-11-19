@@ -70,17 +70,26 @@ PATROL = [
 SMALL_ZONES = {"神经元1", "神经元2", "神经元3", "TB1", "TB2",
                "阵风1", "阵风2", "中间保船"}
 
-LANDING = [("泽西", (49.165, -2.531), (-0.10, -0.40)),
-           ("犹他", (49.678, -1.022), (-0.55, -0.30)),
-           ("宝剑", (49.692, -0.130), (0.14, -0.30)),
-           ("皮伊", (50.436, 0.398), (0.16, -0.34)),
-           ("马洛", (51.355, 1.938), (0.16, -0.34))]
+LANDING = [("泽西", (49.165, -2.531)), ("犹他", (49.678, -1.022)),
+           ("宝剑", (49.692, -0.130)), ("皮伊", (50.436, 0.398)),
+           ("马洛", (51.355, 1.938))]
+# 五个区名的落点（lon, lat）：滩头一线太挤，自动避让也排不开，直接手动钉住
+LANDING_POS = {"泽西": (-2.95, 48.98), "犹他": (-1.72, 49.16),
+               "宝剑": (0.32, 49.10), "皮伊": (0.92, 50.10),
+               "马洛": (2.38, 51.12)}
 
 COL_SUP = {"西段拦截": "#1a5fb4", "中段支援": "#8a5a00",
            "东北方向": "#7b3fa0", "登陆编队": "#e01b24"}
-PAT_EDGE = "#4b4f8a"                    # 巡逻区统一边色，靠填充纹理分型
-PAT_HATCH = {"反地面战": None, "防空压制": "///",
-             "防空/制空": "...", "反潜": "xxx"}
+PAT_EDGE = "#3b3f78"                    # 巡逻区统一边色，靠虚线样式分型
+# 四种巡逻类型用四种虚线节奏：同一支笔画的，灰阶打印也能分开。
+PAT_DASH = {"反地面战": (0, (3.2, 1.8)),      # 短虚
+            "防空压制": (0, (7.0, 2.2)),      # 长虚
+            "防空/制空": (0, (1.2, 1.6)),     # 密点
+            "反潜": (0, (6.0, 1.6, 1.4, 1.6))}  # 点划线
+# 淡填充：只给一点点底色，让虚拟多边形"有面积"，重叠处自然加深；
+# 太深会盖住航线与标签，太浅又等于没填，0.05–0.09 之间是实测可辨的上限。
+PAT_FILL = {"反地面战": 0.045, "防空压制": 0.065,
+            "防空/制空": 0.058, "反潜": 0.090}
 
 # 支援任务标签位置修正（dx, dy, ha），只写需要挪的
 SUP_OFF = {
@@ -97,11 +106,11 @@ SUP_OFF = {
     "左阵风5": (0.12, -0.05, "left"), "左阵风6": (0.12, 0.08, "left"),
 }
 PAT_OFF = {"神经元1": (0.0, -0.12), "TB1": (-0.25, -0.15), "TB2": (0.15, -0.20),
-           "阵风1": (0.0, -0.12), "阵风2": (0.20, -0.10), "TB3": (0.15, 0.10),
-           "S70-1": (0.0, 0.16), "S70-2": (0.10, -0.22),
-           "中间保船": (-0.05, -0.20), "左制空": (-0.15, -0.68),
-           "右制空": (0.15, -0.60),
-           "反潜巡逻": (0.0, 0.16), "阵风3": (0.05, 0.18), "北制空": (1.15, -0.44),
+           "阵风1": (0.0, -0.12), "阵风2": (0.20, -0.10), "TB3": (0.02, 0.02),
+           "S70-1": (0.30, -0.42), "S70-2": (0.10, -0.30),
+           "中间保船": (-0.05, -0.20), "左制空": (-0.35, -0.55),
+           "右制空": (0.55, -0.65),
+           "反潜巡逻": (0.60, 0.60), "阵风3": (0.22, -0.14), "北制空": (0.95, -0.30),
            "神经元2": (0.05, 0.16), "神经元3": (0.05, 0.16)}
 
 
@@ -110,9 +119,13 @@ LON_DEG = 68.0        # 在 49.5°N，1° 经度约 72 km，图上按显示比�
 LAT_DEG = 110.0
 
 
+IN_PER_DEG_X = 6.35 * 0.926 / (6.45 - (-8.5))     # 画布宽 × 轴占比 ÷ 经度跨度
+IN_PER_DEG_Y = 4.95 * 0.900 / (54.55 - 44.25)     # 画布高 × 轴占比 ÷ 纬度跨度
+
+
 def _box(cx, cy, text, fs):
-    w = len(text) * fs * 0.62 / 72.0 / 2.54 * 5.9   # 近似宽（度）
-    h = fs * 1.15 / 72.0 / 2.54 * 5.9
+    w = (len(text) * fs * 0.60 / 72.0) / IN_PER_DEG_X   # 近似宽（度）
+    h = (fs * 1.12 / 72.0) / IN_PER_DEG_Y
     return (cy - w / 2, cx - h / 2, cy + w / 2, cx + h / 2)
 
 
@@ -123,7 +136,10 @@ def _hit(a, b):
 def place(ax, lat, lon, text, color, fs, placed, anchor="center"):
     """在锚点周围找不与已有标签重叠的位置。anchor=end 表示标签放在点的右上。"""
     cands = []
-    if anchor == "end":
+    if anchor == "below":
+        cands = [(0.0, -0.42), (0.42, -0.36), (-0.42, -0.36), (0.0, 0.40),
+                 (0.45, 0.26), (-0.45, 0.26), (0.62, 0.0), (-0.62, 0.0)]
+    elif anchor == "end":
         cands = [(0.22, 0.16), (0.22, -0.16), (-0.22, 0.16), (-0.22, -0.16),
                  (0.0, 0.30), (0.45, 0.0), (-0.45, 0.0), (0.0, -0.30)]
     else:
@@ -147,13 +163,13 @@ def main():
     mpl.font_manager.fontManager.addfont(CJK)
     mpl.rcParams.update({
         "font.family": ["Source Han Sans"], "pdf.fonttype": 42,
-        "font.size": 6.0, "axes.unicode_minus": False,
+        "font.size": 6.4, "axes.unicode_minus": False,
         "svg.fonttype": "path", "savefig.dpi": 340,
     })
     placed = []
-    fig, ax = plt.subplots(figsize=(8.0, 6.1))
-    ax.set_xlim(-9.2, 6.9)
-    ax.set_ylim(43.6, 54.6)
+    fig, ax = plt.subplots(figsize=(6.35, 4.95))
+    ax.set_xlim(-8.5, 6.45)
+    ax.set_ylim(44.25, 54.55)
     ax.set_aspect(1 / np.cos(np.radians(49.5)))
     ax.set_facecolor("#f7f8fa")
     for s in ax.spines.values():
@@ -162,23 +178,39 @@ def main():
     ax.set_xticks(range(-8, 7, 2))
     ax.set_yticks(range(44, 55, 2))
     ax.set_xticklabels([f"{abs(t)}°{'W' if t < 0 else 'E'}" for t in range(-8, 7, 2)],
-                       fontsize=5.4, color="#6b7280")
+                       fontsize=6.0, color="#6b7280")
     ax.set_yticklabels([f"{t}°N" for t in range(44, 55, 2)],
-                       fontsize=5.4, color="#6b7280")
+                       fontsize=6.0, color="#6b7280")
     ax.grid(True, color=GRID, lw=0.45, zorder=0)
     ax.tick_params(length=2, width=0.5, colors="#6b7280", pad=1.5)
 
-    # 巡逻区：统一边色 + 分型纹理（灰阶打印也能分辨）
+    # 登陆准备区（星号 + 区名；区名最先占位，后面的巡逻区名与航线名绕开它）
+    for name, (la, lo) in LANDING:
+        ax.plot(lo, la, marker="*", ms=8.0, mfc="#d8c400", mec="#7a6b00", mew=0.5, zorder=7)
+        tlo, tla = LANDING_POS[name]
+        placed.append(_box(tla, tlo, f"{name}海滩", 6.2))
+        ax.text(tlo, tla, f"{name}海滩", fontsize=6.2, color="#5d5200",
+                ha="center", va="center", zorder=8,
+                bbox=dict(fc="#fffbe6", ec="none", alpha=0.88, pad=0.5))
+
+    # 巡逻区：淡填充 + 不透明的虚线边框。
+    # 注意不能对同一个 patch 直接给 alpha——那会把边框一起透明掉，
+    # 上一版正是这样，虚线在浅底上几乎看不见，图上只剩区名。
     for name, pts, kind in PATROL:
-        ax.add_patch(Polygon(pts, closed=True, facecolor=PAT_EDGE, alpha=0.13,
-                             edgecolor=PAT_EDGE, lw=0.8, ls=(0, (3, 2)),
-                             hatch=PAT_HATCH[kind], zorder=2))
-        if name in SMALL_ZONES:
+        small = name in SMALL_ZONES
+        # pts 是 (lat, lon)，画到图上要换序成 (lon, lat)，否则四个顶点会落到轴外
+        xy = [(lo, la) for la, lo in pts]
+        ax.add_patch(Polygon(xy, closed=True, facecolor=PAT_EDGE,
+                             alpha=PAT_FILL[kind], edgecolor="none", zorder=2))
+        ax.add_patch(Polygon(xy, closed=True, facecolor="none",
+                             edgecolor=PAT_EDGE, lw=0.7 if small else 1.0,
+                             ls=PAT_DASH[kind], joinstyle="miter", zorder=3))
+        if small:
             continue
         cx = np.mean([p[0] for p in pts])
         cy = np.mean([p[1] for p in pts])
         dx, dy = PAT_OFF.get(name, (0.0, 0.0))
-        place(ax, cx + dy, cy + dx, name, "#3b3f78", 4.9, placed)
+        place(ax, cx + dy, cy + dx, name, "#3b3f78", 6.0, placed)
 
     # 支援航线
     for name, a, b, grp in SUPPORT:
@@ -187,36 +219,21 @@ def main():
                                      lw=0.95, color=COL_SUP[grp], alpha=0.9,
                                      shrinkA=1.0, shrinkB=0.6, zorder=4))
         ax.plot(a[1], a[0], marker="o", ms=1.9, color=COL_SUP[grp], zorder=5)
-        place(ax, b[0], b[1], name, COL_SUP[grp], 4.9, placed, anchor="end")
+        place(ax, b[0], b[1], name, COL_SUP[grp], 6.0, placed, anchor="end")
 
-    # 登陆准备区
-    for name, (la, lo), (ddx, ddy) in LANDING:
-        ax.plot(lo, la, marker="*", ms=7.0, mfc="#d8c400", mec="#7a6b00", mew=0.5, zorder=7)
-        placed.append(_box(la + ddy, lo + ddx + 0.30, name + "海滩", 5.2))
-        ax.text(lo + ddx, la + ddy, f"{name}海滩", fontsize=5.2, color="#5d5200",
-                ha="left", va="center", zorder=7,
-                bbox=dict(fc="#fffbe6", ec="none", alpha=0.85, pad=0.5))
-
-    ax.annotate("滩头一线：神经元 1–3、TB1–3、阵风 1–2、中间保船\n"
-                "共 8 个反地面战 / 防空巡逻区（放大图见 2.2.1.1 节）",
-                xy=(0.05, 49.45), xytext=(-6.4, 50.35), fontsize=5.0,
-                color="#3b3f78", ha="left", va="center", zorder=9,
-                bbox=dict(fc="white", ec="#4b4f8a", lw=0.5, alpha=0.92, pad=2.2),
-                arrowprops=dict(arrowstyle="-|>", color="#4b4f8a", lw=0.6,
-                                shrinkA=0, shrinkB=2))
     # 三个方向的分区提示
     for lo0, lo1, txt in [(-8.6, -3.4, "西段（左）"), (-3.0, 1.4, "中段"),
                           (1.6, 6.6, "东北方向")]:
         ax.plot([lo0, lo1], [54.15, 54.15], color="#9aa0a8", lw=0.6)
-        ax.text((lo0 + lo1) / 2, 54.38, txt, fontsize=5.8, color="#4b5563",
+        ax.text((lo0 + lo1) / 2, 54.38, txt, fontsize=6.6, color="#4b5563",
                 ha="center", va="center", weight="bold")
 
     h1 = [Line2D([0], [0], color=COL_SUP[k], lw=1.2, label=f"支援任务·{k}") for k in COL_SUP]
-    h2 = [Patch(facecolor="none", edgecolor=PAT_EDGE, ls="--", lw=0.7,
-                hatch=PAT_HATCH[k], label=f"巡逻任务·{k}") for k in PAT_HATCH]
+    h2 = [Patch(facecolor=PAT_EDGE, alpha=0.35, edgecolor=PAT_EDGE,
+                ls=PAT_DASH[k], lw=1.0, label=f"巡逻区·{k}") for k in PAT_DASH]
     h3 = [Line2D([0], [0], marker="*", color="none", mfc="#d8c400", mec="#7a6b00",
                  ms=7, label="登陆准备区")]
-    leg = ax.legend(handles=h1 + h2 + h3, loc="lower right", fontsize=5.2,
+    leg = ax.legend(handles=h1 + h2 + h3, loc="lower right", fontsize=5.7,
                     frameon=True, framealpha=0.92, edgecolor="#cfd4da",
                     ncol=2, columnspacing=1.0, handlelength=1.6,
                     borderpad=0.5, labelspacing=0.45)

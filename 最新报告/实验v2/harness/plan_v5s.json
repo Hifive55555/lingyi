@@ -1,0 +1,20 @@
+{
+ "scenario": "诺曼底2027(人机协同-人人版)_有红有蓝",
+ "decision_interval": 5, "compression": 10001, "max_steps": 0,
+ "budget_h": 3.0, "est_s_per_episode": 1100, "episode_timeout_s": 2400,
+ "out": "D:/LingYi/exp/v5s/runs.jsonl",
+ "jobs_dir": "D:/LingYi/exp/jobs_v5s",
+ "logs": "D:/LingYi/exp/v5s/logs",
+ "tap_dir": "D:/LingYi/exp/v5s/tap",
+ "agents": {
+  "红方": {"redMain": {"module": "agent.Mission_all_red", "class": "Agent"},
+           "redTac": {"module": "agent.Mission_tactics_red", "class": "Agent"},
+           "tapR": {"module": "agent.pi_tap", "class": "Agent"}},
+  "蓝方": {"blueMain": {"module": "agent.Mission_all_blue_hh", "class": "Agent"},
+           "tapB": {"module": "agent.pi_tap", "class": "Agent"}}
+ },
+ "arms": [
+  {"name": "S5_A0",  "episodes": 1, "theta": {}},
+  {"name": "S5_B1",  "episodes": 1, "theta": {"use_d0": 0}}
+ ]
+}
