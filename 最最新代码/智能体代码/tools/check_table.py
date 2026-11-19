@@ -9,6 +9,8 @@ import openpyxl
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
+from _agentpath import ensure as _ensure
+_ensure('Mission_all_red.py', ROOT)
 
 # ---- 最简桩：只要能把 Mission_all_red 导入进来读常量 ----
 agent_base = types.ModuleType('entitys.agent_base')

@@ -13,6 +13,14 @@ import types
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
+
+from _agentpath import ensure as _ensure
+
+_AGENT_DIR = _ensure('Mission_all_red.py', ROOT)
+if _AGENT_DIR and _AGENT_DIR not in sys.path:
+    sys.path.insert(0, _AGENT_DIR)
+
+
 # ---------------- 假平台对象 ----------------
 EVENTS = []          # [(kind, payload)]
 LOADOUTS = {}        # unit_name -> loadout_id
@@ -554,7 +562,7 @@ def main():
     # 静态检查：所有 self._log(...) 调用都必须是 (级别, 消息) 两个参数
     import ast
     import io as _io
-    src = _io.open(os.path.join(ROOT, 'Mission_all_red.py'), encoding='utf-8').read()
+    src = _io.open(os.path.join(_AGENT_DIR or ROOT, 'Mission_all_red.py'), encoding='utf-8').read()
     bad_log = [(n.lineno, len(n.args))
                for n in ast.walk(ast.parse(src))
                if isinstance(n, ast.Call)

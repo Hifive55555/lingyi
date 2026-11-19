@@ -15,6 +15,8 @@ import types
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
+from _agentpath import ensure as _ensure
+_ensure('Mission_all_red.py', ROOT)
 
 agent_base = types.ModuleType('entitys.agent_base')
 agent_base.RuleAgentBase = type('RuleAgentBase', (object,), {

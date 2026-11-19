@@ -14,6 +14,14 @@ import types
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
+
+from _agentpath import ensure as _ensure
+
+_AGENT_DIR = _ensure('Mission_all_blue_hh.py', ROOT)
+if _AGENT_DIR and _AGENT_DIR not in sys.path:
+    sys.path.insert(0, _AGENT_DIR)
+
+
 EVENTS = []
 LOADOUTS = {}
 ASSIGNED = {}
@@ -383,7 +391,7 @@ def main():
     assert len(wra) == 28, len(wra)
 
     # 静态检查：_log 参数个数
-    src = io.open(os.path.join(ROOT, 'Mission_all_blue_hh.py'), encoding='utf-8').read()
+    src = io.open(os.path.join(_AGENT_DIR or ROOT, 'Mission_all_blue_hh.py'), encoding='utf-8').read()
     bad_log = [(n.lineno, len(n.args)) for n in ast.walk(ast.parse(src))
                if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
                and n.func.attr == '_log' and len(n.args) != 2]

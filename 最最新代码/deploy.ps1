@@ -132,7 +132,9 @@ foreach ($f in @('BattlefieldMonitor.py', 'SamBattalionDefense.py', 'ShipCluster
 
 Say 'INFO' '--- ③ 自检脚本 -> ai\engine\LingYi\tools\ ---'
 if (Test-Path $ToolsDir) {
-    Get-ChildItem $ToolsDir -File | Sort-Object Name | ForEach-Object {
+    # 只拷脚本与说明（tools 里还放着一份报告素材 txt，不是工具）
+    Get-ChildItem $ToolsDir -File | Where-Object { $_.Extension -in @('.py', '.md') } |
+        Sort-Object Name | ForEach-Object {
         Copy-One $_.FullName $Tools 'tool'
     }
 } else {
