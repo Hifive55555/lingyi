@@ -102,11 +102,18 @@ class OverlayHost
         bar.MouseDown += dragStart;
         title.MouseDown += dragStart;
 
+        // 布局用手算，不用 Dock：Dock 的叠放顺序会让 WebView2 铺满整个客户区，
+        // 把自绘标题栏压在上面 —— 页面自己的第一行（侧别/时间/统计）就被挡掉了。
         var wv = new WebView2();
-        wv.Dock = DockStyle.Fill;
+        const int BAR_H = 26;
         f.Controls.Add(wv);
-        f.Controls.Add(bar);              // 后加的 Dock.Top 会在最上面
-        bar.BringToFront();
+        f.Controls.Add(bar);
+        EventHandler layout = (s2, e2) =>
+        {
+            bar.SetBounds(0, 0, f.ClientSize.Width, BAR_H);
+            wv.SetBounds(0, BAR_H, f.ClientSize.Width, Math.Max(40, f.ClientSize.Height - BAR_H));
+        };
+        f.Resize += layout;
 
         f.Shown += async (s, e) =>
         {
@@ -129,6 +136,7 @@ class OverlayHost
                 Application.Exit();
             }
         };
+        layout(null, EventArgs.Empty);
         Application.Run(f);
     }
 }

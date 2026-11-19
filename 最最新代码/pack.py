@@ -43,6 +43,8 @@ REQUIRED = [
     "小窗/overlay/agent.py",
     "小窗/overlay/launcher.py",
     "小窗/overlay/灵弈小窗.bat",
+    "小窗/overlay/截图.bat",
+    "小窗/overlay/截图.ps1",
     "小窗/overlay/wv2/overlay_wv2.exe",
 ]
 
