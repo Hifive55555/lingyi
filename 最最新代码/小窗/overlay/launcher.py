@@ -76,7 +76,7 @@ PID_FILE = LOGS / "launcher.pid"
 PAGE_PORT = int(os.environ.get("LY_OVERLAY_PAGE_PORT", "8761"))
 TITLE = "灵弈小窗"
 MON_TITLE = "监控小窗"          # 第二个窗口：被攻击监控（跟主小窗同一个智能体、同一个 ws）
-MON_W, MON_H = 520, 900
+MON_W, MON_H = 900, 880      # 空/海/陆 三列并排，够宽才不挤
 MON_GAP = 12
 MON_ENABLE = os.environ.get("LY_OVERLAY_NO_MONITOR", "0") == "0"
 W, H = 480, 860

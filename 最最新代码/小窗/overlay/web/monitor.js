@@ -2,22 +2,25 @@
 // 监控小窗：跟「灵弈小窗」共用同一个智能体、同一个 WebSocket（127.0.0.1:8760/ws），
 // 快照里多出来的 mon 字段就是被攻击监控（空 / 海 / 陆 三组，每个单元后面跟着指向它的
 // 每一枚弹：弹型 / 弹速 / 距离→CPA / 到最近接近点的时间）。
-// 合并自 monitor-agent/lymonitor/web/monitor.js —— 原来它单开 8762 端口和自己的智能体。
+//
+// 版式：空 | 海 | 陆 三列并排，每列自己滚。
+// 排序：默认**固定**（单元按编号、弹按弹型+距离），不再按 tgo 每帧重排 —— 之前
+//       每帧顺序都在跳，看不住。想按威胁/弹速看，点掉「固定排序」再选。
 const $ = id => document.getElementById(id);
 const AGENT = new URLSearchParams(location.search).get('agent') || '127.0.0.1:8760';
 const GRP = [['air', '空'], ['sea', '海'], ['land', '陆']];
-const SIDE_CN = {red: '红方', blue: '蓝方'};
+const CN = {air: '空', sea: '海', land: '陆'};
 
 let snap = null, snapAt = 0, ws = null, lastMsg = 0;
 let onlyHit = localStorage.getItem('mvOnlyHit') !== '0';
-let bySpeed = localStorage.getItem('mvBySpeed') === '1';
-let q = '', fold = new Set(JSON.parse(localStorage.getItem('mvFold') || '[]'));
+let fixed = localStorage.getItem('mvFixed') !== '0';        // 默认固定排序
+let q = '';
+const fold = new Set(JSON.parse(localStorage.getItem('mvFold') || '[]'));
 
 const esc = t => String(t).replace(/[&<>"]/g, ch => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[ch]));
 const fmtT = t => { t = Math.max(0, Math.round(t)); return `${Math.floor(t / 3600)}:${String(Math.floor(t % 3600 / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}`; };
 const live = () => Date.now() - snapAt < 8000;
-const kmh = v => (v >= 1000 ? `${(v / 1000).toFixed(2)}k` : Math.round(v));
-
+const kmh = v => (v >= 1000 ? `${(v / 1000).toFixed(1)}k` : String(Math.round(v)));
 // 弹型名缩短：去掉括号里的参数，留主型号
 const wname = n => (n || '').split(/[\[\(（,，]/)[0].trim() || '未识别弹';
 
@@ -54,18 +57,43 @@ function onSnap(msg) {
   const side = d.side || '';
   $('brand').textContent = '◎ 监控 ' + (side || '');
   $('brand').style.color = side === '蓝方' ? '#3fd0e6' : '#ff6070';
-  if (d.cfg) $('msg').textContent =
-    '只做监控，不下发任何指令（与灵弈小窗同一个智能体）。判定：弹在朝我飞就算；'
-    + `决策间隔 ${d.cfg.sec} s 仿真时间`;
   render();
 }
 
+// ---------------------------------------------------------------- 排序
+// 固定排序：单元按名字里的编号（苏35 #12 < #100），弹按「弹型 + 距离」。
+// 都取“不会因为每帧数值抖动就改变”的键，所以顺序稳。
+const numOf = n => { const m = /#(\d+)\s*$/.exec(n || ''); return m ? +m[1] : 1e9; };
+const nameKey = r => [numOf(r.n), String(r.n || '')];
+const msKeyFixed = h => [wname(h.n), -(h.d || 0)];
+const msKeyThreat = h => [h.tgo == null ? 1 : 0, h.tgo == null ? 1e9 : h.tgo, -(h.cpa || 0)];
+const msKeySpeed = h => [-Math.round((h.spd || 0) / 50)];      // 50km/h 一档，减少来回跳
+
+function sortUnits(list) {
+  if (fixed) return list.slice().sort((a, b) => {
+    const ka = nameKey(a), kb = nameKey(b);
+    return ka[0] - kb[0] || (ka[1] < kb[1] ? -1 : ka[1] > kb[1] ? 1 : 0);
+  });
+  // 非固定：被攻击的在前，越紧急越前
+  return list.slice().sort((a, b) => (b.hit - a.hit) || (a.ms?.[0]?.tgo ?? 1e9) - (b.ms?.[0]?.tgo ?? 1e9));
+}
+function sortMs(list) {
+  const k = fixed ? msKeyFixed : msKeyThreat;
+  return (list || []).slice().sort((a, b) => {
+    const ka = k(a), kb = k(b);
+    for (let i = 0; i < ka.length; i++) {
+      if (ka[i] < kb[i]) return -1;
+      if (ka[i] > kb[i]) return 1;
+    }
+    return 0;
+  });
+}
+
 // ---------------------------------------------------------------- 渲染
-const numOf = n => { const m = /#(\d+)\s*$/.exec(n || ''); return m ? m[1] : ''; };
 const matcher = () => {
   const toks = q.trim().split(/\s+/).filter(Boolean).map(t => t.replace(/^#/, ''));
   if (!toks.length) return null;
-  return n => { const nn = String(n).toLowerCase().replace(/[\s\-_·.“”"]/g, ''); const num = numOf(n);
+  return n => { const nn = String(n).toLowerCase().replace(/[\s\-_·.“”"]/g, ''); const num = String(numOf(n) === 1e9 ? '' : numOf(n));
                 return toks.every(t => /^\d+$/.test(t) ? num === t : nn.includes(t.toLowerCase())); };
 };
 
@@ -75,66 +103,72 @@ function cls(h) {
   if (h.tgo <= 90) return 't2';
   return 't3';
 }
-function msChip(h) {
-  // 显示：弹型 | 当前弹速 | 当前距离→最近接近点(CPA) | 到最近接近点的时间
-  // ⚠ tgo 是“到**最近接近点**的时间”，不是“命中时间”。一枚 562 km 外横向掠过的弹，
-  //   CPA≈562 km、tgo 可能只有 16 s —— 单纯显示 “562km 16s” 会严重误导。
-  //   所以：① 一定把 CPA 显示出来；② 擦边（CPA 明显小于距离）的把时间灰掉并标注。
-  const spd = h.spd || 0;
-  const d = h.d || 0, cpa = h.cpa || 0;
-  const graze = d > 1 && cpa > d * 0.5;          // 只是“朝我这一片飞”，不是“瞄着我”
+function msRow(h) {
+  // 一行一枚弹：弹型 | 弹速 | 距离→CPA | 到 CPA 的时间
+  // ⚠ tgo 是“到**最近接近点**的时间”，不是“命中时间”；擦边掠过的把时间压暗（graze）。
+  const spd = h.spd || 0, d = h.d || 0, cpa = h.cpa || 0;
+  const graze = d > 1 && cpa > d * 0.5;
   const cl = cls(h) + (graze ? ' graze' : '');
-  const tgo = h.tgo == null ? '--' : Math.round(h.tgo) + 's';
-  return `<span class="mc ${cl}" title="当前弹速 ${kmh(spd)} km/h（${(spd / 1.852).toFixed(0)} 节）`
-    + `\n当前距离 ${d.toFixed(1)} km　最近接近点 CPA ${cpa.toFixed(1)} km`
-    + `\n到最近接近点 ${h.tgo == null ? '未知' : Math.round(h.tgo) + ' s'}` +
-      (graze ? `\n⚠ 擦边掠过（CPA ${cpa.toFixed(0)} km），不是冲这个单元来的` : '') + `">`
-    + `<span class="mn">${esc(wname(h.n) || ('弹' + (h.db || '')))}</span>`
-    + `<span class="sp">${kmh(spd)} km/h</span>`
-    + `<span class="dd">${d.toFixed(0)}→${cpa.toFixed(0)}km</span>`
-    + `<span class="tg">${tgo}</span></span>`;
+  const tg = h.tgo == null ? '—' : Math.round(h.tgo) + 's';
+  return `<div class="mc ${cl}" title="弹型 ${esc(h.n) || '未识别'}`
+    + `\n弹速 ${kmh(spd)} km/h（${(spd / 1.852).toFixed(0)} 节）`
+    + `\n当前距离 ${d.toFixed(1)} km　最近接近点 CPA ${h.tgo == null ? '未知' : cpa.toFixed(1) + ' km'}`
+    + `\n到最近接近点 ${h.tgo == null ? '未知（刚出现/数据不全）' : Math.round(h.tgo) + ' s'}`
+    + (graze ? `\n⚠ 擦边掠过（CPA ${cpa.toFixed(0)} km），不是冲这个单元来的` : '') + `">`
+    + `<span class="mn">${esc(wname(h.n))}</span>`
+    + `<span class="sp">${kmh(spd)}</span>`
+    + `<span class="dd">${d.toFixed(0)}→${h.tgo == null ? '?' : cpa.toFixed(0)}</span>`
+    + `<span class="tg">${tg}</span></div>`;
 }
 function unitRow(r) {
-  const ms = (r.ms || []).slice();
-  if (bySpeed) ms.sort((a, b) => (b.spd || 0) - (a.spd || 0));
-  const alt = r.g === 'air' ? `<u>${Math.round(r.alt / 100) / 10}km</u>` : '';
+  const ms = sortMs(r.ms);
+  const alt = r.g === 'air' ? `<u>${Math.round((r.alt || 0) / 100) / 10}km</u>` : '';
   const dmg = (r.dmg || 0) >= 1 ? `<u class="dmg" title="已受损 ${Math.round(r.dmg)}%">损${Math.round(r.dmg)}%</u>` : '';
   return `<div class="row ${r.hit ? 'hit' : 'safe'}">`
-    + `<span class="u" title="${esc(r.n)}">${esc(r.n)}${alt}${dmg}</span>`
-    + `<span class="ms">${ms.length ? ms.map(msChip).join('') : '<span class="sub">—</span>'}</span></div>`;
+    + `<div class="un"><b title="${esc(r.n)}">${esc(r.n)}</b>${alt}${dmg}</div>`
+    + `<div class="ms">${ms.length ? ms.map(msRow).join('') : ''}</div></div>`;
 }
+
+const lastHtml = {air: null, sea: null, land: null};
 function render() {
-  if (!snap) { $('list').innerHTML = '<div class="empty" style="padding:8px">等待智能体…（客户端里导入 overlay_ai.py 并启动）</div>'; return; }
-  const qm = matcher();
-  const rows = (snap.rows || []).filter(r => (!onlyHit || r.hit) && (!qm || qm(r.n)));
-  const groups = snap.groups || {};
-  let html = '';
-  for (const [k, cn] of GRP) {
-    const gv = groups[k] || [0, 0];
-    const list = rows.filter(r => r.g === k);
+  // 三列结构是固定的（index.html 里就写好了），这里只更新每列的 .bd
+  for (const [k] of GRP) {
+    const sec = document.querySelector(`.sec[data-g="${k}"]`);
+    if (!sec) continue;
+    const bd = sec.querySelector('.bd');
+    const gv = (snap && snap.groups && snap.groups[k]) || [0, 0];
     const isFold = fold.has(k);
-    html += `<div class="sec"><div class="hd ${isFold ? 'fold' : ''}" data-g="${k}">`
-      + `<span class="nm">${cn}</span>`
-      + `<span class="ct">被攻击 <b>${gv[0]}</b> / ${gv[1]}</span>`
-      + `<span class="grow"></span><span class="sub">${isFold ? '▸' : '▾'}</span></div><div class="bd">`;
-    html += list.length ? list.map(unitRow).join('') : '<div class="empty">无</div>';
-    html += '</div></div>';
+    sec.classList.toggle('fold', isFold);
+    sec.querySelector('.hd .ct').innerHTML = `被攻击 <b>${gv[0]}</b> / ${gv[1]}`;
+    sec.querySelector('.hd .car').textContent = isFold ? '▸' : '▾';
+
+    let html;
+    if (!snap) {
+      html = '<div class="empty">等待智能体…</div>';
+    } else {
+      const qm = matcher();
+      const list = (snap.rows || []).filter(r => r.g === k && (!onlyHit || r.hit) && (!qm || qm(r.n)));
+      html = sortUnits(list).map(unitRow).join('') || '<div class="empty">无</div>';
+    }
+    if (html !== lastHtml[k]) {           // 内容没变就不碰 DOM，避免滚动/闪烁
+      const top = bd.scrollTop;
+      bd.innerHTML = html;
+      bd.scrollTop = top;
+      lastHtml[k] = html;
+    }
   }
-  const top = $('list').scrollTop;
-  $('list').innerHTML = html;
-  $('list').scrollTop = top;
-  // 标题**必须**以 '监控小窗' 开头：launcher.py 靠它找自己的窗口并按 z 序置顶。
+  // 标题**必须**以「监控小窗」开头：launcher.py 靠它找自己的窗口并按 z 序置顶。
   // （老 bug：标题一变成「监控 1/0/0」就找不到窗口，launcher 4 秒后自杀 -> 灰屏）
-  const air = groups.air || [0, 0], sea = groups.sea || [0, 0], land = groups.land || [0, 0];
-  const nHit = air[0] + sea[0] + land[0];
-  document.title = `监控小窗 ${nHit}/${snap.own || 0}` + (snap.ms ? ` 弹${snap.ms}` : '');
+  const g = (snap && snap.groups) || {};
+  const nHit = (g.air?.[0] || 0) + (g.sea?.[0] || 0) + (g.land?.[0] || 0);
+  document.title = `监控小窗 ${nHit}/${(snap && snap.own) || 0}` + ((snap && snap.ms) ? ` 弹${snap.ms}` : '');
 }
 
 // ---------------------------------------------------------------- 交互
 $('list').addEventListener('click', e => {
   const h = e.target.closest('.hd');
   if (!h) return;
-  const k = h.dataset.g;
+  const k = h.parentElement.dataset.g;
   fold.has(k) ? fold.delete(k) : fold.add(k);
   localStorage.setItem('mvFold', JSON.stringify([...fold]));
   render();
@@ -143,9 +177,9 @@ $('onlyHit').onclick = () => {
   onlyHit = !onlyHit; localStorage.setItem('mvOnlyHit', onlyHit ? '1' : '0');
   $('onlyHit').classList.toggle('on', onlyHit); render();
 };
-$('bySpeed').onclick = () => {
-  bySpeed = !bySpeed; localStorage.setItem('mvBySpeed', bySpeed ? '1' : '0');
-  $('bySpeed').classList.toggle('on', bySpeed); render();
+$('fixed').onclick = () => {
+  fixed = !fixed; localStorage.setItem('mvFixed', fixed ? '1' : '0');
+  $('fixed').classList.toggle('on', fixed); render();
 };
 $('q').addEventListener('input', e => { q = e.target.value; render(); });
 document.addEventListener('keydown', e => {
@@ -154,6 +188,6 @@ document.addEventListener('keydown', e => {
 });
 
 $('onlyHit').classList.toggle('on', onlyHit);
-$('bySpeed').classList.toggle('on', bySpeed);
+$('fixed').classList.toggle('on', fixed);
 connect();
 render();
