@@ -6,11 +6,16 @@
 """
 import os
 
+import sys
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import FancyArrowPatch, Polygon, Patch
 from matplotlib.lines import Line2D
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import figstyle  # 统一配色与排版（唯一色源）
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.dirname(HERE)
@@ -18,8 +23,8 @@ FIG = os.path.join(PAPER, "figures")
 
 CJK = ("/nix/store/9n90ncp7hilfk9jisq2h24w6d7axysf4-source-han-sans-2.005"
        "/share/fonts/truetype/SourceHanSans.ttc")
-INK = "#22252b"
-GRID = "#d9dce1"
+INK = "#171b20"
+GRID = "#d8dde3"
 
 # 支援任务：(任务名, 起点, 终点, 组)
 SUPPORT = [
@@ -78,9 +83,9 @@ LANDING_POS = {"泽西": (-2.95, 48.98), "犹他": (-1.72, 49.16),
                "宝剑": (0.32, 49.10), "皮伊": (0.92, 50.10),
                "马洛": (2.38, 51.12)}
 
-COL_SUP = {"西段拦截": "#1a5fb4", "中段支援": "#8a5a00",
-           "东北方向": "#7b3fa0", "登陆编队": "#e01b24"}
-PAT_EDGE = "#3b3f78"                    # 巡逻区统一边色，靠虚线样式分型
+COL_SUP = {"西段拦截": "#2b5d8f", "中段支援": "#33907f",
+           "东北方向": "#7f5580", "登陆编队": "#b23a2b"}
+PAT_EDGE = "#2a4666"                    # 巡逻区统一边色，靠虚线样式分型
 # 四种巡逻类型用四种虚线节奏：同一支笔画的，灰阶打印也能分开。
 PAT_DASH = {"反地面战": (0, (3.2, 1.8)),      # 短虚
             "防空压制": (0, (7.0, 2.2)),      # 长虚
@@ -161,37 +166,37 @@ def place(ax, lat, lon, text, color, fs, placed, anchor="center"):
 
 def main():
     mpl.font_manager.fontManager.addfont(CJK)
+    figstyle.apply(mpl, base_size=6.4)   # 地图信息密，基准字号取 6.4；轴线/网格/配色仍走统一设置
     mpl.rcParams.update({
-        "font.family": ["Source Han Sans"], "pdf.fonttype": 42,
-        "font.size": 6.4, "axes.unicode_minus": False,
-        "svg.fonttype": "path", "savefig.dpi": 340,
+        "font.family": ["Source Han Sans"], "axes.unicode_minus": False,
+        "savefig.dpi": 340,
     })
     placed = []
     fig, ax = plt.subplots(figsize=(6.35, 4.95))
     ax.set_xlim(-8.5, 6.45)
     ax.set_ylim(44.25, 54.55)
     ax.set_aspect(1 / np.cos(np.radians(49.5)))
-    ax.set_facecolor("#f7f8fa")
+    ax.set_facecolor("#f8f9fa")
     for s in ax.spines.values():
         s.set_linewidth(0.6)
-        s.set_color("#9aa0a8")
+        s.set_color("#a4acb5")
     ax.set_xticks(range(-8, 7, 2))
     ax.set_yticks(range(44, 55, 2))
     ax.set_xticklabels([f"{abs(t)}°{'W' if t < 0 else 'E'}" for t in range(-8, 7, 2)],
-                       fontsize=6.0, color="#6b7280")
+                       fontsize=6.0, color="#6b737d")
     ax.set_yticklabels([f"{t}°N" for t in range(44, 55, 2)],
-                       fontsize=6.0, color="#6b7280")
+                       fontsize=6.0, color="#6b737d")
     ax.grid(True, color=GRID, lw=0.45, zorder=0)
-    ax.tick_params(length=2, width=0.5, colors="#6b7280", pad=1.5)
+    ax.tick_params(length=2, width=0.5, colors="#6b737d", pad=1.5)
 
     # 登陆准备区（星号 + 区名；区名最先占位，后面的巡逻区名与航线名绕开它）
     for name, (la, lo) in LANDING:
-        ax.plot(lo, la, marker="*", ms=8.0, mfc="#d8c400", mec="#7a6b00", mew=0.5, zorder=7)
+        ax.plot(lo, la, marker="*", ms=8.0, mfc="#b0883a", mec="#7a5c22", mew=0.5, zorder=7)
         tlo, tla = LANDING_POS[name]
         placed.append(_box(tla, tlo, f"{name}海滩", 6.2))
-        ax.text(tlo, tla, f"{name}海滩", fontsize=6.2, color="#5d5200",
+        ax.text(tlo, tla, f"{name}海滩", fontsize=6.2, color="#7a5c22",
                 ha="center", va="center", zorder=8,
-                bbox=dict(fc="#fffbe6", ec="none", alpha=0.88, pad=0.5))
+                bbox=dict(fc="#fdf8ea", ec="none", alpha=0.88, pad=0.5))
 
     # 巡逻区：淡填充 + 不透明的虚线边框。
     # 注意不能对同一个 patch 直接给 alpha——那会把边框一起透明掉，
@@ -210,7 +215,7 @@ def main():
         cx = np.mean([p[0] for p in pts])
         cy = np.mean([p[1] for p in pts])
         dx, dy = PAT_OFF.get(name, (0.0, 0.0))
-        place(ax, cx + dy, cy + dx, name, "#3b3f78", 6.0, placed)
+        place(ax, cx + dy, cy + dx, name, "#2a4666", 6.0, placed)
 
     # 支援航线
     for name, a, b, grp in SUPPORT:
@@ -224,17 +229,17 @@ def main():
     # 三个方向的分区提示
     for lo0, lo1, txt in [(-8.6, -3.4, "西段（左）"), (-3.0, 1.4, "中段"),
                           (1.6, 6.6, "东北方向")]:
-        ax.plot([lo0, lo1], [54.15, 54.15], color="#9aa0a8", lw=0.6)
-        ax.text((lo0 + lo1) / 2, 54.38, txt, fontsize=6.6, color="#4b5563",
+        ax.plot([lo0, lo1], [54.15, 54.15], color="#a4acb5", lw=0.6)
+        ax.text((lo0 + lo1) / 2, 54.38, txt, fontsize=6.6, color="#6b737d",
                 ha="center", va="center", weight="bold")
 
     h1 = [Line2D([0], [0], color=COL_SUP[k], lw=1.2, label=f"支援任务·{k}") for k in COL_SUP]
     h2 = [Patch(facecolor=PAT_EDGE, alpha=0.35, edgecolor=PAT_EDGE,
                 ls=PAT_DASH[k], lw=1.0, label=f"巡逻区·{k}") for k in PAT_DASH]
-    h3 = [Line2D([0], [0], marker="*", color="none", mfc="#d8c400", mec="#7a6b00",
+    h3 = [Line2D([0], [0], marker="*", color="none", mfc="#b0883a", mec="#7a5c22",
                  ms=7, label="登陆准备区")]
     leg = ax.legend(handles=h1 + h2 + h3, loc="lower right", fontsize=5.7,
-                    frameon=True, framealpha=0.92, edgecolor="#cfd4da",
+                    frameon=True, framealpha=0.92, edgecolor="#d8dde3",
                     ncol=2, columnspacing=1.0, handlelength=1.6,
                     borderpad=0.5, labelspacing=0.45)
     leg.set_zorder(10)

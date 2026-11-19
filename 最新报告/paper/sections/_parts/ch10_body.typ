@@ -45,7 +45,7 @@
 #figure(
   kind: table,
   text(size: 8pt, table(
-    columns: (auto, auto, auto, 1.6fr),
+    columns: (auto, auto, auto, auto),
     align: (center, center, center, left),
     table.header([要分辨的效应量 $delta$], [所需每组局数], [本报告实际每组], [能给出的结论]),
     [80 分/小时], [约 36 局], [6–20 局], [只能看方向],

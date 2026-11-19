@@ -26,8 +26,8 @@ SRC = os.path.join(ROOT, "work", "lp", "full")
 
 CJK = ("/nix/store/9n90ncp7hilfk9jisq2h24w6d7axysf4-source-han-sans-2.005"
        "/share/fonts/truetype/SourceHanSans.ttc")
-GRAY = "#1a1a1a"
-ACC = "#ff2d2d"
+GRAY = "#171b20"
+ACC = "#c9463d"
 WHT = "#ffffff"
 
 

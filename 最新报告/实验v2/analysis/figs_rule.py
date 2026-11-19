@@ -49,7 +49,7 @@ from matplotlib.patches import Rectangle  # noqa: E402
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)                      # 最新报告/实验v2
 EVENTS = os.path.join(ROOT, 'data', 'events.csv')
-OUT = os.path.join(os.path.dirname(ROOT), 'paper', 'shared', 'figures')
+OUT = os.path.join(ROOT, 'fig')          # 写到实验目录，避免覆盖论文插图
 
 # d0 与门限的常数（与 Mission_tactics_red 的实现一致，推导见 2.3.1 节）
 V0_KH = 4000.0
@@ -62,17 +62,17 @@ EVADE_FLOOR_KM = 25.0                             # EVADE_ALWAYS_KM 硬兜底
 # F4：三个高亮臂（臂名, 图例, 颜色, marker, 空心）。A1 与 B1 的门限都是固定 20 km，
 # 两列点完全落在 x=20 上，B1 用空心 marker 才不会把下面的 A1 完全盖住。
 EVADE_ARMS = [
-    ('A0_new', 'A0_new（新规则）', '#1f77b4', 'o', False),
-    ('A1_old_fixed', 'A1_old_fixed（旧规则）', '#d62728', 's', False),
-    ('B1_evade_fix50', 'B1_evade_fix50（固定 50/20 km）', '#2ca02c', '^', True),
+    ('A0_new', 'A0_new（新规则）', '#b23a2b', 'o', False),
+    ('A1_old_fixed', 'A1_old_fixed（旧规则）', '#2b5d8f', 's', False),
+    ('B1_evade_fix50', 'B1_evade_fix50（固定 50/20 km）', '#6b737d', '^', True),
 ]
 # F5：五个高亮臂（臂名, 图例, 颜色, marker）
 FIRE_ARMS = [
-    ('V2_A0_new', 'A0_new（0.8d0）', '#1f77b4', 'o'),
-    ('V2_WA_f08', 'WA（关条令，0.8d0）', '#2ca02c', 's'),
-    ('V2_WB_f06', 'WB（关条令，0.6d0）', '#9467bd', '^'),
-    ('V2_WC_f10', 'WC（关条令，1.0d0）', '#ff7f0e', 'D'),
-    ('V2_WD_fix111', 'WD（关条令，固定 111 km）', '#8c564b', 'v'),
+    ('V2_A0_new', 'A0_new（0.8d0）', '#b23a2b', 'o'),
+    ('V2_WA_f08', 'WA（关条令，0.8d0）', '#2b5d8f', 's'),
+    ('V2_WB_f06', 'WB（关条令，0.6d0）', '#33907f', '^'),
+    ('V2_WC_f10', 'WC（关条令，1.0d0）', '#b0883a', 'D'),
+    ('V2_WD_fix111', 'WD（关条令，固定 111 km）', '#7f5580', 'v'),
 ]
 BANDS = [27.8, 59.3, 111.1, 138.9]
 
@@ -93,13 +93,24 @@ def setup_font():
         if 400 in weights.get(name, set()):
             plt.rcParams['font.sans-serif'] = [name, 'DejaVu Sans']
             plt.rcParams['axes.unicode_minus'] = False
-            plt.rcParams['svg.fonttype'] = 'path'
+            _apply_style(plt)
             print(f'font: {name} (regular)')
             return True
     plt.rcParams['font.sans-serif'] = ['DejaVu Sans']
     plt.rcParams['axes.unicode_minus'] = False
     print('WARNING: 未找到 Noto Sans CJK SC，图内改用英文标签', file=sys.stderr)
     return False
+
+
+def _apply_style(plt):
+    """统一风格：字号/轴线/网格/配色取自 paper/shared/scripts/figstyle.py。"""
+    import os
+    here = os.path.dirname(os.path.abspath(__file__))
+    fs = os.path.join(os.path.dirname(os.path.dirname(here)), 'paper', 'shared', 'scripts')
+    if fs not in sys.path:
+        sys.path.insert(0, fs)
+    import figstyle
+    figstyle.apply(plt.matplotlib)
 
 
 def fnum(x):
@@ -165,7 +176,7 @@ def fig_evade_scatter(evade):
             bg_dist.append(dist)
 
     fig, ax = plt.subplots(figsize=(7.0, 4.9))
-    ax.scatter(bg_gate, bg_dist, s=3.0, c='#c9c9c9', alpha=0.35, linewidths=0,
+    ax.scatter(bg_gate, bg_dist, s=3.0, c='#d8dde3', alpha=0.35, linewidths=0,
                zorder=1, label=say(f'其余 {len(set(a for a, _, _ in evade)) - len(hi)} 个臂（背景）',
                                    'other arms (background)'))
     stats = []
@@ -183,33 +194,33 @@ def fig_evade_scatter(evade):
     x_line = np.array([0.0, 135.0])
     ax.plot(x_line, x_line, ls='--', c='k', lw=1.0, zorder=3,
             label=say('y = x（门限本身）', 'y = x (gate)'))
-    ax.axhline(EVADE_FLOOR_KM, ls=':', c='#d62728', lw=1.6, zorder=3,
+    ax.axhline(EVADE_FLOOR_KM, ls=':', c='#b23a2b', lw=1.6, zorder=3,
                label=say(f'y = {EVADE_FLOOR_KM:.0f} km（硬兜底）', f'y = {EVADE_FLOOR_KM:.0f} km (hard floor)'))
 
     ax.set_xlim(0, 132)
     ax.set_ylim(0, 96)
-    ax.set_xlabel(say('门限 gate_km（= k_turn·d0）/ km', 'gate_km (= k_turn·d0) / km'), fontsize=9)
-    ax.set_ylabel(say('实际触发距离 dist_km / km', 'trigger distance dist_km / km'), fontsize=9)
+    ax.set_xlabel(say('门限 gate_km（= k_turn·d0）/ km', 'gate_km (= k_turn·d0) / km'), fontsize=7.0)
+    ax.set_ylabel(say('实际触发距离 dist_km / km', 'trigger distance dist_km / km'), fontsize=7.0)
     ax.tick_params(labelsize=8)
     ax.grid(alpha=0.22, lw=0.5, zorder=0)
-    ax.legend(fontsize=8, loc='upper left', framealpha=0.92, borderpad=0.5, labelspacing=0.35)
+    ax.legend(fontsize=6.8, loc='upper left', framealpha=0.92, borderpad=0.5, labelspacing=0.35)
 
     # 右上角统计块（x>60 的上方是该区唯一有散点处，故压半透明白框保证可读；分母即 n 列）
     ax.add_patch(Rectangle((0.495, 0.715), 0.5, 0.28, transform=ax.transAxes,
-                           facecolor='white', alpha=0.93, edgecolor='#9a9a9a', lw=0.6, zorder=4))
+                           facecolor='white', alpha=0.93, edgecolor='#a4acb5', lw=0.6, zorder=4))
     col = (0.512, 0.700, 0.845, 0.992)
     rows = [say('臂', 'arm'), say('n（分母）', 'n (denominator)'), say('dist/gate 中位', 'median dist/gate'),
             say('落在 y=x 下方', 'below y = x')]
     ys = (0.958, 0.891, 0.824, 0.757)
     for x, txt in zip(col, rows):
-        ax.text(x, ys[0], txt, transform=ax.transAxes, fontsize=7.4, color='#333333',
+        ax.text(x, ys[0], txt, transform=ax.transAxes, fontsize=6.8, color='#171b20',
                 ha='left' if x == col[0] else 'right', va='center', zorder=5)
     for (arm, n, med, below), y in zip(stats, ys[1:]):
-        ax.text(col[0], y, arm, transform=ax.transAxes, fontsize=7.4, ha='left', va='center', zorder=5)
-        ax.text(col[1], y, f'{n}', transform=ax.transAxes, fontsize=7.4, ha='right', va='center', zorder=5)
-        ax.text(col[2], y, f'{med:.2f}', transform=ax.transAxes, fontsize=7.4, ha='right', va='center', zorder=5)
+        ax.text(col[0], y, arm, transform=ax.transAxes, fontsize=6.8, ha='left', va='center', zorder=5)
+        ax.text(col[1], y, f'{n}', transform=ax.transAxes, fontsize=6.8, ha='right', va='center', zorder=5)
+        ax.text(col[2], y, f'{med:.2f}', transform=ax.transAxes, fontsize=6.8, ha='right', va='center', zorder=5)
         ax.text(col[3], y, f'{below / n:.1%}', transform=ax.transAxes,
-                fontsize=7.4, ha='right', va='center', zorder=5)
+                fontsize=6.8, ha='right', va='center', zorder=5)
 
     fig.tight_layout()
     save(fig, 'fig_evade_scatter')
@@ -232,46 +243,46 @@ def fig_fire_vs_speed(fire):
             bg_dist.append(dist)
 
     fig, ax = plt.subplots(figsize=(7.4, 5.4))
-    bg_handle = ax.scatter(bg_va, bg_dist, s=5.0, c='#c9c9c9', alpha=0.30, linewidths=0, zorder=1,
+    bg_handle = ax.scatter(bg_va, bg_dist, s=3.0, c='#d8dde3', alpha=0.55, linewidths=0, zorder=1,
                            label=say('背景：其他臂与其他射程档', 'background: other arms / range bands'))
 
     va = np.linspace(80.0, 1000.0, 921)
     curves = [
-        (0.6, dict(ls=(0, (6.0, 2.2)), c='#222222', lw=1.6, zorder=4),
+        (0.6, dict(ls=(0, (6.0, 2.2)), c='#171b20', lw=1.1, zorder=4),
          say('理论门限 0.6·d0（取 0.7R）', 'theory min(0.6·d0, 0.7R)')),
-        (0.8, dict(ls=(0, (5.0, 1.6, 1.0, 1.6)), c='#222222', lw=1.6, zorder=4),
+        (0.8, dict(ls=(0, (5.0, 1.2, 0.8, 1.2)), c='#171b20', lw=1.1, zorder=4),
          say('理论门限 0.8·d0（取 0.7R）', 'theory min(0.8·d0, 0.7R)')),
         # c=1.0 在本场 Va 范围（≤920 km/h）内一直大于 0.7R，曲线与封顶线完全重合，
         # 画粗灰线 + 封顶红虚线压在上面，两者在虚线的缝隙里叠成一条。
-        (1.0, dict(ls='-', c='#9c9c9c', lw=3.4, alpha=0.8, zorder=2),
+        (1.0, dict(ls='-', c='#a4acb5', lw=2.4, alpha=0.55, zorder=2),
          say('理论门限 1.0·d0（≡ 0.7R，与封顶线重合）', 'theory min(1.0·d0, 0.7R): ≡ 0.7R')),
     ]
     theory_handles = [ax.plot(va, gate_theory(va, c), label=label, **style)[0] for c, style, label in curves]
     theory_handles.append(ax.axhline(
-        FIRE_RANGE_COEF * R_MAIN_KM, ls=(0, (5.0, 4.0)), c='#d62728', lw=1.7, zorder=5,
+        FIRE_RANGE_COEF * R_MAIN_KM, ls=(0, (5.0, 4.0)), c='#b23a2b', lw=1.7, zorder=5,
         label=say('射程项封顶 0.7R = 77.8 km', 'range cap 0.7R = 77.8 km')))
 
     arm_handles = [bg_handle]
     arm_labels = [bg_handle.get_label()]
     for arm, label, color, marker in FIRE_ARMS:
-        arm_handles.append(ax.scatter(hi[arm][0], hi[arm][1], s=26.0, marker=marker, c=color, alpha=0.55,
+        arm_handles.append(ax.scatter(hi[arm][0], hi[arm][1], s=16.0, marker=marker, c=color, alpha=0.62,
                                       linewidths=0.3, edgecolors='white', zorder=3, label=label))
         arm_labels.append(label)
 
     ax.set_xlim(100, 1000)
     ax.set_ylim(0, 120)
     ax.set_xticks(range(100, 1001, 100))
-    ax.set_xlabel(say('目标速度 Va（detail 的 Va=）/ km/h', 'target speed Va / km/h'), fontsize=9)
-    ax.set_ylabel(say('开火距离 dist_km / km', 'firing distance dist_km / km'), fontsize=9)
+    ax.set_xlabel(say('目标速度 Va（detail 的 Va=）/ km/h', 'target speed Va / km/h'), fontsize=7.0)
+    ax.set_ylabel(say('开火距离 dist_km / km', 'firing distance dist_km / km'), fontsize=7.0)
     ax.tick_params(labelsize=8)
     ax.grid(alpha=0.22, lw=0.5, zorder=0)
     # 图例放到坐标区下方，分臂、理论两组：5 臂 + 3 曲线 + 封顶线共 10 项，区内没有这么大一块空白，
     # 压在数据上会遮点。
-    arms_leg = ax.legend(arm_handles, arm_labels, fontsize=7.6, loc='upper center',
+    arms_leg = ax.legend(arm_handles, arm_labels, fontsize=6.8, loc='upper center',
                          bbox_to_anchor=(0.5, -0.10), ncol=3, frameon=False,
                          labelspacing=0.35, columnspacing=1.6, handletextpad=0.6)
     ax.add_artist(arms_leg)
-    ax.legend(theory_handles, [h.get_label() for h in theory_handles], fontsize=7.6,
+    ax.legend(theory_handles, [h.get_label() for h in theory_handles], fontsize=6.8,
               loc='upper center', bbox_to_anchor=(0.5, -0.215), ncol=2, frameon=False,
               labelspacing=0.35, columnspacing=1.6, handletextpad=0.6)
 
@@ -310,23 +321,23 @@ def fig_gate_hist(fire):
     for ax, band in zip(axes.ravel(), BANDS):
         vals = np.asarray(by_band[band])
         cap = FIRE_RANGE_COEF * band
-        counts, _, _ = ax.hist(vals, bins=bins, color='#4c78a8', alpha=0.85,
+        counts, _, _ = ax.hist(vals, bins=bins, color='#2b5d8f', alpha=0.85,
                                edgecolor='white', linewidth=0.4)
-        ax.axvline(cap, ls='--', c='#d62728', lw=1.3, zorder=4)
+        ax.axvline(cap, ls='--', c='#b23a2b', lw=1.3, zorder=4)
         ax.set_ylim(0, max(counts.max(), 1) * 1.18)
         ax.set_title(say(f'射程档 rng_km = {band:.1f} km\nn = {len(vals)}，理论封顶 0.7R = {cap:.1f} km',
-                         f'rng_km = {band:.1f} km\nn = {len(vals)}, 0.7R = {cap:.1f} km'), fontsize=8.5)
+                         f'rng_km = {band:.1f} km\nn = {len(vals)}, 0.7R = {cap:.1f} km'), fontsize=8.0)
         ax.tick_params(labelsize=8)
         ax.grid(alpha=0.22, lw=0.5, axis='y')
     for ax in axes[1]:
-        ax.set_xlabel(say('开火门限 gate_km / km', 'firing gate gate_km / km'), fontsize=9)
+        ax.set_xlabel(say('开火门限 gate_km / km', 'firing gate gate_km / km'), fontsize=7.0)
     for ax in axes[:, 0]:
-        ax.set_ylabel(say('开火次数', 'fire events'), fontsize=9)
+        ax.set_ylabel(say('开火次数', 'fire events'), fontsize=7.0)
     axes[0][0].set_xlim(0, 118)
     fig.tight_layout()
-    cap_handle = Line2D([], [], ls='--', c='#d62728', lw=1.3)
+    cap_handle = Line2D([], [], ls='--', c='#b23a2b', lw=1.3)
     fig.legend([cap_handle], [say('红色虚线 = 该射程档的理论封顶 0.7R', 'red dashed = theory cap 0.7R')],
-               loc='lower center', bbox_to_anchor=(0.5, -0.015), frameon=False, fontsize=8)
+               loc='lower center', bbox_to_anchor=(0.5, -0.015), frameon=False, fontsize=6.8)
     save(fig, 'fig_gate_hist')
 
     print('[F6] fire_aam 按 detail 的 rng_km 分档')

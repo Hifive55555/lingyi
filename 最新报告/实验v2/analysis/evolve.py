@@ -194,11 +194,10 @@ def main():
         fig, ax = plt.subplots(figsize=(6.4, 3.6), dpi=300)
         xs = [t['cum_episodes'] for t in trace]
         ys = [t['best_so_far'] for t in trace]
-        ax.step(xs, ys, where='post', lw=1.8, color='#3370ff')
-        ax.scatter(xs, [t['rate_mean'] for t in trace], s=14, color='#8a93a0', zorder=3)
+        ax.step(xs, ys, where='post', lw=1.8, color='#2b5d8f')
+        ax.scatter(xs, [t['rate_mean'] for t in trace], s=14, color='#a4acb5', zorder=3)
         ax.set_xlabel('累计评估局数')
         ax.set_ylabel('得分速率（分/小时）')
-        ax.set_title('参数演化：当前最优 vs 累计机时')
         ax.grid(alpha=.25)
         fig.tight_layout()
         fig.savefig(os.path.join(FIG, 'fig_evolve.png'))
@@ -212,12 +211,12 @@ def main():
             los = [r['ci_low'] for r in eff_rows]
             his = [r['ci_high'] for r in eff_rows]
             y = range(len(vals))
-            ax.barh(list(y), vals, color='#3370ff', height=.6)
+            ax.barh(list(y), vals, color='#2b5d8f', height=.6)
             ax.errorbar(vals, list(y), xerr=[[v - l for v, l in zip(vals, los)],
                                             [h - v for v, h in zip(vals, his)]],
-                        fmt='none', ecolor='#1f2937', elinewidth=1, capsize=2)
+                        fmt='none', ecolor='#171b20', elinewidth=1, capsize=2)
             ax.set_yticks(list(y)); ax.set_yticklabels(labels, fontsize=7)
-            ax.axvline(0, color='#1f2937', lw=.8)
+            ax.axvline(0, color='#171b20', lw=.8)
             ax.set_xlabel('相对基线 A0 的得分速率差（分/小时）')
             ax.grid(alpha=.25, axis='x')
             fig.tight_layout()

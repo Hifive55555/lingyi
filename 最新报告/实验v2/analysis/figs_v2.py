@@ -33,6 +33,19 @@ SHORT = {
 }
 
 
+SYTLE_DIR = os.path.join(os.path.dirname(ROOT), 'paper', 'shared', 'scripts')
+
+
+def _apply_style():
+    """统一风格：字号/轴线/网格/配色取自 paper/shared/scripts/figstyle.py。"""
+    import sys
+    if SYTLE_DIR not in sys.path:
+        sys.path.insert(0, SYTLE_DIR)
+    import figstyle
+    import matplotlib
+    figstyle.apply(matplotlib)
+
+
 def load():
     with open(os.path.join(DATA, 'events.csv'), encoding='utf-8') as f:
         return list(csv.DictReader(f))
@@ -71,6 +84,7 @@ def main():
     else:
         plt.rcParams['font.sans-serif'] = ['DejaVu Sans']
     plt.rcParams['axes.unicode_minus'] = False
+    _apply_style()
 
     rows = load()
 
@@ -86,17 +100,17 @@ def main():
         data = [by[a] for a in arms]
         fig, ax = plt.subplots(figsize=(7.6, 3.8), dpi=300)
         bp = ax.boxplot(data, vert=True, widths=.55, showfliers=False,
-                        patch_artist=True, medianprops=dict(color='#1f2937', lw=1.2))
+                        patch_artist=True, medianprops=dict(color='#171b20', lw=1.2))
         for i, p in enumerate(bp['boxes']):
-            p.set_facecolor('#3370ff' if arms[i].startswith('V2_') or arms[i] == 'A0_new' else '#c9d2e3')
-            p.set_edgecolor('#5b6472')
-        ax.axhline(1.0, color='#d64545', lw=1.0, ls='--')
-        ax.text(len(arms) + .1, 1.02, '门限', color='#d64545', fontsize=7, va='bottom', ha='right')
+            p.set_facecolor('#2b5d8f' if arms[i].startswith('V2_') or arms[i] == 'A0_new' else '#b9cde3')
+            p.set_edgecolor('#6b737d')
+        ax.axhline(1.0, color='#b23a2b', lw=1.0, ls='--')
+        ax.text(len(arms) + 0.4, 1.02, '判定距离=触发距离', color='#b23a2b', fontsize=6.4,
+                va='bottom', ha='right')
         ax.set_xticks(range(1, len(arms) + 1))
-        ax.set_xticklabels([SHORT.get(a, a) for a in arms], rotation=35, ha='right', fontsize=7)
+        ax.set_xticklabels([SHORT.get(a, a) for a in arms], rotation=35, ha='right', fontsize=6.4)
         ax.set_ylabel('触发距离 / 门限')
-        ax.set_title('规避触发点相对门限的位置（<1 表示门限内侧才动手）')
-        ax.grid(alpha=.25, axis='y')
+        ax.grid(color='#e9edf1', lw=0.5, axis='y')
         fig.tight_layout()
         fig.savefig(os.path.join(FIG, 'fig_evade_ratio.png'))
         fig.savefig(os.path.join(FIG, 'fig_evade_ratio.svg'))
@@ -116,13 +130,16 @@ def main():
         for i, a in enumerate(arms2):
             xs = by2[a]
             ax.scatter([i] * len(xs), xs, s=4, alpha=.25,
-                       color='#3370ff' if (a.startswith('V2_') or a == 'A0_new') else '#8a93a0')
-            ax.plot([i - .28, i + .28], [st.median(xs)] * 2, color='#d64545', lw=2)
+                       color='#2b5d8f' if (a.startswith('V2_') or a == 'A0_new') else '#a4acb5')
+            ax.plot([i - .30, i + .30], [st.median(xs)] * 2, color='#b23a2b', lw=1.8, zorder=4)
+        # 射程项封顶：0.7R = 77.8 km（R-77-1 射程 111.1 km）
+        ax.axhline(0.7 * 111.1, color='#b23a2b', lw=0.9, ls=(0, (5, 3)), zorder=3)
+        ax.text(len(arms2) - 0.45, 0.7 * 111.1 + 1.5, '0.7R = 77.8 km', color='#b23a2b',
+                fontsize=6.4, ha='right', va='bottom')
         ax.set_xticks(range(len(arms2)))
-        ax.set_xticklabels([SHORT.get(a, a) for a in arms2], rotation=25, ha='right', fontsize=7)
+        ax.set_xticklabels([SHORT.get(a, a) for a in arms2], rotation=25, ha='right', fontsize=6.4)
         ax.set_ylabel('开火距离 / km')
-        ax.set_title('空战开火距离分布（红线为中位数）')
-        ax.grid(alpha=.25, axis='y')
+        ax.grid(color='#e9edf1', lw=0.5, axis='y')
         fig.tight_layout()
         fig.savefig(os.path.join(FIG, 'fig_fire_dist.png'))
         fig.savefig(os.path.join(FIG, 'fig_fire_dist.svg'))
@@ -149,15 +166,14 @@ def main():
         ys = [fires[a] / max(1, ep[a]) for a, _ in trio]
         md = [st.median(dists[a]) for a, _ in trio]
         fig, ax = plt.subplots(figsize=(5.2, 3.2), dpi=300)
-        ax.plot(xs, ys, 'o-', color='#3370ff', lw=1.8, label='发弹次数/局')
+        ax.plot(xs, ys, 'o-', color='#2b5d8f', lw=1.8, label='发弹次数/局')
         ax.set_xlabel('开火比例  FIRE_RATIO（× Dmax）')
-        ax.set_ylabel('发弹次数 / 局', color='#3370ff')
-        ax.tick_params(axis='y', labelcolor='#3370ff')
+        ax.set_ylabel('发弹次数 / 局', color='#2b5d8f')
+        ax.tick_params(axis='y', labelcolor='#2b5d8f')
         ax2 = ax.twinx()
-        ax2.plot(xs, md, 's--', color='#d64545', lw=1.6, label='发弹距离中位数')
-        ax2.set_ylabel('发弹距离中位数 / km', color='#d64545')
-        ax2.tick_params(axis='y', labelcolor='#d64545')
-        ax.set_title('地导开火比例的效果')
+        ax2.plot(xs, md, 's--', color='#b23a2b', lw=1.6, label='发弹距离中位数')
+        ax2.set_ylabel('发弹距离中位数 / km', color='#b23a2b')
+        ax2.tick_params(axis='y', labelcolor='#b23a2b')
         ax.grid(alpha=.2)
         fig.tight_layout()
         fig.savefig(os.path.join(FIG, 'fig_sam_ratio.png'))

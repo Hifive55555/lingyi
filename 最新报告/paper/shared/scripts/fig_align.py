@@ -22,9 +22,9 @@ FR = os.path.join(ROOT, "work", "frames")
 
 CJK = ("/nix/store/9n90ncp7hilfk9jisq2h24w6d7axysf4-source-han-sans-2.005"
        "/share/fonts/truetype/SourceHanSans.ttc")
-GRAY = "#333333"
-ACC = "#e01b24"
-BLUE = "#1a5fb4"
+GRAY = "#171b20"
+ACC = "#b23a2b"
+BLUE = "#2b5d8f"
 WHT = "#ffffff"
 
 
@@ -102,7 +102,7 @@ def overview_red():
     ]
     shot("align-ov-red", im, tags,
          note="客户端全屏录屏 2560×1600｜选手 1 红方视角 05:00",
-         legend=[(ACC, "红＝本方"), (BLUE, "蓝＝对方"), ("#d8c400", "黄＝登陆准备区")])
+         legend=[(ACC, "红＝本方"), (BLUE, "蓝＝对方"), ("#b0883a", "黄＝登陆准备区")])
 
 
 def overview_blue():
@@ -116,7 +116,7 @@ def overview_blue():
     ]
     shot("align-ov-blue", im, tags,
          note="客户端全屏录屏 2560×1600｜选手 1 蓝方视角 16:00",
-         legend=[(BLUE, "蓝＝本方"), (ACC, "红＝对方"), ("#d8c400", "黄＝区域")])
+         legend=[(BLUE, "蓝＝本方"), (ACC, "红＝对方"), ("#b0883a", "黄＝区域")])
 
 
 # ---------------------------------------------------------------- 细节标注
@@ -170,7 +170,7 @@ def radar():
         "A2 固定 50 km": [1.000, 1.000, 0.790, 0.958, 0.96],
         "P 1.2×d0 插值": [1.000, 1.000, 1.000, 1.000, 1.00],
     }
-    colors = [ACC, "#c64600", "#26a269", BLUE]
+    colors = [ACC, "#7a5c22", "#33907f", BLUE]
     n = len(axes)
     ang = np.linspace(0, 2 * np.pi, n, endpoint=False).tolist()
     ang += ang[:1]
@@ -184,7 +184,7 @@ def radar():
     ax.set_ylim(0.4, 1.02)
     ax.set_yticks([0.5, 0.7, 0.9, 1.0])
     ax.set_yticklabels(["0.5", "0.7", "0.9", "1.0"], fontsize=4.6)
-    ax.grid(lw=0.4, color="#bbbbbb")
+    ax.grid(lw=0.4, color="#d8dde3")
     ax.spines["polar"].set_linewidth(0.4)
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.10), ncol=2,
               fontsize=5.4, frameon=False, handlelength=1.4)
@@ -199,7 +199,7 @@ def perf():
                 "空空作战（7.0 µs/机）": 7.0e-3,
                 "地空导弹营（4.8 µs/营）": 4.8e-3}
     fig, ax = plt.subplots(figsize=(3.5, 2.5))
-    for (k, v), c in zip(per_unit.items(), [ACC, BLUE, "#26a269", "#c64600"]):
+    for (k, v), c in zip(per_unit.items(), [ACC, BLUE, "#33907f", "#7a5c22"]):
         ax.plot(N, N * v, "-o", ms=3.0, lw=1.0, color=c, label=k)
     ax.set_xscale("log")
     ax.set_yscale("log")
@@ -213,7 +213,7 @@ def perf():
     ax.yaxis.set_minor_formatter(mticker.NullFormatter())
     ax.set_xlabel("同类单元数 N（对数轴）", fontsize=6.2)
     ax.set_ylabel("单步规则判定耗时 / ms（对数轴）", fontsize=6.2)
-    ax.grid(lw=0.3, color="#dddddd", which="both")
+    ax.grid(lw=0.3, color="#d8dde3", which="both")
     ax.legend(fontsize=4.9, frameon=False, loc="upper left")
     ax.text(52, 0.24, "决策间隔的墙钟预算为 3000 ms；\n最重的曲线在 N=400 时也仅占 0.15%",
             fontsize=4.8, color=GRAY)
@@ -229,14 +229,14 @@ def boundary():
     # (a) BOL：目标点偏差 → 单发命中概率（搜索半径 r 为参数）
     ax = axs[0]
     dev = np.linspace(0.5, 20, 200)
-    for r, c in [(4, ACC), (8, "#c64600"), (12, BLUE)]:
+    for r, c in [(4, ACC), (8, "#7a5c22"), (12, BLUE)]:
         p = np.where(dev <= r, 1.0, (r / dev) ** 2)
         ax.plot(dev, p, lw=1.1, color=c, label=f"搜索半径 {r} km")
     ax.set_xlabel("目标点偏差 / km", fontsize=6.0)
     ax.set_ylabel("单发命中概率", fontsize=6.0)
     ax.set_title("a　BOL 纯方位打击", fontsize=6.4, loc="left")
     ax.legend(fontsize=5.0, frameon=False)
-    ax.grid(lw=0.3, color="#dddddd")
+    ax.grid(lw=0.3, color="#d8dde3")
     ax.tick_params(labelsize=5.2)
     ax.spines[["top", "right"]].set_visible(False)
 
@@ -244,7 +244,7 @@ def boundary():
     ax = axs[1]
     lam = np.linspace(0.5, 12, 300)       # 架次/小时
     mu = 60.0 / 6.0                        # 每架 6 分钟，10 架次/小时
-    for c, col in [(1, ACC), (2, "#c64600"), (3, BLUE)]:
+    for c, col in [(1, ACC), (2, "#7a5c22"), (3, BLUE)]:
         rho = lam / (c * mu)
         ok = rho < 0.98
         ax.plot(lam[ok], rho[ok], lw=1.1, color=col, label=f"{c} 架加油机")
@@ -254,14 +254,14 @@ def boundary():
     ax.set_ylabel("加油机利用率 ρ", fontsize=6.0)
     ax.set_title("b　加油规划（排队模型）", fontsize=6.4, loc="left")
     ax.legend(fontsize=5.0, frameon=False)
-    ax.grid(lw=0.3, color="#dddddd")
+    ax.grid(lw=0.3, color="#d8dde3")
     ax.tick_params(labelsize=5.2)
     ax.spines[["top", "right"]].set_visible(False)
 
     # (c) 预警机：雷达地平线 vs 包线约束
     ax = axs[2]
     h_t = np.linspace(0.05, 6, 300)                 # km
-    for h_r, col in [(6, ACC), (8, "#c64600"), (10, BLUE)]:
+    for h_r, col in [(6, ACC), (8, "#7a5c22"), (10, BLUE)]:
         d = 3.57 * (math.sqrt(h_r * 1000) + np.sqrt(h_t * 1000))
         ax.plot(d, h_t, lw=1.1, color=col, label=f"站位高度 {h_r} km")
     for x, txt in [(60, "敌 SAM 包线\n60 km"), (100, "我 SAM 包线\n100 km")]:
@@ -272,7 +272,7 @@ def boundary():
     ax.set_title("c　预警机站位（地平线 vs 包线）", fontsize=6.4, loc="left")
     ax.set_xlim(0, 400)
     ax.legend(fontsize=5.0, frameon=False, loc="lower right")
-    ax.grid(lw=0.3, color="#dddddd")
+    ax.grid(lw=0.3, color="#d8dde3")
     ax.tick_params(labelsize=5.2)
     ax.spines[["top", "right"]].set_visible(False)
 
@@ -291,7 +291,7 @@ def boundary():
         a2.set_ylabel(src.get_ylabel(), fontsize=5.8)
         a2.set_title(src.get_title(), fontsize=6.2, loc="left")
         a2.tick_params(labelsize=5.0)
-        a2.grid(lw=0.3, color="#dddddd")
+        a2.grid(lw=0.3, color="#d8dde3")
         a2.spines[["top", "right"]].set_visible(False)
         a2.legend(fontsize=4.6, frameon=False)
         if name == "align-aew":

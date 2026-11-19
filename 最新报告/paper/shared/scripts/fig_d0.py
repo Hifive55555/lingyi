@@ -14,10 +14,15 @@
 """
 import os
 
+import sys
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import font_manager
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import figstyle  # 统一配色与排版（唯一色源）
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.dirname(HERE)
@@ -25,10 +30,11 @@ FIG = os.path.join(PAPER, "figures")
 
 CJK = ("/nix/store/9n90ncp7hilfk9jisq2h24w6d7axysf4-source-han-sans-2.005"
        "/share/fonts/truetype/SourceHanSans.ttc")
-INK = "#22252b"
-MUTED = "#5f676d"
-GRID = "#e2e5e9"
-C1, C2, C3 = "#3d6fb0", "#7a4f9c", "#a0433a"      # 三条目标速度 / 两条档位
+INK = "#171b20"
+MUTED = "#6b737d"
+GRID = "#e9edf1"
+SEQ = ("#a4bcd9", "#6d92be", "#2b5d8f")   # 目标速度 600/900/1200：单色顺序梯度
+C1, C2, C3 = "#6b737d", "#2b5d8f", "#b23a2b"  # 固定 20 km（灰）/ 固定 50 km（靛）/ 本规则（朱砂）
 
 T_A = 240.0        # s
 V_TERM = 500.0     # km/h
@@ -63,17 +69,10 @@ def main():
         family = font_manager.FontProperties(fname=CJK).get_name()
     else:
         family = "Noto Sans CJK SC"
+    figstyle.apply(mpl)          # 统一：7 pt 正文 / 6.4 pt 刻度 / 0.6 pt 轴线 / 只留左下 spine
     mpl.rcParams.update({
-        "font.family": "sans-serif",
-        "font.sans-serif": [family, "Noto Sans CJK SC"],
-        "font.weight": "regular",
-        "axes.labelweight": "regular",
-        "font.size": 8,
+        "font.family": "sans-serif", "font.sans-serif": [family, "Noto Sans CJK SC"],
         "axes.unicode_minus": False,
-        "svg.fonttype": "path",
-        "figure.dpi": 300,
-        "axes.edgecolor": "#9aa0a8",
-        "axes.linewidth": 0.6,
     })
 
     V0 = np.linspace(1400, 4000, 400)
@@ -83,7 +82,7 @@ def main():
     )
 
     # ---------------- (a) d0 随初速 ----------------
-    for color, Va in ((C1, 600), (C2, 900), (C3, 1200)):
+    for color, Va in zip(SEQ, (600, 900, 1200)):
         ax1.plot(V0, d0(V0, Va), color=color, lw=1.3, label=f"$V_a$ = {Va} km/h")
     ax1.set_xlim(1400, 4000)
     ax1.set_ylim(0, 115)
@@ -103,7 +102,7 @@ def main():
 
     # ---------------- (b) 判定距离 / d0 ----------------
     va = 900.0
-    ax2.axhspan(0, 1, color="#a0433a", alpha=0.055, lw=0)
+    ax2.axhspan(0, 1, color="#b23a2b", alpha=0.055, lw=0)
     ax2.axhline(1.0, color=INK, lw=0.8, ls="--")
     ax2.plot(V0, 20 / d0(V0, va), color=C1, lw=1.3, label="固定 20 km 档")
     ax2.plot(V0, 50 / d0(V0, va), color=C2, lw=1.3, label="固定 50 km 档")
@@ -114,7 +113,7 @@ def main():
     for gate, color in ((20, C1), (50, C2)):
         xc = crossing(gate, va)
         ax2.plot([xc], [1.0], "o", ms=3.6, mfc="white", mec=color, mew=1.1, zorder=5)
-    ax2.text(1520, 0.58, "可达范围内", fontsize=7.2, color="#a0433a")
+    ax2.text(1520, 0.58, "可达范围内", fontsize=7.2, color="#b23a2b")
     ax2.text(3960, 1.05, "可达范围外", fontsize=7.2, color=MUTED, ha="right")
 
     ax2.set_xlim(1400, 4000)

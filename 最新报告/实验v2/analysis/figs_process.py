@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 DATA = os.path.join(ROOT, 'data')
 TAP = os.path.join(ROOT, 'raw', 'tap')
-FIG = os.path.normpath(os.path.join(ROOT, '..', 'paper', 'shared', 'figures'))
+FIG = os.path.join(ROOT, 'fig')          # 写到实验目录，避免覆盖论文插图
 
 BIN_S = 30 * 60          # 30 min 分箱
 SIM_END = 180 * 60       # 满时长 180 min
@@ -39,17 +39,17 @@ NBIN = SIM_END // BIN_S  # 6 个箱：0-30, …, 150-180
 
 # 事件类型 → (图例名, 颜色)
 EVENTS = [
-    ('evade_beam', '规避机动', '#3370ff'),
-    ('fire_aam', '空战开火', '#d64545'),
-    ('sam_fire', '地导发弹', '#e08a1e'),
-    ('threat', '威胁告警', '#7a5cd6'),
+    ('evade_beam', '规避机动', '#2b5d8f'),
+    ('fire_aam', '空战开火', '#b23a2b'),
+    ('sam_fire', '地导发弹', '#b0883a'),
+    ('threat', '威胁告警', '#33907f'),
 ]
 
 # 阶段底色：0-30 首波 / 30-60 高潮 / 60-180 登陆与防空
 PHASES = [
-    (0, 30, '首波', '#f6d5d2'),
-    (30, 60, '高潮', '#fbe3bf'),
-    (60, 180, '登陆与防空', '#d9e6f5'),
+    (0, 30, '首波', '#f8e9e5'),
+    (30, 60, '高潮', '#f9f0e0'),
+    (60, 180, '登陆与防空', '#e7eef7'),
 ]
 
 STEP_GAMES = 25          # F3 抽样局数（20–30）
@@ -57,6 +57,19 @@ STEP_MAX_PTS = 400       # F3 每局最多点数
 STEP_SEED = 20271
 STALE_S = 5.0            # wall 差 > 5 s 视为引擎重启/暂停
 FULL_MEAN_S = 0.34       # 满时长局单步墙钟均值（全部有效步实测 0.348 s）
+
+
+def _apply_style():
+    """统一风格：字号/轴线/网格/配色取自 paper/shared/scripts/figstyle.py。"""
+    import os
+    import sys
+    here = os.path.dirname(os.path.abspath(__file__))
+    fs = os.path.join(os.path.dirname(os.path.dirname(here)), 'paper', 'shared', 'scripts')
+    if fs not in sys.path:
+        sys.path.insert(0, fs)
+    import figstyle
+    import matplotlib
+    figstyle.apply(matplotlib)
 
 
 def setup_matplotlib():
@@ -71,9 +84,7 @@ def setup_matplotlib():
     else:
         plt.rcParams['font.sans-serif'] = ['DejaVu Sans']
     plt.rcParams['axes.unicode_minus'] = False
-    plt.rcParams.update({'font.size': 9, 'axes.titlesize': 11,
-                         'axes.labelsize': 9, 'xtick.labelsize': 8.5,
-                         'ytick.labelsize': 8.5})
+    _apply_style()
     return plt
 
 
@@ -125,7 +136,7 @@ def fig_event_timeline(plt, rows):
     for lo, hi, label, color in PHASES:
         ax.axvspan(lo, hi, color=color, alpha=.55, lw=0, zorder=0)
         ax.text((lo + hi) / 2, ymax * 1.045, label, ha='center', va='bottom',
-                fontsize=8.5, color='#5b6472', zorder=5)
+                fontsize=8.5, color='#6b737d', zorder=5)
 
     for ev, label, color in EVENTS:
         ax.plot(centers, counts[ev], 'o-', color=color, lw=1.7, ms=4.2,
@@ -137,7 +148,6 @@ def fig_event_timeline(plt, rows):
     ax.set_yticks(range(0, int(ymax * 1.18) + 1, 3000))
     ax.set_xlabel('仿真时间 / min（每 30 min 一格）')
     ax.set_ylabel('每 30 min 事件数（%d 局合计）' % n_ep)
-    ax.set_title('红方事件时序：首波 → 高潮 → 登陆与防空', pad=26)
     ax.legend(loc='lower center', bbox_to_anchor=(.5, 1.0), ncol=4, frameon=False,
               fontsize=8, handlelength=1.6, columnspacing=1.4, handletextpad=.4)
     style_axes(ax)
@@ -277,35 +287,34 @@ def fig_step_vs_missiles(plt):
     ylim = (0.0, max(0.60, np.percentile(ys, 99.5) * 1.25))
     clipped = int((ys > ylim[1]).sum())
     jit = np.random.default_rng(STEP_SEED + 1).uniform(-.18, .18, len(xs))
-    ax.scatter(xs + jit, ys, s=3.2, alpha=.10, color='#3370ff', edgecolors='none', zorder=2)
+    ax.scatter(xs + jit, ys, s=3.2, alpha=.10, color='#2b5d8f', edgecolors='none', zorder=2)
 
     grid = np.arange(0, xs.max() + .05, .25)
     sm, ns = lowess(xs, ys, grid)
     ok = ns >= 30
-    ax.plot(grid[ok], sm[ok], color='#1b3f8f', lw=2.0, zorder=4)
+    ax.plot(grid[ok], sm[ok], color='#2b5d8f', lw=2.0, zorder=4)
     ax.annotate('局部线性平滑', (grid[ok][-1], sm[ok][-1]),
                 xytext=(-4, 8), textcoords='offset points',
-                ha='right', va='bottom', fontsize=8, color='#1b3f8f')
+                ha='right', va='bottom', fontsize=8, color='#2b5d8f')
 
-    ax.axhline(FULL_MEAN_S, color='#d64545', lw=1.2, ls='--', zorder=3)
+    ax.axhline(FULL_MEAN_S, color='#b23a2b', lw=1.2, ls='--', zorder=3)
     ax.annotate('满时长步均 %.2f s' % FULL_MEAN_S, (xs.max() + .45, FULL_MEAN_S),
                 xytext=(0, 5), textcoords='offset points',
-                ha='right', va='bottom', fontsize=8, color='#d64545')
+                ha='right', va='bottom', fontsize=8, color='#b23a2b')
 
     ax.set_xlim(-.7, xs.max() + .7)
     ax.set_ylim(*ylim)
     ax.set_xticks(range(0, int(xs.max()) + 1, 2))
     ax.set_xlabel('该步在飞弹药数（cts 中 type=1 的条数，隔步采集前值填充）')
     ax.set_ylabel('该步墙钟 / s（相邻两行 wall 差）')
-    ax.set_title('单步墙钟随在飞弹药数上升', pad=8)
     style_axes(ax)
     ax.text(.985, .04,
             '%d 局抽样 · n=%d 步（跳过 %d 条 >5 s 异常步、纵轴外 %d 点）\n'
             'Pearson r=%.3f · Spearman ρ=%.3f\n拟合 y = %.4f·x + %.3f s' % (
                 len(kept), len(xs), skipped, clipped, r, rho, slope, icpt),
             transform=ax.transAxes, ha='right', va='bottom', fontsize=7.2,
-            color='#5b6472', linespacing=1.5,
-            bbox=dict(boxstyle='round,pad=0.35', fc='white', ec='#d8dde6', lw=.6, alpha=.92))
+            color='#6b737d', linespacing=1.5,
+            bbox=dict(boxstyle='round,pad=0.35', fc='white', ec='#d8dde3', lw=.6, alpha=.92))
     fig.tight_layout()
     save(fig, 'fig_step_vs_missiles')
     plt.close(fig)

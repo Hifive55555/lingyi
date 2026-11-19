@@ -17,10 +17,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAPER = os.path.dirname(HERE)
 OUT = os.path.join(PAPER, "schematics")
 
-GRAY = "#3d4248"     # 几何线
-MID = "#5f676d"      # 次要文字
-RED = "#c62f2f"      # 本方（本机）
-BLUE = "#2f6db3"     # 敌方（来袭弹）
+GRAY = "#171b20"     # 几何线
+MID = "#6b737d"      # 次要文字
+RED = "#b23a2b"      # 本方（本机）
+BLUE = "#2b5d8f"     # 敌方（来袭弹）
 
 # ---- 几何：先定本机与航迹方向，垂足与弹位由此推出 -------------------------
 A = (150.0, 190.0)                  # 本机

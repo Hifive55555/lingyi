@@ -12,7 +12,12 @@
 
 三档取 0.6 / 0.8 / 1.0，分别对应 `V2_WB_f06`（6 局、218 次开火）、`V2_WA_f08`（6 局、438 次）与 `V2_WC_f10`（6 局、494 次）；三套配置都关掉了平台条令的自动开火（`wra_nm=1`），因此这一轴是干净的单因子对比。开火次数是 36.3 / 73.0 / 82.3 次/局（`rule_metrics.csv: fire_aam_count`）；开火距离的中位数是 *59.0 / 68.5 / 70.1 km*（`events.csv` 中 `event=fire_aam` 的 `dist_km`）；开火时距离与判定距离之比是 0.792 / 0.781 / 0.783（`events.csv: ratio_gate`），三档都稳定落在判定距离内侧一点点，差异全部体现在判定距离本身。
 
-判定距离由哪一项决定，才是这一段真正要看的东西。判定距离取 $min(c d_0,\u{2060} 0.7 R_max)$，而本场目标速度偏低（开火事件的 $d_0$ 中位约 122 km），0.8·$d_0$ 约 98 km，已经越过 $0.7 R_max$（R-77-1 为 77.8 km、远射程型为 97.2 km）。实测与这条判据吻合：三档开火事件里，判定距离恰好等于这两个封顶值的比例分别是 3.2% / 61.6% / 84.6%（`events.csv: gate_km`）。*于是 0.8 以上这一侧几乎是平的*：0.8 → 1.0 只把开火距离推远 1.6 km，因为在 84.6% 的交会里起限制作用的已经不是能量项，而是射程项；往小改才真正生效：0.6 档有 96.8% 的判定距离由 $c d_0$ 决定，开火点整体内推 9.5 km，开火次数减到 36 次/局。
+判定距离由哪一项决定，才是这一段真正要看的东西。判定距离取 $min(c d_0,\u{2060} 0.7 R_max)$，而本场目标速度偏低（开火事件的 $d_0$ 中位约 122 km），0.8·$d_0$ 约 98 km，已经越过 $0.7 R_max$（R-77-1 为 77.8 km、远射程型为 97.2 km）。实测与这条判据吻合：三档开火事件里，判定距离恰好等于这两个上限值的比例分别是 3.2% / 61.6% / 84.6%（`events.csv: gate_km`）。*于是 0.8 以上这一侧几乎是平的*：0.8 → 1.0 只把开火距离推远 1.6 km，因为在 84.6% 的交会里起限制作用的已经不是能量项，而是射程项；往小改才真正生效：0.6 档有 96.8% 的判定距离由 $c d_0$ 决定，开火点整体内推 9.5 km，开火次数减到 36 次/局。
+
+#figure(
+  image("../../shared/截图/4.png", width: 80%),
+  caption: [中部核心区域飞机空战与自卫示意图]
+)
 
 结局：243.7 [148, 327]、370.6 [235, 490]、412.5 [330, 489]。三档的区间只在边缘相碰，方向是“系数越小越差”，但 0.6 档与 0.8 档仍有 235–327 这一段重叠，按 @sec:inloop-validity 节给出的判据不能报成显著。这里还需写明一处条令状态：0.8 这一档有两个配置，保留条令的 `V2_A0_new` 与关条令的 `V2_WA_f08`。前者开火 49.4 次/局，比后者 73.0 次少 24 次，这 24 次是平台条令替规则打出去的，因此两套配置的开火次数不能横比；表里只列关条令的三个配置，以保证这一轴是单因子。
 
@@ -47,7 +52,7 @@
       [`sam_ratio`], [1.0（`E2_sam10`）], [264.8 次/局 / 38.9 km / 0.529 $D_max$], [366 [237, 489]], [8],
     )
   },
-  caption: [参数邻域的平台在环读数。列 1–2：参数名与取值，配置标识对应 `rule_metrics.csv` 的配置名，θ 定义见 @sec:inloop-arms。列 3：规则级指标。`k_turn` 行依次是判定距离、触发距离、触发距离与判定距离之比、兜底份额，四个数依次取自 `rule_metrics.csv` 的 `evade_start_gate_km`、`evade_start_dist_km`、`evade_start_ratio_gate`、`evade_start_frac_override`；`c_fire` 行依次是每局开火次数、开火距离中位数、判定距离被射程项封顶的占比，第一个数取自 `fire_aam_count`，后两个由 `events.csv` 中 `event=fire_aam` 的 `dist_km`、`gate_km` 直接统计（封顶值取 $0.7 R_max$ = 77.8 或 97.2 km）；`sam_ratio` 行依次是每局发弹次数、发弹距离、发弹时距离与 $D_max$ 之比，三个数取自 `sam_fire_count`、`sam_fire_dist_km`、`sam_fire_ratio_dmax`。列 4：得分速率（分/小时）与 95% 区间，由 `episode_metrics.csv` 的 `score_final` 与 `sim_end_tap` 逐局算出速率后做局级 bootstrap（1000 次重采样），与 `knob_effects.csv` 的 `rate_mean` 同一算法（后者的 `ci_low`、`ci_high` 是相对基线的差分）。列 5：参与结局统计的局数（`episode_metrics.csv` 按 `arm` 计数），规则级分母见正文括号内的事件数。],
+  caption: [参数邻域的平台在环读数。列 1–2：参数名与取值，配置标识对应 `rule_metrics.csv` 的配置名，θ 定义见 @sec:inloop-arms。列 3：规则级指标。`k_turn` 行依次是判定距离、触发距离、触发距离与判定距离之比、兜底份额，四个数依次取自 `rule_metrics.csv` 的 `evade_start_gate_km`、`evade_start_dist_km`、`evade_start_ratio_gate`、`evade_start_frac_override`；`c_fire` 行依次是每局开火次数、开火距离中位数、判定距离触及射程上限的占比，第一个数取自 `fire_aam_count`，后两个由 `events.csv` 中 `event=fire_aam` 的 `dist_km`、`gate_km` 直接统计（上限值取 $0.7 R_max$ = 77.8 或 97.2 km）；`sam_ratio` 行依次是每局发弹次数、发弹距离、发弹时距离与 $D_max$ 之比，三个数取自 `sam_fire_count`、`sam_fire_dist_km`、`sam_fire_ratio_dmax`。列 4：得分速率（分/小时）与 95% 区间，由 `episode_metrics.csv` 的 `score_final` 与 `sim_end_tap` 逐局算出速率后做局级 bootstrap（1000 次重采样），与 `knob_effects.csv` 的 `rate_mean` 同一算法（后者的 `ci_low`、`ci_high` 是相对基线的差分）。列 5：参与结局统计的局数（`episode_metrics.csv` 按 `arm` 计数），规则级分母见正文括号内的事件数。],
 ) <tab:neighborhood>
 
 三条轴的区间在这批样本量下互相覆盖，而每格只有 5–20 局。区间宽度由局间波动与样本量之比决定，*宽与窄本身不足以支撑排序*，所以能给的结论是“参数怎么改、规则行为就怎么动”，给不出“哪个取值在结局上更好”。要做后者，先得有统计功效：局间标准差 60–391 分/小时（`episode_metrics.csv` 逐配置速率的标准差），要分辨 40 分/小时的差异，约需每组 200 局（@sec:inloop-validity 节）。

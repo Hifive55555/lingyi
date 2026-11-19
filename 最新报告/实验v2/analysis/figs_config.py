@@ -25,7 +25,7 @@ ROOT = os.path.dirname(HERE)                      # 最新报告/实验v2
 REPORT = os.path.dirname(ROOT)                    # 最新报告
 LOG = os.path.join(ROOT, 'raw', 'logs', 'V2_A0_new.err')
 MISSION_PY = os.path.join(REPORT, '监控和地空导弹营智能体代码', 'Mission_all_red.py')
-FIG = os.path.join(REPORT, 'paper', 'shared', 'figures')
+FIG = os.path.join(ROOT, 'fig')          # 写到实验目录，避免覆盖论文插图
 
 RED_BUILD = 'AGENT_BUILD=2026-11-09-RED-21'       # 红方主智能体的构建标记（每局一条）
 TS = re.compile(r'^(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d)')
