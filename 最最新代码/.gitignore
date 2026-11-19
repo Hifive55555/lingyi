@@ -16,9 +16,11 @@ __pycache__/
 .ruff_cache/
 
 # ---------- 虚拟环境 ----------
-# 小窗的 .venv 是在某台 Windows 机器上用灵弈自带的 ray210 python 建的，
-# pyvenv.cfg 里写死了 home=D:\LingYi\intelligent\new_env\ray210，
-# 换机器必然失效 —— 不要提交，按文档用 repair_overlay_venv.py 重建。
+# 【已废弃】小窗现在直接用灵弈自带的 <灵弈>\intelligent\new_env\ray210
+#（它自带 aiohttp 3.9.5），不再建 .venv —— 见小窗/overlay/灵弈小窗.bat 头部说明
+# 与 智能体代码/tools/check_env.py。
+# 若因 ray210 缺 aiohttp 而临时建了 --system-site-packages 的 venv（应急方案），
+# 它同样是本机构建产物（pyvenv.cfg 绑死本机 ray210 路径），仍然不跟踪。
 .venv/
 venv/
 env/
