@@ -46,7 +46,9 @@ class OverlayHost
         f.StartPosition = FormStartPosition.Manual;
         var scr = Screen.PrimaryScreen.WorkingArea;
         if (px < 0) px = scr.Right - w - 30;
-        f.Bounds = new Rectangle(px, py, w, h);
+        // 窗口高度 = 页面高度 + 标题栏高度：这样页面拿到的视口正好是 h，
+        // 和浏览器里看到的版式一致（否则页面少 26px，底部总是缺一条）。
+        f.Bounds = new Rectangle(px, py, w, h + 26);
         f.TopMost = true;
         f.BackColor = Bg;
 
@@ -102,16 +104,23 @@ class OverlayHost
         bar.MouseDown += dragStart;
         title.MouseDown += dragStart;
 
-        // 布局用手算，不用 Dock：Dock 的叠放顺序会让 WebView2 铺满整个客户区，
-        // 把自绘标题栏压在上面 —— 页面自己的第一行（侧别/时间/统计）就被挡掉了。
+        // 布局：标题栏占顶部 26px，WebView2 放进一个**独立的容器面板**里再 Dock=Fill。
+        //
+        // 为什么不直接把 WebView2 摆到 (0,26)：WinForms 包装器是按“控件相对窗体”
+        // 去算渲染区的，控件带 y 偏移时它算成了 (0,0,w,h-26) —— 页面整体上移 26px，
+        // 于是标题栏盖住页面第一行、底部还少一条（实测截图就是这个现象）。
+        // 套一层面板后控件在面板内是 (0,0)，渲染区和面板完全对齐。
         var wv = new WebView2();
+        var host = new Panel();
         const int BAR_H = 26;
-        f.Controls.Add(wv);
+        wv.Dock = DockStyle.Fill;
+        host.Controls.Add(wv);
+        f.Controls.Add(host);
         f.Controls.Add(bar);
         EventHandler layout = (s2, e2) =>
         {
             bar.SetBounds(0, 0, f.ClientSize.Width, BAR_H);
-            wv.SetBounds(0, BAR_H, f.ClientSize.Width, Math.Max(40, f.ClientSize.Height - BAR_H));
+            host.SetBounds(0, BAR_H, f.ClientSize.Width, Math.Max(40, f.ClientSize.Height - BAR_H));
         };
         f.Resize += layout;
 
@@ -122,6 +131,7 @@ class OverlayHost
                 Log("CreateAsync udf=" + (udf ?? "(exe 同级默认)"));
                 var env = await CoreWebView2Environment.CreateAsync(null, udf, null);
                 await wv.EnsureCoreWebView2Async(env);
+                layout(null, EventArgs.Empty);      // core 起来后再摆一次（此时控件尺寸已定）
                 wv.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
                 wv.CoreWebView2.Settings.IsStatusBarEnabled = false;
                 wv.CoreWebView2.Settings.AreDevToolsEnabled = false;

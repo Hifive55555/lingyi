@@ -36,6 +36,7 @@ public class Win {
     [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr h);
     [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr h, int cmd);
     [DllImport("user32.dll")] public static extern bool SetWindowPos(IntPtr h, IntPtr after, int x, int y, int cx, int cy, uint flags);
+    [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr h, ref int pid);
     public struct RECT { public int left, top, right, bottom; }
 }
 "@
@@ -48,7 +49,17 @@ function Find-Windows {
             $sb = New-Object System.Text.StringBuilder 512
             [void][Win]::GetWindowText($h, $sb, 512)
             $t = $sb.ToString()
-            if ($t -like '灵弈小窗*' -or $t -like '监控小窗*') {
+            # 只认我们自家的窗口（进程名 overlay_wv2）；按标题匹配会把 Edge
+            # 打开的同一个页面也截进来（页面标题就叫“灵弈小窗”）。
+            $ok = $false
+            try {
+                $pid2 = 0
+                [void][Win]::GetWindowThreadProcessId($h, [ref]$pid2)
+                $pn = (Get-Process -Id $pid2 -ErrorAction SilentlyContinue).ProcessName
+                if ($pn -eq 'overlay_wv2') { $ok = $true }
+            } catch { }
+            if (-not $ok -and ($t -like '灵弈小窗*' -or $t -like '监控小窗*')) { $ok = $true }
+            if ($ok) {
                 $r = New-Object Win+RECT
                 [void][Win]::GetWindowRect($h, [ref]$r)
                 if (($r.right - $r.left) -gt 100 -and ($r.bottom - $r.top) -gt 100) {
