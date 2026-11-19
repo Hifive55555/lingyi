@@ -30,6 +30,10 @@ env/
 # launcher.py / agent.py 运行时创建：logs/launcher.pid、logs/browser/（Edge --app 的
 # 用户数据目录，几百 MB）、以及各处的 *.log
 logs/
+
+# ---------- 打包产物 ----------
+dist/
+*.zip.part
 *.pid
 *.log
 browser/

@@ -9,6 +9,27 @@
 
 ---
 
+## 打包（发到比赛机之前）
+
+在**本目录**下：
+
+```bash
+./pack.sh                    # -> dist/灵弈小窗+红方智能体_<时间戳>.zip（约 0.5 MB）
+./pack.sh --with-entitys     # 连平台库 entitys 一起打（约 +60 MB，一般不需要）
+./pack.sh --no-zip           # 只生成目录，改用 robocopy 拷（中文名更稳）
+```
+
+Windows 上双击 `pack.bat`（同一套参数）。打进包里的就是"要装到目标机的东西"：
+`deploy.ps1/.bat`、`README.md`、主智能体 + 三个战术模块 + 任务表 + `tools`、
+`小窗\overlay*`（含 `wv2` 宿主），外加一份 `打包清单.txt`（逐文件大小 + sha256 前 16 位）。
+
+打包会自动跳过 `logs/`、`__pycache__/`、`*.log`、`*.bak_*`、
+`overlay_wv2.exe.WebView2/`（WebView2 的 profile 缓存），并在打包前校验
+`wv2/overlay_wv2.exe` 等关键文件；缺了直接报错退出，不会给你一个装不上的包。
+
+拷到目标机后：解压到 `<灵弈>\intelligent\` 下（目录名随意）→ 双击 `deploy.bat`。
+
+
 ## 1. 打包与放置
 
 1. 把整个 `最最新代码\` 目录打成 zip。
