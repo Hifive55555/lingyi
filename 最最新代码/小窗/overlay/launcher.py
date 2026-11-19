@@ -17,7 +17,6 @@ import subprocess
 import sys
 import threading
 import time
-import traceback
 from pathlib import Path
 
 from aiohttp import web
@@ -77,15 +76,6 @@ PID_FILE = LOGS / "launcher.pid"
 PAGE_PORT = int(os.environ.get("LY_OVERLAY_PAGE_PORT", "8761"))
 TITLE = "灵弈小窗"
 W, H = 480, 860
-# 小窗专用浏览器 profile：默认放 %LOCALAPPDATA%\LingYiOverlay\browser
-#   - 放 C 盘：目标机 D 只剩几百 MB
-#   - 独立目录：不跟用户日常 Edge 抢单例，也便于出问题时整个删掉重来
-PROFILE = Path(os.environ.get("LY_OVERLAY_PROFILE")
-               or (Path(os.environ.get("LOCALAPPDATA") or str(LOGS))
-                   / "LingYiOverlay" / "browser"))
-# 开窗方式：1=Edge --app（无地址栏，但这台机器上 network service 会崩）；
-#           0=普通窗口（带地址栏，用户实测能正常显示）
-APP_MODE = (os.environ.get("LY_OVERLAY_APP") or "0") not in ("0", "", "no", "false")
 DEFAULT_KEYS = {"weapon": "Alt+Q", "thralt": "Alt+W", "sam": "Alt+E"}
 KEY_CN = {"weapon": "武器分配", "thralt": "油门高度", "sam": "防空值班"}
 KEY = {"n": 0, "k": ""}             # 热键按了几次 / 最后按的哪个（页面轮询 /key）
@@ -176,23 +166,7 @@ def serve():
     runner = web.AppRunner(app)
     loop.run_until_complete(runner.setup())
     loop.run_until_complete(web.TCPSite(runner, "127.0.0.1", PAGE_PORT).start())
-    print("页面服务已监听 127.0.0.1:%s" % PAGE_PORT, flush=True)
-    try:
-        loop.run_forever()
-    except Exception:
-        print("页面服务异常退出：\n%s" % traceback.format_exc(), flush=True)
-        raise
-
-
-def serve_forever():
-    """页面服务挂了就重启 —— 一挂了 8761 没人应答，小窗窗口立刻变灰。"""
-    while True:
-        try:
-            serve()
-            return
-        except Exception:
-            print("页面服务重启中：\n%s" % traceback.format_exc(), flush=True)
-            time.sleep(1)
+    loop.run_forever()
 
 
 # ---------------------------------------------------------------------- 窗口
@@ -207,30 +181,6 @@ def kill_old():
         pass
     LOGS.mkdir(parents=True, exist_ok=True)
     PID_FILE.write_text(str(os.getpid()))
-
-
-def kill_profile_browsers():
-    """杀掉正用我们 profile 的 msedge。
-
-    Chromium 是单例：同 --user-data-dir 再启一次会“交接”给已有实例然后自己退出。
-    之前那个已经崩成灰屏的实例还活着，于是每次双击 bat 都是「等很久 + 还是灰」。
-    """
-    try:
-        import subprocess as _sp
-        ps = ("Get-CimInstance Win32_Process -Filter \"Name='msedge.exe'\" | "
-              "Where-Object { $_.CommandLine -like '*%s*' } | "
-              "ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }"
-              % str(PROFILE))
-        _sp.run(["powershell", "-NoProfile", "-Command", ps],
-                stdout=_sp.DEVNULL, stderr=_sp.DEVNULL, timeout=15)
-        time.sleep(0.6)
-    except Exception as e:
-        print("清理旧浏览器失败：%s" % e, flush=True)
-    for name in ("lockfile", "SingletonLock", "SingletonCookie", "SingletonSocket"):
-        try:
-            (PROFILE / name).unlink()
-        except Exception:
-            pass
 
 
 def find_browser():
@@ -248,38 +198,20 @@ def title_of(hwnd):
     return buf.value
 
 
-user32.GetWindowThreadProcessId.argtypes = [wt.HWND, ctypes.POINTER(wt.DWORD)]
-
-
-def find_windows(pid=None):
-    """找小窗窗口。
-
-    优先按**我们 spawn 的浏览器进程 PID**认（--app 窗口归属主进程），
-    标题只作兜底：页面没渲染出来时标题是 "127.0.0.1:8761" 而不是
-    "灵弈小窗"，只靠标题会一直找不到 —— 上一版就是这样：窗口明明开着，
-    launcher 干等 60 秒后自己退出，8761 一关，窗口就变成灰屏。
-    """
+def find_windows():
     found = []
 
     @ctypes.WINFUNCTYPE(wt.BOOL, wt.HWND, wt.LPARAM)
     def cb(hwnd, _):
-        if not user32.IsWindowVisible(hwnd):
-            return True
-        if pid:
-            p = wt.DWORD(0)
-            user32.GetWindowThreadProcessId(hwnd, ctypes.byref(p))
-            if p.value == pid:
-                found.append(hwnd)
-                return True
-        if TITLE in title_of(hwnd):
+        if user32.IsWindowVisible(hwnd) and TITLE in title_of(hwnd):
             found.append(hwnd)
         return True
     user32.EnumWindows(cb, 0)
     return found
 
 
-def find_window(pid=None):
-    found = find_windows(pid)
+def find_window():
+    found = find_windows()
     return found[0] if found else None
 
 
@@ -357,42 +289,17 @@ def main():
         pass
     kill_old()
     close_old()
-    threading.Thread(target=serve_forever, daemon=True, name="page-server").start()
+    threading.Thread(target=serve, daemon=True).start()
     time.sleep(0.5)
     url = f"http://127.0.0.1:{PAGE_PORT}/"
     exe = find_browser()
-    proc = None
     if exe:
         scale = user32.GetDpiForSystem() / 96 if hasattr(user32, "GetDpiForSystem") else 1.0
         sw = user32.GetSystemMetrics(0) / scale
-        # --disable-gpu：这台机器上 Edge 的 GPU/渲染进程崩过一次（Crashpad 有 7MB dmp），
-        # 崩完窗口就是灰的。纯 2D 小窗用软件渲染足够，稳字优先。
-        window_arg = f"--app={url}" if APP_MODE else f"--new-window={url}"
-        try:
-            PROFILE.mkdir(parents=True, exist_ok=True)
-        except Exception:
-            pass
-        kill_profile_browsers()
-        ww, wh = (W, H) if APP_MODE else (W + 16, H + 40)
-        args = [exe, window_arg, f"--window-size={ww},{wh}",
-                f"--window-position={int(max(0, sw - W - 30))},60",
-                f"--user-data-dir={PROFILE}", "--no-first-run", "--no-default-browser-check",
-                "--disable-gpu", "--disable-gpu-compositing",
-                "--disable-features=CalculateNativeWinOcclusion,RendererCodeIntegrity",
-                "--disable-background-timer-throttling", "--disable-renderer-backgrounding",
-                "--disable-backgrounding-occluded-windows",
-                # 本机回环一律直连，绕开任何系统代理/加速器
-                "--no-proxy-server", "--proxy-bypass-list=<-loopback>",
-                # 把 Chromium 自己的日志接到 logs/browser.out，页面加载失败才看得见原因
-                "--enable-logging=stderr", "--v=0"]
-        try:
-            BROW_OUT = open(str(LOGS / "browser.out"), "w", encoding="utf-8", errors="replace")
-        except Exception:
-            BROW_OUT = subprocess.DEVNULL
-        print("小窗浏览器URL %s" % url, flush=True)
-        proc = subprocess.Popen(args, stdout=BROW_OUT, stderr=subprocess.STDOUT)
-        print("小窗浏览器已启动 pid=%s（%s, profile=%s, 日志 logs/browser.out）"
-              % (proc.pid, "--app" if APP_MODE else "普通窗口", PROFILE), flush=True)
+        subprocess.Popen([exe, f"--app={url}", f"--window-size={W},{H}", f"--window-position={int(max(0, sw - W - 30))},60",
+                          f"--user-data-dir={LOGS / 'browser'}", "--no-first-run", "--no-default-browser-check",
+                          "--disable-background-timer-throttling", "--disable-renderer-backgrounding",
+                          "--disable-backgrounding-occluded-windows"])
     else:
         import webbrowser
         webbrowser.open(url)
@@ -408,8 +315,6 @@ def main():
     hwnd, seen, gone, last_find, last_pin = None, False, 0.0, 0.0, 0.0
     msg = wt.MSG()
     t0 = time.time()
-    bpid = proc.pid if proc is not None else None
-    relaunch = 0
     while True:
         while user32.PeekMessageW(ctypes.byref(msg), None, 0, 0, 1):
             if msg.message == WM_HOTKEY and msg.wParam in ids:
@@ -430,7 +335,7 @@ def main():
             continue
         if now - last_find > 1.0:
             last_find = now
-            h = find_window(bpid)           # 先按浏览器 PID 认，标题只兜底
+            h = find_window()
             if h:
                 if h != hwnd:
                     pin(h)
@@ -439,35 +344,10 @@ def main():
             elif seen:
                 hwnd = STATE["hwnd"] = None
                 gone = gone or now
-                if now - gone > 4 and (proc is None or proc.poll() is not None):
-                    break                   # 窗口没了且浏览器也退了：真关了
-            elif bpid and proc is not None and proc.poll() is not None:
-                break                       # 浏览器进程都没了，收工
-            elif now - t0 > 25 and relaunch < 2:
-                # 窗口一直没出来（渲染崩了/页面没加载）：重开一次，别干等 60 秒然后自己退
-                relaunch += 1
-                print("小窗窗口 %ds 没找到，重开浏览器（第 %d 次）" % (int(now - t0), relaunch), flush=True)
-                try:
-                    if proc is not None:
-                        proc.kill()
-                except Exception:
-                    pass
-                try:
-                    if exe:
-                        proc = subprocess.Popen(args, stdout=BROW_OUT, stderr=subprocess.STDOUT)
-                        bpid = proc.pid
-                        print("小窗浏览器已重启 pid=%s" % bpid, flush=True)
-                except Exception as e:
-                    print("重开失败：%s" % e, flush=True)
-                t0 = now
-            elif now - t0 > 60 and relaunch >= 2:
-                # 重开两次都没找到窗口：不再自己退出（一退出 8761 就没了，窗口必灰），
-                # 保持页面服务在跑，人可以在窗口里按 F5，或者关掉重开 bat。
-                if not STATE.get("warned"):
-                    STATE["warned"] = True
-                    print("小窗窗口两次都没找到（可能渲染崩过）；页面仍在 "
-                          "127.0.0.1:%s 上，可在窗口里按 F5，或关掉重开本 bat" % PAGE_PORT,
-                          flush=True)
+                if now - gone > 4:          # 小窗关了
+                    break
+            elif now - t0 > 60:             # 一直没开出来
+                break
         if hwnd and now - last_pin > 0.25:
             last_pin = now
             try:
