@@ -36,7 +36,9 @@ echo       python = %PY%
 
 echo [2/3] staging payload ...
 pushd "%PKGROOT%"
-"%PY%" -X utf8 pack.py --no-zip --name _pkg --out build
+rem 用绝对路径：pack.py 的 --out 是相对当前工作目录解析的，pushd 万一没生效
+rem 就会在别处 mkdir，遇到只读/满盘直接 WinError 5。
+"%PY%" -X utf8 "%PKGROOT%\pack.py" --no-zip --name _pkg --out "%PKGROOT%\build"
 set "RC=%ERRORLEVEL%"
 popd
 if not "%RC%"=="0" goto badpack

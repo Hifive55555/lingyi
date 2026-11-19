@@ -25,7 +25,8 @@ param(
     [switch]$DryRun,
     [switch]$WithEntitys,
     [switch]$NoBackup,
-    [switch]$SkipCheck
+    [switch]$SkipCheck,
+    [switch]$SkipAgentConfig
 )
 
 $ErrorActionPreference = 'Stop'
@@ -207,6 +208,25 @@ if ($SkipCheck) {
     }
 } else {
     Say 'WARN' ('没找到 ' + $check + '，跳过自检')
+}
+
+# ---------------- 4b. 预置两套智能体配置（overlay+蓝 / overlay+红） ----------------
+# agentConfig.json 是「想定 id -> 阵营 id -> 智能体」三层，阵营 id 每份想定都不一样，
+# 所以不写死，由 install_agent_config.py 现场判：已装 blue_hh 的那方=蓝方，另一方从
+# 推演记录的 simulation.ini 里取。写之前自动备份。
+if ($SkipAgentConfig) {
+    Say 'SKIP' '按 -SkipAgentConfig 跳过智能体配置预置'
+} else {
+    $cfgpy = Join-Path $Tools 'install_agent_config.py'
+    Say 'INFO' '--- ⑧ 预置智能体配置（overlay+蓝 / overlay+红）---'
+    if (Test-Path $cfgpy) {
+        & $py '-X' 'utf8' $cfgpy '--root' $LY
+        if ($LASTEXITCODE -ne 0) {
+            Say 'WARN' '配置预置没成功（不影响智能体本身）；按上面提示在客户端里手动加一次即可'
+        }
+    } else {
+        Say 'WARN' ('没找到 ' + $cfgpy)
+    }
 }
 
 # ---------------- 5. 收尾 ----------------

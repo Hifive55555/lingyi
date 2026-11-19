@@ -26,7 +26,6 @@ import hashlib
 import os
 import shutil
 import sys
-import tempfile
 import time
 import zipfile
 from pathlib import Path
@@ -189,8 +188,15 @@ def main() -> int:
         for m in missing_opt:
             print("   -", m)
 
-    # 1) 先铺到临时目录（保持相对路径），再打成 zip
-    stage = Path(tempfile.mkdtemp(prefix="lypack_")) / name
+    # 1) 先铺到暂存目录（保持相对路径），再打成 zip
+    #
+    # 暂存目录放在 --out 下面，而不是系统临时目录：这台比赛机的
+    # %LOCALAPPDATA%\Temp（C:\Users\A\AppData\Local\Temp）不可写，
+    # tempfile.mkdtemp() 会直接 FileNotFoundError/no usable temporary directory。
+    stage_root = out_dir / (".stage_%d" % os.getpid())
+    shutil.rmtree(str(stage_root), ignore_errors=True)
+    stage_root.mkdir(parents=True, exist_ok=True)
+    stage = stage_root / name
     total = 0
     for p in files:
         rel = p.relative_to(ROOT)
@@ -228,7 +234,7 @@ def main() -> int:
         shutil.move(str(stage), str(final_dir))
         print("\n[OK] 目录已生成：%s" % final_dir)
         print("     拷这个目录到目标机后，进目录双击 deploy.bat")
-        shutil.rmtree(stage.parent, ignore_errors=True)
+        shutil.rmtree(str(stage_root), ignore_errors=True)
         return 0
 
     zip_path = out_dir / (name + ".zip")
@@ -240,7 +246,7 @@ def main() -> int:
         for p in sorted(stage.rglob("*")):
             if p.is_file():
                 z.write(p, p.relative_to(stage).as_posix())
-    shutil.rmtree(stage.parent, ignore_errors=True)
+    shutil.rmtree(str(stage_root), ignore_errors=True)
     if zip_path.exists():
         zip_path.unlink()
     tmp_zip.rename(zip_path)
