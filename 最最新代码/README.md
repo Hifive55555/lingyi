@@ -9,6 +9,15 @@
 
 ---
 
+## 做成 Windows 安装包（可选）
+
+包里带了 `installer/`：在装了 **Inno Setup 6** 的 Windows 上解压本包后，双击
+`installer\build_installer.bat`，产出 `dist\灵弈小窗+红方智能体_setup_<版本>.exe`（约 1 MB）。
+拿到比赛机**双击安装**（不要"以管理员身份运行"），选灵弈根目录即可；它内部就是调
+`deploy.ps1`（备份 + 拷贝 + `check_env.py` 自检），并可选创建桌面快捷方式
+`灵弈小窗` / `小窗截图`。卸载只删自己放进 `_pkg` 的副本，灵弈本体和日志不动。
+细节与常见报错见 `installer/README.md`。
+
 ## 打包（发到比赛机之前）
 
 在**本目录**下：

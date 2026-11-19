@@ -35,6 +35,7 @@ ROOT = Path(__file__).resolve().parent
 
 # ---- 必打（缺一个就失败）----
 REQUIRED = [
+    "pack.py",          # installer\build_installer.bat 要用它做暂存
     "deploy.ps1",
     "deploy.bat",
     "README.md",
@@ -80,12 +81,14 @@ OPTIONAL = [
 DIRS = [
     ("智能体代码/tools", {".py", ".md"}),
     ("小窗/overlay/web", None),          # None = 不过滤，但照样过 BAD_* 黑名单
+    ("installer", {".iss", ".bat", ".md"}),   # Inno Setup 安装包脚本
 ]
 
 # ---- 运行时垃圾，永远不打 ----
 BAD_DIR_NAMES = {
     "__pycache__", "logs", ".git", ".venv", "venv", "entitys",
     "overlay_wv2.exe.WebView2", ".pytest_cache", ".mypy_cache",
+    "build", "dist",                     # pack.py 自己的暂存/产物目录
 }
 BAD_SUFFIXES = {".pyc", ".pyo", ".log", ".pid", ".tmp", ".zip"}
 BAD_PREFIXES = ("~$", ".~lock.")
