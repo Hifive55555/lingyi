@@ -8,6 +8,7 @@
   （%LOCALAPPDATA%\\LingYiOverlay，可用 LY_SAM_STATE_DIR 改）
 客户端：添加智能体选 agent/overlay_ai.py，类名 Agent"""
 import asyncio
+import functools
 import json
 import logging
 import math
@@ -15,24 +16,129 @@ import os
 import sys
 import threading
 import time
+import traceback
 from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+HERE = Path(__file__).resolve().parent
+LOG_DIR = HERE / "logs"
+
+
+def _boot(tag, extra=""):
+    """重依赖之前先用裸文件写一行：平台不捕获 import 异常，stdout 又被隐藏，
+    只有这样才能知道进程死在 aiohttp 还是 engine.LingYi 还是 zmqlock。"""
+    try:
+        LOG_DIR.mkdir(parents=True, exist_ok=True)
+        with open(str(LOG_DIR / "boot.log"), "a", encoding="utf-8") as f:
+            f.write("%s [%-30s] pid=%s %s\n" % (
+                time.strftime("%Y-%m-%d %H:%M:%S"), tag, os.getpid(), extra))
+    except Exception:
+        pass
+
+
+_boot("agent.py: import start")
 _AI_DIR = str(Path(__file__).resolve().parents[2])
 if _AI_DIR not in sys.path:
     sys.path.insert(0, _AI_DIR)
+_boot("ai_dir 就绪", _AI_DIR)
 
-from aiohttp import web, WSMsgType  # noqa: E402
-from engine.LingYi.entitys.player import Player  # noqa: E402
-from engine.LingYi.entitys.global_util import Throttle, AirValidStatus, ContactType, WeaponControlStatus  # noqa: E402
-from . import zmqlock  # noqa: E402
+try:
+    from aiohttp import web, WSMsgType  # noqa: E402
+    _boot("import aiohttp 成功")
+except BaseException:  # noqa: BLE001
+    _boot("import aiohttp 失败", "\n" + traceback.format_exc())
+    raise
 
-zmqlock.install()           # 小窗指令在工作线程里下，跟平台 step 线程共用一个 zmq 口，排队收发
+try:
+    from engine.LingYi.entitys.player import Player  # noqa: E402
+    from engine.LingYi.entitys.global_util import Throttle, AirValidStatus, ContactType, WeaponControlStatus  # noqa: E402
+    _boot("import engine.LingYi.entitys 成功")
+except BaseException:  # noqa: BLE001
+    _boot("import engine.LingYi.entitys 失败", "\n" + traceback.format_exc())
+    raise
+
+try:
+    from .monitor import Monitor          # noqa: E402  被攻击监控（合并自 monitor-agent）
+    from . import monitor_core            # noqa: E402
+    _boot("monitor 组件就绪")
+except BaseException:  # noqa: BLE001
+    _boot("import monitor 失败", "\n" + traceback.format_exc())
+    Monitor = None
+    monitor_core = None
+
+try:
+    from . import zmqlock  # noqa: E402
+    zmqlock.install()           # 小窗指令在工作线程里下，跟平台 step 线程共用一个 zmq 口，排队收发
+    _boot("zmqlock 安装完成")
+except BaseException:  # noqa: BLE001
+    _boot("zmqlock 安装失败", "\n" + traceback.format_exc())
+    raise
 
 log = logging.getLogger("灵弈小窗")
 log.setLevel(logging.INFO)
-HERE = Path(__file__).resolve().parent
+LOG_FILE = LOG_DIR / "agent.log"
+
+
+def _setup_file_log():
+    """把本模块的日志同时写进 overlay/logs/agent.log。
+
+    平台只收集它自己的 logger（command_delay.log 里全是 "Platform" 行），
+    我们这里的 logging.getLogger("灵弈小窗") 没挂 handler，消息会落到 stderr
+    被丢弃 —— 上一版「小窗异常但查不到任何日志」就是这么来的。
+    超过 2MB 轮转一份 agent.1.log（目标机 D: 空间紧张）。
+    """
+    if getattr(_setup_file_log, "done", False):
+        return str(LOG_FILE)
+    _setup_file_log.done = True
+    try:
+        LOG_DIR.mkdir(parents=True, exist_ok=True)
+        try:
+            if LOG_FILE.exists() and LOG_FILE.stat().st_size > 2 * 1024 * 1024:
+                os.replace(str(LOG_FILE), str(LOG_DIR / "agent.1.log"))
+        except Exception:
+            pass
+        h = logging.FileHandler(str(LOG_FILE), mode="a", encoding="utf-8")
+        h.setLevel(logging.INFO)
+        h.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
+        log.addHandler(h)
+        log.propagate = False
+        log.info("[灵弈小窗] 文件日志就绪 %s", LOG_FILE)
+    except Exception as e:                       # 日志本身不能把智能体拖死
+        log.warning("[灵弈小窗] 文件日志建不起来（%s），只输出到控制台", e)
+        return None
+    return str(LOG_FILE)
+
+
+_LOG_PATH = _setup_file_log()
+
+
+def _guard(label, default=None):
+    """异常不许把智能体进程打死：记满 traceback 到 agent.log，然后返回 default。"""
+    def deco(fn):
+        @functools.wraps(fn)
+        def call(self, *a, **k):
+            try:
+                return fn(self, *a, **k)
+            except Exception:
+                log.error("[灵弈小窗] %s 异常：\n%s", label, traceback.format_exc())
+                return default
+        return call
+    return deco
+
+
+def _banner(side, port):
+    """开局打一行环境信息，出问题时一眼看出是版本、路径还是端口的问题。"""
+    try:
+        import sys as _sys
+        log.info("[灵弈小窗] ==== 启动 ====")
+        log.info("[灵弈小窗] python %s | %s", _sys.version.split()[0], _sys.executable)
+        log.info("[灵弈小窗] cwd %s | log %s", os.getcwd(), _LOG_PATH)
+        for i, p in enumerate(_sys.path[:5]):
+            log.info("[灵弈小窗] sys.path[%d] %s", i, p)
+        log.info("[灵弈小窗] side=%s port=%s pid=%s", side, port, os.getpid())
+    except Exception:
+        pass
 PORT = int(os.environ.get("LY_OVERLAY_PORT", "8760"))
 DECISION_SEC = 5
 NET_RETRY = 3
@@ -249,6 +355,8 @@ class OverlayAgent(Player):
         self.sam_seq = 0            # sam_intent.json 的序号（点一次 +1）
         self.sam_state_at = 0.0     # 上次读到任务智能体状态文件的时刻
         self.sam_owned = set()      # 这些 guid 由任务智能体在管（它写了状态文件）
+        # 被攻击监控：只算不动手（不下发任何指令），数据源就是本智能体自己的容器
+        self.monitor = Monitor(self) if Monitor is not None else None
 
     def _take(self, situation):
         try:
@@ -256,8 +364,15 @@ class OverlayAgent(Player):
         except Exception:
             self.cts = getattr(self, "contacts", None) or self.cts
 
+    @_guard('initial')
     def initial(self, situation):
         self._take(situation)
+        if self.monitor is not None:
+            try:
+                self.monitor.setup(situation)
+            except Exception:
+                log.error("[灵弈小窗] 监控 setup 异常：\n%s", traceback.format_exc())
+        _banner(self.side_cn, PORT)
         log.info(f"[灵弈小窗] 战前，指挥{self.side_cn}，小窗连 127.0.0.1:{PORT}")
         if OverlayServer.instance is None:
             self.server = OverlayServer(self, PORT)
@@ -268,6 +383,7 @@ class OverlayAgent(Player):
         self._build(0.0)
         return None
 
+    @_guard('step')
     def step(self, time_elapse, situation):
         self.now = float(time_elapse)
         self._take(situation)
@@ -275,6 +391,11 @@ class OverlayAgent(Player):
             self._sam_sync()
         except Exception as e:
             log.debug(f"防空值班同步异常 {e}")
+        if self.monitor is not None:
+            try:
+                self.monitor.ensure(situation, self.now)
+            except Exception:
+                log.error("[灵弈小窗] 监控扫描异常：\n%s", traceback.format_exc())
         try:
             with self.lock:
                 self._build(self.now)
@@ -288,7 +409,7 @@ class OverlayAgent(Player):
         return None
 
     def deduction_end(self):
-        log.info("[灵弈小窗] 推演结束")
+        log.info("[灵弈小窗] 推演结束（pid=%s）", os.getpid())
 
     # ------------------------------------------------------------------ 快照
     def _weapons(self, u):
@@ -359,7 +480,37 @@ class OverlayAgent(Player):
             contacts.append({"id": cid, "n": _get(c, "Name", "") or "", "ty": ty, "lat": _f(p[0]), "lon": _f(p[1]),
                              "ms": ty == ContactType.Missile.value})
         self.snapshot = {"t": round(t), "side": self.side_cn, "started": t >= 1, "units": units, "contacts": contacts,
-                         "sam": self._sam_rows(units), "notes": self.notes[-6:]}
+                         "sam": self._sam_rows(units), "notes": self.notes[-6:],
+                         "mon": self._mon_block(t)}
+
+    MAX_MON_PER_UNIT = 8        # 监控小窗里单个单元最多列几枚弹
+
+    def _mon_block(self, t):
+        """监控小窗的快照：空/海/陆三组 + 每个被瞄准单元后面的每一枚弹。
+
+        只读，不改任何单元状态；monitor 为 None（组件没导进来）时给个空壳，
+        监控小窗会显示“等待智能体”，但不会让主小窗跟着挂。
+        """
+        empty = {"t": round(t), "side": self.side_cn, "started": t >= 1,
+                 "cycle": 0, "ms": 0, "own": 0,
+                 "groups": {}, "rows": [], "cfg": {"sec": DECISION_SEC}}
+        if self.monitor is None or monitor_core is None:
+            return empty
+        try:
+            rows = self.monitor.rows()
+            for r in rows:
+                if self.MAX_MON_PER_UNIT and len(r.get("ms") or []) > self.MAX_MON_PER_UNIT:
+                    r["ms"] = r["ms"][:self.MAX_MON_PER_UNIT]
+            groups = monitor_core.summarise(rows)
+            return {"t": round(t), "side": self.side_cn, "started": t >= 1,
+                    "cycle": getattr(self.monitor, "_cycle", 0),
+                    "ms": len(self.monitor.missiles()), "own": len(rows),
+                    "groups": {g: list(v) for g, v in groups.items()},
+                    "rows": rows,
+                    "cfg": {"gate": self.monitor.gate or None, "sec": DECISION_SEC}}
+        except Exception:
+            log.error("[灵弈小窗] 监控快照异常：\n%s", traceback.format_exc())
+            return empty
 
     # ------------------------------------------------------------------ 防空值班（地空导弹 / 雷达）
     def _sam_ext(self):
@@ -396,6 +547,7 @@ class OverlayAgent(Player):
                          "mode": self.sam_modes.get(g) or info.get("mode") or _sam_default_mode(role)})
         return rows
 
+    @_guard('_sam_sync')
     def _sam_sync(self):
         """① 任务智能体在跑：采用它发布的模式（含它自动切回的机动）；
            ② 它不在：自己判有没有弹打过来，命中就切机动并直接下指令。"""
@@ -543,6 +695,7 @@ class OverlayAgent(Player):
             time.sleep(0.05 * (i + 1))
         return False, why
 
+    @_guard('execute', default={'ok': False, 'msg': '内部异常，见 overlay/logs/agent.log'})
     def execute(self, cmd):
         op = cmd.get("op")
         fn = getattr(self, f"op_{op}", None)
@@ -647,6 +800,7 @@ class OverlayAgent(Player):
             if not ok:
                 self._note(f"{getattr(u, 'Name', g)} 回任务 {st['mis']} 失败：{m}", False)
 
+    @_guard('_chase_tick')
     def _chase_tick(self):
         try:
             for g, st in list(self.chase.items()):
@@ -798,11 +952,22 @@ class OverlayServer:
         app.router.add_get("/", h_index)
         runner = web.AppRunner(app)
         self.loop.run_until_complete(runner.setup())
-        try:
-            self.loop.run_until_complete(web.TCPSite(runner, "127.0.0.1", self.port).start())
-        except OSError as e:
-            log.error(f"[灵弈小窗] 端口 {self.port} 打不开：{e}")
-            return
+        tries = 5
+        for attempt in range(1, tries + 1):
+            try:
+                self.loop.run_until_complete(
+                    web.TCPSite(runner, "127.0.0.1", self.port).start())
+                log.info("[灵弈小窗] WS 已监听 127.0.0.1:%d（第 %d 次尝试）", self.port, attempt)
+                break
+            except OSError as e:
+                log.error("[灵弈小窗] 端口 %d 打不开（第 %d/%d 次）：%s",
+                          self.port, attempt, tries, e)
+                if attempt >= tries:
+                    log.error("[灵弈小窗] 放弃监听：%d 被别的进程占着。"
+                              "查 netstat -ano ^| findstr :%d；换端口用 LY_OVERLAY_PORT，"
+                              "小窗页面要带 ?agent=127.0.0.1:^<新端口^>", self.port, self.port)
+                    return
+                time.sleep(2)
         self.loop.run_forever()
 
     def publish(self):

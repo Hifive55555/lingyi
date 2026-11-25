@@ -1,27 +1,43 @@
 @echo off
 setlocal
-rem LingYi overlay (different from the web console project).
-rem Double-click to open the always-on-top overlay; in the client import agent/overlay_ai.py (class Agent).
-rem launcher.py needs Python 3.8+ with aiohttp. If your python.exe lives elsewhere,
-rem add its full path as another "call :try" line below.
+rem ============================================================================
+rem LingYi overlay launcher (this is NOT the web console project)
+rem   double-click -> starts launcher.py (page server 127.0.0.1:8761) + a pinned Edge window
+rem   in the client: Agent Scheduling -> Agent Editor -> "+" -> pick agent\overlay_ai.py (class Agent)
+rem
+rem Python: ONLY the one bundled with LingYi (ray210, Python 3.9.19 + aiohttp 3.9.5).
+rem   No .venv, no pip install -- the competition machine has no internet.
+rem   agent.py runs inside the engine process anyway, so ray210 is the only choice.
+rem
+rem Non-standard install path: set LY_PYTHON=<full path to python.exe> then double-click.
+rem If nothing is found we stop and ask for a report; we never try to install anything.
+rem ============================================================================
 set "HERE=%~dp0"
 set "PY="
-call :try "%HERE%.venv\Scripts\python.exe"
-call :try "%HERE%..\..\..\.venv\Scripts\python.exe"
-call :try "D:\Programs\anacondaanzhuang\envs\pytorch3.8\python.exe"
-call :try "%LOCALAPPDATA%\Programs\Python\Python312\python.exe"
-for /f "delims=" %%i in ('where python 2^>nul') do call :try "%%i"
-for /f "delims=" %%i in ('where python3 2^>nul') do call :try "%%i"
-if not defined PY goto nopython
+
+rem (1) explicit override
+if defined LY_PYTHON call :try "%LY_PYTHON%"
+
+rem (2) standard layout: <LingYi>\intelligent\ai\agent\overlay\  =>  ..\..\.. = <LingYi>\intelligent
+call :try "%HERE%..\..\..\new_env\ray210\python.exe"
+
+rem (3) common install roots
+for %%R in ("D:\LingYi" "C:\LingYi" "E:\LingYi" "F:\LingYi") do call :try "%%~R\intelligent\new_env\ray210\python.exe"
+
+if not defined PY goto noenv
 "%PY%" -X utf8 "%HERE%launcher.py"
 if errorlevel 1 pause
 exit /b 0
 
-:nopython
+:noenv
 echo(
-echo No Python with aiohttp found (need 3.8 or newer). Two ways to fix:
-echo   1^) install it for your Python:  python -m pip install aiohttp
-echo   2^) add your python.exe full path as another "call :try" line in this .bat
+echo [STOP] no bundled LingYi Python found (needs: import aiohttp)
+echo        expected: ^<LingYi^>\intelligent\new_env\ray210\python.exe
+echo        This tool does NOT create a venv and does NOT install packages.
+echo        Please report these two things to whoever deploys this:
+echo          1^) the LingYi install dir (the one containing APlatformLobby.exe)
+echo          2^) what is inside ^<LingYi^>\intelligent\new_env
+echo        Temporary override: set LY_PYTHON=^<full path to python.exe^>
 echo(
 pause
 exit /b 1
