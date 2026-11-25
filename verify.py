@@ -7,7 +7,14 @@
 import os
 import subprocess
 import sys
-import time
+
+# Windows 控制台/CI 默认 cp1252，print 中文会 UnicodeEncodeError；强制 UTF-8
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:                                     # noqa: BLE001
+        pass
+os.environ.setdefault('PYTHONUTF8', '1')                  # 子进程也按 UTF-8 跑
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 PY = sys.executable
