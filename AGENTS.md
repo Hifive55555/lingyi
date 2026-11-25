@@ -195,6 +195,14 @@ installer\build_installer.bat
 
 全绿才允许提交；有红项就在提交信息里写清楚哪项没过、为什么、谁来补。
 
+**强烈建议装提交钩子**（每个克隆做一次，之后 `git commit` 自动跑 `verify.sh --quick`）：
+
+```bash
+git config core.hooksPath .githooks
+```
+
+钩子红灯会直接拦下提交（`--no-verify` 可绕过，不推荐）。
+
 ---
 
 ## 6. 提交信息的要求

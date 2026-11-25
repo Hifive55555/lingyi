@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# 提交前自动跑一遍快检（py_compile + 任务表核对 + 打包清单校验），红灯就拦下。
+# 启用： git config core.hooksPath .githooks      （每个克隆各做一次）
+# 跳过： git commit --no-verify
+#
+# 故意不含离线自测（要几十秒），跑全量请手动 ./verify.sh
+set -u
+root=$(git rev-parse --show-toplevel)
+cd "$root" || exit 1
+if [ -x ./verify.sh ]; then
+  PYTHON=${PYTHON:-} ./verify.sh --quick || {
+    echo
+    echo "✗ 快检未通过，已阻止提交。修完再提交，或用 --no-verify 强行提交（不推荐）。"
+    exit 1
+  }
+fi
