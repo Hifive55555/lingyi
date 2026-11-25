@@ -223,4 +223,14 @@ git config core.hooksPath .githooks
 `deploy.ps1`、`installer/**` 以我们为准；对面新增的文件必须补进
 `pack.py` + `deploy.ps1` + `check_env.py` 三处。
 
-分支：`master` 是唯一可发布分支；对面版本落在 `duimian` 分支留档（不删）。
+### 分支策略（硬要求）
+
+| 分支 | 用途 | 谁能动 |
+| --- | --- | --- |
+| `main` | **只放发布版本**（能直接打包/上机的那一版） | 发布时由维护者合并后推送，**平时不许直接提交** |
+| `feat/<一句话>`、`fix/<一句话>`、`docs/<一句话>` | 日常开发 | 任何人 |
+| `duimian` | 对面「决赛代码」原样快照 | 留档，不删不改 |
+
+流程：`git switch -c feat/xxx main` → 改 → `./verify.sh` 全绿 → 提交 →
+合并回 `main`（本地 `--no-ff` 合并或发 PR）→ 在 `main` 上打标签发布
+（例如 `v2026.11.25`）。**需要发包/上机验证时才让 main 前进，别把半成品推进去。**
