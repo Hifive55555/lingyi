@@ -14,6 +14,7 @@
 | 文档 | 给谁看 | 一句话 |
 | --- | --- | --- |
 | [`AGENTS.md`](AGENTS.md) | **AI 编码助手 / 新接手的人** | 七条硬约束（绝对路径、入口位置、编码、无 venv、WebView2、低权限安装…）+ 改完必跑的验证命令 |
+| `./verify.sh` / `verify.py` | 提交前必跑 | 一条命令跑完 py_compile + 任务表核对 + 离线自测 + 打包清单 |
 | [`docs/架构与数据流.md`](docs/架构与数据流.md) | 要改代码/排障的人 | 三个组件、端口、ws 快照字段（含 `mon` 里 `tgo/cpa` 的正确读法）、部署落点、日志位置 |
 | [`docs/协作与合并.md`](docs/协作与合并.md) | 与「对面」并行开发的人 | 分支规则、GitHub 不通时用 bundle 中转、按目录定归属的合并策略、合并前检查清单 |
 | [`智能体代码/tools/README.md`](智能体代码/tools/README.md) | 上机/改战法的人 | `check_env.py` / `selftest_*.py` / `check_table*.py` 各自什么时候跑 |

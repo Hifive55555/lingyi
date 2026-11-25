@@ -131,6 +131,10 @@ overlay_wv2.exe.WebView2 / build / dist`，别把运行时产物塞进清单。
 3. 改完必须跑 `tools/check_table*.py`，要求输出 `结论: 全部一致`。
 4. 更新 `AGENT_BUILD=...` 字符串（`initial()` 第一行），并在括号里写清这版改了什么。
    日志里搜 `AGENT_BUILD` 是确认「跑的是哪一版」的唯一手段。
+5. **同步离线自测里的断言**：`tools/selftest_offline.py` / `selftest_blue_hh.py`
+   把任务条数、BOL 项数、战前移动次数等写成了硬断言。战法一改，它们必然红——
+   这不是「测试坏了」，是契约变了：按新战法改数字，并在注释里写清
+   「为什么从 X 变成 Y（对应哪条任务/哪项 BOL）」。**不要为了让测试绿而删断言。**
 
 ---
 
@@ -153,16 +157,25 @@ overlay_wv2.exe.WebView2 / build / dist`，别把运行时产物塞进清单。
 
 ## 5. 改完必须跑的验证（按可利用环境选）
 
-**任意机器（纯 Python 3，无需灵弈）**
+**任意机器（纯 Python 3 + openpyxl，无需灵弈）——一条命令**
 
 ```bash
-python -m py_compile 智能体代码/Mission_all_red.py 智能体代码/Mission_all_blue_hh.py \
-                     小窗/overlay/agent.py 小窗/overlay/launcher.py 小窗/overlay_ai.py pack.py
+./verify.sh              # Linux/macOS/Git-Bash
+python verify.py         # Windows（或用 verify.bat）
+```
+
+它会跑：11 个文件的 `py_compile` → 3 个任务表核对 → 2 个离线自测 → `pack.py` 清单校验，
+逐项 `PASS/FAIL`，最后一行是 `结果：通过 N 项，失败 0 项`。
+`--quick` 跳过离线自测（改文档/小窗时用）。
+
+单独跑某一项：
+
+```bash
 python 智能体代码/tools/check_table.py          # 期望：结论: 全部一致
 python 智能体代码/tools/check_table_blue.py     # 期望：结论: 全部一致
 python 智能体代码/tools/selftest_offline.py     # 期望：全部断言通过
 python 智能体代码/tools/selftest_blue_hh.py     # 期望：全部断言通过
-./pack.sh --no-zip                              # 期望：[OK] 目录已生成（Linux/macOS）
+./pack.sh --no-zip                              # 期望：[OK] 目录已生成
 ```
 
 **目标机（Windows + 灵弈，部署后）**

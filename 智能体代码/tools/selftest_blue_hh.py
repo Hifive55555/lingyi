@@ -301,15 +301,25 @@ def main():
     n_pat = len([n for n, k in MISSIONS.items() if k == 'patrol'])
     print('support missions :', n_sup)
     print('patrol missions  :', n_pat)
-    assert n_sup == 31, n_sup          # 30 + 运输机逃跑
+    # 2026-11-25 合并对面（决赛）版本：新增「北船机动」→ 32 条
+    assert n_sup == 32, n_sup          # 30 + 运输机逃跑 + 北船机动
     assert n_pat == 3, n_pat
 
     # 运输机逃跑：C-5M #1#2
     assert len(ASSIGNED.get('运输机逃跑', [])) == 2, ASSIGNED.get('运输机逃跑')
 
-    # 前 22 条有执行单元；只有这 6 条按要求不分配
-    NO_UNIT = ('AAAAAAAA', 'BBBBBBBBB', 'CCCCCCCC',
-               '左左左左左左', '中中中中中中', '右右右右右右')
+    # 对面（决赛）版本：AAAAAAAA/BBBBBBBBB/CCCCCCCC 不再是“只建任务”，
+    #   改为装甲车 / 伪装防空车 / 反舰导弹排“战前 M 到位 → 再分配”（见 PREWAR_MOVES）
+    for n, kw in (('AAAAAAAA', ('装甲车', 'Armored', 'LAV')),
+                  ('BBBBBBBBB', ('装甲车', 'Armored', 'LAV', '反舰导弹排', '伪装防空车')),
+                  ('CCCCCCCC', ('装甲车', 'Armored', 'LAV'))):
+        units = [a._units[g].Name for g in ASSIGNED.get(n, [])]
+        print('%s units :' % n, units)
+        assert units, '%s 没有分配到单元' % n
+        assert any(k in u for u in units for k in kw), units
+
+    # 只剩这 3 条按要求不分配单元
+    NO_UNIT = ('左左左左左左', '中中中中中中', '右右右右右右')
     empty = [n for n in MISSIONS if n not in NO_UNIT and not ASSIGNED.get(n)]
     assert not empty, '这些任务没有分配到单元: %s' % empty
     for n in NO_UNIT:
@@ -363,26 +373,30 @@ def main():
     print('ship air-hold    :', len(holds))
     assert len(holds) == 3, holds
 
-    # 两舰全速机动 + 五辆装甲车最大速度机动 = 7 条航线
+    # 对面（决赛）版本：删掉了 SHIP_RUSH / GROUND_MOVES 两段“开局自己下航线”，
+    #   改成 ①「北船机动」任务（摩耶 + 直升机驱逐舰，见 SHIP_THROTTLE_TASKS）
+    #        ② PREWAR_MOVES：装甲车/伪装防空车/防空营等“战前 M 到位”，
+    #           再由 AAAAAAAA/BBBBBBBBB/CCCCCCCC 三条任务接管（REASSIGN_TASKS 归位后重分配）
     rush = [e for e in EVENTS if e[0] == 'unit' and e[1] == 'plotted_course']
-    print('ship plots       :', len(rush))
-    assert len(rush) == 7, rush
+    print('plotted_course   :', len(rush))
+    assert not rush, rush          # 不再有开局自下航线
 
-    # 装甲车分组与目标点
-    gr = {e[2][0]: e[2][1][0] for e in rush if e[2][0].startswith('装甲车')}
-    print('ground moves     :', gr)
-    assert gr.get('装甲车#1') == (46.377482, -0.684828), gr
-    assert gr.get('装甲车#5') == (46.377482, -0.684828), gr
-    assert gr.get('装甲车#2') == (46.392833, 1.114792), gr
-    assert gr.get('装甲车#4') == (46.392833, 1.114792), gr
-    assert gr.get('装甲车#3') == (46.991967, 3.980198), gr
-    assert len(gr) == 5, gr
-    # 全是最大油门（Flank）
-    gth = [e for e in EVENTS if e[0] == 'unit' and e[1] == 'set_throttle'
-           and e[2][0].startswith('装甲车')
-           and getattr(e[2][1], 'name', '') == 'Flank']
-    print('ground throttle  :', len(gth))
-    assert len(gth) == 5, len(gth)
+    moves = [e for e in EVENTS if e[1] == 'unit_new_position']
+    print('prewar moves     :', len(moves))
+    # PREWAR_MOVES 里 14 项；假想定只有装甲车/伪装防空车/爱国者/地空导弹连在册，
+    # 霍克/捷羚/反舰导弹排/火箭炮匹配不到 → 实际下发 10 次
+    assert len(moves) == 10, len(moves)
+
+    def _dest(e):
+        k = e[3] or {}
+        return k.get('lon_lat') or k.get('long_lat')
+
+    dests = [tuple(_dest(e)) for e in moves if _dest(e)]
+    # 平台接口收 (经度, 纬度)
+    assert (48.977815, -1.309595)[::-1] in dests, dests[:5]      # 装甲车#1
+    assert (48.958002, 0.120440)[::-1] in dests, dests[:5]       # 装甲车#2
+    assert (49.576326, 1.655070)[::-1] in dests, dests[:5]       # 装甲车#3
+    assert (48.829125, -0.856644)[::-1] in dests, dests[:5]      # 装甲车#5
 
     # WRA：3 组武器（51/3608/3567/718）×（3 齐射 + 4 距离）
     wra = [e for e in EVENTS if e[0] == 'side'

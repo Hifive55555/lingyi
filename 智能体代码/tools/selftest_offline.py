@@ -392,7 +392,8 @@ def main():
     # ---- 断言 ----
     n_support = len([n for n, k in MISSIONS.items() if k == 'support'])
     n_patrol = len([n for n, k in MISSIONS.items() if k == 'patrol'])
-    assert n_support == 22, n_support
+    # 2026-11-25 合并对面（决赛）版本：新增「北船打击」→ 23 条
+    assert n_support == 23, n_support
     assert n_patrol == 16, n_patrol
 
     # 每个任务至少分配了单元；这些是“只建任务、暂不分配”的
@@ -411,21 +412,26 @@ def main():
     print('北阵风-1 units    :', nb1)
     assert not nb1, nb1          # 前哨#5#6 已改去「北制空」，这里应留空
 
-    # 登陆编队支援任务 A/B/C1/D/E 的舰船数量（23900 已移出 C1；E 加了 PR.2235.0#1）
+    # 登陆编队支援任务 A/B/C1/D/E 的舰船数量
+    #   对面（决赛）版本：PR.2235.0#1 不再编入 E，改为「北船打击」任务
     assert len(ASSIGNED.get('A', [])) == 2
     assert len(ASSIGNED.get('B', [])) == 2
     assert len(ASSIGNED.get('C1', [])) == 3
     assert len(ASSIGNED.get('D', [])) == 3
-    assert any('PR.2235.0' in a._units[g].Name for g in ASSIGNED.get('E', []))
+    assert not any('PR.2235.0' in a._units[g].Name for g in ASSIGNED.get('E', [])), \
+        [a._units[g].Name for g in ASSIGNED.get('E', [])]
+    bc = [a._units[g].Name for g in ASSIGNED.get('北船打击', [])]
+    print('北船打击 units    :', bc)
+    assert any('PR.2235.0' in n for n in bc), bc
     assert not any('23900' in a._units[g].Name for g in ASSIGNED.get('C1', []))
 
-    # 左阵风5：阵风M#5 + 特拉法尔加潜艇 + 雷鸣#1 + 戴高乐#1
-    #   （PR.2235.0#2 已移出：它留在原地把 12 发锆石 BOL 打完）
+    # 左阵风5：阵风M#5 + 特拉法尔加潜艇 + 雷鸣#1 + 戴高乐#1 + PR.2235.0#2
+    #   对面（决赛）版本：锆石 BOL 改手动后，PR.2235.0#2 也编进本任务（共 5 个单元）
     zj5 = [a._units[g].Name for g in ASSIGNED.get('左阵风5', [])]
     print('左阵风5 units    :', zj5)
-    assert len(zj5) == 4, zj5
+    assert len(zj5) == 5, zj5
     assert any('特拉法尔加' in n for n in zj5), zj5
-    assert not any('PR.2235.0' in n for n in zj5), zj5
+    assert any('PR.2235.0' in n for n in zj5), zj5
     assert any('戴高乐' in n for n in zj5), zj5
     # 左阵风5 的潜艇/舰艇油门都设为最大（Flank）：2 舰 + 2 潜 = 4 条指令
     max_th = [e for e in EVENTS
@@ -435,7 +441,8 @@ def main():
                           'support_set_throttle_station_submarine')
               and e[2] and getattr(e[2][0], 'name', '') == 'Flank']
     print('max throttle     :', len(max_th))
-    assert len(max_th) == 4, len(max_th)
+    # 对面（决赛）版本：新任务「北船打击」的出航油门也是 Flank → 5 条
+    assert len(max_th) == 5, len(max_th)
     # 23900 型船坞登陆舰#1：三点航线、22 节
     plots = [e for e in EVENTS if e[0] == 'unit' and e[1] == 'plotted_course']
     assert len(plots) == 1, plots
@@ -446,7 +453,9 @@ def main():
     # 战前移动：先 15 个单元（2+4+3+2+3+1），A~E 重新分配前再归位 14 次
     moves = [e for e in EVENTS if e[1] == 'unit_new_position']
     print('prewar moves     :', len(moves))
-    assert len(moves) == 29, len(moves)
+    # 对面（决赛）版本：左阵风5 编入特拉法尔加/雷鸣/戴高乐/PR.2235.0#2，
+    # 战前 M 的单元数从 29 增加到 37（含 REASSIGN 归位时的重发）
+    assert len(moves) == 37, len(moves)
 
     def _dest(e):
         k = e[3] or {}
@@ -457,21 +466,21 @@ def main():
     # 平台接口要 (经度, 纬度)，所以下发值应是 (lon, lat)
     for d in ((50.239722, -1.176534), (50.226962, -0.757203),
               (50.459180, 0.102357), (49.101122, -3.245283),
-              (51.679603, 1.513794), (53.281799, 1.746800)):
+              (51.679603, 1.513794), (53.473642, 1.929686)):
         assert d[::-1] in dests, (d, dests)
 
     # 战前移动之后：每艘船都要“取消分配单元”一次（否则平台会把船拉回默认起点）；
     # 分配完 A~E 之后还要再来一轮“取消分配 → 重新分配”
     wd = [e for e in EVENTS if e[0] == 'unit' and e[1] == 'withdraw_from_mission']
-    n_ship = sum(1 for _n, c, _d in UNITS if c in ('Ship', 'Submarine'))
-    n_ae = sum(len(ASSIGNED.get(k, []))
-               for k in ('A', 'B', 'C1', 'D', 'E'))
-    print('withdraw calls   :', len(wd), '= 战前 %d + A~E 重分配 %d'
-          % (n_ship, n_ae))
-    assert len(wd) == n_ship + n_ae, (len(wd), n_ship, n_ae)
+    # 对面（决赛）版本把 REASSIGN_TASKS 扩成 A/B/C1/D/E/左阵风5/北船打击，
+    # 这些单元要“取消分配”两轮（建任务前清一次 + 归位重分配前再一次）
+    keys = tuple(getattr(a.Agent, 'REASSIGN_TASKS', ('A', 'B', 'C1', 'D', 'E')))
+    print('REASSIGN_TASKS   :', keys)
+    # 19 个单元 × 2 轮（建任务前清一次 + 归位重分配前再一次）
+    assert len(wd) == 38, len(wd)
     reasm = [e for e in EVENTS if e[0] == 'unit' and e[1] == 'assign_to_mission']
-    print('reassign calls   :', len(reasm))
-    assert len(reasm) == n_ae, (len(reasm), n_ae)
+    print('withdraw calls   :', len(wd), ' reassign calls:', len(reasm))
+    assert len(reasm) == 19, len(reasm)
     # 顺序：先战前移动，再取消分配
     seq = [e[1] for e in EVENTS
            if e[1] in ('unit_new_position', 'withdraw_from_mission')]
@@ -490,12 +499,13 @@ def main():
     assert len(mwra) == 20, len(mwra)
 
     # 水面舰艇油门：A~E 六个任务，出航=巡航(Cruise)、阵位=全速(Full)
-    # 水面舰艇油门：A~E 六个任务(12 条) + 左阵风5 的舰艇(2 条) = 14
+    # 水面舰艇油门：A~E 六个任务(12 条) + 左阵风5 的舰艇(2 条)
+    #   + 对面（决赛）版本新增「北船打击」(1 条) = 15
     ship_th = [e for e in EVENTS
                if e[1] in ('support_set_throttle_transit_ship',
                            'support_set_throttle_station_ship')]
     print('ship throttle    :', len(ship_th))
-    assert len(ship_th) == 14, len(ship_th)
+    assert len(ship_th) == 15, len(ship_th)
 
     # 挂载：应有 22 组（卡27Mx2, 阵风Mx6, 苏34x3, 苏75x2, 苏35x2, 苏24x1,
     #   苏27x2, S70x4, 伊尔96x2, 伊尔22x1, 苏30x4, 苏57x3, 苏75x1, 图160x1,
@@ -578,11 +588,9 @@ def main():
         print('   unit=%-22s target=(%.6f,%.6f) mount=%s weapon=%s qty=%s '
               'course=%d 点(含终点)'
               % (unit.Name, lat, lon, mount, weapon, qty, len(course)))
-    assert len(bols) == 3, len(bols)
-
-    # 锆石应从 #2 发出（#1 上没有这种弹，靠“自动换同型单元”兜底）
-    pr = [b for b in bols if b[5] == 3361]
-    assert pr and 'PR.2235.0护卫舰 #2' in pr[0][1].Name, pr
+    # 对面（决赛）版本：锆石 ×12 的 BOL 已取消（改操作手手动打击），只剩 2 项 BOL
+    assert len(bols) == 2, len(bols)
+    assert not [b for b in bols if b[5] == 3361], '锆石 BOL 应为停用状态'
 
     # 伊斯坎德尔应打 SS-26（1235）：4 发 + 2 发两个目标点
     ss = [b for b in bols if b[5] == 1235]
@@ -610,7 +618,7 @@ def main():
     # 逐项确认“已发射”（弹药确实减少）
     done = [i for i, st in a._bol_state.items() if st.get('fired')]
     print('BOL confirmed    :', len(done), '/', len(a.BOL_STRIKES))
-    assert len(done) == 3, done
+    assert len(done) == 2, done
 
     # 舰船航线
     plots = [e for e in EVENTS if e[0] == 'unit' and e[1] == 'plotted_course']
@@ -634,9 +642,9 @@ def main():
     giveup = [i for i, st in a2._bol_state.items() if st.get('fired')]
     print('BOL calls(场景二) :', n_bol2 + n_unit_bol2,
           '(底层 %d + 封装 %d)  放弃项: %d' % (n_bol2, n_unit_bol2, len(giveup)))
-    # 5 种策略 × 3 项 = 15 次下发，之后标记放弃，不会无限重试
-    assert n_bol2 + n_unit_bol2 == 3 * len(a2.BOL_STRATEGIES), n_bol2 + n_unit_bol2
-    assert len(giveup) == 3, giveup
+    # 5 种策略 × 2 项 = 10 次下发（对面版本只剩 2 项 BOL），之后标记放弃，不会无限重试
+    assert n_bol2 + n_unit_bol2 == 2 * len(a2.BOL_STRATEGIES), n_bol2 + n_unit_bol2
+    assert len(giveup) == 2, giveup
     FakeServer.AMMO_DECREMENT = True
 
     # ---- 场景三：想定里的单元名没有 #舷号，应走“唯一候选”兜底 ----
@@ -653,8 +661,8 @@ def main():
     a3.step(60, (units3, {}))
     n_bol3 = len([e for e in EVENTS if e[0] == 'bol'])
     print('BOL calls(场景三) :', n_bol3)
-    assert n_bol3 == 3, n_bol3
-    assert len([i for i, st in a3._bol_state.items() if st.get('fired')]) == 3
+    assert n_bol3 == 2, n_bol3        # 对面版本只剩 2 项 BOL（锆石已停用）
+    assert len([i for i, st in a3._bol_state.items() if st.get('fired')]) == 2
 
     # ---- 场景四：23900 到终点后应停车，不再补发航线 ----
     print('\n--- 场景四：舰船到终点后停车（不再重走航线）---')

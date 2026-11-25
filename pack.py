@@ -53,6 +53,10 @@ REQUIRED = [
 
 # ---- 有就带上（缺了只警告）----
 OPTIONAL = [
+    "verify.sh",        # 一键回归（Linux/macOS）
+    "verify.py",        # 一键回归（Windows）
+    "verify.bat",
+    "CLAUDE.md",        # 指向 AGENTS.md
     "智能体代码/Mission_all_blue_hh.py",
     "智能体代码/BattlefieldMonitor.py",
     "智能体代码/SamBattalionDefense.py",
