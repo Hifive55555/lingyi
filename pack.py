@@ -38,6 +38,7 @@ REQUIRED = [
     "deploy.ps1",
     "deploy.bat",
     "README.md",
+    "AGENTS.md",        # 给 AI/接手者的硬约束，随包发一份方便现场查
     "智能体代码/Mission_all_red.py",
     "小窗/overlay_ai.py",
     "小窗/overlay/agent.py",
@@ -83,6 +84,7 @@ DIRS = [
     ("智能体代码/tools", {".py", ".md"}),
     ("小窗/overlay/web", None),          # None = 不过滤，但照样过 BAD_* 黑名单
     ("installer", {".iss", ".bat", ".md"}),   # Inno Setup 安装包脚本
+    ("docs", {".md"}),                        # 架构与数据流 / 协作与合并
 ]
 
 # ---- 运行时垃圾，永远不打 ----
