@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>监控小窗</title>
+<style>
+:root { color-scheme: dark; }
+* { box-sizing: border-box; scrollbar-color: #3a424c #111418; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #14181d; color: #dfe6ee;
+             font: 12px "Microsoft YaHei", sans-serif; }
+body { display: flex; flex-direction: column; }
+::-webkit-scrollbar { width: 7px; background: #111418; }
+::-webkit-scrollbar-thumb { background: #2c333b; border-radius: 4px; }
+.sub { color: #8b97a5; } .grow { flex: 1; }
+.ok { color: #4cd07d; } .bad { color: #f0485a; } .warn { color: #e0c040; }
+
+.top { flex: 0 0 auto; display: flex; gap: 8px; align-items: center; padding: 3px 6px;
+       background: #1b2026; border-bottom: 1px solid #2c333b; white-space: nowrap; }
+#brand { font-weight: bold; color: #ff6070; }
+#clock { font: 12px Consolas, monospace; color: #3fd0e6; }
+#stat b { color: #f0485a; } #stat i { font-style: normal; color: #8b97a5; }
+
+.bar { flex: 0 0 auto; display: flex; gap: 4px; align-items: center; padding: 3px 6px;
+       background: #161a1f; border-bottom: 1px solid #262c33; }
+button { background: #262c33; color: #dfe6ee; border: 1px solid #3a424c; border-radius: 3px;
+         padding: 1px 6px; cursor: pointer; font: inherit; white-space: nowrap; }
+button.on { background: #2f1a1e; border-color: #f0485a; color: #ff8090; }
+input { background: #0f1215; color: #dfe6ee; border: 1px solid #3a424c; border-radius: 3px;
+        padding: 1px 6px; font: inherit; min-width: 0; flex: 1; }
+input:focus { outline: none; border-color: #3fd0e6; }
+
+/* ---------------- 三列并排：空 | 海 | 陆 ---------------- */
+#list { flex: 1 1 0; min-height: 0; display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+.sec { display: flex; flex-direction: column; min-width: 0; min-height: 0;
+       border-right: 1px solid #262c33; }
+.sec:last-child { border-right: 0; }
+.hd { flex: 0 0 auto; display: flex; gap: 5px; align-items: center; padding: 2px 6px;
+      background: #1b2026; border-bottom: 1px solid #2c333b; cursor: pointer; user-select: none;
+      white-space: nowrap; overflow: hidden; }
+.hd .nm { font-weight: bold; color: #3fd0e6; }
+.hd .ct { color: #8b97a5; font-size: 11px; }
+.hd .ct b { color: #f0485a; }
+.hd .car { color: #6b7683; }
+.bd { flex: 1 1 0; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-bottom: 4px; }
+.bd .empty { color: #6b7683; padding: 3px 8px; }
+.sec.fold .bd { display: none; }
+
+.row { padding: 1px 5px 2px; border-bottom: 1px solid #1e242a; }
+.row .un { display: flex; align-items: baseline; gap: 4px; white-space: nowrap;
+           overflow: hidden; text-overflow: ellipsis; }
+.row .un b { font-weight: normal; color: #cfd8e3; }
+.row .un u { text-decoration: none; color: #8b97a5; font: 10px Consolas, monospace; }
+.row .un u.dmg { color: #f0485a; }
+.row.hit { background: #221a1c; }
+/* 灰 = 没被攻击的单元（只在关掉“只看被攻击”时出现） */
+.row.safe { opacity: .45; }
+.ms { display: flex; flex-direction: column; gap: 1px; margin-top: 1px; }
+.mc { display: grid; grid-template-columns: minmax(0, 1fr) 40px 54px 30px; gap: 3px;
+      align-items: baseline; padding: 0 3px; line-height: 15px; border-radius: 2px;
+      border-left: 2px solid #e0c040; background: #232a31; font: 10px Consolas, monospace;
+      white-space: nowrap; overflow: hidden; }
+.mc .mn { font-family: "Microsoft YaHei", sans-serif; font-size: 11px; color: #cfd8e3;
+          overflow: hidden; text-overflow: ellipsis; }
+.mc .sp { color: #ffb454; text-align: right; }
+.mc .dd { color: #9aa6b4; text-align: right; }
+.mc .tg { color: #e0c040; text-align: right; }
+.mc.t1 { border-left-color: #f0485a; background: #2f1a1e; } .mc.t1 .tg { color: #ff6070; }
+.mc.t2 { border-left-color: #e8833a; } .mc.t2 .tg { color: #e8833a; }
+.mc.t3 { border-left-color: #e0c040; }
+/* t0：还没算出 CPA / 时间（刚出现或数据不全）——灰边，时间显示“—” */
+.mc.t0 { border-left-color: #5a636e; background: #1d232a; }
+.mc.t0 .tg { color: #5a636e; }
+/* 擦边掠过：CPA 明显大于当前距离的一半，只是“朝我这一片飞” */
+.mc.graze { opacity: .6; }
+#msg { flex: 0 0 auto; min-height: 26px; padding: 2px 6px; background: #111418;
+       border-top: 1px solid #2c333b; font-size: 11px; color: #7d8896; line-height: 15px; }
+#msg b { color: #9aa6b4; font-weight: normal; }
+</style>
+</head>
+<body>
+<div class="top">
+  <span id="brand">◎ 监控</span><span id="clock">--:--:--</span>
+  <span id="stat">被攻击 <b>0</b> <i>/ 0</i></span>
+  <span class="sub" id="mstat">敌方弹药 0</span>
+  <span class="grow"></span><span id="conn" class="bad">● 无对局</span>
+</div>
+<div class="bar">
+  <button id="onlyHit" class="on">只看被攻击</button>
+  <button id="fixed" class="on">固定排序</button>
+  <input id="q" placeholder="搜单元（苏35 / #1）" autocomplete="off">
+</div>
+<div id="list">
+  <div class="sec" data-g="air"><div class="hd"><span class="nm">空</span><span class="ct">被攻击 <b>0</b> / 0</span><span class="grow"></span><span class="car">▾</span></div><div class="bd"><div class="empty">无</div></div></div>
+  <div class="sec" data-g="sea"><div class="hd"><span class="nm">海</span><span class="ct">被攻击 <b>0</b> / 0</span><span class="grow"></span><span class="car">▾</span></div><div class="bd"><div class="empty">无</div></div></div>
+  <div class="sec" data-g="land"><div class="hd"><span class="nm">陆</span><span class="ct">被攻击 <b>0</b> / 0</span><span class="grow"></span><span class="car">▾</span></div><div class="bd"><div class="empty">无</div></div></div>
+</div>
+<div id="msg">
+  每枚弹一行：<b>弹型 · 弹速 · 距离→最近接近点(CPA) · 到 CPA 的时间</b>。
+  <b>灰底</b>=没被攻击的单元（关掉“只看被攻击”才显示）；<b>灰边</b>=还测不出 CPA/时间（显示“—”）。
+  只做监控，不下发指令。
+</div>
+<script src="/web/monitor.js"></script>
+</body>
+</html>

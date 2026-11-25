@@ -1,0 +1,66 @@
+# ============================================================
+# 最最新代码/ —— 只跟踪「源码 + 平台库 + 配置」。
+# 下列内容都是运行时/构建产物，换机器可以直接重生成或本机本就有，一律不跟踪。
+# ============================================================
+
+# ---------- Python 缓存 ----------
+# 注意：不要写 *.py[cod] —— 那会把平台库的 .pyd（cp39 扩展）一起忽略掉，
+#   entitys/*.pyd、entitys/gameenvs/*.pyd 是必须提交的运行库。
+__pycache__/
+*.pyc
+*.pyo
+*$py.class
+!*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---------- 虚拟环境 ----------
+# 【已废弃】小窗现在直接用灵弈自带的 <灵弈>\intelligent\new_env\ray210
+#（它自带 aiohttp 3.9.5），不再建 .venv —— 见小窗/overlay/灵弈小窗.bat 头部说明
+# 与 智能体代码/tools/check_env.py。
+# 若因 ray210 缺 aiohttp 而临时建了 --system-site-packages 的 venv（应急方案），
+# 它同样是本机构建产物（pyvenv.cfg 绑死本机 ray210 路径），仍然不跟踪。
+.venv/
+venv/
+env/
+*.egg-info/
+
+# ---------- 小窗运行时产物 ----------
+# launcher.py / agent.py 运行时创建：logs/launcher.pid、logs/browser/（Edge --app 的
+# 用户数据目录，几百 MB）、以及各处的 *.log
+logs/
+
+# ---------- 打包产物 ----------
+dist/
+*.zip.part
+*.pid
+*.log
+browser/
+
+# ---------- 小窗 ↔ 防空值班 共用状态 ----------
+# 默认落在 %LOCALAPPDATA%\LingYiOverlay（可用 LY_SAM_STATE_DIR 改）
+sam_intent.json
+sam_state.json
+*.tmp
+*.bak
+
+# ---------- 平台数据库旁写文件 ----------
+# 只挡 SQLite 的旁写文件；model.db / gamedata.db 本体必须提交。
+*.db-shm
+*.db-wal
+*.db-journal
+
+# ---------- 编辑器 / 系统 ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
+__MACOSX/
+
+# ---------- Office 临时/锁文件 ----------
+~$*
+.~lock.*#
