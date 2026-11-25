@@ -2,7 +2,7 @@
 r"""
 蓝方规则智能体（人机协同-人人版） —— 2026 全国兵棋推演大赛
 
-按 `蓝方人人总任务.txt` + `蓝方人人任务列表.xlsx` 实现，功能分五块：
+按 `蓝方人人总任务.txt` + `蓝方人人任务列表.xlsx` 实现，功能分七块：
 
     ① 总条令（set_side_rules）        —— 对空自由开火 / 对海·对地·对潜限制开火，
                                          攻击不忽略计划航线、被攻击不忽略电磁管控、
@@ -17,9 +17,17 @@ r"""
                                          F-16V/B、MQ-1C、RQ-4B、MH-60R）
     ④ 舰船条令（set_ship_doctrines）  —— 邦克山 / 阿利伯克 / 摩耶 对空限制开火
     ⑤ 任务（SUPPORT_TASKS / PATROL_TASKS）
-                                      —— 支援 30 条 + 巡逻 3 条（反潜 / 无人机送死 / 打航母）
-    ⑥ 开局机动（SHIP_MOVES）          —— 摩耶、日向级直升驱逐舰全速前往
-                                         (52.858177, 3.874748)
+                                      —— 支援 31 条 + 巡逻 3 条（反潜 / 无人机送死 / 打航母）
+                                         其中 AAAAAAAA/BBBBBBBBB/CCCCCCCC 为地面单位机动任务，
+                                         「北船机动」为摩耶/DDH 的水面机动任务
+    ⑥ 战前移动（PREWAR_MOVES）        —— 装甲车/伪装防空车/反舰导弹排/防空营等
+                                         开局直接 M 到指定点，再交给任务航路
+                                         （REASSIGN_TASKS 负责“取消分配→归位→重新分配”）
+    ⑦ 电磁管控（set_emcon_not_inherit）—— 爱国者#1 取消“与上级保持一致”
+
+    说明：原“摩耶/日向级直升驱逐舰全速前往 (52.858177, 3.874748)”与
+          “装甲车加速向南逃跑”两段机动已取消（SHIP_RUSH / GROUND_MOVES 置空，
+          代码保留在注释里，需要时填回即可）。
 
 ------------------------------------------------------------------
 一、文件放在哪里、怎么导入
@@ -42,10 +50,14 @@ r"""
 · 支援任务：SUPPORT_TASKS，每行
     (任务名, 起点, 终点, 执行单元选择器, 'single'/'two' 编队)
   执行单元留空 () 表示“只建任务、不分配单元”（后续手动分配）。
+· 战前移动：PREWAR_MOVES，每行 (单元选择器组, (纬度, 经度))；
+  要“M 到位再走任务航线”的单元，还要把任务名登记到 REASSIGN_TASKS，
+  否则平台会用默认站位覆盖战前移动（开局先回系统原点）。
 · 巡逻任务：PATROL_TASKS，每行
     (任务名, 巡逻类型, 四点巡逻区, 执行单元选择器, 单元条令, 备注)
 · 单元名对不上：看日志里 “蓝方单元清单(...) 名称 [dbid]”，
   把真实名字的关键字补进对应 _sel(...) 即可（改完必须重开一局）。
+  _sel 支持 avoid=('霍克',) 这种排除词，避免“地空导弹连”误命中“霍克地空导弹连”。
 
 ------------------------------------------------------------------
 三、指令条数限制
@@ -205,21 +217,28 @@ class _OrderBudget(object):
 # ======================================================================
 # 单元选择器
 # ======================================================================
-def _sel(key, *nums):
+def _sel(key, *nums, avoid=()):
     """
     构造一个“单元选择器”。
 
     :param key: str 或 tuple/list，名称关键字（任一命中即可，忽略空格/引号/大小写）
     :param nums: int 或 'a-b'，舷号（单元名里 #n 的 n）；不传表示该型全部单元
-    :return: dict, {'keys': (...), 'nums': (...)}
+    :param avoid: str 或 tuple/list，名称里含这些词就排除
+                  （例：“地空导弹连”会命中“霍克地空导弹连”，用 avoid=('霍克',) 排掉）
+    :return: dict, {'keys': (...), 'nums': (...), 'avoid': (...)}
 
     例：_sel(('f/a-18f', 'f18'), 1, 2)
         _sel('mq-1c', '1-4')
+        _sel(('地空导弹连',), 1, avoid=('霍克', 'hawk'))
     """
     if isinstance(key, (list, tuple)):
         keys = tuple(str(k) for k in key)
     else:
         keys = (str(key),)
+    if isinstance(avoid, (list, tuple)):
+        avoid_keys = tuple(str(k) for k in avoid if k)
+    else:
+        avoid_keys = (str(avoid),) if avoid else ()
     out = []
     for n in nums:
         if isinstance(n, int):
@@ -231,7 +250,7 @@ def _sel(key, *nums):
             out.extend(range(int(m.group(1)), int(m.group(2)) + 1))
         elif s.isdigit():
             out.append(int(s))
-    return {'keys': keys, 'nums': tuple(out)}
+    return {'keys': keys, 'nums': tuple(out), 'avoid': avoid_keys}
 
 
 _PUNCT_RE = re.compile(r'[\s\u3000"“”\'‘’()（）\[\]【】《》<>]')
@@ -425,13 +444,30 @@ class Agent(RuleAgentBase):
          (_sel(('f-2b', 'f2b'), 1, 2),), 'single'),
         ('北2A', (55.816587, 7.116806), (54.816587, 8.006806),
          (_sel(('f-2a', 'f2a'), 1, 2, 3),), 'single'),
-        # 以下 6 条：只建任务，不分配单元（后续手动分配）
-        ('AAAAAAAA', (48.818198, -1.211988), (48.964141, -1.213870), (), 'single'),
-        ('BBBBBBBBB', (48.756097, 0.229753), (48.956529, 0.187819), (), 'single'),
-        ('CCCCCCCC', (48.904129, 1.562667), (49.069559, 1.337786), (), 'single'),
+        # ---- 地面/水面单位机动任务 ----
+        #   执行单元都是“先战前 M 到位、再分配任务”的，并且登记在 REASSIGN_TASKS 里：
+        #   initial() 末尾会“取消分配 → 重新 M → 重新分配”，避免平台用默认站位
+        #   （系统初始起点）覆盖战前移动（与红方蟾蜍/雷鸣同一套做法）。
+        ('AAAAAAAA', (49.305691, -1.208069), (49.348499, -1.186002),
+         (_sel(('装甲车', 'armored', 'lav'), 1, 5),
+          _sel(('伪装防空车',), 1)), 'single'),
+        ('BBBBBBBBB', (49.223866, -0.076773), (49.259276, -0.088111),
+         (_sel(('装甲车', 'armored', 'lav'), 2, 4),
+          _sel(('伪装防空车',), 2),
+          _sel(('反舰导弹排',), 1, 5)), 'single'),
+        ('CCCCCCCC', (49.902856, 1.227651), (49.931282, 1.188216),
+         (_sel(('装甲车', 'armored', 'lav'), 3),), 'single'),
+        # 以下 3 条：只建任务，不分配单元（后续手动分配）
         ('左左左左左左', (46.558828, 0.362615), (43.026544, 0.233935), (), 'single'),
         ('中中中中中中', (47.081605, 3.859811), (44.042966, 6.807560), (), 'single'),
         ('右右右右右右', (49.398257, 7.499765), (48.662679, 13.269188), (), 'single'),
+
+        # ---- 北船机动：摩耶级驱逐舰 + 直升机驱逐舰 ----
+        #   任务编辑：取消 1/3 规则；速度高度—水面舰艇航速—出航油门 = 最大
+        #   （原“两舰全速去 (52.858177,3.874748) 集结点”的航线与任务已取消）
+        ('北船机动', (53.579501, 5.820036), (53.460562, 5.227051),
+         (_sel(('摩耶', 'maya')), _sel(('izumo', '出云', '直升驱逐舰', 'ddh'))),
+         'single'),
 
         # 运输机逃跑：C-5M #1#2，关闭“低于编队数不起飞”与 1/3 规则（single 分支默认即如此）
         ('运输机逃跑', (47.349478, -21.463019), (53.818499, -34.760939),
@@ -505,28 +541,96 @@ class Agent(RuleAgentBase):
     INACTIVE_MISSIONS = ('F18-456', '北2B', '北2A', '无人机送死')
 
     # ------------------------------------------------------------------
-    # ⑦ 开局机动：两舰全速前往同一集结点
+    # ⑦ 开局机动：**已取消**
+    #    原计划：摩耶级驱逐舰 / 日向级直升驱逐舰 全速前往 (52.858177, 3.874748)。
+    #    现在两舰改为分配给「北船机动」支援任务（见 SUPPORT_TASKS），不再单独下航线。
+    #    需要恢复时，把下面注释里的两行填回 SHIP_RUSH 即可。
     # ------------------------------------------------------------------
-    SHIP_RUSH = (
-        (_sel(('摩耶', 'maya')), (52.858177, 3.874748)),
-        (_sel(('izumo', '出云', '直升驱逐舰', 'ddh')), (52.858177, 3.874748)),
+    SHIP_RUSH = ()
+    # SHIP_RUSH = (
+    #     (_sel(('摩耶', 'maya')), (52.858177, 3.874748)),
+    #     (_sel(('izumo', '出云', '直升驱逐舰', 'ddh')), (52.858177, 3.874748)),
+    # )
+
+    # ------------------------------------------------------------------
+    # ⑦-2 地面部队“加速向南逃跑”：**已取消**
+    #      装甲车 #1~#5 改为“战前 M 到位 + 分配 AAAAAAAA/BBBBBBBBB/CCCCCCCC 任务”，
+    #      见 PREWAR_MOVES / SUPPORT_TASKS。需要恢复时把注释里的三条填回 GROUND_MOVES。
+    #      （GROUND_FALLBACK_CYCLES / WATCH_RELEASE 保留：玩家按 U 取消分配时的处理不变）
+    # ------------------------------------------------------------------
+    GROUND_THROTTLE = Throttle.Flank
+    GROUND_FALLBACK_CYCLES = 3
+    WATCH_RELEASE = True
+    GROUND_MOVES = ()
+    # GROUND_MOVES = (
+    #     ((_sel(('装甲车', 'armored', 'lav'), 1, 5),), (46.377482, -0.684828)),
+    #     ((_sel(('装甲车', 'armored', 'lav'), 2, 4),), (46.392833, 1.114792)),
+    #     ((_sel(('装甲车', 'armored', 'lav'), 3),), (46.991967, 3.980198)),
+    # )
+
+    # ------------------------------------------------------------------
+    # ⑦-3 战前移动（战前部署—移动单元）：[(单元选择器组, (纬度, 经度)), ...]
+    #     平台限制：距初始位置 ≤20 km、需符合地形、只在战前规划阶段有效。
+    #     其中要进 AAAAAAAA/BBBBBBBBB/CCCCCCCC 的单元同时登记在 REASSIGN_TASKS，
+    #     initial() 末尾会“取消分配 → 重新 M → 重新分配”，开局不会被拉回系统原点。
+    # ------------------------------------------------------------------
+    PREWAR_MOVES = (
+        # 装甲车 #1~#5
+        ((_sel(('装甲车', 'armored', 'lav'), 1),), (48.977815, -1.309595)),
+        ((_sel(('装甲车', 'armored', 'lav'), 2),), (48.958002, 0.120440)),
+        ((_sel(('装甲车', 'armored', 'lav'), 3),), (49.576326, 1.655070)),
+        ((_sel(('装甲车', 'armored', 'lav'), 4),), (48.968968, -0.038440)),
+        ((_sel(('装甲车', 'armored', 'lav'), 5),), (48.829125, -0.856644)),
+        # 伪装防空车 #1#2
+        ((_sel(('伪装防空车',), 1),), (48.864347, -0.869234)),
+        ((_sel(('伪装防空车',), 2),), (48.958002, 0.120440)),
+        # 爱国者 #1
+        ((_sel(('爱国者', 'patriot', 'pac'), 1),), (48.831155, 1.540032)),
+        # 地空导弹连 #1#2
+        #   关键字“地空导弹连”会同时命中“霍克地空导弹连”和“爱国者地空导弹连”，
+        #   用 avoid 把这三种防空营区分开（否则一个单元会被 M 到别的营的点位）。
+        ((_sel(('地空导弹连',), 1,
+               avoid=('霍克', 'hawk', '爱国者', 'patriot', 'pac')),),
+         (48.822373, -1.267036)),
+        ((_sel(('地空导弹连',), 2,
+               avoid=('霍克', 'hawk', '爱国者', 'patriot', 'pac')),),
+         (48.788107, 0.151154)),
+        # 霍克地空导弹连 #1
+        ((_sel(('霍克', 'hawk'), 1),), (49.229971, -2.048046)),
+        # 捷羚导弹排 #1
+        ((_sel(('捷羚', 'tien'), 1),), (49.427542, -2.551515)),
+        # 反舰导弹排 #4
+        ((_sel(('反舰导弹排',), 4),), (49.229836, -2.033080)),
+        # RT 火箭炮 #2
+        ((_sel(('rt火箭炮', '火箭炮', 'mlrs'), 2),), (49.181728, -2.233840)),
     )
 
     # ------------------------------------------------------------------
-    # ⑦-2 地面部队开局机动：装甲车分组以“最大速度”前往指定点
-    #      （每项 = (匹配条件组, 目标点)；只有一组条件时也要写成元组）
+    # ⑦-4 “取消分配 → 归位 → 重新分配”的任务（清掉平台默认站位缓存）
     # ------------------------------------------------------------------
-    GROUND_THROTTLE = Throttle.Flank
-    # 开局“逃跑”航路兜底：只在前几个决策周期内、每辆车最多补发 1 次，
-    # 之后玩家按 U 取消分配 / 改分配任务，智能体不再插手。
-    GROUND_FALLBACK_CYCLES = 3
-    # 是否监听“玩家按 U 取消分配”：是 -> 取消后会清掉残留航路并停车
-    WATCH_RELEASE = True
-    GROUND_MOVES = (
-        ((_sel(('装甲车', 'armored', 'lav'), 1, 5),), (46.377482, -0.684828)),
-        ((_sel(('装甲车', 'armored', 'lav'), 2, 4),), (46.392833, 1.114792)),
-        ((_sel(('装甲车', 'armored', 'lav'), 3),), (46.991967, 3.980198)),
-    )
+    REASSIGN_TASKS = ('AAAAAAAA', 'BBBBBBBBB', 'CCCCCCCC')
+
+    # 地面/水面单位的机动任务：不套用“对空自由开火 + 开雷达”这套空中条令
+    GROUND_SUPPORT_TASKS = ('AAAAAAAA', 'BBBBBBBBB', 'CCCCCCCC', '北船机动')
+
+    # 水面舰艇任务的油门：{任务名: (出航油门, 阵位油门)}；None = 该项不设置
+    SHIP_THROTTLE_TASKS = {
+        # 北船机动：任务编辑—速度高度设置—水面舰艇航速—出航油门 = 最大
+        #   （Throttle.Flank 是枚举里最快的一档，下发时转成 4 = 最大/加力）
+        '北船机动': (Throttle.Flank, None),
+    }
+
+    # ------------------------------------------------------------------
+    # ⑦-5 要“取消电磁管控设置—与上级保持一致”的单元（目前是爱国者#1）
+    #     平台 SDK 只提供了 doctrine_SetEMCON_Inherit()（= 勾选“与上级一致”），
+    #     没有反向接口；这里用两步达到同样效果：
+    #       ① unit.EMCON_Obey_doctrine(False) —— 单元不再遵循上级电磁管控条令；
+    #       ② unit.doctrine_switch_radar(True/False) —— 把条令里的雷达显式设为
+    #          主动/被动（显式值即“不再继承上级”，对应 EMCON_SettingsMode 的 1/0）。
+    # ------------------------------------------------------------------
+    EMCON_FREE_UNITS = (_sel(('爱国者', 'patriot', 'pac'), 1),)
+    # 取消继承后给雷达的显式取值：True=主动（开）/ False=被动（静默）
+    EMCON_FREE_RADAR = True
 
     # ==================================================================
     # 构造 / 日志
@@ -625,11 +729,14 @@ class Agent(RuleAgentBase):
         for spec in specs or ():
             keys = [_norm(k) for k in spec.get('keys', ())]
             nums = spec.get('nums') or ()
+            avoid = [_norm(k) for k in (spec.get('avoid') or ())]
             strict, loose = [], []
             for u in pool:
                 if u['guid'] in seen:
                     continue
                 bare = _norm(u['name'])
+                if avoid and any(a and a in bare for a in avoid):
+                    continue          # avoid（例：霍克地空导弹连）
                 if not any(k and k in bare for k in keys):
                     continue
                 if nums and _unit_num(u['name']) not in nums:
@@ -1392,6 +1499,22 @@ class Agent(RuleAgentBase):
                     self._log('warning', '任务[%s] %s 设置失败: %s' % (name, key, e))
         self._apply_mission_doctrine(mission, rule)
 
+        # --- 速度高度设置：水面舰艇 出航/阵位油门 ---
+        #     rule['ship_throttle'] = (出航油门, 阵位油门)，None 表示该项不设置
+        st = rule.get('ship_throttle')
+        if st:
+            for i, fn in enumerate((mission.support_set_throttle_transit_ship,
+                                    mission.support_set_throttle_station_ship)):
+                if i < len(st) and st[i] is not None:
+                    try:
+                        fn(st[i])
+                        self._log('info', '支援任务[%s] 水面舰艇%s油门 → %s'
+                                  % (name, '出航' if i == 0 else '阵位',
+                                     getattr(st[i], 'name', st[i])))
+                    except Exception as e:
+                        self._log('warning', '支援任务[%s] 舰艇油门设置失败: %s'
+                                  % (name, e))
+
         # --- 分配单元（可为空） ---
         found = self._resolve_units(situation, units)
         if units and not found:
@@ -1418,7 +1541,7 @@ class Agent(RuleAgentBase):
 
     def add_all_support_missions(self, situation):
         """
-        按 SUPPORT_TASKS 建 30 个支援任务（没写执行单元的只建任务）。
+        按 SUPPORT_TASKS 建 32 个支援任务（没写执行单元的只建任务）。
 
         :param situation: tuple, (units dict, contacts dict)
         :return: int, 成功创建的任务数
@@ -1439,8 +1562,15 @@ class Agent(RuleAgentBase):
                 'weapon_state_planned': WeaponStatePlanned.WinchesterUseAirGuns,
                 'ignore_plotted_course': IgnorePlottedCourseWhenAttacking.No,
             }
-            doctrine = ({'air': WeaponControlStatus.Free,
-                         'radar': self.SUPPORT_RADAR} if units else None)
+            if name in self.GROUND_SUPPORT_TASKS:
+                # 地面/水面单位的机动任务：只给航线和油门，不套空中条令
+                doctrine = None
+            else:
+                doctrine = ({'air': WeaponControlStatus.Free,
+                             'radar': self.SUPPORT_RADAR} if units else None)
+            # 任务编辑—速度高度设置—水面舰艇航速：出航/阵位油门
+            if name in self.SHIP_THROTTLE_TASKS:
+                rule['ship_throttle'] = self.SHIP_THROTTLE_TASKS[name]
             # 起点=终点时把终点挪 0.01°（约 1km），避免零长度航线
             if abs(p1[0] - p2[0]) < 1e-6 and abs(p1[1] - p2[1]) < 1e-6:
                 p2 = (round(p2[0] + 0.01, 6), p2[1])
@@ -1595,13 +1725,17 @@ class Agent(RuleAgentBase):
 
     def rush_ships(self, situation):
         """
-        摩耶级驱逐舰、日向级直升驱逐舰“全速”前往 (52.858177, 3.874748)。
+        开局“两舰全速前往集结点”——**已取消**（SHIP_RUSH 为空时直接返回）。
 
-        做法：清空原航路 → 规划单点航线 → 油门最大档（全速）。
+        原计划：摩耶级驱逐舰、日向级直升驱逐舰全速前往 (52.858177, 3.874748)；
+        现在两舰改为分配给「北船机动」支援任务，不再单独下航线。
+        恢复办法：把注释里的两行填回 SHIP_RUSH 即可（本方法无需改动）。
 
         :param situation: tuple, (units dict, contacts dict)
         :return: int, 成功处理的舰船数
         """
+        if not self.SHIP_RUSH:
+            return 0
         ok = 0
         for spec, dest in self.SHIP_RUSH:
             found = self._resolve_units(situation, (spec,))
@@ -1630,13 +1764,16 @@ class Agent(RuleAgentBase):
 
     def move_ground_units(self, situation):
         """
-        地面部队开局机动：装甲车按分组以**最大速度**前往指定坐标。
+        地面部队“加速向南逃跑”——**已取消**（GROUND_MOVES 为空时直接返回）。
 
-        做法同舰船：清空原航路 → 规划单点航线 → 油门最大档（Throttle.Flank）。
+        装甲车 #1~#5 现在改为“战前 M 到位 + 分配 AAAAAAAA/BBBBBBBBB/CCCCCCCC 任务”，
+        见 PREWAR_MOVES / SUPPORT_TASKS。恢复办法：把注释里的三条填回 GROUND_MOVES。
 
         :param situation: tuple, (units dict, contacts dict)
         :return: int, 成功处理的车辆数
         """
+        if not self.GROUND_MOVES:
+            return 0
         ok = 0
         for specs, dest in self.GROUND_MOVES:
             found = self._resolve_units(situation, specs)
@@ -1664,6 +1801,224 @@ class Agent(RuleAgentBase):
                     self._log('error', '地面单元[%s] 机动失败: %s' % (name, e))
         self._log('info', '地面部队机动完成 %d 台' % ok)
         return ok
+
+    # ==================================================================
+    # ⑦-3 战前移动（战前部署—移动单元）
+    # ==================================================================
+    def _unit_new_position(self, guid, dest):
+        """
+        战前移动单个单元（容错版）。
+
+        ⚠ 平台接口的坐标顺序是 **(经度, 纬度)**：
+            unit_new_position(unit_guid, lon_lat=(lon, lat))
+        本文件所有坐标都按 (纬度, 经度) 存，这里必须交换。
+
+        平台接口：Player.unit_new_position(unit_guid, lon_lat=...)，
+        内部要先过 self.get_command_check(unit_guid) 这层“指令检查对象”；
+        该钩子在 SDK 里默认 None（由引擎注入），故两层兜底。
+
+        :param guid: str, 单元 guid
+        :param dest: tuple, (纬度, 经度)
+        :return: 平台回复（失败返回 None）
+        """
+        lon_lat = (dest[1], dest[0])        # 平台要 (经度, 纬度)
+        hook = getattr(self, 'get_command_check', None)
+        if callable(hook):
+            return self.unit_new_position(guid, lon_lat=lon_lat)
+        server = getattr(self, '_game_server', None)
+        if server is not None and hasattr(server, 'unit_new_position'):
+            return server.unit_new_position(guid, long_lat=lon_lat,
+                                            altitude=None, new_depth=None,
+                                            new_heading=None)
+        raise RuntimeError('没有可用的 unit_new_position 接口'
+                           '（get_command_check 与 _game_server 都不可用）')
+
+    @staticmethod
+    def _km_between(a, b):
+        """两点球面距离（km）。"""
+        import math
+        r = 6371.0
+        la1, lo1 = math.radians(a[0]), math.radians(a[1])
+        la2, lo2 = math.radians(b[0]), math.radians(b[1])
+        h = (math.sin((la2 - la1) / 2) ** 2
+             + math.cos(la1) * math.cos(la2) * math.sin((lo2 - lo1) / 2) ** 2)
+        return 2 * r * math.asin(math.sqrt(min(1.0, h)))
+
+    def prewar_move_units(self, situation, moves=None):
+        """
+        战前规划移动：按 PREWAR_MOVES 把单元挪到新位置（unit_new_position，20 km 内）。
+
+        必须在正式开战前、且在“分配给任务”之前下发。日志里会打出
+        “目标点距当前位置 X km”，超过 20 km 时平台会回“移动位置太远”，
+        直接看这一行就知道是哪个单元、差多少。
+
+        :param situation: tuple, (units dict, contacts dict)
+        :param moves: 可选，覆盖用的移动表（refresh 复用同一份逻辑）
+        :return: int, 成功移动的单元数
+        """
+        ok = 0
+        for specs, dest in (self.PREWAR_MOVES if moves is None else moves):
+            found = self._resolve_units(situation, specs)
+            if not found:
+                self._log('warning', '战前移动：未匹配到单元 %s'
+                          % [list(s.get('keys') or ()) for s in specs])
+            for name, guid in found:
+                obj = self.get_unit(guid)
+                if obj is None:
+                    continue
+                try:
+                    res = self._unit_new_position(guid, dest)
+                    ok += 1
+                    cur = None
+                    try:
+                        cur = (float(getattr(obj, 'Lat')), float(getattr(obj, 'Lon')))
+                    except (TypeError, ValueError):
+                        cur = None
+                    dist = self._km_between(cur, dest) if cur else None
+                    if res is None:
+                        self._log('info', '战前移动[%s] → (%.6f, %.6f) 已下发'
+                                           '（平台无回执；原位置 %s，距离 %s km）'
+                                  % (name, dest[0], dest[1],
+                                     '%.4f,%.4f' % cur if cur else '?',
+                                     '?' if dist is None else '%.1f' % dist))
+                    elif self._reply_ok(res):
+                        self._log('info', '战前移动[%s] → (%.6f, %.6f) 成功'
+                                           '（原位置 %s，距离 %s km）'
+                                  % (name, dest[0], dest[1],
+                                     '%.4f,%.4f' % cur if cur else '?',
+                                     '?' if dist is None else '%.1f' % dist))
+                    else:
+                        self._log('warning',
+                                  '战前移动[%s] → (%.6f, %.6f) 平台拒绝：%s'
+                                  '（距原位置 %s km，平台上限 20 km）'
+                                  % (name, dest[0], dest[1],
+                                     self._reply_text(res),
+                                     '?' if dist is None else '%.1f' % dist))
+                except Exception as e:
+                    self._log('error', '战前移动[%s] 失败: %s' % (name, e))
+        self._log('info', '战前移动完成 %d 个单元' % ok)
+        return ok
+
+    def clear_unit_assignments(self, situation):
+        """
+        战前移动之后、建任务之前：把 PREWAR_MOVES 里的单元先“取消分配”。
+
+        平台 bug：做过战前移动的单元若还带着默认任务分配，会被拉回系统默认起点。
+        只处理我们要自己安排位置的单元，不碰其他单元。
+
+        :param situation: tuple, (units dict, contacts dict)
+        :return: int, 处理的单元数
+        """
+        n = 0
+        seen = set()
+        for specs, _dest in self.PREWAR_MOVES:
+            for name, guid in self._resolve_units(situation, specs):
+                if guid in seen:
+                    continue
+                seen.add(guid)
+                obj = self.get_unit(guid)
+                if obj is None:
+                    continue
+                try:
+                    obj.withdraw_from_mission()
+                    n += 1
+                except Exception as e:
+                    self._log('warning', '取消分配[%s] 失败: %s' % (name, e))
+        if n:
+            self._log('info', '战前“取消分配单元”完成 %d 个（战前移动过的单元，'
+                              '避免被拉回默认起点）' % n)
+        return n
+
+    def refresh_ground_assignments(self, situation):
+        """
+        建完任务、分配完单元之后，对 REASSIGN_TASKS 再做一遍
+        “取消分配 → 归位（重发战前 M）→ 重新分配”。
+
+        这是“开局直接 M 到指定点、再按任务航线前进、不先回系统原点”的关键一步：
+        平台在“分配到支援任务”那一刻会用默认站位覆盖战前移动，
+        所以在重新分配之前，把战前移动的目标点再下发一次。
+
+        :param situation: tuple, (units dict, contacts dict)
+        :return: int, 重新分配的单元数
+        """
+        # guid -> 战前移动目标点
+        pre_dest = {}
+        for specs, dest in self.PREWAR_MOVES:
+            for _name, guid in self._resolve_units(situation, specs):
+                pre_dest[guid] = dest
+
+        n = 0
+        for name, p1, p2, units, formation in self.SUPPORT_TASKS:
+            if name not in self.REASSIGN_TASKS:
+                continue
+            found = self._resolve_units(situation, units)
+            for uname, guid in found:
+                obj = self.get_unit(guid)
+                if obj is None:
+                    continue
+                try:
+                    obj.withdraw_from_mission()
+                    dest = pre_dest.get(guid)
+                    if dest is not None:
+                        # 重新归位（仍在战前规划阶段，允许）
+                        self._unit_new_position(guid, dest)
+                    obj.assign_to_mission(name)
+                    n += 1
+                    self._log('info', '单元[%s] 取消分配→%s→重新分配 任务[%s]'
+                              % (uname, '归位' if dest else '直接', name))
+                except Exception as e:
+                    self._log('warning', '单元[%s] 重新分配任务[%s] 失败: %s'
+                              % (uname, name, e))
+        self._log('info', '“取消分配→重新分配”完成 %d 个单元（%s）'
+                  % (n, '/'.join(self.REASSIGN_TASKS)))
+        return n
+
+    # ==================================================================
+    # ⑦-5 电磁管控：取消“与上级保持一致”
+    # ==================================================================
+    def set_emcon_not_inherit(self, situation):
+        """
+        把 EMCON_FREE_UNITS 里单元的电磁管控从“与上级保持一致”改成显式设置。
+
+        平台 SDK 只提供了 doctrine_SetEMCON_Inherit()（= 勾选“与上级一致”），
+        没有反向接口，所以用两步等效实现：
+          ① unit.EMCON_Obey_doctrine(False)          —— 不再遵循上级电磁管控条令；
+          ② unit.doctrine_switch_radar(...)         —— 条令里的雷达显式设为
+             主动/被动（EMCON_SettingsMode 的 1/0；显式值即不再继承）。
+        雷达实际开关仍由地空导弹营模块按模式控制，这里只决定“继承标记”。
+
+        :param situation: tuple, (units dict, contacts dict)
+        :return: list, 处理成功的单元名
+        """
+        found = self._resolve_units(situation, self.EMCON_FREE_UNITS)
+        if not found:
+            self._log('warning', '电磁管控：未匹配到单元 %s'
+                      % [list(s.get('keys') or ()) for s in self.EMCON_FREE_UNITS])
+            return []
+        done = []
+        for name, guid in found:
+            obj = self.get_unit(guid)
+            if obj is None:
+                continue
+            ok_any = False
+            try:
+                obj.EMCON_Obey_doctrine(False)
+                ok_any = True
+                self._log('info', '单元[%s] 已设为“不遵循上级电磁管控条令”' % name)
+            except Exception as e:
+                self._log('warning', '单元[%s] EMCON_Obey_doctrine(False) 失败: %s'
+                          % (name, e))
+            try:
+                obj.doctrine_switch_radar(bool(self.EMCON_FREE_RADAR))
+                ok_any = True
+                self._log('info', '单元[%s] 条令雷达显式设为%s（不再“与上级保持一致”）'
+                          % (name, '主动/开' if self.EMCON_FREE_RADAR else '被动/静默'))
+            except Exception as e:
+                self._log('warning', '单元[%s] 条令雷达设置失败: %s' % (name, e))
+            if ok_any:
+                done.append(name)
+        self._log('info', '电磁管控“取消与上级一致”完成 %d 个单元' % len(done))
+        return done
 
     # ==================================================================
     # 指令配额安装 / 重绑
@@ -1737,9 +2092,16 @@ class Agent(RuleAgentBase):
     # ==================================================================
     def initial(self, situation):
         """
-        每局推演开始前调用一次（战前规划阶段），做赛前部署：
+        每局推演开始前调用一次（战前规划阶段），做赛前部署（顺序不可随意调换）：
+
             总条令 → 空空弹 WRA → 飞机挂载 → 三舰对空条令 →
-            30 个支援任务 → 3 个巡逻任务 → 摩耶/直升驱逐舰全速机动
+            战前移动（M 单元）→ 取消分配（这些单元）→
+            31 个支援任务（含「北船机动」）→ 3 个巡逻任务 →
+            REASSIGN_TASKS 的“取消分配 → 归位 → 重新分配” →
+            电磁管控“取消与上级一致”（爱国者#1）→ 潜艇深度
+
+        说明：战前移动必须早于“建任务 + 分配单元”，否则平台会用默认站位
+              覆盖移动结果（开局先回系统原点再走航线）。
 
         :param situation: tuple, (units dict, contacts dict)
         :return: None
@@ -1748,9 +2110,12 @@ class Agent(RuleAgentBase):
 
         # 平台在“开局那一刻”加载本文件：改代码必须重开一局才生效，
         # 日志里搜 AGENT_BUILD 可确认当前跑的是哪一版。
-        self._log('info', 'AGENT_BUILD=2026-11-09-BLUE-HH-10 '
-                          '（佛蒙特深度 -40 米（水下 40）、直接分配打航母任务、不打战斧；'
-                          '按 U 监听与装甲车逃跑逻辑保留）')
+        self._log('info', 'AGENT_BUILD=2026-11-25-BLUE-HH-11 '
+                          '（A/B/C 三任务换阵位并配 装甲车/伪装防空车/反舰导弹排；'
+                          '取消装甲车向南逃跑与两舰全速机动，改为战前 M + 任务；'
+                          '新增「北船机动」（摩耶/DDH，出航油门=最大）；'
+                          '爱国者#1 取消电磁管控“与上级一致”；'
+                          '地空导弹连/霍克/捷羚/反舰导弹排/RT火箭炮 战前 M）')
 
         try:
             self._dump_own_units(situation)
@@ -1768,10 +2133,18 @@ class Agent(RuleAgentBase):
             self.set_side_air_wra()
             self.set_aircraft_loadouts(situation)
             self.set_ship_doctrines(situation)
+            # ⑦-3 战前移动（必须早于任务分配）
+            self.prewar_move_units(situation)
+            # ⑦-3 取消这些单元的默认任务分配（避免被拉回系统原点）
+            self.clear_unit_assignments(situation)
             self.add_all_support_missions(situation)
             self.add_all_patrol_missions(situation)
+            # ⑦-4 取消分配 → 重新 M → 重新分配（清掉平台默认站位）
+            self.refresh_ground_assignments(situation)
+            # ⑦-5 电磁管控：取消“与上级保持一致”
+            self.set_emcon_not_inherit(situation)
+            # 以下两项已按要求取消（SHIP_RUSH / GROUND_MOVES 均为空，调用即为空转）
             self.rush_ships(situation)
-            # ⑧ 地面部队机动（装甲车，最大速度）
             self.move_ground_units(situation)
             # ⑨ 潜艇深度（佛蒙特 0 米；本局不打战斧）
             self.set_sub_depth(situation)
@@ -1881,6 +2254,9 @@ class Agent(RuleAgentBase):
             self._log('error', '取消分配监听异常: %s' % e)
 
         # ② 兜底：航路被平台清掉（寻路失败等）时补发一次全速机动
+        #    **已停用**：SHIP_RUSH 为空，本段自动空转。两舰已改走「北船机动」任务，
+        #    任务的出航/阵位航线由平台自己维护，这里不再补发。
+        #    恢复办法：把条目填回 SHIP_RUSH，本段即自动恢复工作。
         try:
             for spec, dest in self.SHIP_RUSH:
                 for name, guid in self._resolve_units(situation, (spec,)):
@@ -1899,13 +2275,14 @@ class Agent(RuleAgentBase):
         except Exception as e:
             self._log('error', '全速机动兜底异常: %s' % e)
 
-        # ③ 地面部队“逃跑”兜底 —— **只在开局那一小段时间内、每辆车最多补发一次**
+        # ③ 地面部队“逃跑”兜底 —— **已停用**（GROUND_MOVES 为空，本段自动空转）
         #
-        #  目的：开局把车送到逃跑点；一旦玩家在客户端按 U（取消分配单元）后
-        #        自己把车分配给别的任务，智能体就**不再插手**，
-        #        否则会把玩家刚分配的任务航路覆盖回逃跑点。
+        #  原设计：开局把装甲车送到逃跑点；一旦玩家按 U（取消分配单元）后自己
+        #         把车分配给别的任务，智能体就不再插手，否则会覆盖玩家的航路。
+        #  现在：装甲车改为“战前 M + 分配 AAAAAAAA/BBBBBBBBB/CCCCCCCC 任务”，
+        #        航路交给任务，不再补发逃跑航路。恢复办法：把三条填回 GROUND_MOVES。
         #
-        #  规则（三条同时满足才补发）：
+        #  这段代码保留，规则如下（三条同时满足才补发）：
         #    1) 距开局不超过 GROUND_FALLBACK_CYCLES 个决策周期；
         #    2) 这辆车此前最多只补发过 1 次；
         #    3) 它当前没有航路、也没有被分配到任何任务（AssignedMission 为空）。
