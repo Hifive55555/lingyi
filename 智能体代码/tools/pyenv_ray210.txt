@@ -1,0 +1,47 @@
+# 灵弈自带 Python（ray210, 3.9.19）可用的顶层模块清单
+#
+# 作用：check_imports.py 用它判断「这句 import 在比赛机上会不会炸」。
+# 维护方式（重要）：
+#   1) 目标机在手时，跑一次生成，**以实测为准**：
+#        D:\LingYi\intelligent\new_env\ray210\python.exe -X utf8 ^
+#          D:\LingYi\intelligent\ai\engine\LingYi\tools\check_imports.py --dump-env
+#      它会扫描 ray210 的 stdlib + site-packages，重写本文件的 [core] 段。
+#   2) 目标机不在手时，只能按已有证据人工补，并在行尾写清证据来源。
+#
+# 段含义：
+#   [core]        已确认 ray210 里有，运行时代码可以用
+#   [engine-deps] 引擎/三方包依赖链里的（ray、tensorflow…），有证据但未逐个实测；
+#                 运行时代码引用只报 WARN（提醒复核），不拦
+#   [dev]         只允许 tools/ 下引用（开发机用），运行时代码引用即 FAIL
+#
+# 判定：运行时代码引用「三段里都没有」的第三方模块 -> FAIL；
+#      tools/ 里引用未登记的 -> WARN（工具不随引擎加载，但会部署到现场）。
+#
+# 行格式：`模块名   # 证据/备注`
+
+[core]
+# 小窗唯一第三方依赖；check_env.py ② 实测 3.9.5
+aiohttp
+# launcher 关旧窗口用；check_env.py ③ 实测 6.0.0
+psutil
+# tools/check_table*.py 读 xlsx；tools/README.md 记「灵弈自带的 ray210 里有」
+openpyxl
+# 2026-11 目标机探测：可用（小窗截图/窗口方案备选）
+PIL
+tkinter
+
+[engine-deps]
+# 证据：目标机 traceback 里出现 site-packages\ray、tensorflow、absl、protobuf、google
+ray
+tensorflow
+absl
+google
+grpc
+protobuf
+numpy
+h5py
+keras
+gym
+
+[dev]
+# 开发机才有的（目前无；将来 pytest 之类放这里）

@@ -39,18 +39,21 @@ for f in 智能体代码/Mission_all_red.py 智能体代码/Mission_all_blue_hh.
   run "py_compile $f" "$PY" -m py_compile "$f"
 done
 
-echo "== 2) 任务表 vs xlsx =="
+echo "== 2) 引用体检（比赛机只能 ray210）=="
+run "check_imports.py (依赖/外部环境)" "$PY" 智能体代码/tools/check_imports.py
+
+echo "== 3) 任务表 vs xlsx =="
 run "check_table.py (红方)"       "$PY" 智能体代码/tools/check_table.py
 run "check_table_blue.py (蓝方)"  "$PY" 智能体代码/tools/check_table_blue.py
 run "check_111.py (红方原文坐标)" "$PY" 智能体代码/tools/check_111.py
 
 if [ "$QUICK" = "0" ]; then
-  echo "== 3) 离线自测 =="
+  echo "== 4) 离线自测 =="
   run "selftest_offline.py (红方)"   "$PY" 智能体代码/tools/selftest_offline.py
   run "selftest_blue_hh.py (蓝方)"   "$PY" 智能体代码/tools/selftest_blue_hh.py
 fi
 
-echo "== 4) 打包清单 =="
+echo "== 5) 打包清单 =="
 run "pack.py --no-zip (清单/文件校验)" "$PY" pack.py --no-zip --name _verify --out /tmp/ly-verify-out
 
 echo

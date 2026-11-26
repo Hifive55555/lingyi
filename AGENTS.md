@@ -84,6 +84,11 @@ except ImportError:                    # 本地/离线自测：同目录 import
 ```
 
 **禁止**新增第三方依赖（`pip install`、`requirements.txt`、`.venv/`）。
+
+这条不是靠自觉：`tools/check_imports.py` 会 AST 扫全仓库，白名单在
+`tools/pyenv_ray210.txt`（`[core]` 已确认有、`[engine-deps]` 未实测只 WARN、
+`[dev]` 仅 tools 可用）。真在目标机上时跑一次
+`check_imports.py --dump-env`，按 ray210 实况重写清单最准。
 本机/CI 想跑脚本，用你自己的环境，但**落到部署包里的代码**必须只用标准库 + aiohttp + psutil。
 
 ### 1.6 小窗必须用自带 WebView2 宿主，不要退回 `msedge --app`

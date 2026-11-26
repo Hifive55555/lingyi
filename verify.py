@@ -58,17 +58,20 @@ def main():
     for f in PY_FILES:
         check('py_compile ' + f, [PY, '-m', 'py_compile', f])
 
-    print('== 2) 任务表 vs xlsx ==')
+    print('== 2) 引用体检（比赛机只能 ray210）==')
+    check('check_imports.py (依赖/外部环境)', [PY, os.path.join('智能体代码', 'tools', 'check_imports.py')])
+
+    print('== 3) 任务表 vs xlsx ==')
     check('check_table.py (红方)', [PY, os.path.join('智能体代码', 'tools', 'check_table.py')])
     check('check_table_blue.py (蓝方)', [PY, os.path.join('智能体代码', 'tools', 'check_table_blue.py')])
     check('check_111.py (红方原文坐标)', [PY, os.path.join('智能体代码', 'tools', 'check_111.py')])
 
     if not QUICK:
-        print('== 3) 离线自测 ==')
+        print('== 4) 离线自测 ==')
         check('selftest_offline.py (红方)', [PY, os.path.join('智能体代码', 'tools', 'selftest_offline.py')])
         check('selftest_blue_hh.py (蓝方)', [PY, os.path.join('智能体代码', 'tools', 'selftest_blue_hh.py')])
 
-    print('== 4) 打包清单 ==')
+    print('== 5) 打包清单 ==')
     out = os.path.join(os.environ.get('TEMP') or '/tmp', 'ly-verify-out')
     check('pack.py --no-zip (清单/文件校验)', [PY, 'pack.py', '--no-zip', '--name', '_verify', '--out', out])
 
