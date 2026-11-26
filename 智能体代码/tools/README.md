@@ -31,6 +31,28 @@ BOL 纯方位打击（含"平台回成功但不扣弹"的 5 种兜底策略）�
 看到最后一行是 `全部断言通过` / `全部断言通过`（`selftest_offline.py` 末尾还会打印
 `DBManager,析构函数执行`）即为通过。
 
+## 二·五、动 import 之后（引用体检）
+
+```bash
+python tools/check_imports.py
+```
+
+比赛机只有灵弈自带的 ray210（3.9），**没有外网装不了包**。这个脚本用 AST 扫全仓库，
+查五件事：① 有没有 import ray210 里没有的第三方库；② 有没有把 `.venv` /
+`site-packages` / `pip install` 这类外部环境写进来；③ `sys.path` 是不是只加
+`__file__` / `_agentpath` / 平台目录；④ 有没有没用到的、重复的 import；
+⑤ 两个 Mission 的 `from engine.LingYi.…` 有没有同级兜底。
+
+- 退出码 0 = 引用干净；1 = 有 FAIL（比赛机会 import 失败）
+- 允许清单在 `tools/pyenv_ray210.txt`：`[core]` 已确认有、`[engine-deps]` 有证据但
+  未逐个实测（引用只 WARN）、`[dev]` 仅 tools 可用
+- **目标机在手时跑一次** `--dump-env`，按 ray210 实况重写清单（比人工猜准）：
+  ```bat
+  <灵弈>\intelligent\new_env\ray210\python.exe -X utf8 ^
+    <灵弈>\intelligent\ai\engine\LingYi\tools\check_imports.py --dump-env
+  ```
+- 临时豁免：在那一行或文件任意位置写 `# import-check: allow 模块名`
+
 ## 三、改任务表 / 坐标之后（核表）
 
 ```bash

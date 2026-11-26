@@ -85,7 +85,7 @@ OPTIONAL = [
 
 # ---- 整目录带上（按扩展名筛）----
 DIRS = [
-    ("智能体代码/tools", {".py", ".md"}),
+    ("智能体代码/tools", {".py", ".md", ".txt"}),   # .txt = pyenv_ray210 清单
     ("小窗/overlay/web", None),          # None = 不过滤，但照样过 BAD_* 黑名单
     ("installer", {".iss", ".bat", ".md"}),   # Inno Setup 安装包脚本
     ("docs", {".md"}),                        # 架构与数据流 / 协作与合并

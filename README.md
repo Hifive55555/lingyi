@@ -23,7 +23,7 @@
 | `./verify.sh` / `verify.py` | 提交前必跑 | 一条命令跑完 py_compile + 任务表核对 + 离线自测 + 打包清单 |
 | [`docs/架构与数据流.md`](docs/架构与数据流.md) | 要改代码/排障的人 | 三个组件、端口、ws 快照字段（含 `mon` 里 `tgo/cpa` 的正确读法）、部署落点、日志位置 |
 | [`docs/协作与合并.md`](docs/协作与合并.md) | 与「对面」并行开发的人 | 分支规则、GitHub 不通时用 bundle 中转、按目录定归属的合并策略、合并前检查清单 |
-| [`智能体代码/tools/README.md`](智能体代码/tools/README.md) | 上机/改战法的人 | `check_env.py` / `selftest_*.py` / `check_table*.py` 各自什么时候跑 |
+| [`智能体代码/tools/README.md`](智能体代码/tools/README.md) | 上机/改战法/动 import 的人 | `check_env.py` / `selftest_*.py` / `check_table*.py` / `check_imports.py` 各自什么时候跑 |
 | [`installer/README.md`](installer/README.md) | 做安装包的人 | Inno Setup 打包、静默安装、常见报错 |
 | [`小窗/overlay/wv2/构建说明.md`](小窗/overlay/wv2/构建说明.md) | 改小窗窗口的人 | WebView2 宿主为什么存在、怎么重新编译 `overlay_wv2.exe` |
 
